@@ -1,0 +1,17 @@
+﻿using Spann.Core.DataAccess;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ament.Core.DomainModel
+{
+    public class DC
+    {
+        public static DataAccessor<TSource> Accessor<TSource>() where TSource : IDataModel<TSource>, new()
+        {
+            return new DataAccessor<TSource>();
+        }
+    }
+}
