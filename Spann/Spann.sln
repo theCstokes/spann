@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann", "Spann\Spann.csproj", "{754CB9AC-12E8-4AF3-A2D7-268D919ACBA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Debug", "Spann.Debug\Spann.Debug.csproj", "{EAD256B8-CF20-498E-8E70-E5300EF03171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Core", "Spann.Core\Spann.Core.csproj", "{57B1997F-E7B9-42B7-8253-99F6AEE90C3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Notifications", "Spann.Notifications\Spann.Notifications.csproj", "{8C3015D7-BB03-456E-ACDD-BEF83F438548}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.RepositoryModel", "Spann.RepositoryModel\Spann.RepositoryModel.csproj", "{E3291980-71D5-4328-8610-A3B833D664C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Core.DataAccess", "Spann.Core.DataAccess\Spann.Core.DataAccess.csproj", "{33EFFC79-600D-4129-8E3F-64988BA321E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Core.DomainModel", "Spann.Core.DomainModel\Spann.Core.DomainModel.csproj", "{46D54B35-D135-406E-AF25-AF9C0BAEA91E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{754CB9AC-12E8-4AF3-A2D7-268D919ACBA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754CB9AC-12E8-4AF3-A2D7-268D919ACBA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754CB9AC-12E8-4AF3-A2D7-268D919ACBA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754CB9AC-12E8-4AF3-A2D7-268D919ACBA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD256B8-CF20-498E-8E70-E5300EF03171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD256B8-CF20-498E-8E70-E5300EF03171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD256B8-CF20-498E-8E70-E5300EF03171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD256B8-CF20-498E-8E70-E5300EF03171}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B1997F-E7B9-42B7-8253-99F6AEE90C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B1997F-E7B9-42B7-8253-99F6AEE90C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B1997F-E7B9-42B7-8253-99F6AEE90C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B1997F-E7B9-42B7-8253-99F6AEE90C3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3015D7-BB03-456E-ACDD-BEF83F438548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3015D7-BB03-456E-ACDD-BEF83F438548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3015D7-BB03-456E-ACDD-BEF83F438548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3015D7-BB03-456E-ACDD-BEF83F438548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3291980-71D5-4328-8610-A3B833D664C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3291980-71D5-4328-8610-A3B833D664C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3291980-71D5-4328-8610-A3B833D664C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3291980-71D5-4328-8610-A3B833D664C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33EFFC79-600D-4129-8E3F-64988BA321E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33EFFC79-600D-4129-8E3F-64988BA321E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33EFFC79-600D-4129-8E3F-64988BA321E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33EFFC79-600D-4129-8E3F-64988BA321E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46D54B35-D135-406E-AF25-AF9C0BAEA91E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46D54B35-D135-406E-AF25-AF9C0BAEA91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46D54B35-D135-406E-AF25-AF9C0BAEA91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46D54B35-D135-406E-AF25-AF9C0BAEA91E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
