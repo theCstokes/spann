@@ -1,0 +1,86 @@
+.ui-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;;
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow: hidden;
+  width: 350px;
+  padding:1px 5px 1px 5px;
+  margin-bottom: 5px;
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  border: @ThinComponentBoarder solid;
+  border-color: @ComponentBoarderColor;
+  background-color: @Background;
+}
+
+.ui-input:focus {
+  border-color: @DefaultComponentColor;
+}
+
+.ui-input .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(100% - 5px);
+  height: 30px;
+}
+
+.ui-input .inputCaption {
+  background: #FFF no-repeat 0px 0px;
+  background-attachment: fixed;
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  text-indent: 3px;
+  padding: 0px;
+  margin: 0;
+  border: none;
+}
+
+.ui-input .inputCaption:focus {
+  outline: none;
+}
+
+.ui-input .actionItem {
+  display: none;
+  margin-top: 1px;
+  width: 5px;
+  color: @ComponentBoarderColor;
+}
+
+.ui-input .actionItem:focus,
+.ui-input .actionItem:hover {
+  // -webkit-text-stroke: 1px;
+  width: 5px;
+  color: #000000;
+}
+
+.ui-input .actionItem.has-action {
+  display: block;
+}
+
+.ui-input .hint {
+  display: none;
+  color: @ComponentBoarderColor;
+  font-size: 10px;
+  text-indent:3px;
+  padding: 0;
+  margin: 0;
+}
+
+.ui-input .hint.has-hint {
+  display: block;
+  // -webkit-transform:translateY(-5px);
+  // -moz-transform:translateY(-5px);
+  // -webkit-transition: all 0.5s ease-in-out;
+  // -moz-transition: all 0.5s ease-in-out;
+  -webkit-animation: slide 0.5s forwards;
+}
+
+.ui-input.has-error {
+  border-width: medium;
+  border-color: @DefaultError;
+}
