@@ -1,0 +1,1 @@
+"C:\Program Files\PostgreSQL\9.5\bin\pg_dump.exe" -h localhost -p 5432 -U postgres -F c -f data.backup Ament
