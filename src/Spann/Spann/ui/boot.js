@@ -1,5 +1,4 @@
 function loadDone(urls, callback, index) {
-  // console.log('Loaded: ' + urls[index]);
   index++;
   if(index >= urls.length) {
     callback();
@@ -37,43 +36,57 @@ function loadScripts(urls, callback, index){
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
-function loadFramework(callback) {
-  loadScripts([
-    "./framework/boot.js",
-  ], function() {
-      ui_boot(callback);
-  });
-}
-
-function loadExternalLibs(callback) {
-  console.log('Loading External Libraries...');
-  loadScripts([
-    "./libs/require.js",
-    "./require.config.js"
-  ], function() {
-      console.log('External Libraries Loaded.');
-      callback();
-  });
-}
-
-function run() {
-}
-
-function launchApp() {
-  console.log('Started.');
-  console.log('Launching App...');
-  $ui.app = 'app';
-  requirejs(["App/app"], function(app) {
-      app.start();
-  });
-  console.log('App Launched.');
-}
-
 function boot() {
-  console.log('Booting...');
-  loadFramework(function() {
-    loadExternalLibs(launchApp);
-  })
+  function loadFramework(callback) {
+    loadScripts([
+      "./framework/boot.js",
+      "./boot.config.js",
+    ], function() {
+        ui_boot(callback);
+    });
+  }
+
+  function loadExternalLibs(callback) {
+    console.log('Loading External Libraries...');
+    loadScripts([
+      "./libs/require.js",
+      "./require.config.js"
+    ], function() {
+        console.log('External Libraries Loaded.');
+        callback();
+    });
+  }
+
+  var appStartFile;
+
+  function config(options) {
+    appStartFile = options.app;
+  }
+
+  function launchApp() {
+    console.log('Started.');
+    console.log('Launching App...');
+    $ui.app = 'app';
+    if(appStartFile !== undefined) {
+      requirejs([appStartFile], function(app) {
+          app.start();
+      });
+      console.log('App Launched.');
+    }
+  }
+
+  function start() {
+    console.log('Booting...');
+    loadFramework(function() {
+      loadExternalLibs(launchApp);
+    })
+  }
+
+  return {
+    start: start,
+    config: config
+  }
 }
 
-boot();
+var boot = boot();
+boot.start();
