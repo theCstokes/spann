@@ -4,6 +4,9 @@ requirejs.config({
     // App Directory.
     App: 'application',
 
+    // UI PLay Group Directory.
+    PlayGroup: 'UIPlayGround',
+
     // UI Framework Directory.
     Framework: 'framework',
 
