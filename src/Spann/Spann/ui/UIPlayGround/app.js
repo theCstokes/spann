@@ -1,8 +1,11 @@
 define([
+  'PlayGroup/demoFrame',
   'PlayGroup/screen_playGround'
-], function(screen_playGround) {
+], function(demoFrame, screen_playGround) {
 
   function start() {
+
+    $ui.frame = demoFrame;
 
     $ui.push(screen_playGround);
 
