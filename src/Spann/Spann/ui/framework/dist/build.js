@@ -1,4 +1,4 @@
-/*! my-project-name - v1.0.0 - 2016-09-19 */
+/*! my-project-name - v1.0.0 - 2016-09-26 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -315,7 +315,7 @@ function Editor(parent, screen) {
   var object = $ui.BaseComponent(parent, screen);
   object.component.addClass('ui-editor');
 
-  var inputEditor = $ui.create('pre', object.component);
+  var inputEditor = $ui.create('div', object.component);
   inputEditor.addClass('input-editor');
   inputEditor.id = "inputEditor";
   inputEditor.style.media = "screen";
@@ -324,12 +324,40 @@ function Editor(parent, screen) {
   var editor = ace.edit("inputEditor");
   editor.setOptions({
     enableBasicAutocompletion: true
-  })
+  });
   editor.setTheme("ace/theme/twilight");
-  editor.session.setMode("ace/mode/python");
+
+  Object.defineProperty(object.model, 'mode', {
+    set: function(value) {
+      if(object._private.mode !== value) {
+        object._private.mode = value;
+        editor.session.setMode(value);
+      }
+    },
+    get: function() {
+      return object._private.mode;
+    }
+  });
+
+  object.show = function() {
+    console.log("show editor");
+    inputEditor.style.height = this.component.parentElement.offsetHeight + "px";
+    inputEditor.style.width = this.component.parentElement.offsetWidth + "px";
+
+    inputEditor.style.top = this.component.parentElement.offsetTop + "px";
+    inputEditor.style.left = this.component.parentElement.offsetLeft + "px";
+  }
+
+  return object
 }
 
 $ui.addExtension('Editor', Editor);
+
+var EditorMode = {
+  PYTHON: "ace/mode/python"
+};
+
+$ui.addStyleExtension('EditorMode', EditorMode);
 
 function Input(parent, screen) {
   //add base component data
