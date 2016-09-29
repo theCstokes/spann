@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann", "Spann\Spann.csproj", "{754CB9AC-12E8-4AF3-A2D7-268D919ACBA9}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Core.DataAccess", "Spann.Core.DataAccess\Spann.Core.DataAccess.csproj", "{33EFFC79-600D-4129-8E3F-64988BA321E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Core.DomainModel", "Spann.Core.DomainModel\Spann.Core.DomainModel.csproj", "{46D54B35-D135-406E-AF25-AF9C0BAEA91E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.PythonTools", "Spann.Python\Spann.PythonTools.csproj", "{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{46D54B35-D135-406E-AF25-AF9C0BAEA91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46D54B35-D135-406E-AF25-AF9C0BAEA91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46D54B35-D135-406E-AF25-AF9C0BAEA91E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

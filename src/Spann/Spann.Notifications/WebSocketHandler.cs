@@ -14,7 +14,7 @@ namespace Spann.Notifications
     {
         private const int MAX_DATA_SIZE = 1024;
 
-        public delegate void OnReceiveAction(string msg);
+        public delegate void OnReceiveAction(Guid uid, string msg);
         public delegate void OnOpenAction(Guid uid);
         public delegate void OnCloseAction(Guid uid);
 
@@ -86,7 +86,7 @@ namespace Spann.Notifications
                 var messageString = Encoding.UTF8.GetString(receivedDataBuffer.Array, 0, result.Count);
                 if(receiveCallback != null)
                 {
-                    receiveCallback.Invoke(messageString);
+                    receiveCallback.Invoke(uid, messageString);
                 }
             }
             if(socket.State == WebSocketState.Closed)

@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,6 +151,10 @@
     <ProjectReference Include="..\Spann.Notifications\Spann.Notifications.csproj">
       <Project>{8c3015d7-bb03-456e-acdd-bef83f438548}</Project>
       <Name>Spann.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spann.Python\Spann.PythonTools.csproj">
+      <Project>{a3ff0ed1-9074-4b75-99da-77bc79d86d23}</Project>
+      <Name>Spann.PythonTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\Spann.RepositoryModel\Spann.RepositoryModel.csproj">
       <Project>{e3291980-71d5-4328-8610-a3b833d664c2}</Project>

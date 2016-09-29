@@ -12,7 +12,25 @@ function Editor(parent, screen) {
   editor.setOptions({
     enableBasicAutocompletion: true
   });
+
+  editor.commands.addCommand({
+      name: "send",
+      bindKey: {win: "Enter", mac: "Enter"},
+      exec: function(editor) {
+        console.log("GO Go GO!!")
+        var data = "data = 123";
+        editor.setValue(data, data.length - 1);
+      }
+  });
+
   editor.setTheme("ace/theme/twilight");
+
+  Object.defineProperty(object.model, 'e', {
+    get: function () {
+      return editor;
+    }
+  });
+
 
   Object.defineProperty(object.model, 'mode', {
     set: function(value) {
