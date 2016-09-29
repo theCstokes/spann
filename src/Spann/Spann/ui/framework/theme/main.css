@@ -118,6 +118,14 @@ body {
 .ui-chat-list-item .recived-item:hover {
   background-color: #b4c5cf;
 }
+.ui-console .input-console {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .ui-editor .input-editor {
   margin: 0;
   position: absolute;
