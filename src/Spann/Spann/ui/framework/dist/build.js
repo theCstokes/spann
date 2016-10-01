@@ -1,4 +1,4 @@
-/*! my-project-name - v1.0.0 - 2016-09-27 */
+/*! my-project-name - v1.0.0 - 2016-10-01 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -358,6 +358,32 @@ function Console(parent, screen) {
   // editor.on("input", function() {
   //     editor.setValue(text, text.length - 1);
   // });
+
+  // var consoleState1 = {};
+  // var consoleState2 = {};
+  // var state = 0;
+  // var lastText = "";
+
+  var textReset = false;
+
+  editor.on("change", function(vv) {
+      console.log("Change!!!" + editor);
+      if(textReset) {
+        textReset = false;
+        return;
+      }
+      var linesLenght = editor.session.doc.$lines.length;
+      if(vv.end.row === linesLenght - 1 && vv.start.column >= 4) {
+        text = editor.getValue();
+      } else {
+        if(text !== editor.getValue()) {
+          textReset = true;
+          editor.setValue(text, text.length - 1);
+        } else {
+          textReset = false;
+        }
+      }
+  });
 
   // editor.setTheme("ace/theme/twilight");
 
