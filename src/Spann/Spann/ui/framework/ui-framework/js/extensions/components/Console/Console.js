@@ -15,9 +15,9 @@ function Console(parent, screen) {
 
   var text = "Python Started.";
   var lineSeparater = "\n";
-  var lineStart = ">>> ";
+  var lineStart = ">>>_";
   text += lineSeparater + lineStart;
-  editor.setValue(text, text.length - 1);
+  editor.setValue(text, 1);
 
   editor.commands.addCommand({
       name: "send",
@@ -35,7 +35,7 @@ function Console(parent, screen) {
           return result;
         }, "");
         text += lastLine + lineSeparater + lineStart;
-        editor.setValue(text, text.length - 1);
+        editor.setValue(text, 1);
         if(object._private.onCommandRun !== undefined) {
           object._private.onCommandRun(lastLine);
         }
@@ -65,9 +65,10 @@ function Console(parent, screen) {
       } else {
         if(text !== editor.getValue()) {
           textReset = true;
-          editor.setValue(text, text.length - 1);
+          editor.setValue(text, 1);
         } else {
           textReset = false;
+          editor.selection.moveTo(linesLenght - 1, 5)
         }
       }
   });
@@ -118,7 +119,7 @@ function Console(parent, screen) {
         return result;
       }, "");
       text += value + lineSeparater + lastLine + lineSeparater + lineStart;
-      editor.setValue(text, text.length - 1);
+      editor.setValue(text, 1);
     }
   });
 
