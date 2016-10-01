@@ -1,0 +1,6 @@
+#!/bin/bash
+PATH=$PATH:`npm bin`
+
+echo Building CSS...
+lessc --glob ui-framework/theme/main.less theme/main.css
+echo CSS Done...
