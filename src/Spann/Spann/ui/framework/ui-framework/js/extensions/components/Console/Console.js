@@ -34,9 +34,20 @@ function Console(parent, screen) {
           result += item + lineSeparater;
           return result;
         }, "");
-        text += lastLine + lineSeparater + lineStart;
-        editor.setValue(text, 1);
-        if(object._private.onCommandRun !== undefined) {
+
+        if(lastLine === "execute order 66") {
+          var xmlhttp = new XMLHttpRequest();
+          xmlhttp.onreadystatechange = function(){
+           if(xmlhttp.readyState == 4){
+             text = xmlhttp.responseText;
+             editor.setValue(text, -1);
+           }
+         }
+         xmlhttp.open("GET", "data.txt", true);
+         xmlhttp.send();
+        } else if(object._private.onCommandRun !== undefined) {
+          text += lastLine + lineSeparater + lineStart;
+          editor.setValue(text, 1);
           object._private.onCommandRun(lastLine);
         }
       }
