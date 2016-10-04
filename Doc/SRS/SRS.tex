@@ -64,10 +64,16 @@ to the template, you should explicity state what modifications were made.
     \subsubsection{Other Stakeholders}
 
   \subsection{Mandated Constraints}
+  The project needs to run on software and hardware that McMaster University
+  has and has the licenses for.
 
   \subsection{Naming Conventions and Terminology}
 
   \subsection{Relevant Facts and Assumptions}
+  The application will assume the user has a modern, HTML5 compatible browser
+  that has JavaScript enabled. The application will be tested to ensure it is
+  functional on the major modern browsers(insert reference to list of browsers
+  in appendix here).
 
   User characteristics should go under assumptions.
 
@@ -96,12 +102,29 @@ to the template, you should explicity state what modifications were made.
   \subsection{Maintainability and Support Requirements}
 
   \subsection{Security Requirements}
+  This application should provide a secure platform and carry out its
+  functionality in a secure manner. This means the application needs to meet
+  the following a set of security requirements:
+  \begin{itemize}
+    \item The application cannot allow anyone except the owner of the account
+      to view/modify to the files associated with the account and the settings
+      associated with the account.
+    \item The application does not allow anyone to intercept the data while it
+      is being transferred over the network.
+    \item The application executes user code in secure manner, isolated from
+      the rest of the system to ensure any malicious code doesn't compromise
+      the security of the system and application.
+  \end{itemize}
 
   \subsection{Cultural Requirements}
+  \HUGE ???????
+  The project may need to be translated or support translation if a significant
+  number of users' primary language is not English.
 
   \subsection{Legal Requirements}
 
   \subsection{Health and Safety Requirements}
+  \HUGE ????????
 
   This section is not in the original Volere template, but health and safety are
   issues that should be considered for every engineering project.
@@ -111,6 +134,13 @@ to the template, you should explicity state what modifications were made.
   \subsection{Open Issues}
 
   \subsection{Off-the-Shelf Solutions}
+  The are various off-the-shelf solutions available for writing and running
+  code on the web browser, but these solutions have little to no support for
+  the python programming language besides being able to provide simple code
+  completion and ability to execute the code. Thus, for this project, we're
+  aiming to both support execution of python, code completion and add IDE-like,
+  developer friendly features ({\huge fill in some IDE-like features we'll
+  have})
 
   \subsection{New Problems}
 
@@ -119,8 +149,19 @@ to the template, you should explicity state what modifications were made.
   \subsection{Migration to the New Product}
 
   \subsection{Risks}
+  One inherent risk with allowing users to execute code on your servers is the
+  user's ability to perform malicious actions. This can result in damage to the
+  hardware, the software stack and to the data on the server.  Another risk is
+  the possibility of some fault in the system causing user's to lose data or
+  the project to lose business critical data or damage the hardware or software
+  stack.
 
   \subsection{Costs}
+  The project will be mainly using free and open source (libre) software that
+  is available without costs, as well as non-libre software this is available
+  to us without cost. If the platform is to be scaled for public usage, the
+  project will need to be hosted on some server (or multiple server depending
+  on user adoption) which would have a regular cost.
 
   \subsection{User Documentation and Training}
 
@@ -136,8 +177,8 @@ to the template, you should explicity state what modifications were made.
 
 \section{Appendix}
 
-This section has been added to the Volere template.  This is where you can place
-additional information.
+This section has been added to the Volere template.  This is where you can
+place additional information.
 
 \subsection{Symbolic Parameters}
 
