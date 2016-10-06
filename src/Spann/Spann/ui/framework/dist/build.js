@@ -1,4 +1,4 @@
-/*! my-project-name - v1.0.0 - 2016-10-01 */
+/*! my-project-name - v1.0.0 - 2016-10-03 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -328,7 +328,7 @@ function Console(parent, screen) {
 
   var text = "Python Started.";
   var lineSeparater = "\n";
-  var lineStart = ">>>_";
+  var lineStart = ">>> ";
   text += lineSeparater + lineStart;
   editor.setValue(text, 1);
 
@@ -377,8 +377,13 @@ function Console(parent, screen) {
 
   var textReset = false;
 
+  editor.on("input", function(event) {
+    editor.navigateRight(1);
+    console.log(event);
+  });
   editor.on("change", function(vv) {
       console.log("Change!!!" + editor);
+      console.log(vv.action);
       if(textReset) {
         textReset = false;
         return;
@@ -392,6 +397,7 @@ function Console(parent, screen) {
           editor.setValue(text, 1);
         } else {
           textReset = false;
+          editor.gotoLine(editor.session.doc.$lines.length-1, 5);
           editor.selection.moveTo(linesLenght - 1, 5)
         }
       }
