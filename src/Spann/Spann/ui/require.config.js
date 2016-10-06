@@ -17,6 +17,8 @@ requirejs.config({
     PartitionScreen: 'framework/app-framework/wrappers/PartitionScreen/PartitionScreen',
     StateTreeManager: 'framework/app-framework/StateTree/StateTreeManager',
     Frame: 'framework/app-framework/wrappers/Frame/Frame',
+    Encryption: 'framework/app-framework/encryption',
+    SHA512: 'framework/app-framework/sha512',
 
     // App Template Helpers
     BaseContentScreen: 'framework/app-framework/templateHelpers/BaseContentScreen'
