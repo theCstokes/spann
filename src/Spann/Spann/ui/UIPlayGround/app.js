@@ -1,10 +1,12 @@
 define([
   'PlayGroup/demoFrame',
-  'PlayGroup/screen_playGround'
-], function(demoFrame, screen_playGround) {
+  'PlayGroup/screen_playGround',
+  'Encryption'
+], function(demoFrame, screen_playGround, encryption) {
 
   function start() {
 
+    console.log('hello world -->', encryption.saltyHash('hello world'));
     $ui.frame = demoFrame;
 
     $ui.push(screen_playGround);
