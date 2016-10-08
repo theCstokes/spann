@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Spann.RepositoryModel.Python;
 
 namespace Spann.RepositoryModel
 {
@@ -18,5 +19,6 @@ namespace Spann.RepositoryModel
         //public static MessageRManager MessageList = new MessageRManager();
         public static BaseRepositoryManager<MessageDM> MessageManager = new BaseRepositoryManager<MessageDM>();
         public static BaseRepositoryManager<UserDM> UserManager = new BaseRepositoryManager<UserDM>();
+        public static PythonFileRepositoryManager PythonFileManager = new PythonFileRepositoryManager();
     }
 }

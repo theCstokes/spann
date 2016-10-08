@@ -17,6 +17,15 @@ namespace Spann.Controllers
     [RoutePrefix("api/v1")]
     public class FileController : ApiController
     {
+
+        [HttpPost]
+        [Route("File")]
+        public IHttpActionResult CreateFile([FromBody] PythonFileDM file)
+        {
+            RC.PythonFileManager.Add(file);
+            return Ok();
+        }
+
         [HttpPost]
         [Route("Python/Run")]
         public IHttpActionResult RunFile([FromBody] PythonFileDM file)
