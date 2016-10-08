@@ -4,6 +4,7 @@ using Spann.DomainModel.Users;
 using Spann.Notifications;
 using Spann.PythonTools;
 using Spann.RepositoryModel;
+using Spann.ResponseBuilders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Spann.Controllers
         public IHttpActionResult CreateFile([FromBody] PythonFileDM file)
         {
             RC.PythonFileManager.Add(file);
-            return Ok();
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, file);
         }
 
         [HttpPost]
