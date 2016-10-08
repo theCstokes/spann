@@ -25,7 +25,7 @@ namespace Spann.Core.DomainModel.Python
         [DataColumn("SourceCode")]
         public string SourceCode { get; set; }
 
-        [DataColumn("SourceCode")]
+        [DataColumn("Name")]
         public string Name { get; set; }
         #endregion
     }
