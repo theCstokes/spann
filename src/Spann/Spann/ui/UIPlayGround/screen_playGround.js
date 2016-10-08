@@ -15,7 +15,10 @@ define([
           },
           {
             component: $ui.ActionButton,
-            icon: 'fa-floppy-o'
+            icon: 'fa-floppy-o',
+            onClick: function() {
+              console.log(123);
+            }
           }
         ],
         content: [

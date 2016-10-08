@@ -133,7 +133,9 @@ function ActionButton(parent, screen) {
 
   Object.defineProperty(object.model, "onClick", {
     set: function(callback) {
-      object.component.onclick = callback;
+      object.component.onclick = function(event) {
+          callback.call(object.model, {event: event, target: object});
+      }
     }
   });
 
