@@ -17,7 +17,7 @@ define([
       },
       {
         component: $ui.List,
-        style: $ui.NavigationListItem,
+        style: $ui.FileListItem,
         items: [
           {
             name: "Editor",
