@@ -4,7 +4,6 @@ function ui_boot(callback) {
     "./framework/ui-framework/js/$ui.js",
     "./framework/ui-framework/js/$builder.js",
     "./framework/app-framework/$data.js",
-    "./framework/app-framework/sha512.js",
     "./framework/$utils.js",
     "./framework/dist/build.js",
     "./framework/libs/ace/src-min-noconflict/ace.js"
