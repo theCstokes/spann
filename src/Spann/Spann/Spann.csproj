@@ -129,8 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\FileController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\FileController\FileController.cs" />
+    <Compile Include="Controllers\RequestExtensions.cs" />
+    <Compile Include="ResponseBuilders\Response.cs" />
+    <Compile Include="ResponseBuilders\ResponseUtils.cs" />
+    <Compile Include="Controllers\UserController\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Spann.Core.DataAccess\Spann.Core.DataAccess.csproj">
+      <Project>{33effc79-600d-4129-8e3f-64988ba321e0}</Project>
+      <Name>Spann.Core.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Spann.Core.DomainModel\Spann.Core.DomainModel.csproj">
       <Project>{46d54b35-d135-406e-af25-af9c0baea91e}</Project>
       <Name>Spann.Core.DomainModel</Name>
