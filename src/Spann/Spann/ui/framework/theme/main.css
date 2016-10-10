@@ -546,7 +546,7 @@ body {
   overflow: hidden;
   position: relative;
   float: right;
-  width: 85%;
+  width: 100%;
   height: 15%;
   background-color: #bdc3c7;
 }
@@ -555,7 +555,7 @@ body {
   position: relative;
   float: left;
   bottom: 0;
-  height: 100%;
+  height: 85%;
   width: 15%;
   background-color: #34495e;
 }
