@@ -1,12 +1,14 @@
 define([
   'PlayGroup/demoFrame',
-  'PlayGroup/screen_playGround'
-], function(demoFrame, screen_playGround) {
+  'PlayGroup/screen_playGround',
+  'PlayGroup/dialog_Demo'
+], function(demoFrame, screen_playGround, dialog_Demo) {
 
   function start() {
     $ui.frame = demoFrame;
 
     $ui.push(screen_playGround);
+    $ui.push(dialog_Demo);
 
     // var xhr = new XMLHttpRequest();
     // xhr.open("POST", window.location.href.split('ui/')[0] + "api/v1/File");

@@ -53,15 +53,6 @@ function Console(parent, screen) {
       }
   });
 
-  // editor.on("input", function() {
-  //     editor.setValue(text, text.length - 1);
-  // });
-
-  // var consoleState1 = {};
-  // var consoleState2 = {};
-  // var state = 0;
-  // var lastText = "";
-
   var textReset = false;
 
   editor.on("change", function(event) {
@@ -80,8 +71,6 @@ function Console(parent, screen) {
           editor.setValue(text, 1);
         } else {
           textReset = false;
-          // editor.navigateRight(1);
-          // editor.gotoLine(0,0);
         }
       }
   });
