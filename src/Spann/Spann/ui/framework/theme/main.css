@@ -486,7 +486,7 @@ body {
   /* Hidden by default */
   position: absolute;
   /* Stay in place */
-  z-index: 1;
+  z-index: 6;
   /* Sit on top */
   left: 50px;
   top: 100px;
@@ -518,6 +518,35 @@ body {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+.ui-dock-screen {
+  display: block;
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+  height: 200px;
+  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.ui-dock-screen.align-top {
+  top: 0;
+}
+.ui-dock-screen.align-bottom {
+  bottom: 0;
+}
+.ui-dock-screen.align-left {
+  left: 0;
+}
+.ui-dock-screen.align-right {
+  right: 0;
+}
+.ui-dock-screen .modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 .ui-flow {
   width: 100%;

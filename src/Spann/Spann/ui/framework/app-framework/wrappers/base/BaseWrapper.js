@@ -4,7 +4,8 @@ define(function() {
       _private: {
         registeredOwner: [],
         contentOwners: [],
-        registeredContainer: {}
+        registeredContainer: {},
+        registeredProperties: []
       },
       model: {}
     };
@@ -22,13 +23,34 @@ define(function() {
     Object.defineProperty(object, 'create', {
       value: function(parent) {
         object.uiObject = objectType(parent);
+        object.model = object.uiObject.model;
+        object._private.registeredProperties.forEach(function(item) {
+          object.uiObject.model[item.name] = item.value;
+        });
         object.parentView = parent;
-        if(object.uiObject.id != undefined) {
-          object.model[object.uiObject.id] = uiObject;
-        }
         createContentOwners();
         createContentContainers();
         return object;
+      }
+    });
+
+    if(object._private.registeredProperties === undefined) {
+      object._private.registeredProperties = [];
+    }
+    Object.defineProperty(object, 'registerProperty', {
+      value: function(name) {
+        Object.defineProperty(object, name, {
+          set: function(value) {
+            if(object.uiObject === undefined) {
+              object._private.registeredProperties.push({
+                name: name,
+                value: value
+              });
+            } else {
+              object.uiObject[name] = value;
+            }
+          }
+        });
       }
     });
 
@@ -113,13 +135,11 @@ define(function() {
          var containerName = obj.name;
          var container = object.uiObject.containers[containerName];
          if(container != undefined) {
-           var componentItems;
            if(obj.transform !== undefined) {
-             componentItems = obj.transform(object[key]);
-           } else {
-             componentItems = object[key];
+             object[key] = obj.transform(object[key]);
            }
-           var items = $builder.build(container, object, componentItems);
+
+           var items = $builder.build(container, object, object[key]);
            items.forEach(function (item) {
              if(item.id != undefined) {
                object.model[item.id] = item;
