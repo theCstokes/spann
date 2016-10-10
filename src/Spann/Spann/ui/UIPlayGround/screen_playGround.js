@@ -1,6 +1,6 @@
 define([
-  'Screen'
-], function(Screen) {
+  'Screen', 'StateDialog'
+], function(Screen, StateDialog) {
   return function() {
     var socket;
     var screen = new Screen();
@@ -18,6 +18,8 @@ define([
             icon: 'fa-floppy-o',
             onClick: function() {
               console.log(123);
+              var dialog = new StateDialog();
+              $ui.push(dialog);
             }
           }
         ],
