@@ -7,16 +7,19 @@ using System.Web;
 
 namespace Spann.DomainModel.Users
 {
-    [TableItemAttribute("public", "User")]
+    [TableItem("public", "User")]
     public class UserDM : IDataModel<UserDM>
     {
-        [DataColumnAttribute("Username")]
+        [DataColumn("Name")]
+        public string Name { get; set; }
+
+        [DataColumn("Username")]
         public string Username { get; set; }
 
-        [DataColumnAttribute("Password")]
+        [DataColumn("Password")]
         public string Password { get; set; }
 
-        [IDColumnAttribute]
+        [IDColumn]
         public override int ID { get; set; }
     }
 }

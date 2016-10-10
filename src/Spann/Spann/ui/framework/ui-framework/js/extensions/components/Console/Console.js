@@ -53,25 +53,17 @@ function Console(parent, screen) {
       }
   });
 
-  // editor.on("input", function() {
-  //     editor.setValue(text, text.length - 1);
-  // });
-
-  // var consoleState1 = {};
-  // var consoleState2 = {};
-  // var state = 0;
-  // var lastText = "";
-
   var textReset = false;
 
-  editor.on("change", function(vv) {
-      console.log("Change!!!" + editor);
+  editor.on("change", function(event) {
+      console.log("Change!!!");
+      console.log(event);
       if(textReset) {
         textReset = false;
         return;
       }
       var linesLenght = editor.session.doc.$lines.length;
-      if(vv.end.row === linesLenght - 1 && vv.start.column >= 4) {
+      if(event.end.row === linesLenght - 1 && event.start.column >= 4) {
         text = editor.getValue();
       } else {
         if(text !== editor.getValue()) {
@@ -79,7 +71,6 @@ function Console(parent, screen) {
           editor.setValue(text, 1);
         } else {
           textReset = false;
-          editor.selection.moveTo(linesLenght - 1, 5)
         }
       }
   });
