@@ -61,10 +61,6 @@ define([
             }
           }
         ]
-      },
-      {
-        component: $ui.Label,
-        caption: "Hello"
       }
     ];
 
@@ -72,7 +68,7 @@ define([
 
     screen.show = function() {
       console.log(this);
-      this.uiObject.model.backgroudImage = '/ui/application/resources/login2.jpg';
+      this.uiObject.model.backgroudImage = '/ui/application/resources/login3.jpg';
 
       var components = this.model;
 

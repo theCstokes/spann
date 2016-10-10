@@ -8,7 +8,7 @@ define([
     $ui.frame = demoFrame;
 
     $ui.push(screen_playGround);
-    $ui.push(dialog_Demo);
+    //$ui.push(dialog_Demo);
 
     // var xhr = new XMLHttpRequest();
     // xhr.open("POST", window.location.href.split('ui/')[0] + "api/v1/File");
