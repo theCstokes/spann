@@ -13,24 +13,22 @@ function Editor(parent, screen) {
     enableBasicAutocompletion: true
   });
 
-  editor.commands.addCommand({
-      name: "send",
-      bindKey: {win: "Enter", mac: "Enter"},
-      exec: function(editor) {
-        console.log("GO Go GO!!")
-        var data = "data = 123";
-        editor.setValue(data, data.length - 1);
-      }
-  });
-
   editor.setTheme("ace/theme/twilight");
 
-  Object.defineProperty(object.model, 'e', {
-    get: function () {
-      return editor;
+  // Object.defineProperty(object.model, 'editor', {
+  //   get: function () {
+  //     return editor;
+  //   }
+  // });
+
+  Object.defineProperty(object.model, 'value', {
+    get: function() {
+      return editor.getValue();
+    },
+    set: function(value) {
+      editor.setValue(value);
     }
   });
-
 
   Object.defineProperty(object.model, 'mode', {
     set: function(value) {
