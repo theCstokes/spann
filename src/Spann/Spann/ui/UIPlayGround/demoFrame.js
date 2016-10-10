@@ -17,7 +17,7 @@ define([
       },
       {
         component: $ui.List,
-        style: $ui.NavigationListItem,
+        style: $ui.FileListItem,
         items: [
           {
             name: "Editor",
@@ -35,11 +35,19 @@ define([
 
     frame.attachTop = [
       {
-        component: $ui.Group,
+        component: $ui.Panel,
+        showHeaderBar: false,
         content: [
           {
             component: $ui.Label,
-            value: "Chris Stokes"
+            caption: "Chris Stokes"
+          },
+          {
+            component: $ui.ActionButton,
+            icon: 'fa-play',
+            onClick: function() {
+              
+            }
           }
         ]
       }

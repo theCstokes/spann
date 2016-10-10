@@ -134,6 +134,35 @@ body {
   left: 0;
   right: 0;
 }
+.ui-file-list-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+}
+.ui-file-list-item .content {
+  order: -1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 8px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+.ui-file-list-item .item-icon {
+  margin-right: 10px;
+}
+.ui-file-list-item:focus,
+.ui-file-list-item:hover {
+  background-color: #555;
+}
 .ui-input {
   display: flex;
   flex-direction: row;
@@ -444,90 +473,80 @@ body {
 .ui-user-list-item:hover {
   background-color: #555;
 }
-.ui.Dialog {
-  /* Modal Content */
-  /* Add Animation */
-  /* The Close Button */
-}
-.ui.Dialog .modal {
-  display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  padding-top: 100px;
-  /* Location of the box */
-  left: 0;
+.ui-dialog {
+  display: block;
+  position: absolute;
   top: 0;
+  left: 0;
   width: 100%;
-  /* Full width */
   height: 100%;
+}
+.ui-dialog .modal {
+  display: block;
+  /* Hidden by default */
+  position: absolute;
+  /* Stay in place */
+  z-index: 6;
+  /* Sit on top */
+  left: 50px;
+  top: 100px;
+  width: calc(100% - 100px);
+  /* Full width */
+  height: 200px;
   /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
   background-color: #000000;
   /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
 }
-.ui.Dialog .modal-content {
-  position: relative;
+.ui-dialog .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 0;
-  border: 1px solid #6A7350;
-  width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.4s;
-  animation-name: animatetop;
-  animation-duration: 0.4s;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
-@-webkit-keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-@keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-.ui.Dialog .close {
-  color: white;
+.ui-dialog .close {
+  color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-.ui.Dialog .close:hover,
-.ui.Dialog .close:focus {
+.ui-dialog .close:hover,
+.ui-dialog .close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
-.ui.Dialog .modal-header {
-  padding: 2px 16px;
-  background-color: #007830;
-  color: white;
+.ui-dock-screen {
+  display: block;
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+  height: 200px;
+  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.4);
 }
-.ui.Dialog .modal-body {
-  padding: 2px 16px;
+.ui-dock-screen.align-top {
+  top: 0;
 }
-.ui.Dialog .modal-footer {
-  padding: 2px 16px;
-  background-color: #007830;
-  color: white;
+.ui-dock-screen.align-bottom {
+  bottom: 0;
+}
+.ui-dock-screen.align-left {
+  left: 0;
+}
+.ui-dock-screen.align-right {
+  right: 0;
+}
+.ui-dock-screen .modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 .ui-flow {
   width: 100%;
@@ -556,7 +575,7 @@ body {
   overflow: hidden;
   position: relative;
   float: right;
-  width: 85%;
+  width: 100%;
   height: 15%;
   background-color: #bdc3c7;
 }
@@ -565,7 +584,7 @@ body {
   position: relative;
   float: left;
   bottom: 0;
-  height: 100%;
+  height: 85%;
   width: 15%;
   background-color: #34495e;
 }
