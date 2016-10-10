@@ -1,6 +1,6 @@
 define([
-  'Screen'
-], function(Screen) {
+  'Screen', 'PlayGroup/dialog_Demo'
+], function(Screen, dialog_Demo) {
   return function() {
     var socket;
     var screen = new Screen();
@@ -8,6 +8,7 @@ define([
     screen.content = [
       {
         component: $ui.Panel,
+        // showFooterBar: false,
         header: [
           {
             component: $ui.Label,
@@ -15,17 +16,22 @@ define([
           },
           {
             component: $ui.ActionButton,
-            icon: 'fa-floppy-o'
+            icon: 'fa-floppy-o',
+            onClick: function(event) {
+              console.log(123);
+              $ui.push(dialog_Demo);
+              // $data.send($data.SEND_TYPES.POST, {api: "File"}, {
+              //   name: "test.py",
+              //   sourceCode: event.target.screen.model.editor.value 
+              // });
+            }
           }
         ],
         content: [
           {
-            component: $ui.Console,
-            id: 'ce',
+            component: $ui.Editor,
             mode: $ui.EditorMode.PYTHON,
-            onCommandRun: function (command) {
-              socket.send(command);
-            }
+            id: 'editor'
           }
           // {
           //   component: $ui.Button,
