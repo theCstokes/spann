@@ -13,6 +13,7 @@ requirejs.config({
     // App Wrappers.
     Wrappers: 'framework/app-framework/wrappers',
     Screen: 'framework/app-framework/wrappers/Screen/Screen',
+    StateDialog: 'framework/app-framework/wrappers/StateDialog/StateDialog',
     Login: 'framework/app-framework/wrappers/Login/Login',
     PartitionScreen: 'framework/app-framework/wrappers/PartitionScreen/PartitionScreen',
     StateTreeManager: 'framework/app-framework/StateTree/StateTreeManager',
