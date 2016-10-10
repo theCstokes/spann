@@ -7,6 +7,10 @@ function build() {
     }
   };
 
+  /**
+   * Gets the main div and uses as basis for the application.
+   * @argument - Name of main div to find.
+   */
   Object.defineProperty(object, 'app', {
     set: function (name) {
       var appDiv = document.getElementById(name);
@@ -18,18 +22,23 @@ function build() {
     }
   });
 
+  /**
+   * Sets the main frame for the app.
+   * @argument - The Frame component to act as a basis for the app.
+   */
   Object.defineProperty(object, 'frame', {
     set: function (frame_item) {
       var frame = object._private.frame = frame_item();
-      frame.create(this._private.app);
-      this._private.screens.push(frame);
-      handleCreateCallbacks(frame);
+      addScreen(frame, this._private.app);
     },
     get: function () {
       return object._private.frame;
     }
   });
 
+  /**
+   * @return - the array of screens currently added.
+   */
   Object.defineProperty(object, 'screens', {
     get: function() {
       return this._private.screens.map(function (screen) {
@@ -38,6 +47,9 @@ function build() {
     }
   });
 
+  /**
+   * @return - the last pushed screen.
+   */
   Object.defineProperty(object, 'topScreen', {
     get: function() {
       var lastIndex = this._private.screens.length - 1;
@@ -47,6 +59,19 @@ function build() {
     }
   });
 
+  // Special defined positions.
+  var ScreenLevelEnum = Object.freeze({BASE: -5, TOP: -1, DEFAULT: -2, BOTTOM: -3});
+  Object.defineProperty(object, "ScreenLevelEnum", {
+    get: function() {
+      return ScreenLevelEnum;
+    }
+  });
+
+  /**
+   * Pushes the given screen.
+   * @argument - screen object or function 
+   *             data the data to give to the screen onShow
+   */
   Object.defineProperty(object, 'push', {
     value: function(screen_item, data) {
       var screen = screen_item;
@@ -57,29 +82,58 @@ function build() {
       if(size < 0) {
         addScreen(screen, this._private.app, data);
       }
-      for(var i = size; i >= 0; i--) {
-        var currentScreen = this._private.screens[i];
-        if(currentScreen.owners.length === 0) {
-          continue;
-        }
-        var screenAdded = currentScreen.owners.some(function (owner) {
-          if(owner.currentItem !== undefined) {
-            return false;
-          }
-          addScreen(screen, owner.component, data);
-          return true;
-        });
-        if(screenAdded) {
-          break;
-        } else {
-          addScreen(screen, currentScreen.parentView, data);
-          break;
-        }
-      }
+      // pushScreenToEnd(size, screen, data);
+      switch(screen.level) {
+        case ScreenLevelEnum.BASE:
+          return addScreen(screen, this._private.app);
+        case ScreenLevelEnum.TOP:
+          return pushScreenToStart(size, screen, data);
+        case ScreenLevelEnum.DEFAULT:
+          return pushScreenToEnd(size, screen, data);
+        case ScreenLevelEnum.BOTTOM:
+          return pushScreenToEnd(size, screen, data);
+        default:
+          return pushScreenToEnd(size, screen, data);
+      } 
     }
   });
 
+  function pushScreenToEnd(size, screen, data) {
+    for(var i = size; i >= 0; i--) {
+      var currentScreen = object._private.screens[i];
+      if(currentScreen.owners.length === 0) {
+          continue;
+      }
+      return pushScreen(currentScreen, screen, data);
+    }
+  }
+
+  function pushScreenToStart(size, screen, data) {
+   for(var i = 0; i < size; i++) {
+      var currentScreen = object._private.screens[i];
+      if(currentScreen.owners.length === 0) {
+          continue;
+      }
+      return pushScreen(currentScreen, screen, data);
+    }
+  }
+
+  function pushScreen(currentScreen, screen, data) {
+    if(currentScreen.hasAvailableOwner) {
+      var owner = currentScreen.nextAvailableOwner;
+      return addScreen(screen, owner.component, data);
+    } else {
+      return addScreen(screen, currentScreen.parentView, data);
+    }
+  }
+
   function addScreen(screen, parent, data) {
+    if(screen.blurSiblings) {
+      for(var i = 0; i < parent.children.length; i++) {
+        var item = parent.children[i];
+        item.style.webkitFilter = "blur(5px)";
+      }
+    }
     screen.create(parent);
     object._private.screens.push(screen);
     handleCreateCallbacks(screen, data);
@@ -91,12 +145,33 @@ function build() {
     }
   }
 
+  /**
+   * Removes the last element from thee screen.
+   */
   Object.defineProperty(object, 'pop', {
     value: function() {
-      this._private.screens.pop();
+      if(this._private.screens.length > 0) {
+        if(this.topScreen.blurSiblings) {
+          var items = this.topScreen.uiObject.component.parentElement.children;
+          for(var i = 0; i < items.length; i++) {
+            var item = items[i];
+            if(item === this.topScreen.uiObject.component) {
+              continue;
+            }
+            item.style.webkitFilter = "";
+          }
+        }
+        this.topScreen.uiObject.component.remove();
+        this._private.screens.pop();
+      }
     }
   });
 
+  /**
+   * Adds control extension.
+   * @argument - key name of the extension
+   *             functional callback to make the extension.
+   */
   Object.defineProperty(object, 'addExtension', {
     value: function(key, extension) {
       // Create the extension
@@ -108,6 +183,11 @@ function build() {
     }
   });
 
+  /**
+   * Adds style extension.
+   * @argument - key name of the extension
+   *             functional callback to make the extension.
+   */
   Object.defineProperty(object, 'addStyleExtension', {
     value: function(key, extension) {
       // Create the extension
@@ -119,6 +199,10 @@ function build() {
     }
   });
 
+  /**
+   * Removes all elements up to the given object.
+   * @argument - target to end removal at.
+   */
   Object.defineProperty(object, 'popTo', {
     value: function(target) {
       if(this._private.screens.indexOf(target) > -1) {
@@ -126,13 +210,16 @@ function build() {
           if(this.topScreen === target) {
             break;
           }
-          this.topScreen.uiObject.component.remove();
           this.pop();
         }
       }
     }
-  })
+  });
 
+  /**
+   * Adds the control util functions to given object
+   * @argument object to add functions to.
+   */
   function addUtilFunctions(item) {
     Object.defineProperty(item, 'addClass', {
       value: function(name) {
@@ -189,8 +276,8 @@ function build() {
     }
   });
 
-  return object;
   console.log('Init $ui Done');
+  return object;
 }
 
 var $ui = build();

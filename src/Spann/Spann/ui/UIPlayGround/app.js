@@ -1,35 +1,24 @@
 define([
   'PlayGroup/demoFrame',
   'PlayGroup/screen_playGround',
-  'Encryption'
-], function(demoFrame, screen_playGround, encryption) {
+  'PlayGroup/dialog_Demo'
+], function(demoFrame, screen_playGround, dialog_Demo) {
 
   function start() {
-
-    console.log('hello world -->', encryption.saltyHash('hello world'));
     $ui.frame = demoFrame;
 
     $ui.push(screen_playGround);
-
-     //add screen
-    //  $ui.frame = mainFrame;
-
-    //  $ui.push(homeScreen);
+    //$ui.push(dialog_Demo);
 
     // var xhr = new XMLHttpRequest();
-    // xhr.open("POST", window.location.href.split('ui/')[0] + "api/v1/User");
-    //
-    //   //xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-    //   //// xhr.setRequestHeader('Content-type', 'application/ecmascript');
-    //   //xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    // xhr.open("POST", window.location.href.split('ui/')[0] + "api/v1/File");
     // xhr.responseType = 'json';
     // xhr.onreadystatechange = function () {
     //     console.log("data: " + xhr.response);
     // }
-    // var message = { name: "Old Ben" };
-    // var blob = new Blob([JSON.stringify(message, null, 2)], { type: 'application/json' });
+    // var data = { name: "Order66", sourceCode: "for(0 to N): Kill all Jedi;" };
+    // var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     // xhr.send(blob);
-    // xhr.send();
   }
   return {
     start: start

@@ -45,6 +45,7 @@
     <Compile Include="IRepositoryManager.cs" />
     <Compile Include="Message\MessageRManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Python\PythonFileRepositoryManager.cs" />
     <Compile Include="RC.cs" />
     <Compile Include="SourceRepositoryMapper.cs" />
     <Compile Include="User\UserRManager.cs" />

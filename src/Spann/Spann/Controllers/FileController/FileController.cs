@@ -4,6 +4,7 @@ using Spann.DomainModel.Users;
 using Spann.Notifications;
 using Spann.PythonTools;
 using Spann.RepositoryModel;
+using Spann.ResponseBuilders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,15 @@ namespace Spann.Controllers
     [RoutePrefix("api/v1")]
     public class FileController : ApiController
     {
+
+        [HttpPost]
+        [Route("File")]
+        public IHttpActionResult CreateFile([FromBody] PythonFileDM file)
+        {
+            RC.PythonFileManager.Add(file);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, file);
+        }
+
         [HttpPost]
         [Route("Python/Run")]
         public IHttpActionResult RunFile([FromBody] PythonFileDM file)
