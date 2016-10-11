@@ -102,11 +102,27 @@ to the template, you should explicity state what modifications were made.
 \section{Non-functional Requirements}
 
   \subsection{Look and Feel Requirements}
-  The application's visual interface will provide a clean, organized interface.
+  This application needs to maintain a unified enterprise look and feel. A
+   major goal of this application is to increase development speed, this 
+   means it is incredibly important that the user experience is clean. To 
+   achieve this, options such as save, properties, and right-click must be 
+   constant throughout the application. As a target, this application must 
+   respond and feel like a desktop application while running in browser 
+   meaning all actions that one would expect to work in a desktop IDE such
+    as Eclipse must work in browser.
 
   \subsection{Usability and Humanity Requirements}
 
   \subsection{Performance Requirements}
+    \subsubsection{Client}
+    The client side UI must be quick and responsive as well as not using a 
+    lot of resources as it runs in the browser. It is most important that the 
+    application can run asynchronously at all times to not lock up the browser.
+    
+    \subsubsection{Server}
+    For the server it is very important that it is fast and is able to handle 
+    a lot of requests. It also needs to run its processes in a proper 
+    asynchronous manner as the processes are long running.
 
   \subsection{Operational and Environmental Requirements}
 
@@ -128,14 +144,22 @@ to the template, you should explicity state what modifications were made.
   \end{itemize}
 
   \subsection{Cultural Requirements}
+<<<<<<< Updated upstream
   {\huge ???????}
+=======
+  \Huge ???????
+>>>>>>> Stashed changes
   The project may need to be translated or support translation if a significant
   number of users' primary language is not English.
 
   \subsection{Legal Requirements}
 
   \subsection{Health and Safety Requirements}
+<<<<<<< Updated upstream
   {\huge ????????}
+=======
+  \Huge ????????
+>>>>>>> Stashed changes
 
   This section is not in the original Volere template, but health and safety are
   issues that should be considered for every engineering project.
@@ -150,7 +174,7 @@ to the template, you should explicity state what modifications were made.
   the python programming language besides being able to provide simple code
   completion and ability to execute the code. Thus, for this project, we're
   aiming to both support execution of python, code completion and add IDE-like,
-  developer friendly features ({\huge fill in some IDE-like features we'll
+  developer friendly features ({\Huge fill in some IDE-like features we'll
   have})
 
   \subsection{New Problems}
