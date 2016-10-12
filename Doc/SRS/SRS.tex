@@ -38,6 +38,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 Oct. 1, 2016 & 1.0 & Initial Changes\\
+Oct. 11, 2016 & 1.1 & Finishing Changes\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -152,7 +153,23 @@ to the template, you should explicitly state what modifications were made.
 		deceive with access to the web.
 
   \subsection{Functional Requirements}
-	%TODO
+	\begin{description}
+		\item [Editing] The application shall allow the user to edit and save new
+			and existing files.
+		\item [Editing Support] The application shall provide the user with
+			language specific suggestions while the user is editing a file.
+		\item [File Handling] The application shall manage (store, track) files
+			created by the user.
+		\item [Code execution] The application shall allow the user to execute a
+			file containing python code and the application will display the output
+			of the execution to the user
+		\item [Networking] The application shall execute the code and store user
+			created data (file, metadata, user account data) on the server and
+			forward the output and other data to the browser via a network
+			connection.
+		\item [Accounts] The application shall allow new users to create an account and allow existing users to login into their user account.
+		\item [Account Mangement] The application shall allow the user to manage their accounts through a user interface on the application (manage account details such as password, email, etc.).
+	\end{description}
 
 \section{Non-functional Requirements}
 
@@ -322,7 +339,6 @@ to the template, you should explicitly state what modifications were made.
 		\item Support for other languages besides python
 		\item Support for large, multi-team, distributed projects
 	\end{itemize}
-	%TODO future functionality
 
   \subsection{Ideas for Solutions}
 	The project members will continue to develop new solutions to the issues
