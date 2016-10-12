@@ -46,19 +46,19 @@ Oct. 1, 2016 & 1.0 & Initial Changes\\
 
 \pagenumbering{arabic}
 
-This document describes the requirements for Spann.  The template for the Software
-Requirements Specification (SRS) is a subset of the Volere
+This document describes the requirements for Spann.  The template for the
+Software Requirements Specification (SRS) is a subset of the Volere
 template~\citep{RobertsonAndRobertson2012}.  If you make further modifications
-to the template, you should explicity state what modifications were made.
+to the template, you should explicitly state what modifications were made.
 
 \section{Project Drivers}
 
   \subsection{The Purpose of the Project}
   The purpose of the project is to develop a web browser based Python IDE
   application. The application will provide an environment similar to desktop
-  based integrated development environments but with the convenience of a
-  seamless experience regardless of their operating system or hardware platform
-  with the only requirements for the user is a modern web browser.
+  based integrated development environments, but with the convenience of a
+	seamless experience regardless of their operating system and hardware
+	platform.
 
   \subsection{The Stakeholders}
 
@@ -68,37 +68,55 @@ to the template, you should explicity state what modifications were made.
 
     \subsubsection{The Customers}
     The customers of the application will be python developers looking for a
-    continent platform that allows them to develop from almost anywhere, on
-    almost anything with a internet connection.
+    convenient platform that allows them to develop from almost anywhere, on
+    almost anything, as long as they have an internet connection.
 
     \subsubsection{Other Stakeholders}
+		Other stakeholders include students and teachers looking for a platform to
+		learn and teach fundamentals of programming without the trouble of setting
+		up a programming environment by themselves.
 
   \subsection{Mandated Constraints}
   The project needs to run on software and hardware that McMaster University
-  has and has the licenses for.
+  has accesses to and has the licenses for.
 
   \subsection{Naming Conventions and Terminology}
+	The following terms may be used throughout this document:
+
+	\begin{description}
+		\item [Us/We] The members of the group who are developing this project.
+		\item [Libre] Free and Open Source Software. Specifically, free in terms of
+			freedom as appose to price; thus freedom to modify, view and possibly
+			redistribute the software.
+		\item [Application] The Spann Online IDE application.
+		\item [SaaS (Software as a Service] A model of computation in which a piece
+			of software if provided to the user as a service rather than a product.
+		\item [Virtualization] A method of computation in which a software utility
+			isolates a part of the computational space from the rest of the system to
+			increase modularity and security of the system as a whole.
+	\end{description}
 
   \subsection{Relevant Facts and Assumptions}
   The application will assume the user has a modern, HTML5 compatible browser
   that has JavaScript enabled. The application will be tested to ensure it is
-  functional on the major modern browsers(insert reference to list of browsers
-  in appendix here).
-
-  User characteristics should go under assumptions.
+	functional on the major modern browsers (see appendix).
 
 \section{Functional Requirements}
 
   \subsection{The Scope of the Work and the Product}
 
     \subsubsection{The Context of the Work}
+		The work will be mainly software design, implementation using the chosen
+		programming languages and testing to ensure the application works as
+		specified.
 
     \subsubsection{Work Partitioning}
-    In general the split of work is approximately equal in client and server 
-    side code. The difference in who is responsible for the underlining architecture 
-    development and who is responsible for the application specific development. In 
-    general the underlining setup and architecture development is handled by 
-    Christopher Stokes and the application specific development by Varun Hooda.
+		In general the split of work is approximately equal in client and server
+		side code. The difference in who is responsible for the underlining
+		architecture development and who is responsible for the application
+		specific development. In general the underlining setup and architecture
+		development is handled by Christopher Stokes and the application specific
+		development by Varun Hooda.
 
     \textbf{Christopher Stokes:}
     \begin{itemize}
@@ -121,58 +139,71 @@ to the template, you should explicity state what modifications were made.
     \end{itemize}
 
     \subsubsection{Individual Product Use Cases}
-    \textbf{Algorithm Testing:} A main use case of this project is to be able 
-    to design individual parts of larger projects or algorithms without it 
-    interacting with the larger project. Because of how quick this project is 
-    a creating  projects it makes it incredibly easy to test small sections of 
-    code during development. This can be done in a project or in the console. 
-    \newline\newline
-    \textbf{Full Project Development:} This project can be used to develop 
-    full projects with virtual know limitations on what can be supported. 
-    There are a number of reason this would be done, such as it means the 
-    developer does not need to create a local environment and is able to 
-    develop on any deceive with access to the web.
+		\textbf{Algorithm Testing:} A main use case of this project is to be able
+		to design individual parts of larger projects or algorithms without it
+		interacting with the larger project. Because of how quick this project is a
+		creating  projects it makes it incredibly easy to test small sections of
+		code during development. This can be done in a project or in the console.
+		\newline\newline
+		\textbf{Full Project Development:} This project can be used to develop full
+		projects with virtual know limitations on what can be supported.  There are
+		a number of reason this would be done, such as it means the developer does
+		not need to create a local environment and is able to develop on any
+		deceive with access to the web.
 
   \subsection{Functional Requirements}
+	%TODO
 
 \section{Non-functional Requirements}
 
   \subsection{Look and Feel Requirements}
-  This application needs to maintain a unified enterprise look and feel. A
-   major goal of this application is to increase development speed, this 
-   means it is incredibly important that the user experience is clean. To 
-   achieve this, options such as save, properties, and right-click must be 
-   constant throughout the application. As a target, this application must 
-   respond and feel like a desktop application while running in browser 
-   meaning all actions that one would expect to work in a desktop IDE such
-    as Eclipse must work in browser.
+	This application needs to maintain a unified enterprise look and feel. A
+	major goal of this application is to increase development speed, this means
+	it is incredibly important that the user experience is clean. To achieve
+	this, options such as save, properties, and right-click must be constant
+	throughout the application. As a target, this application must respond and
+	feel like a desktop application while running in browser meaning all actions
+	that one would expect to work in a desktop IDE such as Eclipse must work in
+	browser.
 
   \subsection{Usability and Humanity Requirements}
-    Users of this project are generically of a technical background and the 
-    nature of the work  is technical. This means the product is able to be 
-    designed in a more technical nature but it is still import that the 
-    product is usable by ensure a consistent design and button location across 
-    all screens.
+		Users of this project are generically of a technical background and the
+		nature of the work  is technical. This means the product is able to be
+		designed in a more technical nature but it is still import that the product
+		is usable by ensure a consistent design and button location across all
+		screens.
 
   \subsection{Performance Requirements}
     \subsubsection{Client}
-    The client side UI must be quick and responsive as well as not using a 
-    lot of resources as it runs in the browser. It is most important that the 
-    application can run asynchronously at all times to not lock up the browser.
-    
+		The client side UI must be quick and responsive as well as not using a lot
+		of resources as it runs in the browser. It is most important that the
+		application can run asynchronously at all times to not lock up the browser.
+
     \subsubsection{Server}
-    For the server it is very important that it is fast and is able to handle 
-    a lot of requests. It also needs to run its processes in a proper 
-    asynchronous manner as the processes are long running.
+		For the server it is very important that it is fast and is able to handle a
+		lot of requests. It also needs to run its processes in a proper
+		asynchronous manner as the processes are long running.
 
   \subsection{Operational and Environmental Requirements}
+	The environmental impact of an engineering project should always go under
+	considering when designing and implementing a project. For this project we
+	aim to reduce the environmental impact of this project by as much as
+	possible. This means the application will have to meet a number of
+	operational requirements,
+  \begin{description}
+		\item [Power Usage] The application needs to be energy efficient during
+			operation. This application needs to reduce power usage wherever possible
+			using optimization techniques and efficient algorithms.
+		\item [Hardware] The application needs to be able to perform on energy
+			efficient (possibly low power) hardware.
+  \end{description}
 
   \subsection{Maintainability and Support Requirements}
-  It is highly important that the source for this project is maintainable as 
-  the features of the IDE will grow as more advanced tools are added to 
-  encompass or use cases and parts of the development processes. Furthermore 
-  web APIs and support changes incredibly fast so it is important that the code
-   stays up to date to support the best technology.
+	It is highly important that the source for this project is maintainable as
+	the features of the IDE will grow as more advanced tools are added to
+	encompass or use cases and parts of the development processes. Furthermore
+	web APIs and support changes incredibly fast so it is important that the code
+	stays up to date to support the best technologies.
 
   \subsection{Security Requirements}
   This application should provide a secure platform and carry out its
@@ -190,44 +221,75 @@ to the template, you should explicity state what modifications were made.
   \end{itemize}
 
   \subsection{Cultural Requirements}
-<<<<<<< Updated upstream
-  {\huge ???????}
-=======
-  \Huge ???????
->>>>>>> Stashed changes
   The project may need to be translated or support translation if a significant
   number of users' primary language is not English.
 
   \subsection{Legal Requirements}
+	The project needs to abide by all international and domestic laws, as well as
+	all of McMaster University's Policies, Procedures and Guidelines. Depending
+	on the license under which this project is released we may also need to
+	consider other legal obligations (this is will made clear once a license has
+	been chosen).
 
   \subsection{Health and Safety Requirements}
-<<<<<<< Updated upstream
-  {\huge ????????}
-=======
-  \Huge ????????
->>>>>>> Stashed changes
+	The project will attempt to be as ergonomic and health conscious as possible.
+	Thus the following will be incorporated into the project:
+	\begin{description}
+		\item [Night Mode] Allow the user to adjust the applications color scheme
+			so it is less stressful on the eyes and easier to view during different
+			lighting conditions.
+		\item [Minimal User Interface] Allow the user to do as much as possible
+			using as little work (clicking, navigating the UI, scrolling) as
+			possible.
+	\end{description}
 
-  This section is not in the original Volere template, but health and safety are
-  issues that should be considered for every engineering project.
+	This section is not in the original Volere template, but health and safety
+	are issues that should be considered for every engineering project.
 
 \section{Project Issues}
 
   \subsection{Open Issues}
+	The primary issue we mean to address with the product is the lack of online
+	fully functional IDE application for the Python programming language. This
+	application should be accessible through a modern web browser and be
+	presented to the user through the SaaS (Software as a Service) model.
 
   \subsection{Off-the-Shelf Solutions}
   The are various off-the-shelf solutions available for writing and running
   code on the web browser, but these solutions have little to no support for
   the python programming language besides being able to provide simple code
   completion and ability to execute the code. Thus, for this project, we're
-  aiming to both support execution of python, code completion and add IDE-like,
-  developer friendly features ({\Huge fill in some IDE-like features we'll
-  have})
+	aiming to both support execution of python code, code completion and add
+	IDE-like, developer friendly features (refactoring support and file
+	management).
 
   \subsection{New Problems}
+	The follow new problems have arose during the design and development of this
+	project,
+	\begin{itemize}
+		\item Handling python code execution in a secure manner to avoid security
+			implication that are present in execution of unknown code.
+		\item Maintaining compatibility between multiple browsers and their
+			individual web technology implementations.
+	\end{itemize}
 
   \subsection{Tasks}
+	The tasks for this project are as follows,
+	\begin{itemize}
+		\item Design the server and the front end
+		\item Design the database schema
+		\item Begin implementing the front end
+		\item Begin implementing the database
+		\item Begin implementing the server
+		\item Integrate the front end and server (networking)
+		\item Test the system, ensure functionality and security
+	\end{itemize}
 
   \subsection{Migration to the New Product}
+	The process of migrating to the new product will not require the user to go
+	through any complicated procedure. The process will be signing up for the new
+	application, copying the code from the old product or writing new code on the
+	new application.
 
   \subsection{Risks}
   One inherent risk with allowing users to execute code on your servers is the
@@ -238,18 +300,44 @@ to the template, you should explicity state what modifications were made.
   stack.
 
   \subsection{Costs}
-  The project will be mainly using free and open source (libre) software that
+  The project will be mainly using libre software that
   is available without costs, as well as non-libre software this is available
   to us without cost. If the platform is to be scaled for public usage, the
   project will need to be hosted on some server (or multiple server depending
-  on user adoption) which would have a regular cost.
+  on rate of user adoption) which would have an monetary cost.
 
   \subsection{User Documentation and Training}
-  The project will be fully documented, including design documents, testing documents, well commented code..................
+	The project will be fully documented, including design documents, testing
+	documents, well commented code. The documentation will also include resources
+	for new users -- tutorials, guides and user manual. This level of
+	documentation should hopefully provide users (as well as developers) enough
+	material to user (and perhaps contribute to) the application.
 
   \subsection{Waiting Room}
+	The list of potential features we hope to implement in the future is,
+	\begin{itemize}
+		\item Moving the application platform from dedicated hardware to a online
+			dynamic hosting provider to allow the application to scale to a large
+			number of concurrent users.
+		\item Support for other languages besides python
+		\item Support for large, multi-team, distributed projects
+	\end{itemize}
+	%TODO future functionality
 
   \subsection{Ideas for Solutions}
+	The project members will continue to develop new solutions to the issues
+	presented in this section. Some of the potential solutions are,
+	\begin{description}
+		\item [Secure code execution] Using a virtualization software, the code can
+			be executed in a secure manner in an isolated environment on the same
+			hardware as the application server.
+		\item [Reducing power usage] Using a online dynamic hosting service (such
+			as Amazon Web Services) we can ensure our application does not require
+			dedicated, fixed hardware. This method allows the application to
+			dynamically allocate computational resources based on current usage
+			levels, thus reducing redundant, unused computational power and reducing
+			power consumption.
+	\end{description}
 
 \bibliographystyle{plainnat}
 
@@ -259,8 +347,12 @@ to the template, you should explicity state what modifications were made.
 
 \section{Appendix}
 
-This section has been added to the Volere template.  This is where you can
-place additional information.
+\subsection{Supported Web Browsers}
+\begin{itemize}
+	\item Mozilla Firefox
+	\item Google Chrome
+	\item Microsoft Edge
+\end{itemize}
 
 \subsection{Symbolic Parameters}
 
