@@ -8,10 +8,32 @@ using System.Threading.Tasks;
 
 namespace Spann.Core.DataAccess.MetaDataModels
 {
-    class TableDataMap
+    public class Connection
+    {
+        public string SchemaName { get; private set; }
+        public string TableName { get; private set; }
+        public Type DataType { get; private set; }
+        public string ParentID { get; private set; }
+        public string ChildID { get; private set; }
+
+        public PropertyInfo Property { get; private set; }
+
+        public Connection(ConnectionAttribute connection, MapAttribute map, PropertyInfo prop)
+        {
+            this.SchemaName = connection.SchemaName;
+            this.TableName = connection.TableName;
+            this.DataType = connection.DataType;
+            this.ParentID = map.CurrentID;
+            this.ChildID = map.ConnectionID;
+            this.Property = prop;
+        }
+    }
+    public class TableDataMap
     {
         #region Private Fields
         private readonly Dictionary<IColumnItem, PropertyInfo> tableData;
+
+        private readonly Dictionary<Type, Connection> connectionData;
         #endregion
 
         public TableDataMap(Type t)
@@ -28,6 +50,23 @@ namespace Spann.Core.DataAccess.MetaDataModels
                     {
                         result.Add((IColumnItem)prop.GetCustomAttribute(typeof(IDColumnAttribute)), prop);
                     }
+                    return result;
+                });
+
+            var connections = t.GetCustomAttributes(typeof(ConnectionAttribute))
+               .Aggregate(new Dictionary<Type, ConnectionAttribute>(), (result, item) =>
+               {
+                   var connection = item as ConnectionAttribute;
+                   result[connection.DataType] = connection;
+                   return result;
+               });
+
+            connectionData = t.GetRuntimeProperties()
+                .Where(p => Attribute.IsDefined(p, typeof(MapAttribute)))
+                .Aggregate(new Dictionary<Type, Connection>(), (result, prop) =>
+                {
+                    var map = prop.GetCustomAttribute(typeof(MapAttribute)) as MapAttribute;
+                    result[map.DataType] = new Connection(connections[map.DataType], map, prop);
                     return result;
                 });
         }
@@ -84,6 +123,46 @@ namespace Spann.Core.DataAccess.MetaDataModels
                 return tableData.Where(entry => entry.Key is IDColumnAttribute)
                 .Select(entry => new KeyValuePair<IDColumnAttribute, PropertyInfo>((IDColumnAttribute)entry.Key, entry.Value))
                 .AsEnumerable();
+            }
+        }
+
+        public bool HasConnections
+        {
+            get
+            {
+                return connectionData.Count > 0;
+            }
+        }
+
+        public List<IDataModel> ConnectionValue(Type t, Object obj)
+        {
+            IList data = connectionData[t].Property.GetValue(obj) as IList; // Get the value from prop
+            List<IDataModel> list = new List<IDataModel>();
+            foreach (var item in data)
+            {
+                list.Add(item as IDataModel);
+            }
+            return list;
+        }
+
+        public Connection Connection(Type t)
+        {
+            return connectionData[t];
+        }
+
+        public List<Connection> Connections
+        {
+            get
+            {
+                return connectionData.Values.ToList();
+            }
+        }
+
+        public List<Type> ConnectionTypes
+        {
+            get
+            {
+                return connectionData.Keys.ToList();
             }
         }
 

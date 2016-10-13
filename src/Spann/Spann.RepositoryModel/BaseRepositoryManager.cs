@@ -8,11 +8,12 @@ using System.Linq.Expressions;
 using Spann.Core.DataAccess;
 using Ament.Core.DomainModel;
 using System.Runtime.Remoting.Messaging;
+using System.Reflection;
 
 namespace Spann.RepositoryModel
 {
     public class BaseRepositoryManager<DMSource> : IRepositoryManager<BaseRepositoryManager<DMSource>, DMSource> 
-        where DMSource : IDataModel<DMSource>, new()
+        where DMSource : AbstractDataModel<DMSource>, IDataModel, new()
     {
         #region Public Field(s).
         public delegate void ChangeListener();
@@ -46,7 +47,23 @@ namespace Spann.RepositoryModel
         public void Add(DMSource model)
         {
             models.Add(model);
-            DC.Accessor<DMSource>().CreateObject(model);
+            var a = DC.Accessor<DMSource>();
+            a.CreateObject(model);
+            if (a.DATA_MAP.HasConnections)
+            {
+                a.DATA_MAP.ConnectionTypes.ForEach(t =>
+                {
+                    foreach(IDataModel item in a.DATA_MAP.ConnectionValue(t, model))
+                    {
+                        Type managerType = RC.GetManagerType(t);
+                        var method = managerType.GetRuntimeMethod("Add", new Type[] { t });
+                        // Run add on connection.
+                        method.Invoke(RC.GetManager(t), new IDataModel[] { item });
+                        a.CreateConnection(model, a.DATA_MAP.Connection(t), item.ID);
+                    }
+                });
+            }
+            a.Dispose();
             NotifyChangeListeners();
         }
 
@@ -55,56 +72,56 @@ namespace Spann.RepositoryModel
             var result = models.Find(msg => filter.Compile()(msg));
             if (result == null)
             {
-                result = DC.Accessor<DMSource>().LoadAll(filter).First();
+                var a = DC.Accessor<DMSource>();
+                result = a.LoadAll(filter).First();
                 if (result != null)
                 {
                     models.Add(result);
                 }
+                a.Dispose();
             }
             return result;
         }
 
         public List<DMSource> GetAll()
         {
-            var result = DC.Accessor<DMSource>().LoadAll();
+            var a = DC.Accessor<DMSource>();
+            var result = a.LoadAll();
             if (result != null)
             {
                 models.AddRange(result);
             }
+            a.Dispose();
             return result;
         }
 
         public List<DMSource> GetAll(Expression<Func<DMSource, bool>> filter)
         {
-            var result = DC.Accessor<DMSource>().LoadAll(filter);
+            var a = DC.Accessor<DMSource>();
+            var result = a.LoadAll(filter);
             if (result != null)
             {
                 models.AddRange(result);
             }
+            a.Dispose();
             return result;
         }
 
         public void Delete(int id)
         {
             models.RemoveAll(source => source.ID == id);
-            DC.Accessor<DMSource>().DeleteObject(id);
+            var a = DC.Accessor<DMSource>();
+            a.DeleteObject(id);
+            a.Dispose();
             NotifyChangeListeners();
         }
 
         public void Update(DMSource model)
         {
-            //int index = 0;
-            //while(index > -1)
-            //{
-            //    index = models.FindIndex(index, source => source.ID == model.ID);
-            //    if(index > -1)
-            //    {
-            //        models.RemoveAt(index);
-            //        models.Insert(index, model);
-            //    }
-            //}
             var items = models.Where(source => source.ID == model.ID);
-            DC.Accessor<DMSource>().UpdateObject(model);
+            var a = DC.Accessor<DMSource>();
+            a.UpdateObject(model);
+            a.Dispose();
             NotifyChangeListeners();
         }
         #endregion

@@ -11,9 +11,11 @@ namespace Spann.Core.DataAccess
     /// Interface for all Repository Models.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class IDataModel<T> where T : new()
+    public interface IDataModel
     {
-        [JsonProperty(PropertyName = "identity")]
-        public abstract int ID { get; set; }
+        int ID { get; set; }
+
+        List<int> GetConnection(Type t);
+        void AddConnection(Type t, int id);
     }
 }

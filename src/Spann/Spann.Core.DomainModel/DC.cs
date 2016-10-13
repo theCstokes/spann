@@ -9,7 +9,7 @@ namespace Ament.Core.DomainModel
 {
     public class DC
     {
-        public static DataAccessor<TSource> Accessor<TSource>() where TSource : IDataModel<TSource>, new()
+        public static DataAccessor<TSource> Accessor<TSource>() where TSource : AbstractDataModel<TSource>, IDataModel, new()
         {
             return new DataAccessor<TSource>();
         }

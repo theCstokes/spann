@@ -28,6 +28,14 @@ namespace Spann.Controllers
         }
 
         [HttpPost]
+        [Route("Python/Project")]
+        public IHttpActionResult CreateProject([FromBody] PythonProjectDM project)
+        {
+            RC.PythonProjectManager.Add(project);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
+        }
+
+        [HttpPost]
         [Route("Python/Run")]
         public IHttpActionResult RunFile([FromBody] PythonFileDM file)
         {
