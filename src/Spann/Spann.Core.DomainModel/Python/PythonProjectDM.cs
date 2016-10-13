@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Spann.Core.DomainModel.Python
 {
-    [TableItem("public", "PythonFile")]
-    public class PythonFileDM : AbstractDataModel<PythonFileDM>, IDataModel
+    [TableItem("public", "PythonProject")]
+    [Connection(typeof(PythonFileDM), "public", "PythonFileProjectConnector")]
+    public class PythonProjectDM : AbstractDataModel<PythonProjectDM>, IDataModel
     {
         #region Public Constructor(s).
-        public PythonFileDM()
+        public PythonProjectDM()
         {
 
         }
@@ -22,11 +23,11 @@ namespace Spann.Core.DomainModel.Python
         [IDColumn]
         public override int ID { get; set; }
 
-        [DataColumn("SourceCode")]
-        public string SourceCode { get; set; }
-
         [DataColumn("Name")]
         public string Name { get; set; }
+
+        [Map(typeof(PythonFileDM), "ProjectID", "FileID")]
+        public List<PythonFileDM> Files { get; set; }
         #endregion
     }
 }

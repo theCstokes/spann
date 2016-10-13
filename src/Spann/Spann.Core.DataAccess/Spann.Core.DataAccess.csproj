@@ -49,12 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractDataModel.cs" />
     <Compile Include="DataAccessor.cs" />
     <Compile Include="DataBase\AmentServer.cs" />
     <Compile Include="DataBase\ConnectionData.cs" />
     <Compile Include="DataBase\DB.cs" />
     <Compile Include="IDataAccessModel.cs" />
     <Compile Include="IDataModel.cs" />
+    <Compile Include="MetaDataModels\MapAttribute.cs" />
+    <Compile Include="MetaDataModels\ConnectionAttribute.cs" />
     <Compile Include="MetaDataModels\DataColumnAttribute.cs" />
     <Compile Include="MetaDataModels\IColumnItem.cs" />
     <Compile Include="MetaDataModels\IDColumnAttribute.cs" />

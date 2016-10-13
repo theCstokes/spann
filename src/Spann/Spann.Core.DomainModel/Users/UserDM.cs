@@ -8,7 +8,7 @@ using System.Web;
 namespace Spann.DomainModel.Users
 {
     [TableItem("public", "User")]
-    public class UserDM : IDataModel<UserDM>
+    public class UserDM : AbstractDataModel<UserDM>, IDataModel
     {
         [DataColumn("Name")]
         public string Name { get; set; }
