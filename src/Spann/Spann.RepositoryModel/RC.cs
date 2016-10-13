@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Spann.RepositoryModel.Python;
+using Spann.Core.DomainModel.Python;
 
 namespace Spann.RepositoryModel
 {
@@ -16,9 +17,36 @@ namespace Spann.RepositoryModel
     /// </summary>
     public class RC
     {
-        //public static MessageRManager MessageList = new MessageRManager();
-        public static BaseRepositoryManager<MessageDM> MessageManager = new BaseRepositoryManager<MessageDM>();
-        public static BaseRepositoryManager<UserDM> UserManager = new BaseRepositoryManager<UserDM>();
-        public static PythonFileRepositoryManager PythonFileManager = new PythonFileRepositoryManager();
+        private static Dictionary<Type, object> ManagerMap = new Dictionary<Type, object>();
+        private static Dictionary<Type, Type> TypeMap = new Dictionary<Type, Type>();
+
+        public static BaseRepositoryManager<MessageDM> MessageManager = 
+            Register(typeof(MessageDM), new BaseRepositoryManager<MessageDM>());
+
+        public static BaseRepositoryManager<UserDM> UserManager =
+            Register(typeof(UserDM), new BaseRepositoryManager<UserDM>());
+
+        public static BaseRepositoryManager<PythonFileDM> PythonFileManager =
+            Register(typeof(PythonFileDM), new BaseRepositoryManager<PythonFileDM>());
+
+        public static BaseRepositoryManager<PythonProjectDM> PythonProjectManager =
+            Register(typeof(PythonProjectDM), new BaseRepositoryManager<PythonProjectDM>());
+
+        private static TSource Register<TSource>(Type t, TSource value)
+        {
+            ManagerMap[t] = value;
+            TypeMap[t] = value.GetType();
+            return value;
+        }
+
+        public static object GetManager(Type t)
+        {
+            return ManagerMap[t];
+        }
+
+        public static Type GetManagerType(Type t)
+        {
+            return TypeMap[t];
+        }
     }
 }

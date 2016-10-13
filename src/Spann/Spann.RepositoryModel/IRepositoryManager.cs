@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Spann.RepositoryModel
 {
     interface IRepositoryManager<TSource, ModelSource> where TSource : new()
-        where ModelSource : IDataModel<ModelSource>, new()
+        where ModelSource : AbstractDataModel<ModelSource>, IDataModel, new()
     {
 
         void Add(ModelSource model);
