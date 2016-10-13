@@ -33,7 +33,6 @@ namespace Spann.Core.DataAccess.DataBase
 
         public NpgsqlCommand GetCommand(string cmdString)
         {
-            Connection.Open();
             return new NpgsqlCommand(cmdString, Connection);
         }
     }

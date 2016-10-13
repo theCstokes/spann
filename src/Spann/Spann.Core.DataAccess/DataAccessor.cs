@@ -12,12 +12,12 @@ using Npgsql;
 
 namespace Spann.Core.DataAccess
 {
-    public class DataAccessor<DMSource> : IDataAccessModel<DMSource> where DMSource : IDataModel<DMSource>, new()
+    public class DataAccessor<DMSource> : IDataAccessModel<DMSource> where DMSource : AbstractDataModel<DMSource>, IDataModel, new()
     {
         private readonly TableItemAttribute TABLE;
         private readonly DataColumnAttribute[] COLUMNS;
 
-        private readonly TableDataMap DATA_MAP;
+        public readonly TableDataMap DATA_MAP;
         private DB db;
 
         public DataAccessor()
@@ -26,6 +26,12 @@ namespace Spann.Core.DataAccess
             COLUMNS = GetAllItems<DataColumnAttribute>(typeof(DMSource));
             DATA_MAP = new TableDataMap(typeof(DMSource));
             db = new DB();
+            db.Connect();
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
         }
 
         public void CreateObject(DMSource DataObject)
@@ -37,8 +43,7 @@ namespace Spann.Core.DataAccess
                 query.AddPropertyValue(entry.Key.ColumnName, entry.Value.GetValue(DataObject));
             }
 
-            using (var cmd = db.GetCommand(query.Build()))
-            {
+            var cmd = db.GetCommand(query.Build());
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -47,8 +52,24 @@ namespace Spann.Core.DataAccess
                         return;
                     }
                 }
-            }
-            db.Dispose();
+        }
+
+        public void CreateConnection(DMSource DataObject, Connection connection, int id)
+        {
+            CreateQuery query = new CreateQuery(connection.SchemaName, connection.TableName);
+
+            query.AddPropertyValue(connection.ParentID, DataObject.ID);
+            query.AddPropertyValue(connection.ChildID, id);
+
+            var cmd = db.GetCommand(query.Build());
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        DataObject.AddConnection(connection.DataType, Convert.ToInt32(reader.GetString(0)));
+                        return;
+                    }
+                }
         }
 
         public void UpdateObject(DMSource DataObject)
@@ -64,12 +85,9 @@ namespace Spann.Core.DataAccess
                     query.AddPropertyValue(entry.Key.ColumnName, value);
                 }
             }
-      
-            using (var cmd = db.GetCommand(query.Build()))
-            {
+
+            var cmd = db.GetCommand(query.Build());
                 cmd.ExecuteNonQuery();
-            }
-            db.Dispose();
         }
 
         public void DeleteObject(int id)
@@ -77,11 +95,17 @@ namespace Spann.Core.DataAccess
             DeleteQuery query = QueryBuilder.Delete(TABLE);
             ((DeleteQuery)query).AddWhereFragment(id);
 
-            using(var cmd = db.GetCommand(query.Build()))
-            {
+            var cmd = db.GetCommand(query.Build());
                 cmd.ExecuteNonQuery();
-            }
-            db.Dispose();
+        }
+
+        public void DeleteConnection(int id, int connectionId)
+        {
+            DeleteQuery query = QueryBuilder.Delete(TABLE);
+            ((DeleteQuery)query).AddWhereFragment(id);
+
+            var cmd = db.GetCommand(query.Build());
+                cmd.ExecuteNonQuery();
         }
 
         public DMSource LoadObject(int targetId)
@@ -97,8 +121,7 @@ namespace Spann.Core.DataAccess
             }
 
             DMSource item = CreateNewItem();
-            using (var cmd = db.GetCommand(query.Build()))
-            {
+            var cmd = db.GetCommand(query.Build());
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -109,8 +132,6 @@ namespace Spann.Core.DataAccess
                         }
                     }
                 }
-            }
-            db.Dispose();
             return item;
         }
 
@@ -125,8 +146,7 @@ namespace Spann.Core.DataAccess
             }
 
             List<DMSource> items = new List<DMSource>();
-            using (var cmd = db.GetCommand(query.Build()))
-            {
+            var cmd = db.GetCommand(query.Build());
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -139,8 +159,6 @@ namespace Spann.Core.DataAccess
                         items.Add(item);
                     }
                 }
-            }
-            db.Dispose();
             return items;
         }
 
@@ -158,8 +176,7 @@ namespace Spann.Core.DataAccess
             query.AddWhereFragment(operation);
 
             List<DMSource> items = new List<DMSource>();
-            using (var cmd = db.GetCommand(query.Build()))
-            {
+            var cmd = db.GetCommand(query.Build());
                 using (var reader = cmd.ExecuteReader()) {
                     while (reader.Read())
                     {
@@ -171,8 +188,6 @@ namespace Spann.Core.DataAccess
                         items.Add(item);
                     }
                 }
-            }
-            db.Dispose();
             return items;
         }
 
@@ -184,6 +199,11 @@ namespace Spann.Core.DataAccess
         private static Q[] GetAllItems<Q>(Type t) where Q : Attribute
         {
             return (Q[])Attribute.GetCustomAttributes(t, typeof(Q));
+        }
+
+        private static void GetAllConnections(Type t)
+        {
+            var att = Attribute.GetCustomAttributes(t, typeof(ConnectionAttribute));
         }
 
         private void SetItem(string name, string value)

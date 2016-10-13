@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Spann.Core.DomainModel.Message
 {
     [TableItemAttribute("Messages", "User")]
-    public class MessageDM : IDataModel<MessageDM>
+    public class MessageDM : AbstractDataModel<MessageDM>, IDataModel
     {
         [DataColumnAttribute("Data")]
         public string Data { get; set; }
