@@ -66,7 +66,7 @@ namespace Spann.Core.DataAccess
                 {
                     while (reader.Read())
                     {
-                        DataObject.AddConnection(connection.DataType, Convert.ToInt32(reader.GetString(0)));
+                        DataObject.AddConnection(connection.DataType, id, Convert.ToInt32(reader.GetString(0)));
                         return;
                     }
                 }
@@ -102,7 +102,7 @@ namespace Spann.Core.DataAccess
             {
                 while (reader.Read())
                 {
-                    DataObject.AddConnection(connection.DataType, Convert.ToInt32(reader.GetString(0)));
+                    DataObject.AddConnection(connection.DataType, id, Convert.ToInt32(reader.GetString(0)));
                     return;
                 }
             }

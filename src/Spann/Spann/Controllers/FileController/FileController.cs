@@ -2,7 +2,6 @@
 using Spann.Core.DomainModel.Python;
 using Spann.Core.JsonTools;
 using Spann.Core.Requests.Patch;
-using Spann.DataTransferObjects;
 using Spann.DomainModel.Users;
 using Spann.Notifications;
 using Spann.PythonTools;
@@ -26,7 +25,7 @@ namespace Spann.Controllers
         [Route("File")]
         public IHttpActionResult CreateFile([FromBody] PythonFileDM file)
         {
-            RC.PythonFileManager.Add(file);
+            RC.PythonFileManager.Commit(CommitTypeEnum.ADD, file);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, file);
         }
 
@@ -34,7 +33,7 @@ namespace Spann.Controllers
         [Route("Python/Project")]
         public IHttpActionResult CreateProject([FromBody] PythonProjectDM project)
         {
-            RC.PythonProjectManager.Add(project);
+            RC.PythonProjectManager.Commit(CommitTypeEnum.ADD, project);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
         }
 
@@ -44,7 +43,7 @@ namespace Spann.Controllers
         {
             if(PatchTools.IsPatch<PythonProjectDM>(obj))
             {
-                RC.PythonProjectManager.Patch(obj);
+                RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, obj);
             } else
             {
                 /// TODO - return error
@@ -56,7 +55,7 @@ namespace Spann.Controllers
         [Route("Python/Run")]
         public IHttpActionResult RunFile([FromBody] PythonFileDM file)
         {
-            List<UserDM> users = RC.UserManager.GetAll();
+            List<UserDM> users = RC.UserManager.PullAll();
             return Ok(JsonUtils.SerializeObject(users));
         }
 
