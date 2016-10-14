@@ -90,6 +90,24 @@ namespace Spann.Core.DataAccess
                 cmd.ExecuteNonQuery();
         }
 
+        public void UpdateConnection(DMSource DataObject, Connection connection, int id)
+        {
+            CreateQuery query = new CreateQuery(connection.SchemaName, connection.TableName);
+
+            query.AddPropertyValue(connection.ParentID, DataObject.ID);
+            query.AddPropertyValue(connection.ChildID, id);
+
+            var cmd = db.GetCommand(query.Build());
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    DataObject.AddConnection(connection.DataType, Convert.ToInt32(reader.GetString(0)));
+                    return;
+                }
+            }
+        }
+
         public void DeleteObject(int id)
         {
             DeleteQuery query = QueryBuilder.Delete(TABLE);
@@ -99,7 +117,7 @@ namespace Spann.Core.DataAccess
                 cmd.ExecuteNonQuery();
         }
 
-        public void DeleteConnection(int id, int connectionId)
+        public void DeleteConnection(int id)
         {
             DeleteQuery query = QueryBuilder.Delete(TABLE);
             ((DeleteQuery)query).AddWhereFragment(id);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ament.Core.DomainModel
+namespace Spann.Core.DomainModel
 {
     public class DC
     {

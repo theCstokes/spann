@@ -129,8 +129,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="DetailAttribute.cs" />
     <Compile Include="Controllers\FileController\FileController.cs" />
     <Compile Include="Controllers\RequestExtensions.cs" />
+    <Compile Include="IPatchable.cs" />
+    <Compile Include="PythonFileDTO.cs" />
+    <Compile Include="PythonProjectDTO.cs" />
     <Compile Include="ResponseBuilders\Response.cs" />
     <Compile Include="ResponseBuilders\ResponseUtils.cs" />
     <Compile Include="Controllers\UserController\UserController.cs" />

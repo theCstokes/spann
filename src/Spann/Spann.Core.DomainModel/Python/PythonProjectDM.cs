@@ -1,4 +1,5 @@
-﻿using Spann.Core.DataAccess;
+﻿using Ament.Core.DomainModel.DomainModelTypes;
+using Spann.Core.DataAccess;
 using Spann.Core.DataAccess.MetaDataModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Spann.Core.DomainModel.Python
 {
     [TableItem("public", "PythonProject")]
     [Connection(typeof(PythonFileDM), "public", "PythonFileProjectConnector")]
-    public class PythonProjectDM : AbstractDataModel<PythonProjectDM>, IDataModel
+    public class PythonProjectDM : AbstractDataModel<PythonProjectDM>, IDataModel, IPatchable
     {
         #region Public Constructor(s).
         public PythonProjectDM()
@@ -28,6 +29,10 @@ namespace Spann.Core.DomainModel.Python
 
         [Map(typeof(PythonFileDM), "ProjectID", "FileID")]
         public List<PythonFileDM> Files { get; set; }
+
+        public string PatchType { get; set; }
+
+        public int PatchClientID { get; set; }
         #endregion
     }
 }
