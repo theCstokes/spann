@@ -5,7 +5,7 @@ define(function() {
     var actions = {};
     var saveRequest;
 
-    function initilize(data) {
+    function initialize(data) {
       original_state = trigger("action", {action: "resetSate", data: data});
     }
 
@@ -47,17 +47,22 @@ define(function() {
       value: trigger
     });
 
-    Object.defineProperty(screen, 'stateManager', {
-      get: function() {
-        return {
-          registerActions: registerActions,
-          getCurrentState: getCurrentState
+    function create(obj) {
+      obj.initialize = initialize;
+      obj.getCurrentState = getCurrentState;
+
+      Object.defineProperty(screen, 'stateManager', {
+        get: function() {
+          return obj;
         }
-      }
-    });
+      });
+
+      return obj;
+    }
 
     return {
-      initilize: initilize,
+      create: create,
+      initialize: initialize,
       registerActions: registerActions,
       registerSaveRequest: registerSaveRequest,
       getCurrentState: getCurrentState

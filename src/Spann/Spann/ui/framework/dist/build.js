@@ -60,6 +60,23 @@ function BaseExtension(parent, screen) {
     }
   });
 
+  object._private.visible = true;
+  Object.defineProperty(object.model, "visible", {
+    set: function(value) {
+      if(value !== object._private.visible) {
+        object._private.visible = value;
+        if(object._private.visible) {
+          object.component.removeClass("ui-invisible")
+        } else {
+          object.component.addClass("ui-invisible");
+        }
+      }
+    },
+    get: function() {
+      return object._private.data;
+    }
+  });
+
   Object.defineProperty(object.model, 'component', {
     set: function(value) {
       object.component = value;
@@ -1286,11 +1303,11 @@ function DockScreen(parent, screen) {
     }
   });
 
-  window.onclick = function(event) {
-    if (event.target === object.component) {
-        $ui.pop();
-    }
-  }
+  // window.onclick = function(event) {
+  //   if (event.target === object.component) {
+  //       $ui.pop();
+  //   }
+  // }
 
   return object;
 }
@@ -1399,7 +1416,7 @@ function Login(parent, screen) {
   credentials.addClass('credentials');
   object.addContainer(credentials);
 
-  Object.defineProperty(object.model, 'backgroudImage', {
+  Object.defineProperty(object.model, 'backgroundImage', {
     set: function (value) {
       if(object._private.backgroudImage !== value) {
         object._private.backgroudImage = value;
