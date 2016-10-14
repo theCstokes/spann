@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,35 +10,72 @@ namespace Spann.Core.DataAccess
 {
     public abstract class AbstractDataModel<T> where T : IDataModel, new()
     {
+        class ConnectionMap
+        {
+            Dictionary<int, int> connections;
+            public ConnectionMap()
+            {
+                connections = new Dictionary<int, int>();
+            }
+
+            public int this[int key]
+            {
+                get
+                {
+                    return connections[key];
+                }
+                set
+                {
+                    connections[key] = value;
+                }
+            }
+        }
+
         [JsonProperty(PropertyName = "identity")]
         public abstract int ID { get; set; }
 
-        private Dictionary<Type, List<int>> connectionSet;
+        private Dictionary<Type, ConnectionMap> createConnections;
 
         public AbstractDataModel()
         {
-            connectionSet = new Dictionary<Type, List<int>>();
+            createConnections = new Dictionary<Type, ConnectionMap>();
         }
 
-        public List<int> GetConnection(Type t)
+        public int GetConnectionID(Type t, int connectedItemID)
         {
-            return connectionSet[t];
+            return createConnections[t][connectedItemID];
         }
 
-        public void AddConnection(Type t, int id)
+        public void AddConnection(Type t, int connectedItemID, int connectionID)
         {
-            List<int> items = null;
-            if (connectionSet.Count > 0)
+            ConnectionMap items = null;
+            if (createConnections.Count > 0)
             {
-                items = connectionSet[t];
+                items = createConnections[t];
             }
             
             if(items == null)
             {
-                items = new List<int>();
-                connectionSet[t] = items;
+                items = new ConnectionMap();
+                createConnections[t] = items;
             }
-            items.Add(id);
+            items[connectedItemID] = connectionID;
         }
+
+        public IDictionary<string, JToken> AdditionalData
+        {
+            get
+            {
+                return _additionalData;
+            }
+
+            set
+            {
+                _additionalData = value;
+            }
+        }
+
+        [JsonExtensionData]
+        private IDictionary<string, JToken> _additionalData;
     }
 }
