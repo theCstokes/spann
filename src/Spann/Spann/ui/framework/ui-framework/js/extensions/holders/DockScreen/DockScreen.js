@@ -53,11 +53,11 @@ function DockScreen(parent, screen) {
     }
   });
 
-  window.onclick = function(event) {
-    if (event.target === object.component) {
-        $ui.pop();
-    }
-  }
+  // window.onclick = function(event) {
+  //   if (event.target === object.component) {
+  //       $ui.pop();
+  //   }
+  // }
 
   return object;
 }
