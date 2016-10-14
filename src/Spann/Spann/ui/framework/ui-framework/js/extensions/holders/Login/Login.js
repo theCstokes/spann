@@ -9,7 +9,7 @@ function Login(parent, screen) {
   credentials.addClass('credentials');
   object.addContainer(credentials);
 
-  Object.defineProperty(object.model, 'backgroudImage', {
+  Object.defineProperty(object.model, 'backgroundImage', {
     set: function (value) {
       if(object._private.backgroudImage !== value) {
         object._private.backgroudImage = value;
