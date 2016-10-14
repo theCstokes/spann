@@ -1,17 +1,27 @@
 define([
   'Login',
-  'App/screens/Login/StateManager'
-], function(Login, StateManager) {
-  return function() {
+  'App/screens/Login/StateManager',
+  'Encryption'
+], function (Login, StateManager, Encryption) {
+  return function () {
     var screen = new Login();
 
     screen.content = [
       {
         component: $ui.Input,
+        id: 'nameInput',
+        visible: false,
+        hint: "Name",
+        onChange: function (event) {
+          event.target.screen.trigger('action', { action: 'attributeChange', data: { name: event.target.model.value } });
+        }
+      },
+      {
+        component: $ui.Input,
         id: 'usernameInput',
         hint: "Username",
         onChange: function (event) {
-          event.target.screen.trigger('action', {action: 'attributeChange', data: {name: event.target.model.value}});
+          event.target.screen.trigger('action', { action: 'attributeChange', data: { username: event.target.model.value } });
         }
       },
       {
@@ -20,7 +30,7 @@ define([
         hint: "Password",
         type: 'password',
         onChange: function (event) {
-          event.target.screen.trigger('action', {action: 'attributeChange', data: {password: event.target.model.value}});
+          event.target.screen.trigger('action', { action: 'attributeChange', data: { password: event.target.model.value } });
         }
       },
       {
@@ -29,35 +39,72 @@ define([
           {
             component: $ui.Button,
             caption: "Login",
-            onClick: function(event) {
-              var current_state =  event.target.screen.stateManager.getCurrentState();
-              $data.send($data.SEND_TYPES.POST, {api: "User/Login"},
-              {
-                name: current_state.name,
-                password: current_state.password
-              }, function(response) {
-                if(response) {
-                  login();
-                } else {
-                  event.target.screen.trigger('action', {action: 'authorizationFail'});
+            id: "loginButton",
+            onClick: function (event) {
+              var current_state = event.target.screen.stateManager.getCurrentState();
+              // var saltyHash = Encryption.saltyHash(current_state.password);
+              $data.get({
+                api: "User"
+              }, {
+                  SearchHeader: {
+                    items: [
+                      {
+                        property: 'username',
+                        comparison: 'eq',
+                        value: current_state.username
+                      }
+                    ]
+                  }
+                }, function (items) {
+                  try {
+                    if (items !== undefined) {
+                      var user = items[0];
+                      var saltyHash = Encryption.rehash(current_state.password, user.salt);
+                      if (user.password === saltyHash.hash) {
+                        login();
+                      } else {
+                        event.target.screen.trigger('action', { action: 'authorizationFail' });
+                      }
+                    } else {
+                      event.target.screen.trigger('action', { action: 'authorizationFail' });
+                    }
+                  } catch (e) {
+                    event.target.screen.trigger('action', { action: 'authorizationFail' });
+                  }
                 }
+              );
+            }
+          },
+          {
+            component: $ui.Button,
+            caption: 'New',
+            id: "newUserButton",
+            onClick: function (event) {
+              event.target.screen.trigger('action', {
+                action: 'modeChange',
+                data: { mode: event.target.screen.stateManager.LoginModeEnum.CREATE }
               });
             }
           },
           {
             component: $ui.Button,
+            visible: false,
             caption: 'Create',
-            onClick: function(event) {
-              var current_state =  event.target.screen.stateManager.getCurrentState();
-              $data.send($data.SEND_TYPES.POST, {api: "User"},
-              {
-                name: current_state.name,
-                password: current_state.password
-              }, function(event) {
-                if(event) {
-                  login();
-                }
-              });
+            id: "createButton",
+            onClick: function (event) {
+              var current_state = event.target.screen.stateManager.getCurrentState();
+              var saltyHash = Encryption.saltyHash(current_state.password);
+              $data.send($data.SEND_TYPES.POST, { api: "User/Create" },
+                {
+                  name: current_state.name,
+                  username: current_state.username,
+                  salt: saltyHash.salt,
+                  password: saltyHash.hash
+                }, function (event) {
+                  if (event) {
+                    login();
+                  }
+                });
             }
           }
         ]
@@ -66,26 +113,40 @@ define([
 
     var manager = new StateManager(screen);
 
-    screen.show = function() {
+    screen.show = function () {
       console.log(this);
-      this.uiObject.model.backgroudImage = '/ui/application/resources/login3.jpg';
+      this.uiObject.model.backgroundImage = '/ui/application/resources/login3.jpg';
 
       var components = this.model;
 
-      screen.render = function(state) {
-        components.usernameInput.value = state.name;
+      screen.render = function (state) {
+        if (state.mode === manager.LoginModeEnum.LOGIN) {
+          components.nameInput.visible = false;
+          components.loginButton.visible = true;
+          components.newUserButton.visible = true;
+          components.createButton.visible = false;
+        } else if (state.mode === manager.LoginModeEnum.CREATE) {
+          components.nameInput.visible = true;
+          components.nameInput.value = state.name;
+          components.loginButton.visible = false;
+          components.newUserButton.visible = false;
+          components.createButton.visible = true;
+        }
+        components.usernameInput.value = state.username;
         components.passwordInput.value = state.password;
         components.usernameInput.error = state.usernameError;
         components.passwordInput.error = state.passwordError;
       }
-      manager.initilize();
+      manager.initialize();
+
+      screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
     }
 
     function login() {
       $ui.pop();
       requirejs([
         'App/mainFrame',
-        'App/screens/Home/homeScreen'], function(mainFrame, homeScreen) {
+        'App/screens/Home/homeScreen'], function (mainFrame, homeScreen) {
           $ui.frame = mainFrame;
           $ui.push(homeScreen);
         });
