@@ -129,8 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\PythonController\ProjectController.cs" />
     <Compile Include="DetailAttribute.cs" />
-    <Compile Include="Controllers\FileController\FileController.cs" />
+    <Compile Include="Controllers\PythonController\FileController.cs" />
     <Compile Include="Controllers\RequestExtensions.cs" />
     <Compile Include="ResponseBuilders\Response.cs" />
     <Compile Include="ResponseBuilders\ResponseUtils.cs" />
