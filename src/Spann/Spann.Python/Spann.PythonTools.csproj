@@ -72,10 +72,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NotificationStreamWriter.cs" />
+    <Compile Include="Console\NotificationStreamWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PyConsole.cs" />
-    <Compile Include="PyConsoleManager.cs" />
+    <Compile Include="Console\PyConsole.cs" />
+    <Compile Include="Console\PyConsoleManager.cs" />
+    <Compile Include="Runner\IPyLocation.cs" />
+    <Compile Include="Runner\PyFile.cs" />
+    <Compile Include="Runner\PyProject.cs" />
+    <Compile Include="Runner\PyRunner.cs" />
+    <Compile Include="Runner\PyServerManager.cs" />
+    <Compile Include="Runner\PyTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Lib\ensurepip\_bundled\pip-1.5.6-py2.py3-none-any.whl" />
@@ -592,6 +598,12 @@
     <Content Include="Lib\_weakrefset.py" />
     <Content Include="Lib\__future__.py" />
     <Content Include="Lib\__phello__.foo.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spann.Core.DomainModel\Spann.Core.DomainModel.csproj">
+      <Project>{46d54b35-d135-406e-af25-af9c0baea91e}</Project>
+      <Name>Spann.Core.DomainModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
