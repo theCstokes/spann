@@ -1,10 +1,10 @@
 define([
-  'Login',
+  'FullScreen',
   'App/screens/Login/StateManager',
   'Encryption'
-], function (Login, StateManager, Encryption) {
+], function (Screen, StateManager, Encryption) {
   return function () {
-    var screen = new Login();
+    var screen = new Screen();
 
     screen.content = [
       {
@@ -108,6 +108,18 @@ define([
             }
           }
         ]
+      },
+      {
+        component: $ui.Flow,
+        content: [
+          {
+            component: $ui.Button,
+            caption: 'Fiddle',
+            onClick: function (event) {
+              fiddle();
+            }
+          }
+        ]
       }
     ];
 
@@ -145,10 +157,20 @@ define([
     function login() {
       $ui.pop();
       requirejs([
-        'App/mainFrame',
+        'App/selectionFrame',
         'App/screens/Home/homeScreen'], function (mainFrame, homeScreen) {
           $ui.frame = mainFrame;
           $ui.push(homeScreen);
+        });
+    }
+
+    function fiddle() {
+      $ui.pop();
+      requirejs([
+        'App/fiddleFrame',
+        'App/screens/fiddle/screen_fiddle'], function (fiddleFrame, fiddleScreen) {
+          // $ui.frame = fiddleFrame;
+          $ui.push(fiddleScreen);
         });
     }
 
