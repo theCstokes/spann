@@ -126,6 +126,10 @@ body {
   left: 0;
   right: 0;
 }
+.ui-divider {
+  border-top: 1px solid #DCDCD9;
+  margin-left: 10px;
+}
 .ui-editor .input-editor {
   margin: 0;
   position: absolute;
