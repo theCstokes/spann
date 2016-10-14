@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using Spann.Core.DataAccess.Requests.Patch;
 using Spann.Core.DomainModel.Python;
-using Spann.Core.JsonTools;
-using Spann.Core.Requests.Patch;
-using Spann.DomainModel.Users;
-using Spann.Notifications;
-using Spann.PythonTools;
 using Spann.RepositoryModel;
 using Spann.ResponseBuilders;
 using System;

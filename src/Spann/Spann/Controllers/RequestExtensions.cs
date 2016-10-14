@@ -14,7 +14,7 @@ namespace Spann.Controllers
     {
         public static T RetrieveHeader<T> (this HttpRequestMessage Request) where T : ICustomHeaderType
         {
-            string name = ((HeaderType)typeof(T).GetCustomAttributes(typeof(HeaderType), false).First()).Name;
+            string name = ((HeaderTypeAttribute)typeof(T).GetCustomAttributes(typeof(HeaderTypeAttribute), false).First()).Name;
             var headers = Request.Headers;
             if (headers.Contains(name))
             {

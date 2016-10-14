@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Spann.Core.JsonTools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,8 +50,10 @@ namespace Spann.Core.DataAccess
         //[JsonExtensionData]
         //private IDictionary<string, JToken> _additionalData;
 
+        [InternalProperty]
         public string PatchType { get; set; }
 
+        [InternalProperty]
         public int? PatchClientID { get; set; }
 
         [JsonProperty(PropertyName = "identity")]

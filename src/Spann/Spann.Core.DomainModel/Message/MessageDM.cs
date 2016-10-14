@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace Spann.Core.DomainModel.Message
 {
-    [TableItemAttribute("Messages", "User")]
+    [TableItem("Messages", "User")]
     public class MessageDM : AbstractDataModel<MessageDM>, IDataModel
     {
-        [DataColumnAttribute("Data")]
+        [DataColumn("Data")]
         public string Data { get; set; }
 
-        [IDColumnAttribute]
+        [IDColumn]
         public override int ID { get; set; }
 
-        [DataColumnAttribute("SendingUserID")]
-        [IDColumnAttribute("SendingUserID", "SendingUserID")]
+        [DataColumn("SendingUserID")]
+        [IDColumn("SendingUserID", "SendingUserID")]
         public int SendingUserID { get; set; }
 
-        [DataColumnAttribute("ReceivingUserID")]
-        [IDColumnAttribute("ReceivingUserID", "ReceivingUserID")]
+        [DataColumn("ReceivingUserID")]
+        [IDColumn("ReceivingUserID", "ReceivingUserID")]
         public int ReceivingUserID { get; set; }
     }
 }
