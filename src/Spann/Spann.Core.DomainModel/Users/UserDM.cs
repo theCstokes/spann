@@ -19,6 +19,9 @@ namespace Spann.DomainModel.Users
         [DataColumn("Password")]
         public string Password { get; set; }
 
+        [DataColumn("Salt")]
+        public string Salt { get; set; }
+
         [IDColumn]
         public override int ID { get; set; }
     }
