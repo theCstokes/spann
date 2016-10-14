@@ -8,28 +8,50 @@ using System.Threading.Tasks;
 
 namespace Spann.Core.DataAccess
 {
-    public abstract class AbstractDataModel<T> where T : IDataModel, new()
+    class ConnectionMap
     {
-        class ConnectionMap
+        Dictionary<int, int> connections;
+        public ConnectionMap()
         {
-            Dictionary<int, int> connections;
-            public ConnectionMap()
-            {
-                connections = new Dictionary<int, int>();
-            }
+            connections = new Dictionary<int, int>();
+        }
 
-            public int this[int key]
+        public int this[int key]
+        {
+            get
             {
-                get
-                {
-                    return connections[key];
-                }
-                set
-                {
-                    connections[key] = value;
-                }
+                return connections[key];
+            }
+            set
+            {
+                connections[key] = value;
             }
         }
+    }
+
+    public abstract class AbstractDataModel<T> where T : IDataModel, new()
+    {
+
+        //public IDictionary<string, JToken> AdditionalData
+        //{
+        //    get
+        //    {
+        //        return _additionalData;
+        //    }
+
+        //    set
+        //    {
+        //        _additionalData = value;
+        //    }
+        //}
+
+        //[JsonIgnore]
+        //[JsonExtensionData]
+        //private IDictionary<string, JToken> _additionalData;
+
+        public string PatchType { get; set; }
+
+        public int? PatchClientID { get; set; }
 
         [JsonProperty(PropertyName = "identity")]
         public abstract int ID { get; set; }
@@ -61,21 +83,5 @@ namespace Spann.Core.DataAccess
             }
             items[connectedItemID] = connectionID;
         }
-
-        public IDictionary<string, JToken> AdditionalData
-        {
-            get
-            {
-                return _additionalData;
-            }
-
-            set
-            {
-                _additionalData = value;
-            }
-        }
-
-        [JsonExtensionData]
-        private IDictionary<string, JToken> _additionalData;
     }
 }
