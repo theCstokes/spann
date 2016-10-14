@@ -17,7 +17,7 @@ namespace Spann.Controllers
         [Route("User")]
         public IHttpActionResult GetAllUsers()
         {
-            List<UserDM> users = RC.UserManager.GetAll();
+            List<UserDM> users = RC.UserManager.PullAll();
             return Ok(JsonUtils.SerializeObject(users));
         }
     }

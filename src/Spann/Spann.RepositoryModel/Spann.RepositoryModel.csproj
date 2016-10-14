@@ -48,7 +48,6 @@
     <Compile Include="BaseRepositoryManager.cs" />
     <Compile Include="IRepositoryManager.cs" />
     <Compile Include="Message\MessageRManager.cs" />
-    <Compile Include="MixedHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Python\PythonFileRepositoryManager.cs" />
     <Compile Include="RC.cs" />

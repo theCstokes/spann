@@ -13,15 +13,12 @@ namespace Spann.Core.Requests.Patch
         private static readonly string PATCH_CLIENT_ID_KEY = "PatchClientID";
         public static bool IsPatch<TSource>(TSource obj) where TSource : IDataModel
         {
-            return obj.AdditionalData.Keys.Contains(PATCH_TYPE_KEY) && obj.AdditionalData.Keys.Contains(PATCH_CLIENT_ID_KEY);
+            return obj.PatchClientID != null && obj.PatchType != null;
         }
 
         public static PatchData GetPatchData<TSource>(TSource obj) where TSource : IDataModel
         {
-            string type = obj.AdditionalData[PATCH_TYPE_KEY].Value<string>(PATCH_TYPE_KEY);
-            int? id = obj.AdditionalData[PATCH_CLIENT_ID_KEY].Value<int?>(PATCH_CLIENT_ID_KEY);
-
-            return new PatchData(PatchTypeEnum.GetType(type), id);
+            return new PatchData(PatchTypeEnum.GetType(obj.PatchType), obj.PatchClientID);
         }
     }
 }

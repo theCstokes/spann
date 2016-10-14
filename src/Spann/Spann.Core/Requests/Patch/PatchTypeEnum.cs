@@ -23,7 +23,7 @@ namespace Spann.Core.Requests.Patch
 
         public static PatchTypeEnum GetType(string value)
         {
-            return Types.Values.First(type => type.Value == value);
+            return Types.Values.First(type => type.Value.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

@@ -13,6 +13,11 @@ using Spann.Core.DomainModel;
 
 namespace Spann.RepositoryModel
 {
+    public enum CommitTypeEnum
+    {
+        ADD, REMOVE, UPDATE, PATCH
+    }
+
     public class BaseRepositoryManager<DMSource> : IRepositoryManager<BaseRepositoryManager<DMSource>, DMSource> 
         where DMSource : AbstractDataModel<DMSource>, IDataModel, new()
     {
@@ -45,154 +50,121 @@ namespace Spann.RepositoryModel
             listeners.Remove(uid);
         }
 
-        public void Add(DMSource model)
+        private void Mixed(DMSource model)
         {
-            models.Add(model);
-            var a = DC.Accessor<DMSource>();
-            a.CreateObject(model);
-            if (a.DATA_MAP.HasConnections)
+            var accessor = DC.Accessor<DMSource>();
+            CommitActionMap.Run(accessor, model);
+        }
+
+        public void Commit(CommitTypeEnum commitType, DMSource model)
+        {
+            var accessor = DC.Accessor<DMSource>();
+            switch(commitType)
             {
-                a.DATA_MAP.ConnectionTypes.ForEach(t =>
-                {
-                    foreach(IDataModel item in a.DATA_MAP.ConnectionValue(t, model))
-                    {
-                        Type managerType = RC.GetManagerType(t);
-                        var method = managerType.GetRuntimeMethod("Add", new Type[] { t });
-                        // Run add on connection.
-                        method.Invoke(RC.GetManager(t), new IDataModel[] { item });
-                        a.CreateConnection(model, a.DATA_MAP.Connection(t), item.ID);
-                    }
-                });
+                case CommitTypeEnum.ADD:
+                    Add(accessor, model);
+                    break;
+                case CommitTypeEnum.REMOVE:
+                    Delete(accessor, model.ID);
+                    break;
+                case CommitTypeEnum.UPDATE:
+                    break;
+                case CommitTypeEnum.PATCH:
+                    CommitActionMap.Run(accessor, model);
+                    break;
+                default:
+                    break;
             }
-            a.Dispose();
+            accessor.Dispose();
             NotifyChangeListeners();
         }
 
-        public void Patch(DMSource model)
+        public DMSource Pull(Expression<Func<DMSource, bool>> filter)
         {
-            if(PatchTools.IsPatch(model))
-            {
-                var patchData = PatchTools.GetPatchData(model);
-                if(patchData.PatchType == PatchTypeEnum.CREATE)
-                {
-                    PatchCreate(model);
-                } else if (patchData.PatchType == PatchTypeEnum.UPDATE)
-                {
-
-                }
-                else if (patchData.PatchType == PatchTypeEnum.DELETE)
-                {
-
-                }
-                else
-                {
-
-                }
-            }
-
+            var accessor = DC.Accessor<DMSource>();
+            var result = Get(accessor, filter);
+            accessor.Dispose();
+            NotifyChangeListeners();
+            return result;
         }
 
-        private void PatchCreate(DMSource model)
+        public List<DMSource> PullAll()
         {
-            models.Add(model);
-            var a = DC.Accessor<DMSource>();
-            a.CreateObject(model);
-            if (a.DATA_MAP.HasConnections)
+            var accessor = DC.Accessor<DMSource>();
+            var result = GetAll(accessor);
+            accessor.Dispose();
+            NotifyChangeListeners();
+            return result;
+        }
+
+        public List<DMSource> PullAll(Expression<Func<DMSource, bool>> filter)
+        {
+            var accessor = DC.Accessor<DMSource>();
+            var result = GetAll(accessor, filter);
+            accessor.Dispose();
+            NotifyChangeListeners();
+            return result;
+        }
+
+        public void Add(DataAccessor<DMSource> accessor, DMSource model)
+        {
+            CommitActionMap.Create(accessor, model);
+            if (accessor.DATA_MAP.HasConnections)
             {
-                a.DATA_MAP.ConnectionTypes.ForEach(t =>
+                accessor.DATA_MAP.ConnectionTypes.ForEach(connectionType =>
                 {
-                    foreach (IDataModel item in a.DATA_MAP.ConnectionValue(t, model))
+                    foreach (IDataModel connectionModel in accessor.DATA_MAP.ConnectionValue(connectionType, model))
                     {
-                        Type managerType = RC.GetManagerType(t);
-                        var method = managerType.GetRuntimeMethod("Patch", new Type[] { t });
-                        // Run add on connection.
-                        method.Invoke(RC.GetManager(t), new object[] { item });
-
-                        var patchData = PatchTools.GetPatchData(item);
-                        if (patchData.PatchType == PatchTypeEnum.CREATE)
-                        {
-                            a.CreateConnection(model, a.DATA_MAP.Connection(t), item.ID);
-                        }
-                        else if (patchData.PatchType == PatchTypeEnum.UPDATE)
-                        {
-                            a.UpdateConnection(model, a.DATA_MAP.Connection(t), item.ID);
-                        }
-                        else if (patchData.PatchType == PatchTypeEnum.DELETE)
-                        {
-                            a.DeleteConnection(model.GetConnectionID(item.ID));
-                        }
-                        else
-                        {
-
-                        }
+                        CommitActionMap.CREATE.Action.Invoke(accessor, connectionType, model, connectionModel);
                     }
                 });
             }
-            a.Dispose();
-            NotifyChangeListeners();
         }
 
-        private bool IsPatch(DMSource model)
-        {
-            return model.AdditionalData.Keys.Contains("PatchClientID") && model.AdditionalData.Keys.Contains("PatchType");
-        }
-
-        public DMSource Get(Expression<Func<DMSource, bool>> filter)
+        public DMSource Get(DataAccessor<DMSource> accessor, Expression<Func<DMSource, bool>> filter)
         {
             var result = models.Find(msg => filter.Compile()(msg));
             if (result == null)
             {
-                var a = DC.Accessor<DMSource>();
-                result = a.LoadAll(filter).First();
+                result = accessor.LoadAll(filter).First();
                 if (result != null)
                 {
                     models.Add(result);
                 }
-                a.Dispose();
             }
             return result;
         }
 
-        public List<DMSource> GetAll()
+        public List<DMSource> GetAll(DataAccessor<DMSource> accessor)
         {
-            var a = DC.Accessor<DMSource>();
-            var result = a.LoadAll();
+            var result = accessor.LoadAll();
             if (result != null)
             {
                 models.AddRange(result);
             }
-            a.Dispose();
             return result;
         }
 
-        public List<DMSource> GetAll(Expression<Func<DMSource, bool>> filter)
+        public List<DMSource> GetAll(DataAccessor<DMSource> accessor, Expression<Func<DMSource, bool>> filter)
         {
-            var a = DC.Accessor<DMSource>();
-            var result = a.LoadAll(filter);
+            var result = accessor.LoadAll(filter);
             if (result != null)
             {
                 models.AddRange(result);
             }
-            a.Dispose();
             return result;
         }
 
-        public void Delete(int id)
+        public void Delete(DataAccessor<DMSource> accessor, int id)
         {
             models.RemoveAll(source => source.ID == id);
-            var a = DC.Accessor<DMSource>();
-            a.DeleteObject(id);
-            a.Dispose();
-            NotifyChangeListeners();
+            accessor.DeleteObject(id);
         }
 
-        public void Update(DMSource model)
+        public void Update(DataAccessor<DMSource> accessor, DMSource model)
         {
             var items = models.Where(source => source.ID == model.ID);
-            var a = DC.Accessor<DMSource>();
-            a.UpdateObject(model);
-            a.Dispose();
-            NotifyChangeListeners();
+            accessor.UpdateObject(model);
         }
         #endregion
 
@@ -212,5 +184,98 @@ namespace Spann.RepositoryModel
             }, null);
         }
         #endregion
+
+        class CommitActionMap
+        {
+            private static readonly string ACTION_NAME = "Commit";
+
+            public delegate void DataModelAction(DataAccessor<DMSource> accessor, Type t, DMSource model, IDataModel item);
+
+            private static Dictionary<int, CommitActionMap> Values = new Dictionary<int, CommitActionMap>();
+
+            public static CommitActionMap CREATE = new CommitActionMap(1, PatchTypeEnum.CREATE, (accessor, connectionType, model, connectionModel) =>
+            {
+                Type managerType = RC.GetManagerType(connectionType);
+                var method = GetMethod(managerType, connectionType);
+                method.Invoke(RC.GetManager(connectionType), new object[] { CommitTypeEnum.ADD, connectionModel });
+                accessor.CreateConnection(model, accessor.DATA_MAP.Connection(connectionType), connectionModel.ID);
+            });
+
+            public static CommitActionMap UPDATE = new CommitActionMap(2, PatchTypeEnum.UPDATE, (accessor, connectionType, model, connectionModel) =>
+            {
+                Type managerType = RC.GetManagerType(connectionType);
+                var method = GetMethod(managerType, connectionType);
+                method.Invoke(RC.GetManager(connectionType), new object[] { CommitTypeEnum.UPDATE, connectionModel });
+                accessor.UpdateConnection(model, accessor.DATA_MAP.Connection(connectionType), connectionModel.ID);
+            });
+
+            public static CommitActionMap DELETE = new CommitActionMap(3, PatchTypeEnum.DELETE, (accessor, connectionType, model, connectionModel) =>
+            {
+                Type managerType = RC.GetManagerType(connectionType);
+                var method = GetMethod(managerType, connectionType);
+                method.Invoke(RC.GetManager(connectionType), new object[] { CommitTypeEnum.REMOVE, connectionModel });
+                accessor.DeleteConnection(model.GetConnectionID(connectionType, connectionModel.ID));
+            });
+
+            private static MethodInfo GetMethod(Type managerType, Type modelType)
+            {
+                return managerType.GetRuntimeMethod(ACTION_NAME, new Type[] { typeof(CommitTypeEnum), modelType });
+            }
+
+            private PatchTypeEnum PatchType;
+            public DataModelAction Action { get; private set; }
+            private CommitActionMap(int key, PatchTypeEnum patchType, DataModelAction action)
+            {
+                this.PatchType = patchType;
+                this.Action = action;
+
+                // Register Commit Action.
+                Values[key] = this;
+            }
+
+            public static void Create(DataAccessor<DMSource> accessor, DMSource model)
+            {
+                accessor.CreateObject(model);
+            }
+
+            public static void Update(DataAccessor<DMSource> accessor, DMSource model)
+            {
+                accessor.UpdateObject(model);
+            }
+
+            public static void Delete(DataAccessor<DMSource> accessor, DMSource model)
+            {
+                accessor.DeleteObject(model.ID);
+            }
+
+            public static void Run(DataAccessor<DMSource> accessor, DMSource model)
+            {
+                var patchData = PatchTools.GetPatchData(model);
+                if(patchData.PatchType == PatchTypeEnum.CREATE)
+                {
+                    Create(accessor, model);
+                }
+                        else if (patchData.PatchType == PatchTypeEnum.UPDATE)
+                {
+                    Update(accessor, model);
+                }
+                else if (patchData.PatchType == PatchTypeEnum.DELETE)
+                {
+                    Delete(accessor, model);
+                }
+
+                accessor.DATA_MAP.ConnectionTypes.ForEach(connectionType =>
+                {
+                    foreach (IDataModel connectionModel in accessor.DATA_MAP.ConnectionValue(connectionType, model))
+                    {
+                        if(connectionModel.PatchType != null)
+                        {
+                            Values.Values.First(action => action.PatchType == PatchTypeEnum.GetType(connectionModel.PatchType))
+                                .Action.Invoke(accessor, connectionType, model, connectionModel);
+                        }
+                    }
+                });
+            }
+        }
     }
 }
