@@ -16,6 +16,8 @@ namespace Spann.RepositoryModel
 
         void Add(ModelSource model);
 
+        void Patch(ModelSource model);
+
         ModelSource Get(Expression<Func<ModelSource, bool>> filter);
 
         List<ModelSource> GetAll();

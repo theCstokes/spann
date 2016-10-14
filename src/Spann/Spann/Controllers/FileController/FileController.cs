@@ -1,5 +1,8 @@
-﻿using Spann.Core.DomainModel.Python;
+﻿using Newtonsoft.Json.Linq;
+using Spann.Core.DomainModel.Python;
 using Spann.Core.JsonTools;
+using Spann.Core.Requests.Patch;
+using Spann.DataTransferObjects;
 using Spann.DomainModel.Users;
 using Spann.Notifications;
 using Spann.PythonTools;
@@ -33,6 +36,20 @@ namespace Spann.Controllers
         {
             RC.PythonProjectManager.Add(project);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
+        }
+
+        [HttpPatch]
+        [Route("Python/Project")]
+        public IHttpActionResult CreateProjectTests([FromBody] PythonProjectDM obj)
+        {
+            if(PatchTools.IsPatch<PythonProjectDM>(obj))
+            {
+                RC.PythonProjectManager.Patch(obj);
+            } else
+            {
+                /// TODO - return error
+            }
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, obj);
         }
 
         [HttpPost]

@@ -6,9 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Spann.Core.DataAccess;
-using Ament.Core.DomainModel;
 using System.Runtime.Remoting.Messaging;
 using System.Reflection;
+using Spann.Core.Requests.Patch;
+using Spann.Core.DomainModel;
 
 namespace Spann.RepositoryModel
 {
@@ -65,6 +66,75 @@ namespace Spann.RepositoryModel
             }
             a.Dispose();
             NotifyChangeListeners();
+        }
+
+        public void Patch(DMSource model)
+        {
+            if(PatchTools.IsPatch(model))
+            {
+                var patchData = PatchTools.GetPatchData(model);
+                if(patchData.PatchType == PatchTypeEnum.CREATE)
+                {
+                    PatchCreate(model);
+                } else if (patchData.PatchType == PatchTypeEnum.UPDATE)
+                {
+
+                }
+                else if (patchData.PatchType == PatchTypeEnum.DELETE)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+
+        }
+
+        private void PatchCreate(DMSource model)
+        {
+            models.Add(model);
+            var a = DC.Accessor<DMSource>();
+            a.CreateObject(model);
+            if (a.DATA_MAP.HasConnections)
+            {
+                a.DATA_MAP.ConnectionTypes.ForEach(t =>
+                {
+                    foreach (IDataModel item in a.DATA_MAP.ConnectionValue(t, model))
+                    {
+                        Type managerType = RC.GetManagerType(t);
+                        var method = managerType.GetRuntimeMethod("Patch", new Type[] { t });
+                        // Run add on connection.
+                        method.Invoke(RC.GetManager(t), new object[] { item });
+
+                        var patchData = PatchTools.GetPatchData(item);
+                        if (patchData.PatchType == PatchTypeEnum.CREATE)
+                        {
+                            a.CreateConnection(model, a.DATA_MAP.Connection(t), item.ID);
+                        }
+                        else if (patchData.PatchType == PatchTypeEnum.UPDATE)
+                        {
+                            a.UpdateConnection(model, a.DATA_MAP.Connection(t), item.ID);
+                        }
+                        else if (patchData.PatchType == PatchTypeEnum.DELETE)
+                        {
+                            a.DeleteConnection(model.GetConnectionID(item.ID));
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                });
+            }
+            a.Dispose();
+            NotifyChangeListeners();
+        }
+
+        private bool IsPatch(DMSource model)
+        {
+            return model.AdditionalData.Keys.Contains("PatchClientID") && model.AdditionalData.Keys.Contains("PatchType");
         }
 
         public DMSource Get(Expression<Func<DMSource, bool>> filter)
