@@ -75,8 +75,16 @@
     <Compile Include="QueryBuilders\Types\DeleteQuery.cs" />
     <Compile Include="QueryBuilders\Types\LoadQuery.cs" />
     <Compile Include="QueryBuilders\Types\UpdateQuery.cs" />
+    <Compile Include="Requests\Patch\PatchData.cs" />
+    <Compile Include="Requests\Patch\PatchTools.cs" />
+    <Compile Include="Requests\Patch\PatchTypeEnum.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Spann.Core\Spann.Core.csproj">
+      <Project>{57b1997f-e7b9-42b7-8253-99f6aee90c3e}</Project>
+      <Name>Spann.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>

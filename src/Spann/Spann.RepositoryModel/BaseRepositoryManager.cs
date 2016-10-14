@@ -1,5 +1,4 @@
-﻿using Spann.RepositoryModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +7,8 @@ using System.Linq.Expressions;
 using Spann.Core.DataAccess;
 using System.Runtime.Remoting.Messaging;
 using System.Reflection;
-using Spann.Core.Requests.Patch;
 using Spann.Core.DomainModel;
+using Spann.Core.DataAccess.Requests.Patch;
 
 namespace Spann.RepositoryModel
 {
