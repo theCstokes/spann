@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace Spann.Core.DataAccess
 
         List<int> GetConnection(Type t);
         void AddConnection(Type t, int id);
+        IDictionary<string, JToken> AdditionalData { get; set; }
     }
 }

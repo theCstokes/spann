@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DC.cs" />
+    <Compile Include="DomainModelTypes\IPatchable.cs" />
     <Compile Include="Message\MessageDM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Python\PythonProjectDM.cs" />
@@ -52,6 +53,10 @@
     <ProjectReference Include="..\Spann.Core.DataAccess\Spann.Core.DataAccess.csproj">
       <Project>{33effc79-600d-4129-8e3f-64988ba321e0}</Project>
       <Name>Spann.Core.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spann.Core\Spann.Core.csproj">
+      <Project>{57b1997f-e7b9-42b7-8253-99f6aee90c3e}</Project>
+      <Name>Spann.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
