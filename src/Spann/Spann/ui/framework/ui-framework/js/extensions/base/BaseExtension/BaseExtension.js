@@ -30,6 +30,23 @@ function BaseExtension(parent, screen) {
     }
   });
 
+  object._private.visible = true;
+  Object.defineProperty(object.model, "visible", {
+    set: function(value) {
+      if(value !== object._private.visible) {
+        object._private.visible = value;
+        if(object._private.visible) {
+          object.component.removeClass("ui-invisible")
+        } else {
+          object.component.addClass("ui-invisible");
+        }
+      }
+    },
+    get: function() {
+      return object._private.data;
+    }
+  });
+
   Object.defineProperty(object.model, 'component', {
     set: function(value) {
       object.component = value;
