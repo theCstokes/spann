@@ -15,9 +15,12 @@ namespace Spann.Core.DataAccess
     public interface IDataModel
     {
         int ID { get; set; }
+        int GetConnectionID(Type t, int connectedItemID);
+        void AddConnection(Type t, int connectedItemID, int connectionID);
+        //IDictionary<string, JToken> AdditionalData { get; set; }
 
-        List<int> GetConnection(Type t);
-        void AddConnection(Type t, int id);
-        IDictionary<string, JToken> AdditionalData { get; set; }
+        string PatchType { get; set; }
+
+        int? PatchClientID { get; set; }
     }
 }

@@ -14,14 +14,12 @@ namespace Spann.RepositoryModel
         where ModelSource : AbstractDataModel<ModelSource>, IDataModel, new()
     {
 
-        void Add(ModelSource model);
+        void Commit(CommitTypeEnum commitType, ModelSource model);
 
-        void Patch(ModelSource model);
+        ModelSource Pull(Expression<Func<ModelSource, bool>> filter);
 
-        ModelSource Get(Expression<Func<ModelSource, bool>> filter);
+        List<ModelSource> PullAll();
 
-        List<ModelSource> GetAll();
-
-        List<ModelSource> GetAll(Expression<Func<ModelSource, bool>> filter);
+        List<ModelSource> PullAll(Expression<Func<ModelSource, bool>> filter);
     }
 }
