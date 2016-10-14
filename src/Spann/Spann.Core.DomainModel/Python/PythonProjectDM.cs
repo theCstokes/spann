@@ -1,4 +1,5 @@
-﻿using Spann.Core.DataAccess;
+﻿using Newtonsoft.Json;
+using Spann.Core.DataAccess;
 using Spann.Core.DataAccess.MetaDataModels;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Spann.Core.DomainModel.Python
         [DataColumn("Name")]
         public string Name { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [Map(typeof(PythonFileDM), "ProjectID", "FileID")]
         public List<PythonFileDM> Files { get; set; }
         #endregion

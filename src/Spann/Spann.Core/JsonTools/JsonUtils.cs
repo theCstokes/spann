@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Spann.Core.JsonTools.JsonToObject;
-using Spann.Core.JsonTools.ObjectToJson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +15,8 @@ namespace Spann.Core.JsonTools
         {
             return JsonConvert.SerializeObject(obj,
                 new JsonSerializerSettings
-                {
-                    ContractResolver = new ObjectPropertyNameResolver()
+                {   
+                    ContractResolver = new ObjectPropertyResolver(),
                 });
         }
 

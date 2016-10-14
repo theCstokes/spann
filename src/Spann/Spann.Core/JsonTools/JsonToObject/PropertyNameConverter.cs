@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Spann.Core.JsonTools.ObjectToJson
+namespace Spann.Core.JsonTools.JsonToObject
 {
     class PropertyNameConverter : JsonConverter
     {

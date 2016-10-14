@@ -45,27 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Headers\HeaderType.cs" />
+    <Compile Include="Headers\HeaderTypeAttribute.cs" />
     <Compile Include="Headers\ICustomHeaderType.cs" />
-    <Compile Include="Headers\PropertyReference .cs" />
+    <Compile Include="Headers\PropertyReferenceAttribute.cs" />
     <Compile Include="Headers\SearchRequestHeader.cs" />
-    <Compile Include="JsonTools\JsonToObject\ObjectPropertyNameResolver.cs" />
+    <Compile Include="JsonTools\ObjectToJson\ObjectPropertyResolver.cs" />
     <Compile Include="JsonTools\JsonUtils.cs" />
-    <Compile Include="JsonTools\ObjectToJson\PropertyNameConverter.cs" />
-    <Compile Include="JsonTools\ObjectToJson\PropertyReferenceConverter.cs" />
+    <Compile Include="JsonTools\JsonToObject\PropertyNameConverter.cs" />
+    <Compile Include="JsonTools\JsonToObject\PropertyReferenceConverter.cs" />
+    <Compile Include="JsonTools\InternalPropertyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requests\Patch\PatchData.cs" />
-    <Compile Include="Requests\Patch\PatchTools.cs" />
-    <Compile Include="Requests\Patch\PatchTypeEnum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Spann.Core.DataAccess\Spann.Core.DataAccess.csproj">
-      <Project>{33effc79-600d-4129-8e3f-64988ba321e0}</Project>
-      <Name>Spann.Core.DataAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
