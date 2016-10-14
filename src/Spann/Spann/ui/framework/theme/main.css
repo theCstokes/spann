@@ -23,6 +23,10 @@ body {
   margin-right: 10px;
   margin-bottom: 10px;
 }
+.ui-invisible {
+  display: none !important;
+  visibility: hidden !important;
+}
 .ui-action-button {
   display: flex;
   justify-content: center;
