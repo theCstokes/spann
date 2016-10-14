@@ -106,7 +106,7 @@ namespace Spann.RepositoryModel
             return result;
         }
 
-        public void Add(DataAccessor<DMSource> accessor, DMSource model)
+        private void Add(DataAccessor<DMSource> accessor, DMSource model)
         {
             CommitActionMap.Create(accessor, model);
             if (accessor.DATA_MAP.HasConnections)
@@ -121,7 +121,7 @@ namespace Spann.RepositoryModel
             }
         }
 
-        public DMSource Get(DataAccessor<DMSource> accessor, Expression<Func<DMSource, bool>> filter)
+        private DMSource Get(DataAccessor<DMSource> accessor, Expression<Func<DMSource, bool>> filter)
         {
             var result = models.Find(msg => filter.Compile()(msg));
             if (result == null)
@@ -135,7 +135,7 @@ namespace Spann.RepositoryModel
             return result;
         }
 
-        public List<DMSource> GetAll(DataAccessor<DMSource> accessor)
+        private List<DMSource> GetAll(DataAccessor<DMSource> accessor)
         {
             var result = accessor.LoadAll();
             if (result != null)
@@ -145,7 +145,7 @@ namespace Spann.RepositoryModel
             return result;
         }
 
-        public List<DMSource> GetAll(DataAccessor<DMSource> accessor, Expression<Func<DMSource, bool>> filter)
+        private List<DMSource> GetAll(DataAccessor<DMSource> accessor, Expression<Func<DMSource, bool>> filter)
         {
             var result = accessor.LoadAll(filter);
             if (result != null)
@@ -155,13 +155,13 @@ namespace Spann.RepositoryModel
             return result;
         }
 
-        public void Delete(DataAccessor<DMSource> accessor, int id)
+        private void Delete(DataAccessor<DMSource> accessor, int id)
         {
             models.RemoveAll(source => source.ID == id);
             accessor.DeleteObject(id);
         }
 
-        public void Update(DataAccessor<DMSource> accessor, DMSource model)
+        private void Update(DataAccessor<DMSource> accessor, DMSource model)
         {
             var items = models.Where(source => source.ID == model.ID);
             accessor.UpdateObject(model);
