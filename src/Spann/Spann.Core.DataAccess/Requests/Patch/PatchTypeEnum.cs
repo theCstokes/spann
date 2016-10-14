@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spann.Core.Requests.Patch
+namespace Spann.Core.DataAccess.Requests.Patch
 {
     public class PatchTypeEnum
     {

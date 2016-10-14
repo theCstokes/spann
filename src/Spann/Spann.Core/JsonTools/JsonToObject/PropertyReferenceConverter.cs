@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spann.Core.JsonTools.ObjectToJson
+namespace Spann.Core.JsonTools.JsonToObject
 {
     class PropertyReferenceConverter : JsonConverter
     {
@@ -16,7 +16,7 @@ namespace Spann.Core.JsonTools.ObjectToJson
         public override bool CanConvert(Type objectType)
         {
             return objectType.GetRuntimeProperties()
-                .Where(p => Attribute.IsDefined(p, typeof(PropertyReference)))
+                .Where(p => Attribute.IsDefined(p, typeof(PropertyReferenceAttribute)))
                 .Count() > 0;
         }
 
@@ -41,7 +41,7 @@ namespace Spann.Core.JsonTools.ObjectToJson
             JsonSerializer s = new JsonSerializer();
             object dataObject = (Data) s.Deserialize(reader, objectType);
             objectType.GetRuntimeProperties()
-                .Where(p => Attribute.IsDefined(p, typeof(PropertyReference), true) && p.PropertyType == typeof(string))
+                .Where(p => Attribute.IsDefined(p, typeof(PropertyReferenceAttribute), true) && p.PropertyType == typeof(string))
                 .ToList().ForEach(p =>
                 {
                     //PropertyReference reference =  (PropertyReference) p.GetCustomAttribute(typeof(PropertyReference));

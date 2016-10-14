@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Spann.Core.Headers
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class PropertyReference :  Attribute
+    public class PropertyReferenceAttribute :  Attribute
     {
     }
 }

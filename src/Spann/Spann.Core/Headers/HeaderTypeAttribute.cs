@@ -6,10 +6,10 @@ using System.Web;
 namespace Spann.Core.Headers
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class HeaderType : Attribute
+    public class HeaderTypeAttribute : Attribute
     {
         public string Name { get; private set; }
-        public HeaderType(string name)
+        public HeaderTypeAttribute(string name)
         {
             this.Name = name;
         }
