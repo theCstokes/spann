@@ -129,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\PythonController\ConsoleController.cs" />
+    <Compile Include="Controllers\PythonController\FiddleController.cs" />
     <Compile Include="Controllers\PythonController\ProjectController.cs" />
     <Compile Include="DetailAttribute.cs" />
     <Compile Include="Controllers\PythonController\FileController.cs" />

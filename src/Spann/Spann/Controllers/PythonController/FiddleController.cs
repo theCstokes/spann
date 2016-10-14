@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using Spann.Core.DataAccess.Requests.Patch;
 using Spann.Core.DomainModel.Python;
-using Spann.Core.JsonTools;
-using Spann.DomainModel.Users;
-using Spann.Notifications;
-using Spann.PythonTools;
 using Spann.RepositoryModel;
 using Spann.ResponseBuilders;
 using System;
@@ -17,15 +14,14 @@ using System.Web.Http;
 namespace Spann.Controllers
 {
     [RoutePrefix("api/v1/Python")]
-    public class FileController : ApiController
+    public class FiddleController : ApiController
     {
 
         [HttpPost]
-        [Route("File")]
-        public IHttpActionResult CreateFile([FromBody] PythonFileDM file)
+        [Route("Run")]
+        public IHttpActionResult RunFile([FromBody] PythonFileDM file)
         {
-            RC.PythonFileManager.Commit(CommitTypeEnum.ADD, file);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, file);
-        }        
+        }
     }
 }
