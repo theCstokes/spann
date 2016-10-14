@@ -3,7 +3,7 @@ define([
 ], function(BaseWrapper) {
 
   function Screen() {
-    var object = new BaseWrapper($ui.Login);
+    var object = new BaseWrapper($ui.FullScreen);
 
     object.addComponentContainer('content', 'content');
 

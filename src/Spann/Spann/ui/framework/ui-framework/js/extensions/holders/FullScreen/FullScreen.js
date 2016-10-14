@@ -1,7 +1,7 @@
-function Login(parent, screen) {
+function FullScreen(parent, screen) {
   // parent.addClass('ui-background-image');
   var object = $ui.BaseHolder(parent, screen);
-  object.component.addClass('ui-login');
+  object.component.addClass('ui-full-screen');
 
   object.component.addClass('image');
 
@@ -21,4 +21,4 @@ function Login(parent, screen) {
   return object;
 }
 
-$ui.addExtension('Login', Login);
+$ui.addExtension('FullScreen', FullScreen);
