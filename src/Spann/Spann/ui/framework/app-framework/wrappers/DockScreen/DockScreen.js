@@ -15,8 +15,21 @@ define([
         id: "dialogPanel",
         header: [
           {
-            component: $ui.Label,
-            caption: "New File"
+            component: $ui.Flow,
+            content: [
+              {
+                component: $ui.Label,
+                caption: "New File"
+              },
+              {
+                component: $ui.ActionButton,
+                rightToLeft: true,
+                icon: 'fa-times',
+                onClick: function() {
+                  $ui.pop();
+                }
+              }
+            ]
           }
         ],
         content: data
