@@ -17,7 +17,7 @@ using System.Web.Http;
 
 namespace Spann.Controllers
 {
-    [RoutePrefix("api/v1")]
+    [RoutePrefix("api/v1/Python")]
     public class FileController : ApiController
     {
 
@@ -27,28 +27,6 @@ namespace Spann.Controllers
         {
             RC.PythonFileManager.Commit(CommitTypeEnum.ADD, file);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, file);
-        }
-
-        [HttpPost]
-        [Route("Python/Project")]
-        public IHttpActionResult CreateProject([FromBody] PythonProjectDM project)
-        {
-            RC.PythonProjectManager.Commit(CommitTypeEnum.ADD, project);
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
-        }
-
-        [HttpPatch]
-        [Route("Python/Project")]
-        public IHttpActionResult CreateProjectTests([FromBody] PythonProjectDM obj)
-        {
-            if(PatchTools.IsPatch<PythonProjectDM>(obj))
-            {
-                RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, obj);
-            } else
-            {
-                /// TODO - return error
-            }
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, obj);
         }
 
         [HttpPost]
