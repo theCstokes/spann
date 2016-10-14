@@ -58,7 +58,7 @@ function build() {
             if (this.onreadystatechange) {
                 xhr.onreadystatechange = null;
                 if(callback !== undefined) {
-                  callback(event.target.response);
+                  callback(JSON.parse(event.target.response));
                 }
             }
         }
