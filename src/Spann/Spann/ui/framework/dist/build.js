@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-10 */
+/*! spann - v1.0.0 - 2016-10-14 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -453,6 +453,16 @@ function Console(parent, screen) {
 }
 
 $ui.addExtension('Console', Console);
+
+function Divider(parent, screen) {
+  //add base component data
+  var object = $ui.BaseComponent(parent, screen);
+  object.component.addClass('ui-divider');
+
+  return object;
+}
+
+$ui.addExtension('Divider', Divider);
 
 function Editor(parent, screen) {
   var object = $ui.BaseComponent(parent, screen);

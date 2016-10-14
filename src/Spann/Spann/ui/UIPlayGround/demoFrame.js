@@ -5,15 +5,20 @@ define([
     var frame = new Frame();
     frame.attachLeft = [
       {
-        component: $ui.Group,
-        id: 'status',
-        size: 'half',
+        component: $ui.Flow,
+        rightToLeft: true,
         content: [
           {
-            component: $ui.Label,
-            value: "Chris Stokes"
+            component: $ui.ActionButton,
+            icon: 'fa-plus',
+            onClick: function() {
+              
+            }
           }
         ]
+      },
+      {
+        component: $ui.Divider
       },
       {
         component: $ui.List,
