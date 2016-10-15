@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-10 */
+/*! spann - v1.0.0 - 2016-10-14 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -390,7 +390,7 @@ function Console(parent, screen) {
       }
   });
 
-  // editor.setTheme("ace/theme/twilight");
+  editor.setTheme("ace/theme/eclipse");
 
   Object.defineProperty(object.model, 'onCommandRun', {
     set: function(value) {
@@ -469,7 +469,7 @@ function Editor(parent, screen) {
     enableBasicAutocompletion: true
   });
 
-  editor.setTheme("ace/theme/twilight");
+  editor.setTheme("ace/theme/eclipse");
 
   // Object.defineProperty(object.model, 'editor', {
   //   get: function () {
@@ -555,8 +555,9 @@ function FileListItem(panel, screen) {
   });
 
   Object.defineProperty(object.model, 'icon', {
-    set: function(type) {
-      icon.addClass("fa-file-code-o");
+    set: function(value) {
+      icon.addClass(value);
+      //icon.replaceClass(value);
     }
   });
 

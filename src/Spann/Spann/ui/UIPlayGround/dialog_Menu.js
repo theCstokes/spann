@@ -8,21 +8,21 @@ define([
     dialog.content = [
       {
         component: $ui.Label,
-        caption: "dialog"
+        caption: "Menu"
       },
       {
         component: $ui.Flow,
         content: [
           {
             component: $ui.Button,
-            caption: 'Save',
+            caption: 'Option 1',
             onClick: function(event) {
               $ui.pop();
             }
           },
           {
             component: $ui.Button,
-            caption: 'Save As',
+            caption: 'Option 2',
             onClick: function(event) {
               $ui.pop();
             }

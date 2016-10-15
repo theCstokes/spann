@@ -1,13 +1,13 @@
 define([
   'PlayGroup/demoFrame',
-  'PlayGroup/screen_playGround',
+  'PlayGroup/screen_Editor',
   'PlayGroup/dialog_Demo'
-], function(demoFrame, screen_playGround, dialog_Demo) {
+], function(demoFrame, screen_Editor, dialog_Demo) {
 
   function start() {
     $ui.frame = demoFrame;
 
-    $ui.push(screen_playGround);
+    $ui.push(screen_Editor);
     //$ui.push(dialog_Demo);
 
     // var xhr = new XMLHttpRequest();

@@ -27,8 +27,9 @@ body {
   display: flex;
   justify-content: center;
   border-top: 2px #000000;
+  padding-top: 7px;
   width: 20px;
-  height: 20px;
+  height: 00px;
 }
 .ui-action-button .icon {
   align-self: center;
