@@ -166,9 +166,7 @@ define([
 
     function fiddle() {
       $ui.pop();
-      requirejs([
-        'App/fiddleFrame',
-        'App/screens/fiddle/screen_fiddle'], function (fiddleFrame, fiddleScreen) {
+      requirejs(['App/screens/fiddle/screen_fiddle'], function (fiddleScreen) {
           // $ui.frame = fiddleFrame;
           $ui.push(fiddleScreen);
         });
