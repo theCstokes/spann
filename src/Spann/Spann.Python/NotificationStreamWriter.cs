@@ -28,21 +28,13 @@ namespace Spann.PythonTools
         public override void Write(string value)
         {
             base.Write(value);
-            if(NotificationWritten != null)
-            {
-                NotificationWritten(this, new StreamNotificationEvent(value));
-            }
+            NotificationWritten?.Invoke(this, new StreamNotificationEvent(value));
         }
 
         public override void Write(bool value)
         {
             base.Write(value);
-            if (NotificationWritten != null)
-            {
-                NotificationWritten(this, new StreamNotificationEvent(value.ToString()));
-            }
+            NotificationWritten?.Invoke(this, new StreamNotificationEvent(value.ToString()));
         }
-
-
     }
 }
