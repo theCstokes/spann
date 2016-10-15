@@ -18,18 +18,22 @@ define([
             component: $ui.ActionButton,
             icon: 'fa-play',
             onClick: function (event) {              
+              var screen = event.target.screen;
               var socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Fiddle");
               socket.onmessage = function (event) {
-                var data = JSON.parse(event.data);
+                data = event.data;
+                if(data === undefined) return;
+                // var data = JSON.parse(event.data);
                 console.log(data);
                 $ui.push(dockScreen_Output, data);
               }
               socket.onopen = function (event) {
                 console.log("fiddle connection open");
+                var sourceCode = screen.model.editor.value;
                 var file = {
                   identity: 123, 
                   name: "test.py",
-                  sourceCode: "print 123"
+                  sourceCode: sourceCode
                 };
                 socket.send(JSON.stringify(file));
               }
@@ -65,17 +69,12 @@ define([
       }
     ];
 
-    // screen.show = function () {
-    //   console.log(this);
-    //   socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
-    //   socket.onmessage = function (event) {
-    //     console.log(event);
-    //     screen.model.ce.insertLine(event.data);
-    //   }
-    //   // socket.onopen = function (event) {
-    //   //   socket.send("print 123");
-    //   // }
-    // }
+    screen.show = function () {
+      console.log();
+
+      var components = this.model;
+      // components.editor.value = "abc";
+    }
 
     return screen;
   }
