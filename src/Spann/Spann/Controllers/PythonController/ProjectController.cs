@@ -29,7 +29,7 @@ namespace Spann.Controllers
         [Route("Project")]
         public IHttpActionResult CreateProjectTests([FromBody] PythonProjectDM obj)
         {
-            if(PatchTools.IsPatch<PythonProjectDM>(obj))
+            if(PatchTools.IsPatch(obj))
             {
                 RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, obj);
             } else
