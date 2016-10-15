@@ -1,5 +1,5 @@
 define([
-  'FullScreen',
+  'Screen',
   'App/screens/Fiddle/dockScreen_Output'
 ], function (Screen, dockScreen_Output) {
   return function () {
