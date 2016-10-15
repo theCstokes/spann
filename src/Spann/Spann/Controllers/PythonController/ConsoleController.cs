@@ -3,6 +3,7 @@ using Spann.Core.DataAccess.Requests.Patch;
 using Spann.Core.DomainModel.Python;
 using Spann.Notifications;
 using Spann.PythonTools;
+using Spann.PythonTools.Console;
 using Spann.RepositoryModel;
 using Spann.ResponseBuilders;
 using System;
