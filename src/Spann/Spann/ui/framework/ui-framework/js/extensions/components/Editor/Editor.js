@@ -13,7 +13,7 @@ function Editor(parent, screen) {
     enableBasicAutocompletion: true
   });
 
-  editor.setTheme("ace/theme/twilight");
+  editor.setTheme("ace/theme/eclipse");
 
   // Object.defineProperty(object.model, 'editor', {
   //   get: function () {
