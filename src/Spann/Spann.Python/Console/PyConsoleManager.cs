@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools
 {
-    public class PyConsoleManager
+    public class PyConsoleManager.Console
     {
         #region Private Field(s).
         private static Dictionary<Guid, PyConsole> consoles;
