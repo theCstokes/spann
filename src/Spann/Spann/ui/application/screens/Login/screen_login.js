@@ -156,6 +156,7 @@ define([
 
     function login() {
       $ui.pop();
+      $ui.pop();
       requirejs([
         'App/selectionFrame',
         'App/screens/Home/homeScreen'], function (mainFrame, homeScreen) {
@@ -166,7 +167,7 @@ define([
 
     function fiddle() {
       $ui.pop();
-      requirejs(['App/screens/fiddle/screen_fiddle'], function (fiddleScreen) {
+      requirejs(['App/screens/Fiddle/screen_fiddle'], function (fiddleScreen) {
           // $ui.frame = fiddleFrame;
           $ui.push(fiddleScreen);
         });

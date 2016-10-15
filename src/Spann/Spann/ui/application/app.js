@@ -1,13 +1,14 @@
 define([
-  'App/screens/Login/screen_login'
-], function(screen_login) {
+  'App/screens/Login/screen_login',
+  'BasicFrame'
+], function(screen_login, BasicFrame) {
 
   function start() {
-
+    $ui.frame = BasicFrame;
     $ui.push(screen_login);
 
      //add screen
-    //  $ui.frame = mainFrame;
+     
 
     //  $ui.push(homeScreen);
 
