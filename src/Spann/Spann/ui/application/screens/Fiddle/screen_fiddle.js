@@ -1,6 +1,7 @@
 define([
   'FullScreen',
-], function (Screen) {
+  'App/screens/Fiddle/dockScreen_Output'
+], function (Screen, dockScreen_Output) {
   return function () {
     var socket;
     var screen = new Screen();
@@ -16,19 +17,12 @@ define([
           {
             component: $ui.ActionButton,
             icon: 'fa-play',
-            onClick: function (event) {
-              // console.log(123);
-              // $ui.push(dialog_Demo);
+            onClick: function (event) {              
               var socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Fiddle");
               socket.onmessage = function (event) {
                 var data = JSON.parse(event.data);
-                // var items = data.map(function(obj) {
-                //   return {
-                //     name: obj.data,
-                //     type: "recived"
-                //   }
-                // });
                 console.log(data);
+                $ui.push(dockScreen_Output, data);
               }
               socket.onopen = function (event) {
                 console.log("fiddle connection open");
@@ -71,17 +65,17 @@ define([
       }
     ];
 
-    screen.show = function () {
-      console.log(this);
-      socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
-      socket.onmessage = function (event) {
-        console.log(event);
-        screen.model.ce.insertLine(event.data);
-      }
-      // socket.onopen = function (event) {
-      //   socket.send("print 123");
-      // }
-    }
+    // screen.show = function () {
+    //   console.log(this);
+    //   socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
+    //   socket.onmessage = function (event) {
+    //     console.log(event);
+    //     screen.model.ce.insertLine(event.data);
+    //   }
+    //   // socket.onopen = function (event) {
+    //   //   socket.send("print 123");
+    //   // }
+    // }
 
     return screen;
   }

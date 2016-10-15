@@ -26,7 +26,7 @@ function Editor(parent, screen) {
       return editor.getValue();
     },
     set: function(value) {
-      editor.setValue(value);
+      editor.setValue(value, 1);
     }
   });
 

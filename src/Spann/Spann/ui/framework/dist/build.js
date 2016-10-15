@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-14 */
+/*! spann - v1.0.0 - 2016-10-15 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -509,7 +509,7 @@ function Editor(parent, screen) {
       return editor.getValue();
     },
     set: function(value) {
-      editor.setValue(value);
+      editor.setValue(value, 1);
     }
   });
 

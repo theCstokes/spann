@@ -78,14 +78,14 @@ function build() {
       if(typeof(screen) === "function") {
         screen = screen();
       }
-      var size = this.screens.length - 1;
-      if(size < 0) {
-        addScreen(screen, this._private.app, data);
+      var size = this.screens.length;
+      if(size == 0) {
+        return addScreen(screen, this._private.app, data);
       }
       // pushScreenToEnd(size, screen, data);
       switch(screen.level) {
         case ScreenLevelEnum.BASE:
-          return addScreen(screen, this._private.app);
+          return addScreen(screen, this._private.app, data);
         case ScreenLevelEnum.TOP:
           return pushScreenToStart(size, screen, data);
         case ScreenLevelEnum.DEFAULT:
@@ -99,13 +99,15 @@ function build() {
   });
 
   function pushScreenToEnd(size, screen, data) {
-    for(var i = size; i >= 0; i--) {
+    for(var i = size - 1; i >= 0; i--) {
       var currentScreen = object._private.screens[i];
       if(currentScreen.owners.length === 0) {
           continue;
       }
       return pushScreen(currentScreen, screen, data);
     }
+    console.warn("failed to find owner");
+    return addScreen(screen, object._private.app, data);
   }
 
   function pushScreenToStart(size, screen, data) {
@@ -116,6 +118,8 @@ function build() {
       }
       return pushScreen(currentScreen, screen, data);
     }
+    console.warn("failed to find owner");
+    return addScreen(screen, object._private.app, data);
   }
 
   function pushScreen(currentScreen, screen, data) {
