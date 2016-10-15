@@ -19,7 +19,7 @@ define([
             content: [
               {
                 component: $ui.Label,
-                caption: "New File"
+                caption: "Output"
               },
               {
                 component: $ui.ActionButton,
