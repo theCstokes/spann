@@ -334,13 +334,13 @@ function Console(parent, screen) {
   var object = $ui.BaseComponent(parent, screen);
   object.component.addClass('ui-console');
 
-  var inputEditor = $ui.create('div', object.component);
-  inputEditor.addClass('input-console');
-  inputEditor.id = "inputEditor";
-  inputEditor.style.media = "screen";
+  var inputConsole = $ui.create('div', object.component);
+  inputConsole.addClass('input-console');
+  inputConsole.id = "inputConsole_" + $utils.guid();
+  inputConsole.style.media = "screen";
 
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
-  var editor = ace.edit("inputEditor");
+  var editor = new ace.edit(inputConsole.id);
   editor.setOptions({
     enableBasicAutocompletion: true
   });
@@ -459,11 +459,11 @@ function Console(parent, screen) {
 
   object.show = function() {
     console.log("show editor");
-    inputEditor.style.height = this.component.parentElement.offsetHeight + "px";
-    inputEditor.style.width = this.component.parentElement.offsetWidth + "px";
+    inputConsole.style.height = this.component.parentElement.offsetHeight + "px";
+    inputConsole.style.width = this.component.parentElement.offsetWidth + "px";
 
-    inputEditor.style.top = this.component.parentElement.offsetTop + "px";
-    inputEditor.style.left = this.component.parentElement.offsetLeft + "px";
+    inputConsole.style.top = this.component.parentElement.offsetTop + "px";
+    inputConsole.style.left = this.component.parentElement.offsetLeft + "px";
   }
 
   return object
@@ -487,11 +487,11 @@ function Editor(parent, screen) {
 
   var inputEditor = $ui.create('div', object.component);
   inputEditor.addClass('input-editor');
-  inputEditor.id = "inputEditor";
+  inputEditor.id = "inputEditor_" + $utils.guid();
   inputEditor.style.media = "screen";
 
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
-  var editor = ace.edit("inputEditor");
+  var editor = new ace.edit(inputEditor.id);
   editor.setOptions({
     enableBasicAutocompletion: true
   });
@@ -1213,6 +1213,21 @@ function UserListItem(parent, screen) {
 }
 
 $ui.addExtension('UserListItem', UserListItem);
+
+function BasicFrame(parent, screen) {
+  var object = $ui.BaseHolder(parent, screen);
+  object.component.addClass('ui-basic-frame');
+
+  // var holderContent = $ui.create(object.component);
+  // holderContent.addClass('holder');
+
+  var mainContent = $ui.create(object.component);
+  object.addContainer('mainContent', mainContent);
+  mainContent.addClass('mainContent');
+
+  return object;
+}
+$ui.addExtension('BasicFrame', BasicFrame);
 
 function Dialog(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
