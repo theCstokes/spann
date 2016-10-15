@@ -97,16 +97,22 @@ namespace Spann.PythonTools.Runner
             pythonInfo.CreateNoWindow = false;
             pythonInfo.UseShellExecute = false;
             pythonInfo.RedirectStandardOutput = true;
+            pythonInfo.RedirectStandardError = true;
 
             using (Process process = Process.Start(pythonInfo))
             {
+                string result = "";
                 using (StreamReader reader = process.StandardOutput)
                 {
-                    //NotificationStreamWriter nsw = new NotificationStreamWriter(reader.BaseStream);
-                    //nsw.NotificationWritten += handler;
-                    string result = reader.ReadToEnd();
-                    handler(this, new StreamNotificationEvent(result)); //TODO - Might need to do this.
+                    result += reader.ReadToEnd();
+                    handler(this, new StreamNotificationEvent(result));
                 }
+
+                using(StreamReader reader = process.StandardError)
+                {
+                    result += reader.ReadToEnd();
+                }
+                handler(this, new StreamNotificationEvent(result));
             }
         }
         #endregion

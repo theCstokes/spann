@@ -17,7 +17,7 @@ define([
       console.log(data);
 
       var components = this.model;
-      // components.outputEditor.value = data;
+      components.outputEditor.value = String(data);
     }
 
     return dialog;
