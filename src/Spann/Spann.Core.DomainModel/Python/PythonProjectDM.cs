@@ -26,6 +26,9 @@ namespace Spann.Core.DomainModel.Python
 
         [DataColumn("Name")]
         public string Name { get; set; }
+        
+        [IDColumn("StartFileID")]
+        public int? StartFile { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [Map(typeof(PythonFileDM), "ProjectID", "FileID")]
