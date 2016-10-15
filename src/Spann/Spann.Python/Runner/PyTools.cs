@@ -17,7 +17,9 @@ namespace Spann.PythonTools.Runner
         public static string CreatePath(string location, params string[] additons)
         {
             string path = location;
-            return additons.Aggregate(path, (result, item) => Path.Combine(path, item));
+            path = additons.Aggregate(path, (result, item) => Path.Combine(path, item));
+            //return System.Web.HttpContext.Current.Server.MapPath(path);
+            return path;
         }
     }
 }
