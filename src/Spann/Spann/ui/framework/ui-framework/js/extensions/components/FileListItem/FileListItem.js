@@ -35,8 +35,9 @@ function FileListItem(panel, screen) {
   });
 
   Object.defineProperty(object.model, 'icon', {
-    set: function(type) {
-      icon.addClass("fa-file-code-o");
+    set: function(value) {
+      icon.addClass(value);
+      //icon.replaceClass(value);
     }
   });
 

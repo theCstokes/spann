@@ -20,10 +20,22 @@ define([
         style: $ui.FileListItem,
         items: [
           {
-            name: "Editor",
+            name: "Account",
             icon: "fa-home",
+            selected: false,
+            target: 'PlayGroup/screen_Account'
+          },
+          {
+            name: "Editor",
+            icon: "fa-edit",
             selected: true,
-            target: 'PlayGroup/screen_playGround'
+            target: 'PlayGroup/screen_Editor'
+          },
+          {
+            name: "Console",
+            icon: "fa-code",
+            selected: false,
+            target: 'PlayGroup/screen_Console'
           }
         ],
         onClick: function(event) {
@@ -45,9 +57,9 @@ define([
           {
             component: $ui.ActionButton,
             icon: 'fa-play',
-            onClick: function() {
+            /* onClick: function() {
               
-            }
+            } */
           }
         ]
       }
