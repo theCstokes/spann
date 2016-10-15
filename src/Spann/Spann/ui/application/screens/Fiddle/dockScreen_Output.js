@@ -7,7 +7,7 @@ define([
     dialog.alignHorizontal = $ui.DockLocations.RIGHT;
     dialog.content = [
       {
-        component: $ui.Console,
+        component: $ui.Editor,
         mode: $ui.EditorMode.PYTHON,
         id: 'outputEditor'
       }
