@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spann.PythonTools
+namespace Spann.PythonTools.Console
 {
-    public class PyConsoleManager.Console
+    public class PyConsoleManager
     {
         #region Private Field(s).
         private static Dictionary<Guid, PyConsole> consoles;
