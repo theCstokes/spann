@@ -4,11 +4,11 @@ function Editor(parent, screen) {
 
   var inputEditor = $ui.create('div', object.component);
   inputEditor.addClass('input-editor');
-  inputEditor.id = "inputEditor";
+  inputEditor.id = "inputEditor_" + $utils.guid();
   inputEditor.style.media = "screen";
 
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
-  var editor = ace.edit("inputEditor");
+  var editor = new ace.edit(inputEditor.id);
   editor.setOptions({
     enableBasicAutocompletion: true
   });

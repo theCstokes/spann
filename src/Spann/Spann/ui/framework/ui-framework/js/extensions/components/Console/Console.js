@@ -2,13 +2,13 @@ function Console(parent, screen) {
   var object = $ui.BaseComponent(parent, screen);
   object.component.addClass('ui-console');
 
-  var inputEditor = $ui.create('div', object.component);
-  inputEditor.addClass('input-console');
-  inputEditor.id = "inputEditor";
-  inputEditor.style.media = "screen";
+  var inputConsole = $ui.create('div', object.component);
+  inputConsole.addClass('input-console');
+  inputConsole.id = "inputConsole_" + $utils.guid();
+  inputConsole.style.media = "screen";
 
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
-  var editor = ace.edit("inputEditor");
+  var editor = new ace.edit(inputConsole.id);
   editor.setOptions({
     enableBasicAutocompletion: true
   });
@@ -127,11 +127,11 @@ function Console(parent, screen) {
 
   object.show = function() {
     console.log("show editor");
-    inputEditor.style.height = this.component.parentElement.offsetHeight + "px";
-    inputEditor.style.width = this.component.parentElement.offsetWidth + "px";
+    inputConsole.style.height = this.component.parentElement.offsetHeight + "px";
+    inputConsole.style.width = this.component.parentElement.offsetWidth + "px";
 
-    inputEditor.style.top = this.component.parentElement.offsetTop + "px";
-    inputEditor.style.left = this.component.parentElement.offsetLeft + "px";
+    inputConsole.style.top = this.component.parentElement.offsetTop + "px";
+    inputConsole.style.left = this.component.parentElement.offsetLeft + "px";
   }
 
   return object
