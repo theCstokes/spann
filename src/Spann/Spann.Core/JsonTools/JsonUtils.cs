@@ -26,5 +26,12 @@ namespace Spann.Core.JsonTools
             settings.Converters.Add(new PropertyReferenceConverter());
             return JsonConvert.DeserializeObject(json, type, settings);
         }
+
+        public static T DeserializeObject<T>(string json) where T : class
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.Converters.Add(new PropertyReferenceConverter());
+            return JsonConvert.DeserializeObject(json, typeof(T), settings) as T;
+        }
     }
 }
