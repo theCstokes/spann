@@ -1,6 +1,7 @@
 define([
-  'Screen'
-], function(Screen) {
+  'Screen',
+  'App/screens/Fiddle/dockScreen_Output'
+], function(Screen, dockScreen_Output) {
   return function() {
     var screen = new Screen();
 
@@ -35,7 +36,8 @@ define([
               value: "Check",
               icon: 'fa-check',
               onClick: function(ee) {
-                screen.showStuff.open(true);
+                // screen.showStuff.open(true);
+                $ui.push(dockScreen_Output, "abc");
               }
             },
             {
