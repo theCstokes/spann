@@ -8,9 +8,9 @@ namespace Spann.PythonTools.Runner
 {
     public interface IPyLocation
     {
+        string Path { get; }
         bool CanDelete { get; }
         void Delete();
-
         bool DoesExist { get; }
     }
 }

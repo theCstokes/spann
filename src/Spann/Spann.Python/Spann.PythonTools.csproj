@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Spann.PythonTools</RootNamespace>
     <AssemblyName>Spann.PythonTools</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,6 +65,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,11 +74,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Console\NotificationStreamWriter.cs" />
+    <Compile Include="IPyManager.cs" />
+    <Compile Include="NotificationStreamWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Console\PyConsole.cs" />
     <Compile Include="Console\PyConsoleManager.cs" />
     <Compile Include="Runner\IPyLocation.cs" />
+    <Compile Include="Runner\PyProjectManager.cs" />
     <Compile Include="Runner\PyFile.cs" />
     <Compile Include="Runner\PyProject.cs" />
     <Compile Include="Runner\PyRunner.cs" />

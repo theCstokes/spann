@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Spann.PythonTools.Runner
 {
@@ -12,6 +13,7 @@ namespace Spann.PythonTools.Runner
         #region Public Field(s).
         public string Location { get; private set; }
         public string Name { get; private set; }
+        public int ID { get; private set; }
         #endregion
 
         #region Private Field(s).
@@ -19,17 +21,19 @@ namespace Spann.PythonTools.Runner
         #endregion
 
         #region  Public Constructor(s).
-        public PyFile(string location, string name, string data = null)
+        public PyFile(int id, string location, string name, string data = null)
         {
+            this.ID = id;
             this.Location = location;
             this.Name = name;
             if (!Directory.Exists(location))
             {
                 Directory.CreateDirectory(location);
             }
+            
             string path = PyTools.CreatePath(location, name);
             file = new FileInfo(path);
-            using (var fs = file.Create())
+            using(var fs = file.Create())
             {
                 if (data != null)
                 {
@@ -41,6 +45,13 @@ namespace Spann.PythonTools.Runner
         #endregion
 
         #region Public Member(s).
+        public string Path
+        {
+            get
+            {
+                return PyTools.CreatePath(Location, Name);
+            }
+        }
         public bool CanDelete
         {
             get
