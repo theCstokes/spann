@@ -280,6 +280,22 @@ function build() {
     }
   });
 
+  if(object._private.events !== undefined) {
+    object._private.events = {};
+  }
+
+  Object.defineProperty(object, 'addEvent', {
+    value: function(name, functionCallback) {
+      object._private.events.name = functionCallback;
+    }
+  });
+
+  Object.defineProperties(object, 'notifyEvent', {
+    value: function(name, data) {
+      object._private.events.name(data);
+    }
+  });
+
   console.log('Init $ui Done');
   return object;
 }

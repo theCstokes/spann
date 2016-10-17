@@ -5,6 +5,7 @@ define([
   return function () {
     var socket;
     var screen = new Screen();
+    var dialogOpen = false;
 
     screen.content = [
       {
@@ -23,9 +24,12 @@ define([
               socket.onmessage = function (event) {
                 data = event.data;
                 if(data === undefined) return;
-                // var data = JSON.parse(event.data);
-                console.log(data);
-                $ui.push(dockScreen_Output, data);
+
+                if(!dialogOpen) {
+                  $ui.push(dockScreen_Output, data);
+                } else {
+                  $ui.notifyEvent("updateOutput", data);
+                }
               }
               socket.onopen = function (event) {
                 console.log("fiddle connection open");
