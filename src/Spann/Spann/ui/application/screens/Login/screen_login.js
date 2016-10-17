@@ -159,7 +159,7 @@ define([
       $ui.pop();
       requirejs([
         'App/selectionFrame',
-        'App/screens/Home/homeScreen'], function (mainFrame, homeScreen) {
+        'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
           $ui.frame = mainFrame;
           $ui.push(homeScreen);
         });

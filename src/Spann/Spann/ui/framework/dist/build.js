@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-15 */
+/*! spann - v1.0.0 - 2016-10-16 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -407,7 +407,7 @@ function Console(parent, screen) {
       }
   });
 
-  // editor.setTheme("ace/theme/twilight");
+  editor.setTheme("ace/theme/eclipse");
 
   Object.defineProperty(object.model, 'onCommandRun', {
     set: function(value) {
@@ -496,7 +496,7 @@ function Editor(parent, screen) {
     enableBasicAutocompletion: true
   });
 
-  editor.setTheme("ace/theme/twilight");
+  editor.setTheme("ace/theme/eclipse");
 
   // Object.defineProperty(object.model, 'editor', {
   //   get: function () {
@@ -582,8 +582,9 @@ function FileListItem(panel, screen) {
   });
 
   Object.defineProperty(object.model, 'icon', {
-    set: function(type) {
-      icon.addClass("fa-file-code-o");
+    set: function(value) {
+      icon.addClass(value);
+      //icon.replaceClass(value);
     }
   });
 
@@ -1228,6 +1229,24 @@ function BasicFrame(parent, screen) {
   return object;
 }
 $ui.addExtension('BasicFrame', BasicFrame);
+
+function ContextMenu(parent, Screen) {
+  var object = $ui.BaseHolder(parent, screen);
+  object.component.addClass('ui-contextHolder');
+
+  var contextHolder = document.getElementsByClassName('ui-contextHolder')[0];
+  var contextMenu = document.getElementsByClassName('ui-contextMenu')[0];
+
+  // hide context menu when you click it
+  contextMenu.addEventListener('click', function(event) {
+    contextMenu.style.display = 'none';
+    contextHolder.style.display = 'none';
+  });
+
+  return object;
+}
+
+$ui.addExtension('ContextMenu', ContextMenu);
 
 function Dialog(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
