@@ -7,6 +7,10 @@ define([
     var screen = new Screen();
     var dialogOpen = false;
 
+    $ui.addEvent("closedOutput", function() {
+      dialogOpen = false;
+    });
+
     screen.content = [
       {
         component: $ui.Panel,
@@ -27,6 +31,7 @@ define([
 
                 if(!dialogOpen) {
                   $ui.push(dockScreen_Output, data);
+                  dialogOpen = true;
                 } else {
                   $ui.notifyEvent("updateOutput", data);
                 }
