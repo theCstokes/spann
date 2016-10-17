@@ -280,19 +280,19 @@ function build() {
     }
   });
 
-  if(object._private.events !== undefined) {
+  if(object._private.events === undefined) {
     object._private.events = {};
   }
 
   Object.defineProperty(object, 'addEvent', {
     value: function(name, functionCallback) {
-      object._private.events.name = functionCallback;
+      object._private.events[name] = functionCallback;
     }
   });
 
-  Object.defineProperties(object, 'notifyEvent', {
+  Object.defineProperty(object, 'notifyEvent', {
     value: function(name, data) {
-      object._private.events.name(data);
+      object._private.events[name](data);
     }
   });
 
