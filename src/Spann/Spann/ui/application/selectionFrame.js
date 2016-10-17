@@ -20,34 +20,19 @@ define([
         style: $ui.NavigationListItem,
         items: [
           {
-            name: "Home",
-            icon: "fa-home",
-            selected: true,
-            target: "App/screens/Home/homeScreen"
+            name: "Account",
+            icon: "fa-cog",
+            target: "App/screens/Home/screenAccount"
           },
           {
-            name: "Add User",
-            icon: "fa-user-plus",
-            target: "App/screens/UserAdd/screen_NewUser"
+            name: "Editor",
+            icon: "fa-edit",
+            target: "App/screens/Home/screenEditor"
           },
           {
-            name: "Users",
-            icon: "fa-users",
-            target: "App/screens/Users/screen_Users"
-          },
-          {
-            name: "GitHub",
-            icon: "fa-github-alt"
-          },
-          {
-            name: "Chat",
-            icon: "fa-comments-o",
-            target: "App/screens/Chat/screen_Chat"
-          },
-          {
-            name: "Chat Send",
-            icon: "fa-comments-o",
-            target: "App/screens/ChatSend/screen_ChatSend"
+            name: "Console",
+            icon: "fa-code",
+            target: "App/screens/Home/screenConsole"
           }
         ],
         onClick: function(event) {

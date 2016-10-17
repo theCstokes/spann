@@ -1,5 +1,5 @@
 define([
-  'Screen', 'PlayGroup/dialog_Demo', 'PlayGroup/dialog_Menu'
+  'Screen', 'App/screens/Home/dialog_Demo', 'App/screens/Home/dialog_Menu'
 ], function(Screen, dialog_Demo, dialog_Menu) {
   return function() {
     var socket;
