@@ -75,7 +75,7 @@ function Console(parent, screen) {
       }
   });
 
-  // editor.setTheme("ace/theme/twilight");
+  editor.setTheme("ace/theme/eclipse");
 
   Object.defineProperty(object.model, 'onCommandRun', {
     set: function(value) {
