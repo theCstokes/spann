@@ -1,6 +1,6 @@
 define([
-  'Screen', 'PlayGroup/dialog_Demo'
-], function(Screen, dialog_Demo) {
+  'Screen', 'App/screens/Home/dialog_Demo', 'App/screens/Home/dialog_Menu'
+], function(Screen, dialog_Demo, dialog_Menu) {
   return function() {
     var socket;
     var screen = new Screen();
@@ -11,8 +11,11 @@ define([
         // showFooterBar: false,
         header: [
           {
-            component: $ui.Label,
-            caption: "Editor"
+            component: $ui.ActionButton,
+            icon: 'fa-bars',
+            onClick: function(event) {
+              $ui.push(dialog_Menu);
+            }
           },
           {
             component: $ui.ActionButton,
@@ -25,6 +28,15 @@ define([
               //   sourceCode: event.target.screen.model.editor.value 
               // });
             }
+          },
+          {
+            component: $ui.ActionButton,
+            icon: 'fa-question-circle-o',
+          },
+          {
+            component: $ui.Label,
+            caption: 'Editor :: %filename%',
+            theme: 'x'
           }
         ],
         content: [
