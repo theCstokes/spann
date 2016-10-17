@@ -20,6 +20,10 @@ define([
       components.outputEditor.value = String(data);
     }
 
+    $ui.addEvent("updateOutput", function(value) {
+      dialog.model.outputEditor.value = String(data);
+    });
+
     return dialog;
   }
 });
