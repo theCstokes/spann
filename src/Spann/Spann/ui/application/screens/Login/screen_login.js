@@ -151,7 +151,7 @@ define([
       }
       manager.initialize();
 
-      screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
+      // screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
     }
 
     function login() {
@@ -159,7 +159,7 @@ define([
       $ui.pop();
       requirejs([
         'App/selectionFrame',
-        'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
+        'App/screens/Home/screenConsole'], function (mainFrame, homeScreen) {
           $ui.frame = mainFrame;
           $ui.push(homeScreen);
         });

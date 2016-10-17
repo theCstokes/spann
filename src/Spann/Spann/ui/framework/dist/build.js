@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-16 */
+/*! spann - v1.0.0 - 2016-10-17 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -347,7 +347,7 @@ function Console(parent, screen) {
 
   var text = "Python Started.";
   var lineSeparater = "\n";
-  var lineStart = ">>>_";
+  var lineStart = ">>> ";
   text += lineSeparater + lineStart;
   editor.setValue(text, 1);
 

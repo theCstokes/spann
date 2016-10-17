@@ -1,7 +1,7 @@
 define([
   'Frame'
-], function(Frame) {
-  return function() {
+], function (Frame) {
+  return function () {
     var frame = new Frame();
     frame.attachLeft = [
       {
@@ -31,11 +31,12 @@ define([
           },
           {
             name: "Console",
+            selected: true,
             icon: "fa-code",
             target: "App/screens/Home/screenConsole"
           }
         ],
-        onClick: function(event) {
+        onClick: function (event) {
           var target = event.target.model.target;
           frame.select(target);
         }
@@ -44,11 +45,12 @@ define([
 
     frame.attachTop = [
       {
-        component: $ui.Group,
+        component: $ui.Panel,
+        showHeaderBar: false,
         content: [
           {
             component: $ui.Label,
-            value: "Chris Stokes"
+            caption: "Spann"
           }
         ]
       }
