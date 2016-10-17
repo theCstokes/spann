@@ -26,6 +26,9 @@ define([
                 rightToLeft: true,
                 icon: 'fa-times',
                 onClick: function() {
+                  if(object.hasOwnProperty("onClose")) {
+                    object.onClose();
+                  }
                   $ui.pop();
                 }
               }

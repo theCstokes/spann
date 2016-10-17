@@ -20,6 +20,10 @@ define([
       components.outputEditor.value = String(data);
     }
 
+    dialog.onClose = function() {
+      $ui.notifyEvent("closedOutput");
+    }
+
     $ui.addEvent("updateOutput", function(value) {
       dialog.model.outputEditor.value = String(data);
     });
