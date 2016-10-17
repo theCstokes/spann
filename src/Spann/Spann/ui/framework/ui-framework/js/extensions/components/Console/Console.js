@@ -15,7 +15,7 @@ function Console(parent, screen) {
 
   var text = "Python Started.";
   var lineSeparater = "\n";
-  var lineStart = ">>>_";
+  var lineStart = ">>> ";
   text += lineSeparater + lineStart;
   editor.setValue(text, 1);
 

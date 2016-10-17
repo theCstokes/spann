@@ -1,4 +1,4 @@
 boot.config({
-  app: "App/app"
-  // app: "PlayGroup/app"
+  // app: "App/app"
+  app: "PlayGroup/app"
 })
