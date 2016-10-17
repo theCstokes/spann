@@ -1230,18 +1230,25 @@ function BasicFrame(parent, screen) {
 }
 $ui.addExtension('BasicFrame', BasicFrame);
 
-function ContextMenu(parent, Screen) {
+function ContextMenu(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
-  object.component.addClass('ui-contextHolder');
+  object.component.addClass('ui-context-menu');
 
-  var contextHolder = document.getElementsByClassName('ui-contextHolder')[0];
-  var contextMenu = document.getElementsByClassName('ui-contextMenu')[0];
+  var modal = $ui.create(object.component);
+  modal.addClass('modal');
 
-  // hide context menu when you click it
-  contextMenu.addEventListener('click', function(event) {
-    contextMenu.style.display = 'none';
-    contextHolder.style.display = 'none';
-  });
+  var content = $ui.create(modal);
+  content.addClass('modal-content');
+  object.addContainer(content);
+
+  var span = $ui.create('span', content);
+  span.addClass('close');
+
+  window.onclick = function(event) {
+    if (event.target === object.component) {
+        $ui.pop();
+    }
+  }
 
   return object;
 }
