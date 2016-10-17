@@ -22,8 +22,8 @@ define([
           {
             name: "Home",
             icon: "fa-home",
-            selected: true,
-            target: "App/screens/Home/homeScreen"
+            selected: false,
+            target: "App/screens/Home/screenHome"
           },
           {
             name: "Add User",
