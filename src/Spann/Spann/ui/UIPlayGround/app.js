@@ -1,6 +1,6 @@
 define([
   'PlayGroup/demoFrame',
-  'PlayGroup/screen_Editor',
+  'PlayGroup/screen_Account',
   'PlayGroup/dialog_Demo'
 ], function(demoFrame, screen_Editor, dialog_Demo) {
 
