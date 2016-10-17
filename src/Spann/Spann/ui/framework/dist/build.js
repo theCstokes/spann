@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-14 */
+/*! spann - v1.0.0 - 2016-10-16 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -1187,6 +1187,24 @@ function UserListItem(parent, screen) {
 }
 
 $ui.addExtension('UserListItem', UserListItem);
+
+function ContextMenu(parent, Screen) {
+  var object = $ui.BaseHolder(parent, screen);
+  object.component.addClass('ui-contextHolder');
+
+  var contextHolder = document.getElementsByClassName('ui-contextHolder')[0];
+  var contextMenu = document.getElementsByClassName('ui-contextMenu')[0];
+
+  // hide context menu when you click it
+  contextMenu.addEventListener('click', function(event) {
+    contextMenu.style.display = 'none';
+    contextHolder.style.display = 'none';
+  });
+
+  return object;
+}
+
+$ui.addExtension('ContextMenu', ContextMenu);
 
 function Dialog(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
