@@ -25,11 +25,13 @@ namespace Spann.Notifications
         private CancellationToken cancellationToken;
         private bool open;
         private readonly Guid uid;
-        public WebSocketHandler(HttpContext context)
+        private readonly bool readAll;
+        public WebSocketHandler(HttpContext context, bool ReadAll = false)
         {
             uid = Guid.NewGuid();
             this.ProcessRequest(context);
             open = false;
+            this.readAll = ReadAll;
         }
         public void ProcessRequest(HttpContext context)
         {
@@ -82,9 +84,15 @@ namespace Spann.Notifications
 
             while (socket.State == WebSocketState.Open)
             {
-                var result = await socket.ReceiveAsync(receivedDataBuffer, CancellationToken.None);
-                var messageString = Encoding.UTF8.GetString(receivedDataBuffer.Array, 0, result.Count);
-                if(receiveCallback != null)
+                WebSocketReceiveResult result;
+                var messageString = "";
+                do
+                {
+                    result = await socket.ReceiveAsync(receivedDataBuffer, CancellationToken.None);
+                    messageString = Encoding.UTF8.GetString(receivedDataBuffer.Array, 0, result.Count);
+                } while (!result.EndOfMessage && readAll);
+
+                if (receiveCallback != null)
                 {
                     receiveCallback.Invoke(uid, messageString);
                 }
