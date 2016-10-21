@@ -3,9 +3,17 @@ function build() {
   var object = {
     _private: {
       screens: [],
-      app: {}
+      app: {},
+      contextMenu: {}
     }
   };
+
+  Object.defineProperty(object, 'initialize', {
+    value: function() {
+      /// TODO - Init app code;
+      /// Context Menu
+    }
+  });
 
   /**
    * Gets the main div and uses as basis for the application.
@@ -144,9 +152,7 @@ function build() {
   }
 
   function handleCreateCallbacks(component, data) {
-    if(component.hasOwnProperty('show')) {
-      component.show(data);
-    }
+    component.notifyEvent('show', data);
   }
 
   /**
@@ -166,6 +172,7 @@ function build() {
           }
         }
         this.topScreen.uiObject.component.remove();
+        this.topScreen.notifyEvent('remove');
         this._private.screens.pop();
       }
     }
@@ -293,6 +300,12 @@ function build() {
   Object.defineProperty(object, 'notifyEvent', {
     value: function(name, data) {
       object._private.events[name](data);
+    }
+  });
+
+  Object.defineProperty(object, 'addContextEvent', {
+    value: function(name, functionCallback, target) {
+      object._private.contextMenu.events[name] = functionCallback;
     }
   });
 

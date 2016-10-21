@@ -13,9 +13,6 @@ define([
         }
       ];
 
-    screen.show = function(args) {
-
-    }
 
     return screen;
   }

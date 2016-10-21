@@ -40,7 +40,7 @@ define([
       }
     ];
 
-    screen.show = function() {
+    screen.registerEvent('show', function() {
       console.log(this);
       socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
       socket.onmessage = function (event) {
@@ -50,7 +50,7 @@ define([
       // socket.onopen = function (event) {
       //   socket.send("print 123");
       // }
-    }
+    });
 
     return screen;
   }
