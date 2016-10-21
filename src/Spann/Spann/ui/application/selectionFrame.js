@@ -20,9 +20,15 @@ define([
         style: $ui.NavigationListItem,
         items: [
           {
+            name: "Home",
+            selected: true,
+            icon: "fa-home",
+            target: "App/screens/Home/screenHome"
+          },
+          {
             name: "Account",
             icon: "fa-cog",
-            target: "App/screens/Home/screenAccount"
+            target: "App/screens/Account/screenAccount"
           },
           {
             name: "Editor",
@@ -31,9 +37,13 @@ define([
           },
           {
             name: "Console",
-            selected: true,
             icon: "fa-code",
-            target: "App/screens/Home/screenConsole"
+            target: "App/screens/Console/screenConsole"
+          },
+          {
+            name: "Projects",
+            icon: "fa-object-group",
+            target: "App/screens/Projects/screenProjects"
           }
         ],
         onClick: function (event) {
