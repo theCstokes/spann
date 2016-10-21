@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-17 */
+/*! spann - v1.0.0 - 2016-10-20 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -386,6 +386,11 @@ function Console(parent, screen) {
   });
 
   var textReset = false;
+
+  editor.on("input", function(event) {
+  	  // temporary fix for issue #4
+      editor.navigateRight(1);
+  });
 
   editor.on("change", function(event) {
       console.log("Change!!!");
