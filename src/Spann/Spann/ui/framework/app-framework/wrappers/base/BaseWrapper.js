@@ -149,6 +149,48 @@ define(function() {
        }
     }
 
+    object._private.events = {};
+    Object.defineProperty(object, 'registerEvent', {
+      value: function(name, callback) {
+        if(object._private.events[name] === undefined) {
+          object._private.events[name] = [];
+        }
+        object._private.events[name].push(callback);
+      }
+    });
+
+    Object.defineProperty(object, 'notifyEvent', {
+      value: function(name, data, obj) {
+        var events = object._private.events[name];
+        if(events !== undefined) {
+          events.reverse().every(function(item) {
+            var value = item.call(this, data);
+            return value === undefined ? true : value;
+          });
+        }
+      }
+    });
+
+    object._private.items = {};
+    Object.defineProperty(object, 'customContextItems', {
+      value: function(items) {
+        items.forEach(function(target) {
+          object._private.items[target.id] = {
+            name: target.name,
+            event: target.event
+          }  
+        });
+      }
+    });
+
+    object.registerEvent('show', function(data) {
+      // TODO - add events to context menu
+    });
+
+    object.registerEvent('remove', function(data) {
+      // TODO - remove events to context menu
+    });
+
     return object;
   }
   return BaseWrapper
