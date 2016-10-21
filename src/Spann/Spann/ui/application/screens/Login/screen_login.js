@@ -151,7 +151,7 @@ define([
       }
       manager.initialize();
 
-      // screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
+      screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
     });
 
     function login() {
