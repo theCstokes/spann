@@ -1,11 +1,17 @@
 define([
   'App/screens/Login/screen_login',
-  'BasicFrame'
-], function(screen_login, BasicFrame) {
+  'BasicFrame',
+  'ContextMenu'
+], function(screen_login, BasicFrame, ContextMenu) {
 
   function start() {
     $ui.frame = BasicFrame;
     $ui.push(screen_login);
+
+    window.oncontextmenu = function(event) {
+      $ui.push(ContextMenu);
+      return false;
+    }
 
      //add screen
      
