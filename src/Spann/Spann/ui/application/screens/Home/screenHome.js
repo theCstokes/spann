@@ -7,9 +7,15 @@ define([
 
     screen.content = [
         {
-          component: $ui.Label,
-          caption: 'Welcome %USERNAME% to Spann, the online Python IDE!',
-          theme: 'x'
+          component: $ui.Panel,
+          showTopBar: false,
+          content: [
+            {
+              component: $ui.Label,
+              caption: 'Welcome %USERNAME% to Spann, the online Python IDE!',
+              theme: 'x'
+            }
+          ]
         }
       ];
 
