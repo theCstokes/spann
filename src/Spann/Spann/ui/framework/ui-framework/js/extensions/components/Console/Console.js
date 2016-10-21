@@ -55,6 +55,11 @@ function Console(parent, screen) {
 
   var textReset = false;
 
+  editor.on("input", function(event) {
+  	  // temporary fix for issue #4
+      editor.navigateRight(1);
+  });
+
   editor.on("change", function(event) {
       console.log("Change!!!");
       console.log(event);
