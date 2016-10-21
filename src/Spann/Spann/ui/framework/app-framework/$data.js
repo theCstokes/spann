@@ -34,48 +34,16 @@ function build() {
   function makeRequest(type, request, body, callback, headerName, header) {
     if (request.hasOwnProperty("api")) {
       var api = request.api;
-      // delete request.api;
-      // for(var key in request) {
-      //   if(!request.hasOwnProperty(key)) {
-      //     continue;
-      //   }
-      //   var reg = new RegExp(key);
-      //   api.replace(reg, request[key]);
-      // }
 
       if (request.hasOwnProperty('id')) {
         var reg = new RegExp("{id}");
         api = api.replace(reg, request.id);
       }
 
-      //// old api call
-      // var address = window.location.href.split('ui/')[0] + "api/v1/" + api;
-      // var xhr = new XMLHttpRequest();
-      // xhr.open(type, address);
-      // xhr.responseType = 'json';
-      // xhr.onload = function (e) {
-      //   console.log("data: " + this.response);
-      // }
-      // xhr.onreadystatechange = function (event) {
-      //   // check if request is complete
-      //   if (this.readyState == this.DONE) {
-      //     if (this.onreadystatechange) {
-      //       xhr.onreadystatechange = null;
-      //       if (callback !== undefined) {
-      //         callback(JSON.parse(event.target.response));
-      //       }
-      //     }
-      //   }
-      // };
-      // if (header !== undefined) {
-      //   xhr.setRequestHeader(headerName, JSON.stringify(header));
-      // }
-      // xhr.send(body);
-
       ajaxCall(type, api, 
       function(data) {
         if (callback !== undefined) {
-          callback(JSON.parse(data));
+          callback(data);
         }
       },
       function(data) {
@@ -87,15 +55,16 @@ function build() {
   function ajaxCall (type, api, successCallback, errorCallback) {
     var xhr = new XMLHttpRequest();
     url = window.location.href.split('ui/')[0] + "api/v1/" + api;
+    xhr.responseType = 'json';
     xhr.open(type, url, true);
     xhr.onload = function (e) {
       if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
+        if (xhr.status === 200 || xhr.status === 201) {
           if (successCallback && successCallback.constructor == Function) {
-            var response = xhr.responseText;
-            if(xhr.responseXML !== null) {
-              response = xhr.responseXML.childNodes[0].innerHTML
-            }
+            var response = xhr.response;
+            // if(xhr.responseXML !== null) {
+            //   response = xhr.responseXML.childNodes[0].innerHTML
+            // }
             return successCallback(response);
           }
         } else {
