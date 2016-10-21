@@ -127,7 +127,7 @@ define([
 
     screen.show = function () {
       console.log(this);
-      this.uiObject.model.backgroundImage = '/ui/application/resources/login3.jpg';
+      this.uiObject.model.backgroundImage = '/ui/application/resources/login4.jpg';
 
       var components = this.model;
 
