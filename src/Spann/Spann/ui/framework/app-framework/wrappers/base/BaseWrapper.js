@@ -159,7 +159,7 @@ define(function() {
       }
     });
 
-    Object.defineProperty(object, 'notifyEvent', {
+    Object.defineProperty(object, 'invoke', {
       value: function(name, data, obj) {
         var events = object._private.events[name];
         if(events !== undefined) {
