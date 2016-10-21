@@ -89,7 +89,7 @@ define([
           {
             component: $ui.Button,
             visible: false,
-            caption: 'Create',
+            caption: $T('login.create'),
             id: "createButton",
             onClick: function (event) {
               var current_state = event.target.screen.stateManager.getCurrentState();
