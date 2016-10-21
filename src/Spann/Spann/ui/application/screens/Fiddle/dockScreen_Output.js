@@ -13,12 +13,12 @@ define([
       }
     ];
 
-    dialog.show = function(data) {
+    dialog.registerEvent('show', function(data) {
       console.log(data);
 
       var components = this.model;
       components.outputEditor.value = String(data);
-    }
+    });
 
     dialog.onClose = function() {
       $ui.notifyEvent("closedOutput");
