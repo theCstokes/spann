@@ -127,7 +127,7 @@ define([
 
     screen.registerEvent('show', function () {
       console.log(this);
-      screen.uiObject.model.backgroundImage = '/ui/application/resources/login3.jpg';
+      screen.uiObject.model.backgroundImage = '/ui/application/resources/login4.jpg';
 
       var components = screen.model;
 
