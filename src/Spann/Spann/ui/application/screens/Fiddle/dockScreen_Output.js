@@ -1,8 +1,8 @@
 define([
-  'DockScreen'
-], function(DockScreen) {
+  'StateDialog'
+], function(StateDialog) {
   return function() {
-    var dialog = new DockScreen();
+    var dialog = new StateDialog();
     dialog.alignVertical = $ui.DockLocations.BOTTOM;
     dialog.alignHorizontal = $ui.DockLocations.RIGHT;
     dialog.content = [

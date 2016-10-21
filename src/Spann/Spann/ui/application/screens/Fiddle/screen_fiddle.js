@@ -22,7 +22,7 @@ define([
           {
             component: $ui.ActionButton,
             icon: 'fa-play',
-            onClick: function (event) {              
+            onClick: function (event) {            
               var screen = event.target.screen;
               var socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Fiddle");
               socket.onmessage = function (event) {
