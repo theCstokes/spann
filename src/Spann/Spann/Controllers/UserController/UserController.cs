@@ -30,7 +30,7 @@ namespace Spann.Controllers
             {
                 users = RC.UserManager.PullAll();
             }
-            return Ok(JsonUtils.SerializeObject(users));
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, users);
         }
 
         [HttpPost]

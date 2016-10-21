@@ -78,12 +78,12 @@ define([
       }
     ];
 
-    screen.show = function () {
+    screen.registerEvent('show', function () {
       console.log();
 
-      var components = this.model;
+      var components = screen.model;
       // components.editor.value = "abc";
-    }
+    })
 
     return screen;
   }
