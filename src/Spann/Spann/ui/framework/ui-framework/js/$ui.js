@@ -152,7 +152,7 @@ function build() {
   }
 
   function handleCreateCallbacks(component, data) {
-    component.notifyEvent('show', data);
+    component.invoke('show', data);
   }
 
   /**
@@ -172,7 +172,7 @@ function build() {
           }
         }
         this.topScreen.uiObject.component.remove();
-        this.topScreen.notifyEvent('remove');
+        this.topScreen.invoke('remove');
         this._private.screens.pop();
       }
     }
