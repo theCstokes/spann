@@ -55,10 +55,10 @@ define([
                       }
                     ]
                   }
-                }, function (items) {
+                }, function (result) {
                   try {
-                    if (items !== undefined) {
-                      var user = items[0];
+                    if (result !== undefined) {
+                      var user = result.items[0];
                       var saltyHash = Encryption.rehash(current_state.password, user.salt);
                       if (user.password === saltyHash.hash) {
                         login();
@@ -89,7 +89,7 @@ define([
           {
             component: $ui.Button,
             visible: false,
-            caption: 'Create',
+            caption: $T('login.create'),
             id: "createButton",
             onClick: function (event) {
               var current_state = event.target.screen.stateManager.getCurrentState();
@@ -125,11 +125,11 @@ define([
 
     var manager = new StateManager(screen);
 
-    screen.show = function () {
+    screen.registerEvent('show', function () {
       console.log(this);
-      this.uiObject.model.backgroundImage = '/ui/application/resources/login4.jpg';
+      screen.uiObject.model.backgroundImage = '/ui/application/resources/login3.jpg';
 
-      var components = this.model;
+      var components = screen.model;
 
       screen.render = function (state) {
         if (state.mode === manager.LoginModeEnum.LOGIN) {
@@ -152,7 +152,7 @@ define([
       manager.initialize();
 
       // screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
-    }
+    });
 
     function login() {
       $ui.pop();
