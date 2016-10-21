@@ -5,12 +5,12 @@ define([
   function StateDialog() {
     var object = new BaseWrapper($ui.ContextMenu);
     object.level = $ui.ScreenLevelEnum.BASE;
-    object.blurSiblings = true;
+    object.blurSiblings = false;
 
     object.addComponentContainer('content', 'content', function(data) {
       return [{
         component: $ui.Panel,
-        showHeaderBar: false,
+        showHeaderBar: true,
         id: "dialogPanel",
         header: [
           {
