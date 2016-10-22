@@ -16,7 +16,7 @@ namespace Spann.Core.DomainModel.Python
         #region Public Constructor(s).
         public PythonProjectDM()
         {
-
+            this.Files = new List<PythonFileDM>();
         }
         #endregion
 

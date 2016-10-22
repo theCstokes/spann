@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace Spann.Core.DataAccess.MetaDataModels
 {
-    public class Connection
+    public class ConnectionDataMap
     {
         public string SchemaName { get; private set; }
         public string TableName { get; private set; }
         public Type DataType { get; private set; }
+        [LookupProperty]
         public string ParentID { get; private set; }
+        [LookupProperty]
         public string ChildID { get; private set; }
 
         public PropertyInfo Property { get; private set; }
 
-        public Connection(ConnectionAttribute connection, MapAttribute map, PropertyInfo prop)
+        public ConnectionDataMap(ConnectionAttribute connection, MapAttribute map, PropertyInfo prop)
         {
             this.SchemaName = connection.SchemaName;
             this.TableName = connection.TableName;
@@ -33,7 +35,7 @@ namespace Spann.Core.DataAccess.MetaDataModels
         #region Private Fields
         private readonly Dictionary<IColumnItem, PropertyInfo> tableData;
 
-        private readonly Dictionary<Type, Connection> connectionData;
+        private readonly Dictionary<Type, ConnectionDataMap> connectionData;
         #endregion
 
         public TableDataMap(Type t)
@@ -63,10 +65,10 @@ namespace Spann.Core.DataAccess.MetaDataModels
 
             connectionData = t.GetRuntimeProperties()
                 .Where(p => Attribute.IsDefined(p, typeof(MapAttribute)))
-                .Aggregate(new Dictionary<Type, Connection>(), (result, prop) =>
+                .Aggregate(new Dictionary<Type, ConnectionDataMap>(), (result, prop) =>
                 {
                     var map = prop.GetCustomAttribute(typeof(MapAttribute)) as MapAttribute;
-                    result[map.DataType] = new Connection(connections[map.DataType], map, prop);
+                    result[map.DataType] = new ConnectionDataMap(connections[map.DataType], map, prop);
                     return result;
                 });
         }
@@ -145,12 +147,12 @@ namespace Spann.Core.DataAccess.MetaDataModels
             return list;
         }
 
-        public Connection Connection(Type t)
+        public ConnectionDataMap Connection(Type t)
         {
             return connectionData[t];
         }
 
-        public List<Connection> Connections
+        public List<ConnectionDataMap> Connections
         {
             get
             {

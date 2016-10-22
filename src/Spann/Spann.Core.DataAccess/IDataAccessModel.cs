@@ -13,7 +13,7 @@ namespace Spann.Core.DataAccess
         void UpdateObject(TSource dataObject);
         void DeleteObject(int id);
         TSource LoadObject(int id);
-        List<TSource> LoadAll();
+        //List<TSource> LoadAll();
         List<TSource> LoadAll(Expression<Func<TSource, bool>> query);
     }
 }

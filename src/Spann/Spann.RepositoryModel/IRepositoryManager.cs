@@ -16,10 +16,10 @@ namespace Spann.RepositoryModel
 
         void Commit(CommitTypeEnum commitType, ModelSource model);
 
-        ModelSource Pull(Expression<Func<ModelSource, bool>> filter);
+        ModelSource Pull(Expression<Func<ModelSource, bool>> filter, bool WithDetails = false);
 
-        List<ModelSource> PullAll();
+        List<ModelSource> PullAll(bool WithDetails = false);
 
-        List<ModelSource> PullAll(Expression<Func<ModelSource, bool>> filter);
+        List<ModelSource> PullAll(Expression<Func<ModelSource, bool>> filter = null, bool WithDetails = false);
     }
 }

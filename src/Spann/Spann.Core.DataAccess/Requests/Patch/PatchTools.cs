@@ -18,7 +18,7 @@ namespace Spann.Core.DataAccess.Requests.Patch
 
         public static PatchData GetPatchData<TSource>(TSource obj) where TSource : IDataModel
         {
-            return new PatchData(PatchTypeEnum.GetType(obj.PatchType), obj.PatchClientID);
+            return new PatchData(PatchType.GetType(obj.PatchType), obj.PatchClientID);
         }
     }
 }
