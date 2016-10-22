@@ -6,22 +6,28 @@ using System.Threading.Tasks;
 
 namespace Spann.Core.DataAccess.Requests.Patch
 {
-    public class PatchTypeEnum
+    public class PatchType
     {
-        private static readonly Dictionary<int, PatchTypeEnum> Types = new Dictionary<int, PatchTypeEnum>();
+        public enum Enum
+        {
+            Create = 1, Update = 2, Delete = 3
+        }
+        private static readonly Dictionary<int, PatchType> Types = new Dictionary<int, PatchType>();
 
-        public static readonly PatchTypeEnum CREATE = new PatchTypeEnum(1, "Create");
-        public static readonly PatchTypeEnum UPDATE = new PatchTypeEnum(2, "Update");
-        public static readonly PatchTypeEnum DELETE = new PatchTypeEnum(3, "Delete");
+        public static readonly PatchType CREATE = new PatchType(Enum.Create, "Create");
+        public static readonly PatchType UPDATE = new PatchType(Enum.Update, "Update");
+        public static readonly PatchType DELETE = new PatchType(Enum.Delete, "Delete");
 
         public string Value { get; private set; }
-        private PatchTypeEnum(int uid, string value)
+        public Enum EnumValue { get; private set; }
+        private PatchType(Enum enumValue, string value)
         {
             this.Value = value;
-            Types[uid] = this;
+            Types[(int) enumValue] = this;
+            this.EnumValue = enumValue;
         }
 
-        public static PatchTypeEnum GetType(string value)
+        public static PatchType GetType(string value)
         {
             return Types.Values.First(type => type.Value.Equals(value, StringComparison.OrdinalIgnoreCase));
         }
