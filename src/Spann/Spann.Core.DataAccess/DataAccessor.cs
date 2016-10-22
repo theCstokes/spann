@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Spann.Core.DataAccess.DataBase;
 using Npgsql;
+using Spann.Core.DataAccess.BaseDomainModel;
+using System.Reflection;
 
 namespace Spann.Core.DataAccess
 {
@@ -54,7 +56,7 @@ namespace Spann.Core.DataAccess
                 }
         }
 
-        public void CreateConnection(DMSource DataObject, Connection connection, int id)
+        public void CreateConnection(DMSource DataObject, ConnectionDataMap connection, int id)
         {
             CreateQuery query = new CreateQuery(connection.SchemaName, connection.TableName);
 
@@ -62,14 +64,14 @@ namespace Spann.Core.DataAccess
             query.AddPropertyValue(connection.ChildID, id);
 
             var cmd = db.GetCommand(query.Build());
-                using (var reader = cmd.ExecuteReader())
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        DataObject.AddConnection(connection.DataType, id, Convert.ToInt32(reader.GetString(0)));
-                        return;
-                    }
+                    DataObject.AddConnection(connection.DataType, id, Convert.ToInt32(reader.GetString(0)));
+                    return;
                 }
+            }
         }
 
         public void UpdateObject(DMSource DataObject)
@@ -87,10 +89,10 @@ namespace Spann.Core.DataAccess
             }
 
             var cmd = db.GetCommand(query.Build());
-                cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
         }
 
-        public void UpdateConnection(DMSource DataObject, Connection connection, int id)
+        public void UpdateConnection(DMSource DataObject, ConnectionDataMap connection, int id)
         {
             CreateQuery query = new CreateQuery(connection.SchemaName, connection.TableName);
 
@@ -123,7 +125,7 @@ namespace Spann.Core.DataAccess
             ((DeleteQuery)query).AddWhereFragment(id);
 
             var cmd = db.GetCommand(query.Build());
-                cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
         }
 
         public DMSource LoadObject(int targetId)
@@ -153,45 +155,99 @@ namespace Spann.Core.DataAccess
             return item;
         }
 
-        public List<DMSource> LoadAll()
+        public List<ConnectionDM> LoadConnections(Expression<Func<ConnectionDM, bool>> exp, DMSource model, ConnectionDataMap connection)
         {
-            
-            LoadQuery query = QueryBuilder.Load(TABLE);
+            LoadQuery query = new LoadQuery(connection.SchemaName, connection.TableName);
 
-            foreach (var entry in DATA_MAP.Columns)
+            BinaryExpression operation = (BinaryExpression)exp.Body;
+            query.AddWhereFragment(operation, DataObject: connection);
+
+            //query.AddProperty("ID");
+            //query.AddProperty(connection.ParentID);
+            //query.AddProperty(connection.ChildID);
+            var targetMap = new TableDataMap(typeof(ConnectionDM));
+            Dictionary<string, string> currentPropertyMap = new Dictionary<string, string>();
+
+            foreach (var entry in targetMap.IDColumns)
             {
-                query.AddProperty(entry.Key.ColumnName);
+                var prop = entry.Value;
+                if (Attribute.IsDefined(prop, typeof(LookupPropertyAttribute))) {
+                    var idData = entry.Value.GetCustomAttribute(typeof(IDColumnAttribute)) as IDColumnAttribute;
+                    var propertyName = idData.ColumnName;
+                    var value = (string) connection.GetType().GetProperty(propertyName).GetValue(connection);
+                    query.AddProperty(value);
+                    currentPropertyMap[value] = propertyName;
+                } else
+                {
+                    query.AddProperty(entry.Key.ColumnName);
+                }
             }
 
-            List<DMSource> items = new List<DMSource>();
+            
+
+            List<ConnectionDM> items = new List<ConnectionDM>();
             var cmd = db.GetCommand(query.Build());
-                using (var reader = cmd.ExecuteReader())
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    ConnectionDM item = CreateNewItem<ConnectionDM>();
+                    for (var i = 0; i < DATA_MAP.Columns.Count(); i++)
                     {
-                        DMSource item = CreateNewItem();
-                        for (var i = 0; i < DATA_MAP.Columns.Count(); i++)
+                        var itemName = reader.GetName(i);
+                        if (currentPropertyMap.ContainsKey(itemName))
                         {
-                            SetItem(reader.GetName(i), reader.GetString(i), DATA_MAP, item);
+                            itemName = currentPropertyMap[itemName];
                         }
-                        items.Add(item);
+                        SetItem(itemName, reader.GetString(i), targetMap, item);
                     }
+                    items.Add(item);
                 }
+            }
             return items;
         }
 
-        public List<DMSource> LoadAll(Expression<Func<DMSource, bool>> exp)
-        {
-            
-            BinaryExpression operation = (BinaryExpression)exp.Body;
+        //public List<DMSource> LoadAll()
+        //{
 
+        //    LoadQuery query = QueryBuilder.Load(TABLE);
+
+        //    foreach (var entry in DATA_MAP.Columns)
+        //    {
+        //        query.AddProperty(entry.Key.ColumnName);
+        //    }
+
+        //    List<DMSource> items = new List<DMSource>();
+        //    var cmd = db.GetCommand(query.Build());
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                DMSource item = CreateNewItem();
+        //                for (var i = 0; i < DATA_MAP.Columns.Count(); i++)
+        //                {
+        //                    SetItem(reader.GetName(i), reader.GetString(i), DATA_MAP, item);
+        //                }
+        //                items.Add(item);
+        //            }
+        //        }
+        //    return items;
+        //}
+
+        public List<DMSource> LoadAll(Expression<Func<DMSource, bool>> exp = null)
+        {
             LoadQuery query = QueryBuilder.Load(TABLE);
 
             foreach (var entry in DATA_MAP.Columns)
             {
                 query.AddProperty(entry.Key.ColumnName);
             }
-            query.AddWhereFragment(operation);
+
+            if(exp != null)
+            {
+                BinaryExpression operation = (BinaryExpression)exp.Body;
+                query.AddWhereFragment(operation);
+            }
 
             List<DMSource> items = new List<DMSource>();
             var cmd = db.GetCommand(query.Build());
@@ -249,6 +305,11 @@ namespace Spann.Core.DataAccess
         private static DMSource CreateNewItem()
         {
             return Activator.CreateInstance<DMSource>();
+        }
+
+        private static T CreateNewItem<T>()
+        {
+            return Activator.CreateInstance<T>();
         }
     }
 }
