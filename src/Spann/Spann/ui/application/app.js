@@ -10,6 +10,8 @@ define([
 
     window.oncontextmenu = function(event) {
       $ui.push(ContextMenu);
+      $ui.notifyEvent("move", [event.clientX, event.clientY]);
+      console.log('moving to', event.clientX, event.clientY);
       return false;
     }
 
