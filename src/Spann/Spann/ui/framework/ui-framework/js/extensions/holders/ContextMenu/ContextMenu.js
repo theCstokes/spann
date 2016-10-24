@@ -18,10 +18,15 @@ function ContextMenu(parent, screen) {
     }
   }
 
+  $ui.addEvent("move", function(pos) {
+    modal.style.top = pos[0] + "px";
+    modal.style.left = pos[1] + "px";
+  });
+
   object.show = function () {
     console.log('show');
-    this.component.style.height = "436px"; // this is wrong because it moves the background.
-    modal.style.left = "300px"
+    //this.component.style.height = "436px"; // this is wrong because it moves the background.
+    //modal.style.left = "300px"
   }
 
   return object;
