@@ -10,6 +10,7 @@ namespace Spann.Debug
     {
         static void Main(string[] args)
         {
+            //var project = RC.PythonProjectManager.Pull(p => p.ID == id);
         }
     }
 }
