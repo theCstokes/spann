@@ -83,9 +83,9 @@ function Tree(parent, screen) {
       }
       
       var element;
-      if(element === $ui.TreeElementType.ITEM) {
+      if(elementType === $ui.TreeElementType.ITEM) {
         element = object._private.itemStyle(item); // no need for screen.
-      } else if(element === $ui.TreeElementType.NODE) {
+      } else if(elementType === $ui.TreeElementType.NODE) {
         if(object._private.nodeStyle !== undefined) {
           element = object._private.nodeStyle(item); // no need for screen.
         } else {
@@ -132,7 +132,7 @@ function Tree(parent, screen) {
     }
   });
 
-  Object.defineProperty(object.model, 'itemStyle', {
+  Object.defineProperty(object.model, 'style', {
     set: function (value) {
       object._private.itemStyle = value;
     }
