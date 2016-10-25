@@ -77,7 +77,7 @@ function List(parent, screen) {
       var item = $ui.create('li', listHolder);
       item.addClass('list-item');
 
-      var element = object._private.style(item);
+      var element = object._private.style(item); // no need for screen.
       if(element.hasOwnProperty('content') && element.content != undefined) {
         element.content.onclick = onClickCallback;
         element.content.index = object._private.listItems.length;
