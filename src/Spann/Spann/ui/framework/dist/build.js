@@ -127,6 +127,89 @@ function BaseHolder(parent, screen) {
 
 $ui.addExtension('BaseHolder', BaseHolder);
 
+var Size = {
+  SMALL: 'small', NORMAL: 'normal', LARGE: 'large'
+};
+
+$ui.addStyleExtension('Size', Size);
+
+function UIDecorators(object) {
+  function string(name, parent) {
+    var item = $ui.create('div', parent);
+    item.addClass('ui-decorators-string');
+    if(object[name] !== undefined) {
+      object._private[name] = object[name];
+    }
+    renderStringItem();
+    Object.defineProperty(object.model, name, {
+      set: function(value) {
+        if(object._private[name] !== value) {
+          object._private[name] = value;
+          renderStringItem();
+        }
+      },
+      get: function() {
+        return object._private[name];
+      }
+    });
+    function renderStringItem() {
+      item.textContent = object._private[name];
+    }
+    return item;
+  }
+
+  function icon(name, parent) {
+    var icon = $ui.create('div', parent);
+    icon.addClass('ui-decorators-icon fa');
+    if(object[name] !== undefined) {
+      renderIcon(object[name]);
+      object._private.icon = object[name];
+    }
+    Object.defineProperty(object.model, name, {
+      set: function (value) {
+        if(object._private.icon != value) {
+          renderIcon(value);
+          object._private.icon = value;
+        }
+      },
+      get: function() {
+        return object._private.icon;
+      }
+    });
+
+    function renderIcon(newValue) {
+      if(object._private.icon !== undefined) {
+        icon.replaceClass(object._private.icon, value);
+      } else {
+        icon.addClass(newValue);
+      }
+    }
+  }
+
+  function size(obj) {
+    object._private.size;
+    Object.defineProperty(object.model, 'size', {
+      set: function(value) {
+        if(object._private.size !== value) {
+          obj.replaceClass(object._private.size, value);
+          object._private.size = value;
+        }
+      },
+      get: function() {
+        return object._private.size;
+      }
+    });
+  } 
+
+  return {
+    string: string,
+    icon: icon,
+    size: size
+  }
+}
+
+$ui.addExtension('UIDecorators', UIDecorators);
+
 function ActionButton(parent, screen) {
   //add base component data
   var object = $ui.BaseComponent(parent, screen);
@@ -1271,67 +1354,6 @@ var TreeElementType = {
 
 $ui.addStyleExtension('TreeElementType', TreeElementType);
 
-function UIDecorators(object) {
-  function string(name, parent) {
-    var item = $ui.create('div', parent);
-    item.addClass('ui-decorators-string');
-    if(object[name] !== undefined) {
-      object._private[name] = object[name];
-    }
-    renderStringItem();
-    Object.defineProperty(object.model, name, {
-      set: function(value) {
-        if(object._private[name] !== value) {
-          object._private[name] = value;
-          renderStringItem();
-        }
-      },
-      get: function() {
-        return object._private[name];
-      }
-    });
-    function renderStringItem() {
-      item.textContent = object._private[name];
-    }
-    return item;
-  }
-
-  function icon(name, parent) {
-    var icon = $ui.create('div', parent);
-    icon.addClass('ui-decorators-icon fa');
-    if(object[name] !== undefined) {
-      renderIcon(object[name]);
-      object._private.icon = object[name];
-    }
-    Object.defineProperty(object.model, name, {
-      set: function (value) {
-        if(object._private.icon != value) {
-          renderIcon(value);
-          object._private.icon = value;
-        }
-      },
-      get: function() {
-        return object._private.icon;
-      }
-    });
-
-    function renderIcon(newValue) {
-      if(object._private.icon !== undefined) {
-        icon.replaceClass(object._private.icon, value);
-      } else {
-        icon.addClass(newValue);
-      }
-    }
-  }
-
-  return {
-    string: string,
-    icon: icon
-  }
-}
-
-$ui.addExtension('UIDecorators', UIDecorators);
-
 function UserListItem(parent, screen) {
   var object = $ui.BaseListOrTreeItem(parent, screen);
   object.component.addClass('ui-user-list-item');
@@ -1462,6 +1484,9 @@ function Dialog(parent, screen) {
 
   var span = $ui.create('span', content);
   span.addClass('close');
+
+  var dec = $ui.UIDecorators(object);
+  dec.size(modal);
 
   window.onclick = function(event) {
     if (event.target === object.component) {

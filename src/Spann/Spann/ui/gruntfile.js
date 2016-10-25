@@ -10,6 +10,7 @@ module.exports = function (grunt) {
         dist: {
           src: [
             'framework/ui-framework/js/extensions/base/**/*.js',
+            'framework/ui-framework/js/extensions/core/**/*.js',
             'framework/ui-framework/js/extensions/components/**/*.js',
             'framework/ui-framework/js/extensions/holders/**/*.js'
           ],
