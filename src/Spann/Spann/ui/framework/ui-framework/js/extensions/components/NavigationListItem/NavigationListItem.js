@@ -1,5 +1,5 @@
-function NavigationListItem(panel, screen) {
-  var object = $ui.BaseListOrTreeItem(panel, screen);
+function NavigationListItem(parent, screen) {
+  var object = $ui.BaseListOrTreeItem(parent, screen);
   object.noMargin = true;
   object.component.addClass('ui-navigation-list-item');
 
