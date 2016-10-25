@@ -12,6 +12,9 @@ function Dialog(parent, screen) {
   var span = $ui.create('span', content);
   span.addClass('close');
 
+  var dec = $ui.UIDecorators(object);
+  dec.size(modal);
+
   window.onclick = function(event) {
     if (event.target === object.component) {
         $ui.pop();
