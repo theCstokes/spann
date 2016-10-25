@@ -1,5 +1,5 @@
 define([
-  'StateDialog'
+  'DockScreen'
 ], function(StateDialog) {
   return function() {
     var dialog = new StateDialog();
@@ -16,7 +16,7 @@ define([
     dialog.registerEvent('show', function(data) {
       console.log(data);
 
-      var components = this.model;
+      var components = dialog.model;
       components.outputEditor.value = String(data);
     });
 
