@@ -47,12 +47,12 @@ body {
   border-left: solid;
   border-left-color: transparent;
   border-left-width: 4px;
-  color: #ffffff;
+  color: #000000;
   opacity: 0.5;
 }
 .ui-base-list-tree-item.selected {
   border-style: none;
-  color: #ffffff;
+  color: #000000;
   opacity: 1;
   border-left: solid;
   border-left-color: #007830;
@@ -171,6 +171,9 @@ body {
 .ui-file-list-item:focus,
 .ui-file-list-item:hover {
   background-color: #555;
+}
+.ui-file-list-item.ui-base-list-tree-item.selected {
+  color: #555;
 }
 .ui-input {
   display: flex;
@@ -367,6 +370,12 @@ body {
 .ui-navigation-list-item:focus,
 .ui-navigation-list-item:hover {
   background-color: #555;
+}
+.ui-navigation-list-item.ui-base-list-tree-item {
+  color: #ffffff;
+}
+.ui-navigation-list-item.ui-base-list-tree-item.selected {
+  color: #ffffff;
 }
 .progress-bar {
   margin-top: 10px;
