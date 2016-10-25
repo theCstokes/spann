@@ -1433,6 +1433,11 @@ function ContextMenu(parent, screen) {
     }
   }
 
+  object.show = function () {
+    console.log('show');
+    this.component.style.height = "436px";
+  }
+
   return object;
 }
 
