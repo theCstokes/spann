@@ -13,7 +13,7 @@ define([
       return [{
         component: $ui.Panel,
         id: "dialogPanel",
-        header: [
+        topDock: [
           {
             component: $ui.Flow,
             content: [

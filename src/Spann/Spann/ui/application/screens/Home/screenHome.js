@@ -8,7 +8,7 @@ define([
     screen.content = [
         {
           component: $ui.Panel,
-          showTopBar: false,
+          showTopDock: false,
           content: [
             {
               component: $ui.Label,

@@ -9,7 +9,7 @@ define([
       {
         component: $ui.Panel,
         // showFooterBar: false,
-        header: [
+        topDock: [
           {
             component: $ui.ActionButton,
             icon: 'fa-bars',

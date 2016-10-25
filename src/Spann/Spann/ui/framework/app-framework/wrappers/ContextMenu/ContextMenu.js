@@ -10,9 +10,9 @@ define([
     object.addComponentContainer('content', 'content', function(data) {
       return [{
         component: $ui.Panel,
-        showHeaderBar: true,
+        showTopBar: true,
         id: "dialogPanel",
-        header: [
+        topDock: [
           {
             component: $ui.Label,
             caption: "New File"
