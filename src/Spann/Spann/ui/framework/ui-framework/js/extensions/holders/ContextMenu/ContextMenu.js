@@ -18,9 +18,9 @@ function ContextMenu(parent, screen) {
     }
   }
 
-  $ui.addEvent("move", function(pos) {
-    modal.style.top = pos[0] + "px";
-    modal.style.left = pos[1] + "px";
+  $ui.addEvent("move", function(location) {
+    modal.style.top = location.top + "px";
+    modal.style.left = location.left + "px";
   });
 
   object.show = function () {
