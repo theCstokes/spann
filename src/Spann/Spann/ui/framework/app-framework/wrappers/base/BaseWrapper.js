@@ -22,7 +22,7 @@ define(function() {
 
     Object.defineProperty(object, 'create', {
       value: function(parent) {
-        object.uiObject = objectType(parent);
+        object.uiObject = $builder.createType(objectType, parent);
         object.model = object.uiObject.model;
         object._private.registeredProperties.forEach(function(item) {
           object.uiObject.model[item.name] = item.value;

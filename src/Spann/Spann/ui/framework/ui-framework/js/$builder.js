@@ -59,8 +59,17 @@ function build() {
       return elements;
     }
 
+    function createType(type, parent, screen) {
+      var typeControl = type(parent, screen);
+      if(typeControl.hasOwnProperty('show')) {
+        typeControl.show();
+      }
+      return typeControl;
+    }
+
   return {
-    build: parse
+    build: parse,
+    createType: createType
   }
 }
 
