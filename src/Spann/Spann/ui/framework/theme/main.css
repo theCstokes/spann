@@ -439,6 +439,24 @@ body {
   display: inline-block;
   color: white;
 }
+.ui-tree {
+  height: 100%;
+  overflow: hidden;
+}
+.ui-tree .holder {
+  display: block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.ui-tree .tree-item {
+  display: block;
+  width: 100%;
+}
 .ui-decorators-icon {
   color: #DCDCD9;
   margin-left: 10px;
