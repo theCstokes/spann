@@ -20,10 +20,18 @@ define([
         ],
         content: [
           {
-            component: $ui.List,
+            component: $ui.Tree,
             decorator: $ui.ListDecorators.MAXIMIZE_LIST,
-            id: 'userList',
-            style: $ui.UserListItem
+            id: 'projectList',
+            style: $ui.FileListItem,
+            items: [
+              {
+                elementType: $ui.TreeElementType.ITEM,
+                name: "Home",
+                selected: true,
+                icon: "fa-home"
+              }
+            ]
           }
         ]
       }
