@@ -14,7 +14,7 @@ define([
     screen.content = [
       {
         component: $ui.Panel,
-        header: [
+        topDock: [
           {
             component: $ui.Label,
             caption: "Editor"

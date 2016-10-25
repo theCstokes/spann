@@ -1,21 +1,24 @@
 define([
+  'PartitionScreen',
   'App/screens/Projects/projectTransform',
-  'PartitionScreen'
-], function(userTransform, PartitionScreen) {
+  'App/screens/Projects/ProjectDialog/projectDialog'
+], function(PartitionScreen, userTransform, projectDialog) {
   return function() {
     var screen = new PartitionScreen();
-
     screen.content = [
       {
         component: $ui.Panel,
-        header: [
+        topDock: [
           {
             component: $ui.Label,
             caption: "Projects"
           },
           {
             component: $ui.ActionButton,
-            icon: 'fa-plus'
+            icon: 'fa-plus',
+            onClick: function() {
+              $ui.push(projectDialog);
+            }
           }
         ],
         content: [

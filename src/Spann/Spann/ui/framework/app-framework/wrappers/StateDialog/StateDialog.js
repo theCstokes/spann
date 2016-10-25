@@ -11,7 +11,7 @@ define([
       return [{
         component: $ui.Panel,
         id: "dialogPanel",
-        header: [
+        topDock: [
           {
             component: $ui.Label,
             caption: "New File"
