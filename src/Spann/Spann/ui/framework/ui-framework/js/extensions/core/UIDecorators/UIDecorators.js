@@ -51,9 +51,25 @@ function UIDecorators(object) {
     }
   }
 
+  function size(obj) {
+    object._private.size;
+    Object.defineProperty(object.model, 'size', {
+      set: function(value) {
+        if(object._private.size !== value) {
+          obj.replaceClass(object._private.size, value);
+          object._private.size = value;
+        }
+      },
+      get: function() {
+        return object._private.size;
+      }
+    });
+  } 
+
   return {
     string: string,
-    icon: icon
+    icon: icon,
+    size: size
   }
 }
 
