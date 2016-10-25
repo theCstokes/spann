@@ -757,7 +757,7 @@ body {
 .ui-panel .base {
   padding: 10px;
 }
-.ui-panel .header {
+.ui-panel .top-dock {
   padding: 10px;
   flex-direction: row;
   justify-content: flex-start;
@@ -770,7 +770,7 @@ body {
   border-bottom-width: thin;
   display: none;
 }
-.ui-panel .hasHeader {
+.ui-panel .has-top-dock {
   display: flex;
 }
 .ui-panel .body {
@@ -785,7 +785,7 @@ body {
   justify-content: flex-start;
   display: none;
 }
-.ui-panel .bottom-dock {
+.ui-panel .has-bottom-dock {
   display: flex;
 }
 .ui-partition-screen {
