@@ -3,15 +3,20 @@ define([
   'BasicFrame',
   'ContextMenu'
 ], function(screen_login, BasicFrame, ContextMenu) {
+  var ctxOpen = false;
 
   function start() {
     $ui.frame = BasicFrame;
     $ui.push(screen_login);
 
     window.oncontextmenu = function(event) {
-      $ui.push(ContextMenu);
+      if (!ctxOpen) {
+        ctxOpen = true;
+        $ui.push(ContextMenu);
+      }
+
       $ui.notifyEvent("ctxMove", {left: event.clientX, top: event.clientY});
-      console.log('moving context menu to', event.clientX, event.clientY);
+      //console.log('moving context menu to', event.clientX, event.clientY);
       return false;
     }
 
