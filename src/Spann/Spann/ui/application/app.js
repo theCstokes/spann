@@ -11,12 +11,11 @@ define([
     window.oncontextmenu = function(event) {
       $ui.push(ContextMenu);
       $ui.notifyEvent("ctxMove", {left: event.clientX, top: event.clientY});
-      console.log('moving to', event.clientX, event.clientY);
+      console.log('moving context menu to', event.clientX, event.clientY);
       return false;
     }
 
      //add screen
-     
 
     //  $ui.push(homeScreen);
 
@@ -35,6 +34,7 @@ define([
     // xhr.send(blob);
     // xhr.send();
   }
+
   return {
     start: start
   }
