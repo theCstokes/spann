@@ -15,8 +15,20 @@ define([
         topDock: [
           {
             component: $ui.Label,
-            caption: "New File"
-          }
+            caption: "Select All"
+          },
+          {
+            component: $ui.Label,
+            caption: "Cut"
+          },
+          {
+            component: $ui.Label,
+            caption: "Copy"
+          },
+          {
+            component: $ui.Label,
+            caption: "Paste"
+          },
         ],
         content: data
       }]
