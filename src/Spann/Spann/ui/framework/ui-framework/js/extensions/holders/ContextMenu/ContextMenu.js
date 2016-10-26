@@ -25,8 +25,6 @@ function ContextMenu(parent, screen) {
 
   object.show = function () {
     console.log('show');
-    //this.component.style.height = "436px"; // this is wrong because it moves the background.
-    //modal.style.left = "300px"
   }
 
   return object;
