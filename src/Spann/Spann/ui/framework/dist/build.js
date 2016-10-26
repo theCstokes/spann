@@ -1451,7 +1451,8 @@ function ContextMenu(parent, screen) {
 
   window.onclick = function(event) {
     if (event.target === object.component) {
-        $ui.pop();
+      $ui.notifyEvent("ctxPop");
+      $ui.pop();
     }
   }
 

@@ -9,6 +9,11 @@ define([
     $ui.frame = BasicFrame;
     $ui.push(screen_login);
 
+    $ui.addEvent("ctxPop", function() {
+      ctxOpen = false;
+      console.log('func');
+    });
+
     window.oncontextmenu = function(event) {
       if (!ctxOpen) {
         ctxOpen = true;
