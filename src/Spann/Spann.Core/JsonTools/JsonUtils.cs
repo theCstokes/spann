@@ -17,10 +17,7 @@ namespace Spann.Core.JsonTools
                 new JsonSerializerSettings
                 {   
                     ContractResolver = new ObjectPropertyResolver(),
-<<<<<<< HEAD
                     NullValueHandling = NullValueHandling.Ignore
-=======
->>>>>>> 9184c4db068f18eff5cc097a04ab500fb58a519e
                 });
         }
 

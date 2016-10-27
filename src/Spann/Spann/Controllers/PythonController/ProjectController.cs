@@ -54,7 +54,6 @@ namespace Spann.Controllers
             var project = RC.PythonProjectManager.Pull(p => p.ID == id, WithDetails: true);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
         }
-<<<<<<< HEAD
 
         [HttpGet]
         [Route("Project")]
@@ -71,7 +70,5 @@ namespace Spann.Controllers
             List<PythonProjectDM> projects = RC.PythonProjectManager.PullAll(WithDetails: true);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects);
         }
-=======
->>>>>>> 9184c4db068f18eff5cc097a04ab500fb58a519e
     }
 }
