@@ -54,5 +54,21 @@ namespace Spann.Controllers
             var project = RC.PythonProjectManager.Pull(p => p.ID == id, WithDetails: true);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
         }
+
+        [HttpGet]
+        [Route("Project")]
+        public IHttpActionResult GetAllProjects()
+        {
+            List<PythonProjectDM> projects = RC.PythonProjectManager.PullAll();
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects);
+        }
+
+        [HttpGet]
+        [Route("Project/Details")]
+        public IHttpActionResult GetAllProjectsDetails()
+        {
+            List<PythonProjectDM> projects = RC.PythonProjectManager.PullAll(WithDetails: true);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects);
+        }
     }
 }
