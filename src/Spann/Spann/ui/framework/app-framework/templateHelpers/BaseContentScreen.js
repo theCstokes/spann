@@ -1,7 +1,6 @@
 define([
-  'Screen',
-  'App/screens/UserAdd/StateManager'
-], function(Screen, StateManager) {
+  'Screen'
+], function(Screen) {
   function BaseContentScreen(caption, content) {
     var screen = new Screen();
 

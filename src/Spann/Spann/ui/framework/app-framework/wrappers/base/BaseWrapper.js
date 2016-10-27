@@ -164,7 +164,7 @@ define(function() {
         var events = object._private.events[name];
         if(events !== undefined) {
           events.reverse().every(function(item) {
-            var value = item.call(this, data);
+            var value = item.call(object, data);
             return value === undefined ? true : value;
           });
         }
