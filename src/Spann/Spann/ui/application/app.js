@@ -3,20 +3,28 @@ define([
   'BasicFrame',
   'ContextMenu'
 ], function(screen_login, BasicFrame, ContextMenu) {
+  var ctxOpen = false;
 
   function start() {
     $ui.frame = BasicFrame;
     $ui.push(screen_login);
+    $ui.addEvent("ctxPop", function() {
+      ctxOpen = false;
+      console.log('func');
+    });
 
     window.oncontextmenu = function(event) {
-      $ui.push(ContextMenu);
-      $ui.notifyEvent("move", {left: event.clientX, top: event.clientY});
-      console.log('moving to', event.clientX, event.clientY);
+      if (!ctxOpen) {
+        ctxOpen = true;
+        $ui.push(ContextMenu);
+      }
+
+      $ui.notifyEvent("ctxMove", {left: event.clientX, top: event.clientY});
+      //console.log('moving context menu to', event.clientX, event.clientY);
       return false;
     }
 
      //add screen
-     
 
     //  $ui.push(homeScreen);
 

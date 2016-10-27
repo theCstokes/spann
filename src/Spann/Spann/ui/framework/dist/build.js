@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-24 */
+/*! spann - v1.0.0 - 2016-10-27 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -1451,19 +1451,18 @@ function ContextMenu(parent, screen) {
 
   window.onclick = function(event) {
     if (event.target === object.component) {
-        $ui.pop();
+      $ui.notifyEvent("ctxPop");
+      $ui.pop();
     }
   }
 
-  $ui.addEvent("move", function(location) {
+  $ui.addEvent("ctxMove", function(location) {
     modal.style.top = location.top + "px";
     modal.style.left = location.left + "px";
   });
 
   object.show = function () {
     console.log('show');
-    //this.component.style.height = "436px"; // this is wrong because it moves the background.
-    //modal.style.left = "300px"
   }
 
   return object;

@@ -48,7 +48,6 @@ define([
         $data.sources.PROJECT_API,
         projectTransform.uiTransform,
         projectTransform.dataTransform);
-
       this.render = function(state) {
 
       }
