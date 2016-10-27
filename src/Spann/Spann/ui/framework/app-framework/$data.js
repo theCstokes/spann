@@ -88,7 +88,8 @@ function build() {
 
   var sources = {
     USER_API: { api: "User" },
-    CHAT_API: { api: "Chat" }
+    CHAT_API: { api: "Chat" },
+    PROJECT_API: { api: "Python/Project"}
   }
 
   return {

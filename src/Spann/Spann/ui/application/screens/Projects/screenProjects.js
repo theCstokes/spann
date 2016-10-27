@@ -2,7 +2,7 @@ define([
   'PartitionScreen',
   'App/screens/Projects/projectTransform',
   'App/screens/Projects/ProjectDialog/projectDialog'
-], function(PartitionScreen, userTransform, projectDialog) {
+], function(PartitionScreen, projectTransform, projectDialog) {
   return function() {
     var screen = new PartitionScreen();
     screen.content = [
@@ -26,30 +26,33 @@ define([
             component: $ui.Tree,
             decorator: $ui.ListDecorators.MAXIMIZE_LIST,
             id: 'projectList',
-            style: $ui.FileListItem,
-            items: [
-              {
-                elementType: $ui.TreeElementType.ITEM,
-                name: "Home",
-                selected: true,
-                icon: "fa-home"
-              }
-            ]
+            style: $ui.FileListItem
+            // items: [
+            //   {
+            //     elementType: $ui.TreeElementType.ITEM,
+            //     name: "Home",
+            //     selected: true,
+            //     icon: "fa-home"
+            //   }
+            // ]
           }
         ]
       }
     ];
 
-    screen.show = function(args) {
+    screen.registerEvent('show', function(args) {
       var components = this.model;
-      this.registerSelectionList(components.userList, $data.sources.USER_API,
-        userTransform.uiTransform,
-        userTransform.dataTransform);
+
+      this.registerSelectionList(
+        components.projectList,
+        $data.sources.PROJECT_API,
+        projectTransform.uiTransform,
+        projectTransform.dataTransform);
 
       this.render = function(state) {
 
       }
-    };
+    });
 
     return screen;
   }

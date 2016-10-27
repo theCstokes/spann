@@ -2,7 +2,8 @@ define([], function() {
   function uiTransform(items) {
     return items.items.map(function (item) {
       var object = dataTransform(item);
-      object.target = "App/screens/UserAdd/screen_NewUser";
+      object.target = "App/screens/Projects/ProjectEdit/screenProjectEdit";
+      object.elementType = $ui.TreeElementType.ITEM;
       object.data = dataTransform(item);
       return object;
     });
@@ -11,7 +12,7 @@ define([], function() {
   function dataTransform(item) {
     return {
       name: item.name,
-      password: item.password,
+      startFile: item.startFile,
       uid: item.identity
     }
   }
