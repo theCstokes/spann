@@ -17,7 +17,9 @@
 .ui-panel .top-dock {
   .ui-panel .base;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
   border-style: none;
   border-bottom: solid;
   border-top: solid;
@@ -30,6 +32,15 @@
 
 .ui-panel .has-top-dock {
   display: flex;
+}
+
+.ui-panel .has-top-dock-content {
+  padding: 5px;
+}
+
+.ui-panel .has-top-dock-content * {
+  margin-right: 0;
+  margin-bottom: 0;
 }
 
 .ui-panel .body {

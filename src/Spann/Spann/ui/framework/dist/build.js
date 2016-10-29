@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-27 */
+/*! spann - v1.0.0 - 2016-10-29 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -1693,22 +1693,33 @@ function Panel(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
   object.component.addClass('ui-panel');
 
-  var header = $ui.create(object.component);
-  header.addClass('top-dock has-top-dock');
-  object.addContainer('topDock', header);
+  var topDock = $ui.create(object.component);
+  topDock.addClass('top-dock has-top-dock');
+  object.addContainer('topDock', topDock);
 
-  object._private.showHeaderBar = true;
+  object._private.showTopDockBar = true;
   Object.defineProperty(object.model, "showTopDock", {
     set: function (value) {
-      object._private.showHeaderBar = value;
+      object._private.showTopDockBar = value;
       if(value) {
-        header.addClass('has-top-dock');
+        topDock.addClass('has-top-dock');
       } else {
-        header.removeClass('has-top-dock');
+        topDock.removeClass('has-top-dock');
       }
     },
     get: function () {
-      return object._private.showHeaderBar;
+      return object._private.showTopDockBar;
+    }
+  });
+
+  // Must be named the same as the container to be called.
+  Object.defineProperty(object.model, "topDock", {
+    set: function (value) {
+      if(value !== undefined) {
+        topDock.addClass('has-top-dock-content');
+      } else {
+        topDock.removeClass('has-top-dock-content');
+      }
     }
   });
 
@@ -1723,7 +1734,6 @@ function Panel(parent, screen) {
   // Must be named the same as the container to be called.
   Object.defineProperty(object.model, "bottomDock", {
     set: function (value) {
-      console.log(value);
       if(value !== undefined) {
         bottomDock.addClass('has-bottom-dock');
       } else {
@@ -1737,9 +1747,9 @@ function Panel(parent, screen) {
   //   set: function (value) {
   //     object._private.showFooterBar = value;
   //     if(value) {
-  //       object.elements.header.addClass('hasFooter');
+  //       object.elements.topDock.addClass('hasFooter');
   //     } else {
-  //       object.elements.header.removeClass('hasFooter');
+  //       object.elements.topDock.removeClass('hasFooter');
   //     }
   //   },
   //   get: function () {
