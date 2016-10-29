@@ -1,22 +1,24 @@
 .ui-action-button {
   display: flex;
   justify-content: center;
-  // -webkit-border-radius: 50%;
-  // -moz-border-radius: 50%;
-  // border-radius: 50%;
-  border-top: 2px #000000;
-  // background-color: @Accent;
-  // padding: 10px 20px 10px 20px;
-  padding-top: 7px;
-  width: 20px;
-  height: 00px;
+  align-items: center;
+  
+  border-radius: 12px;
+  border: @ThinComponentBoarder solid @Outline;
+
+  width: 21px;
+  height: 21px;
+  color: @DefaultGrey;
 }
 
-.ui-action-button .icon {
-  align-self: center;
-  color: @Outline;
+.ui-action-button::hover {
+  color: @DefaultHover;
 }
 
-.ui-action-button .icon:hover {
-  color: #000000;
+.ui-action-button > .icon {
+  color: @DefaultGrey;
+}
+
+.ui-action-button > .icon:hover {
+  color: @DefaultHover;
 }
