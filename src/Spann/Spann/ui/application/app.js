@@ -6,27 +6,12 @@ define([
   var ctxOpen = false;
 
   function start() {
-    $ui.frame = BasicFrame;
-    $ui.push(screen_login);
-    $ui.addEvent("ctxPop", function() {
-      ctxOpen = false;
-      console.log('func');
+    init({
+      debug: true
     });
 
-    window.oncontextmenu = function(event) {
-      if (!ctxOpen) {
-        ctxOpen = true;
-        $ui.push(ContextMenu);
-      }
-
-      $ui.notifyEvent("ctxMove", {left: event.clientX, top: event.clientY});
-      //console.log('moving context menu to', event.clientX, event.clientY);
-      return false;
-    }
-
-     //add screen
-
-    //  $ui.push(homeScreen);
+    $ui.frame = BasicFrame;
+    $ui.push(screen_login);
 
     // var xhr = new XMLHttpRequest();
     // xhr.open("POST", window.location.href.split('ui/')[0] + "api/v1/User");
@@ -43,6 +28,34 @@ define([
     // xhr.send(blob);
     // xhr.send();
   }
+
+  function init(settings) {
+    var debug = false;
+    if(settings.hasOwnProperty('debug')) {
+      debug = settings.debug;
+    }
+
+    if(debug) {
+      // TODO - setup code for debug 
+    } else {
+      $ui.addEvent("ctxPop", function() {
+        ctxOpen = false;
+        console.log('func');
+      });
+
+      window.oncontextmenu = function(event) {
+        if (!ctxOpen) {
+          ctxOpen = true;
+          $ui.push(ContextMenu);
+        }
+
+        $ui.notifyEvent("ctxMove", {left: event.clientX, top: event.clientY});
+        //console.log('moving context menu to', event.clientX, event.clientY);
+        return false;
+      }
+    }
+  }
+
   return {
     start: start
   }
