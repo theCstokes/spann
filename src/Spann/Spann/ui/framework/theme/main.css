@@ -30,17 +30,21 @@ body {
 .ui-action-button {
   display: flex;
   justify-content: center;
-  border-top: 2px #000000;
-  padding-top: 7px;
-  width: 20px;
-  height: 00px;
+  align-items: center;
+  border-radius: 12px;
+  border: 1px solid #DCDCD9;
+  width: 21px;
+  height: 21px;
+  color: #95a5a6;
 }
-.ui-action-button .icon {
-  align-self: center;
-  color: #DCDCD9;
+.ui-action-button::hover {
+  color: #b4c5cf;
 }
-.ui-action-button .icon:hover {
-  color: #000000;
+.ui-action-button > .icon {
+  color: #95a5a6;
+}
+.ui-action-button > .icon:hover {
+  color: #b4c5cf;
 }
 .ui-base-list-tree-item {
   border-style: none;
@@ -765,7 +769,7 @@ body {
 .ui-panel .top-dock {
   padding: 10px;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   border-style: none;
   border-bottom: solid;
   border-top: solid;
