@@ -770,6 +770,8 @@ body {
   padding: 10px;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  padding: 15px;
   border-style: none;
   border-bottom: solid;
   border-top: solid;
@@ -781,6 +783,13 @@ body {
 }
 .ui-panel .has-top-dock {
   display: flex;
+}
+.ui-panel .has-top-dock-content {
+  padding: 5px;
+}
+.ui-panel .has-top-dock-content * {
+  margin-right: 0;
+  margin-bottom: 0;
 }
 .ui-panel .body {
   padding: 10px;
