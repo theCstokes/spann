@@ -16,7 +16,7 @@ namespace Spann.ResponseBuilders
         public static IHttpActionResult CreateResponse<TSource>(HttpStatusCode code, TSource payload)
         {
             dynamic response = new ExpandoObject();
-            response.item = payload;
+            response.items = payload;
             return new Response(code, JsonUtils.SerializeObject(response));
         }
 

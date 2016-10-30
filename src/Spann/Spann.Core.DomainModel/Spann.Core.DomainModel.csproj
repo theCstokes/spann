@@ -50,6 +50,7 @@
     <Compile Include="DataTransferObjects\BaseDTO.cs" />
     <Compile Include="DataTransferObjects\Python\PythonFileDTO.cs" />
     <Compile Include="DataTransferObjects\Python\PythonProjectDTO.cs" />
+    <Compile Include="DataTransferObjects\User\UserDTO.cs" />
     <Compile Include="DC.cs" />
     <Compile Include="Message\MessageDM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

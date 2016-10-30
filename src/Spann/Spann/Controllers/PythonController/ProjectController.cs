@@ -23,25 +23,11 @@ namespace Spann.Controllers
         public IHttpActionResult CreateProject([FromBody] PythonProjectDM project)
         {
             RC.PythonProjectManager.Commit(CommitTypeEnum.ADD, project);
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
         }
 
         [HttpPatch]
         [Route("Project")]
-        public IHttpActionResult CreateProjectTests([FromBody] PythonProjectDM obj)
-        {
-            if(PatchTools.IsPatch(obj))
-            {
-                RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, obj);
-            } else
-            {
-                /// TODO - return error
-            }
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, obj);
-        }
-
-        [HttpPatch]
-        [Route("Project/Details2")]
         public IHttpActionResult TestDTO([FromBody] PythonProjectDTO obj)
         {
             PythonProjectDM project = obj.Map();
@@ -61,7 +47,7 @@ namespace Spann.Controllers
         public IHttpActionResult GetProject([FromUri] int id)
         {
             var project = RC.PythonProjectManager.Pull(p => p.ID == id);
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
         }
 
         [HttpGet]
@@ -69,7 +55,7 @@ namespace Spann.Controllers
         public IHttpActionResult GetProjectDetails([FromUri] int id)
         {
             var project = RC.PythonProjectManager.Pull(p => p.ID == id, WithDetails: true);
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
         }
 
         [HttpGet]
@@ -85,7 +71,7 @@ namespace Spann.Controllers
         public IHttpActionResult GetAllProjectsDetails()
         {
             List<PythonProjectDM> projects = RC.PythonProjectManager.PullAll(WithDetails: true);
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects.Select(item => item.Map()));
         }
     }
 }

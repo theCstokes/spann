@@ -30,7 +30,7 @@ namespace Spann.Controllers
             {
                 users = RC.UserManager.PullAll();
             }
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, users);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, users.Select(item => item.Map()));
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace Spann.Controllers
         public IHttpActionResult Create([FromBody] UserDM user)
         {
             RC.UserManager.Commit(CommitTypeEnum.ADD, user);
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, user);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, user.Map());
         }
     }
 }
