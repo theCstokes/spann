@@ -6,6 +6,7 @@ function Button(parent, screen) {
   var dec = $ui.UIDecorators(object);
   dec.string('caption', object.component);
   dec.icon('icon', object.component);
+  dec.size(object.component);
 
   Object.defineProperty(object.model, "onClick", {
     set: function(callback) {
