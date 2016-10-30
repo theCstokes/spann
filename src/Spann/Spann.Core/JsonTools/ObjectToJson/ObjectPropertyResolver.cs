@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Spann.Core.DataAccess.MetaDataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Spann.Core.JsonTools.JsonToObject
         {
 
             var property = base.CreateProperty(member, memberSerialization);
+
             property.ShouldSerialize = instance =>
             {
                 return !Attribute.IsDefined(member, typeof(InternalPropertyAttribute), true);

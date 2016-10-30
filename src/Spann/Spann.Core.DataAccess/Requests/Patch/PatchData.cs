@@ -8,10 +8,10 @@ namespace Spann.Core.DataAccess.Requests.Patch
 {
     public class PatchData
     {
-        public PatchType PatchType { get; private set; }
+        public PatchTypeEnum PatchType { get; private set; }
         public int? PatchClientID { get; private set; }
 
-        public PatchData(PatchType type, int? id)
+        public PatchData(PatchTypeEnum type, int? id)
         {
             this.PatchType = type;
             this.PatchClientID = id;

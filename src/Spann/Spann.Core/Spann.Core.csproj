@@ -53,11 +53,17 @@
     <Compile Include="JsonTools\JsonUtils.cs" />
     <Compile Include="JsonTools\JsonToObject\PropertyNameConverter.cs" />
     <Compile Include="JsonTools\JsonToObject\PropertyReferenceConverter.cs" />
-    <Compile Include="JsonTools\InternalPropertyAttribute.cs" />
+    <Compile Include="JsonTools\DetailReferenceConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spann.Core.DataAccess\Spann.Core.DataAccess.csproj">
+      <Project>{33effc79-600d-4129-8e3f-64988ba321e0}</Project>
+      <Name>Spann.Core.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Spann.Core.JsonTools;
+using Spann.Core.DataAccess.MetaDataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
