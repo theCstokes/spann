@@ -52,7 +52,8 @@ function UIDecorators(object) {
   }
 
   function size(obj) {
-    object._private.size;
+    object._private.size = $ui.Size.NORMAL;
+    obj.addClass(object._private.size);
     Object.defineProperty(object.model, 'size', {
       set: function(value) {
         if(object._private.size !== value) {
