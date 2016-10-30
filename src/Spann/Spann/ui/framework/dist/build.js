@@ -128,7 +128,7 @@ function BaseHolder(parent, screen) {
 $ui.addExtension('BaseHolder', BaseHolder);
 
 var Size = {
-  SMALL: 'small', NORMAL: 'normal', LARGE: 'large'
+  SMALL: 'size-small', NORMAL: 'size-normal', LARGE: 'size-large'
 };
 
 $ui.addStyleExtension('Size', Size);
@@ -187,7 +187,8 @@ function UIDecorators(object) {
   }
 
   function size(obj) {
-    object._private.size;
+    object._private.size = $ui.Size.NORMAL;
+    obj.addClass(object._private.size);
     Object.defineProperty(object.model, 'size', {
       set: function(value) {
         if(object._private.size !== value) {
@@ -345,6 +346,7 @@ function Button(parent, screen) {
   var dec = $ui.UIDecorators(object);
   dec.string('caption', object.component);
   dec.icon('icon', object.component);
+  dec.size(object.component);
 
   Object.defineProperty(object.model, "onClick", {
     set: function(callback) {

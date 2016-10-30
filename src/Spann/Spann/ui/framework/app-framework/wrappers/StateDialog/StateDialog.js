@@ -6,6 +6,7 @@ define([
     var object = new BaseWrapper($ui.Dialog);
     object.level = $ui.ScreenLevelEnum.BASE;
     object.blurSiblings = true;
+    object.registerProperty("size");
 
     object.addComponentContainer('content', 'content', function(data) {
       return [{
