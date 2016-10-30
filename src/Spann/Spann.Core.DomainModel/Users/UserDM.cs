@@ -1,5 +1,7 @@
 ﻿using Spann.Core.DataAccess;
 using Spann.Core.DataAccess.MetaDataModels;
+using Spann.Core.DomainModel;
+using Spann.Core.DomainModel.DataTransferObjects.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Web;
 namespace Spann.DomainModel.Users
 {
     [TableItem("public", "User")]
-    public class UserDM : AbstractDataModel<UserDM>, IDataModel
+    public class UserDM : BaseDM<UserDM, UserDTO>, IDataModel
     {
         [DataColumn("Name")]
         public string Name { get; set; }
@@ -24,5 +26,17 @@ namespace Spann.DomainModel.Users
 
         [IDColumn]
         public override int ID { get; set; }
+
+        public override UserDTO Map()
+        {
+            return new UserDTO
+            {
+                ID = ID,
+                Name = Name,
+                Username = Username,
+                Password = Password,
+                Salt = Salt
+            };
+        }
     }
 }

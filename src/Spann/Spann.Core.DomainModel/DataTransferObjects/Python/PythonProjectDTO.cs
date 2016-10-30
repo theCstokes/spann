@@ -16,12 +16,8 @@ namespace Spann.Core.DomainModel.DataTransferObjects.Python
     public class PythonProjectDTO : BaseDTO<PythonProjectDTO, PythonProjectDM>
     {
         #region Public Constructor(s).
-        private List<PythonFileDTO> _files;
-        public PythonProjectDTO()
+        public PythonProjectDTO() : base()
         {
-            //Details = new JObject();
-            //var dictionary = (IDictionary<string, object>)Details;
-            //dictionary["Files"] = new List<PythonFileDTO>();
         }
         #endregion
 
