@@ -134,9 +134,11 @@ var Size = {
 $ui.addStyleExtension('Size', Size);
 
 function UIDecorators(object) {
+  object.component.addClass('ui-decorators');
+
   function string(name, parent) {
     var item = $ui.create('div', parent);
-    item.addClass('ui-decorators-string');
+    item.addClass('string');
     if(object[name] !== undefined) {
       object._private[name] = object[name];
     }
@@ -160,10 +162,12 @@ function UIDecorators(object) {
 
   function icon(name, parent) {
     var icon = $ui.create('div', parent);
-    icon.addClass('ui-decorators-icon fa');
+    icon.addClass('icon fa');
     if(object[name] !== undefined) {
       renderIcon(object[name]);
       object._private.icon = object[name];
+    } else {
+      // icon.addClass("has-icon");
     }
     Object.defineProperty(object.model, name, {
       set: function (value) {
@@ -178,10 +182,16 @@ function UIDecorators(object) {
     });
 
     function renderIcon(newValue) {
-      if(object._private.icon !== undefined) {
-        icon.replaceClass(object._private.icon, value);
+      if($utils.isNullOrWhitespace(newValue)) {
+        icon.removeClass(object._private.icon);
+        icon.removeClass("has-icon");
       } else {
-        icon.addClass(newValue);
+        icon.addClass("has-icon");
+        if(object._private.icon !== undefined) {
+          icon.replaceClass(object._private.icon, value);
+        } else {
+          icon.addClass(newValue);
+        }
       }
     }
   }
