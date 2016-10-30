@@ -30,7 +30,7 @@ namespace Spann.ResponseBuilders
         public static IHttpActionResult CreateResponse<TSource>(HttpStatusCode code, TSource payload, Dictionary<string, object> extraProperties)
         {
             dynamic response = GetDynamicObject(extraProperties);
-            response.item = payload;
+            response.items = payload;
             return new Response(code, JsonUtils.SerializeObject(response));
         }
 
