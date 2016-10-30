@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spann.Core.JsonTools
+namespace Spann.Core.DataAccess.MetaDataModels
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class InternalPropertyAttribute :  Attribute

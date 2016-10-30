@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Spann.Core.DataAccess.Requests.Patch;
+using Spann.Core.DomainModel.DataTransferObjects.Python;
 using Spann.Core.DomainModel.Python;
 using Spann.RepositoryModel;
 using Spann.ResponseBuilders;
@@ -39,6 +40,22 @@ namespace Spann.Controllers
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, obj);
         }
 
+        [HttpPatch]
+        [Route("Project/Details2")]
+        public IHttpActionResult TestDTO([FromBody] PythonProjectDTO obj)
+        {
+            PythonProjectDM project = obj.Map();
+            if (PatchTools.IsPatch(project))
+            {
+                RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, project);
+            }
+            else
+            {
+                /// TODO - return error
+            }
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
+        }
+
         [HttpGet]
         [Route("Project/{id:int}")]
         public IHttpActionResult GetProject([FromUri] int id)
@@ -60,7 +77,7 @@ namespace Spann.Controllers
         public IHttpActionResult GetAllProjects()
         {
             List<PythonProjectDM> projects = RC.PythonProjectManager.PullAll();
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects.Select(item => item.Map()));
         }
 
         [HttpGet]

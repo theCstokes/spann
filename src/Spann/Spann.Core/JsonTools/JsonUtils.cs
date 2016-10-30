@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Spann.Core.JsonTools.JsonToObject;
 using System;
@@ -19,6 +20,14 @@ namespace Spann.Core.JsonTools
                     ContractResolver = new ObjectPropertyResolver(),
                     NullValueHandling = NullValueHandling.Ignore
                 });
+        }
+
+        public static JToken ToJToken(object obj)
+        {
+            JsonSerializer js = new JsonSerializer();
+            js.NullValueHandling = NullValueHandling.Ignore;
+            js.ContractResolver = new ObjectPropertyResolver();
+            return JToken.FromObject(obj, js);
         }
 
         public static dynamic DeserializeObject(string json, Type type)

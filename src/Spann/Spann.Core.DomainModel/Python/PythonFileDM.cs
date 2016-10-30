@@ -1,5 +1,6 @@
 ﻿using Spann.Core.DataAccess;
 using Spann.Core.DataAccess.MetaDataModels;
+using Spann.Core.DomainModel.DataTransferObjects.Python;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace Spann.Core.DomainModel.Python
 {
     [TableItem("public", "PythonFile")]
-    public class PythonFileDM : AbstractDataModel<PythonFileDM>, IDataModel
+    public class PythonFileDM : BaseDM<PythonFileDM, PythonFileDTO>, IDataModel
     {
         #region Public Constructor(s).
         public PythonFileDM()
@@ -27,6 +28,16 @@ namespace Spann.Core.DomainModel.Python
 
         [DataColumn("Name")]
         public string Name { get; set; }
+
+        public override PythonFileDTO Map()
+        {
+            return new PythonFileDTO
+            {
+                ID = ID,
+                Name = Name,
+                SourceCode = SourceCode
+            };
+        }
         #endregion
     }
 }

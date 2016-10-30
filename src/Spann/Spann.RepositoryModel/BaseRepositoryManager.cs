@@ -167,7 +167,7 @@ namespace Spann.RepositoryModel
                 {
                     foreach (IDataModel connectionModel in accessor.DATA_MAP.ConnectionValue(connectionType, model))
                     {
-                        ExicuteNextChain(PatchType.CREATE, accessor, connectionType, model, connectionModel);
+                        ExicuteNextChain(PatchTypeEnum.CREATE, accessor, connectionType, model, connectionModel);
                     }
                 });
             }
@@ -229,15 +229,15 @@ namespace Spann.RepositoryModel
         private void RunChildActions(DataAccessor<DMSource> accessor, DMSource model)
         {
             var patchData = PatchTools.GetPatchData(model);
-            if (patchData.PatchType == PatchType.CREATE)
+            if (patchData.PatchType == PatchTypeEnum.CREATE)
             {
                 accessor.CreateObject(model);
             }
-            else if (patchData.PatchType == PatchType.UPDATE)
+            else if (patchData.PatchType == PatchTypeEnum.UPDATE)
             {
                 accessor.UpdateObject(model);
             }
-            else if (patchData.PatchType == PatchType.DELETE)
+            else if (patchData.PatchType == PatchTypeEnum.DELETE)
             {
                 accessor.DeleteObject(model.ID);
             }
@@ -248,7 +248,7 @@ namespace Spann.RepositoryModel
                 {
                     if (connectionModel.PatchType != null)
                     {
-                        ExicuteNextChain(PatchType.GetType(connectionModel.PatchType), 
+                        ExicuteNextChain(PatchTypeEnum.GetType(connectionModel.PatchType), 
                             accessor, connectionType, model, connectionModel);
                     }
                 }
@@ -260,12 +260,12 @@ namespace Spann.RepositoryModel
             return managerType.GetRuntimeMethod(ACTION_NAME, new Type[] { typeof(CommitTypeEnum), modelType });
         }
 
-        private void ExicuteNextChain(PatchType type, DataAccessor<DMSource> accessor, Type connectionType,
+        private void ExicuteNextChain(PatchTypeEnum type, DataAccessor<DMSource> accessor, Type connectionType,
             DMSource model, IDataModel connectionModel)
         {
             switch (type.EnumValue)
             {
-                case PatchType.Enum.Create:
+                case PatchTypeEnum.Enum.Create:
                     {
                         Type managerType = RC.GetManagerType(connectionType);
                         var method = GetMethod(managerType, connectionType);
@@ -273,7 +273,7 @@ namespace Spann.RepositoryModel
                         accessor.CreateConnection(model, accessor.DATA_MAP.Connection(connectionType), connectionModel.ID);
                         break;
                     }
-                case PatchType.Enum.Update:
+                case PatchTypeEnum.Enum.Update:
                     {
                         Type managerType = RC.GetManagerType(connectionType);
                         var method = GetMethod(managerType, connectionType);
@@ -281,7 +281,7 @@ namespace Spann.RepositoryModel
                         accessor.UpdateConnection(model, accessor.DATA_MAP.Connection(connectionType), connectionModel.ID);
                         break;
                     }
-                case PatchType.Enum.Delete:
+                case PatchTypeEnum.Enum.Delete:
                     {
                         Type managerType = RC.GetManagerType(connectionType);
                         var method = GetMethod(managerType, connectionType);
