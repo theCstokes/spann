@@ -1,5 +1,5 @@
 var Size = {
-  SMALL: 'small', NORMAL: 'normal', LARGE: 'large'
+  SMALL: 'size-small', NORMAL: 'size-normal', LARGE: 'size-large'
 };
 
 $ui.addStyleExtension('Size', Size);
