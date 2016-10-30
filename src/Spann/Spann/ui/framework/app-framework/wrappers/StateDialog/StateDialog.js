@@ -17,6 +17,35 @@ define([
             caption: "New File"
           }
         ],
+        bottomDock: [
+          {
+            component: $ui.Flow,
+            rightToLeft: true,
+            content: [
+              {
+                component: $ui.Button,
+                caption: 'Save',
+                icon: 'fa-check',
+                onClick: function(event) {
+                  console.log(event);
+                  event.target.screen.trigger("saveRequest");
+                  // $ui.frame.reloadSelected();
+                  $ui.pop();
+                }
+              },
+              {
+                component: $ui.Button,
+                caption: "Cancel",
+                icon: 'fa-times',
+                onClick: function(event) {
+                  console.log(event);
+                  // $ui.frame.reloadSelected();
+                  $ui.pop();
+                }
+              }
+            ]
+          }
+        ],
         content: data
       }]
     });
@@ -28,17 +57,6 @@ define([
     });
 
     object.show = function() {
-      console.log("show!!!!");
-      //this.uiObject.component.offsetHeight
-      // this.uiObject.component.style.height = 1000 + "px";
-      // this.uiObject.component.style.width = 1000 + "px";
-
-      // this.model.dialogPanel.component.style.height = 1000 + "px";
-      // this.model.dialogPanel.component.style.width = 1000 + "px";
-
-      // this.model.dialogPanel.component.style.top = this.uiObject.component.offsetTop + "px";
-      // this.model.dialogPanel.component.style.left = this.uiObject.component.offsetLeft + "px";
-      console.log("show!!!!");
     }
 
     return object;
