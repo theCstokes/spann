@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-29 */
+/*! spann - v1.0.0 - 2016-10-31 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
