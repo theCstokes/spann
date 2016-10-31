@@ -38,6 +38,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
     Oct. 26, 2016 & Christopher, Varun & Initial test plan\\
+    Oct. 31, 2016 & Christopher, Varun & Moved to new template\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -112,8 +113,9 @@ The test team will be made up of Christopher Stokes and Varun Hooda.
 
 \subsection{Testing Tools}
 For the server NUint will be used for unit testing the C\# code.
-For the front end we will be using jasmine (a nodejs module) for unit testing
+For the front end we will be using jasmine (a NodeJS module) for unit testing
 the JavaScript UI components.
+For the server API we will be using postman (a chrome web application).
 
 \subsection{Testing Schedule}
 		
@@ -125,43 +127,92 @@ the JavaScript UI components.
 
 \subsubsection{Front End JavaScript UI Components}
 		
-\paragraph{Title for Test}
+\paragraph{JavaScript UI Component Tests}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{Front end JavaScript UI\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Dynamic
 					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+Description: The test will ensure certain properties of each UI components
+hold.  Properties such as whether the component is not null, it's fields have
+the required values and whether it has required functions and methods.
 
-Type: Functional, Dynamic, Manual, Static etc.
+How test will be performed: Each UI component will have a Jasmine test file.
+The Jasmine NodeJS plugin will then be used to execute the tests.
 					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
 \end{enumerate}
+
+
+\paragraph{Server API Tests}
+
+\begin{enumerate}
+
+\item{Login/Authentication\\}
+
+Type: Dynamic
+					
+Description: 
+
+How test will be performed: 
+
+\item{Database responses\\}
+
+Type: Dynamic
+					
+Description: 
+
+How test will be performed: 
+
+\item{Python Execution\\}
+
+Type: Functional
+					
+Description: 
+
+How test will be performed: 
+
+\item{File Management\\}
+
+Type: Functional
+					
+Description: 
+
+How test will be performed: 
+
+\item{User Account\\}
+
+Type: Functional
+					
+Description: 
+
+How test will be performed: 
+					
+\end{enumerate}
+
 
 \subsubsection{Back End C\# Server}
 
-...
+\item{SQL Queries\\}
+
+Type: Functional
+					
+Description: 
+
+How test will be performed: 
+
+\item{Front end/back end data transmission\\}
+
+Type: Functional
+					
+Description: 
+
+How test will be performed: 
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\subsubsection{Front End JavaScript UI Components}
+\subsubsection{Front End JavaScript UI}
 		
 \paragraph{Title for Test}
 
@@ -197,9 +248,10 @@ How test will be performed:
 
 ...
 
+
 \section{Tests for Proof of Concept}
 
-\subsection{Area of Testing1}
+\subsection{Front end JavaScript UI}
 		
 \paragraph{Title for Test}
 
@@ -231,9 +283,9 @@ How test will be performed:
 
 \end{enumerate}
 
-\subsection{Area of Testing2}
+\subsection{Server API}
 
-...
+\subsection{Back end C\# server}
 
 	
 \section{Comparison to Existing Implementation}	
