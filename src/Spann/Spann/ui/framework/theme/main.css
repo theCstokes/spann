@@ -674,7 +674,7 @@ body {
   height: 25%;
 }
 .ui-flow.left-to-right {
-  justify-content: flex-start;
+  justify-content: center;
 }
 .ui-flow.right-to-left {
   justify-content: flex-end;

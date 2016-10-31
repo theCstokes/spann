@@ -69,8 +69,9 @@ end C\# code and SQL queries, as well as the API responses from the server.
 \toprule
 \textbf{Abbreviation} & \textbf{Definition} \\
 \midrule
-Abbreviation1 & Definition1\\
-Abbreviation2 & Definition2\\
+IDE & Application Development Environment\\
+API & Application Programming Interface\\
+UI & User Interface\\
 \bottomrule
 \end{tabularx}
 
@@ -91,16 +92,28 @@ Term2 & Definition2\\
 \end{table}	
 
 \subsection{Overview of Document}
+This document will outline the testing methodologies and various test plans
+that the development team will incorporate and use to test the application.
 
 \section{Plan}
 	
 \subsection{Software Description}
+The software, for which the test plan is being written, is an online, web-based,
+IDE. The final application will be similar to a
+desktop IDE that many developers are familiar with. The application will have
+two parts, a front end that will be written in JavaScript and LESS (transpiled
+into CSS), and a back end server written in C\# (which uses a SQL server for
+persistent data storage).
 
 \subsection{Test Team}
+The test team will be made up of Christopher Stokes and Varun Hooda.
 
 \subsection{Automated Testing Approach}
 
 \subsection{Testing Tools}
+For the server NUint will be used for unit testing the C\# code.
+For the front end we will be using jasmine (a nodejs module) for unit testing
+the JavaScript UI components.
 
 \subsection{Testing Schedule}
 		
@@ -110,7 +123,7 @@ Term2 & Definition2\\
 	
 \subsection{Tests for Functional Requirements}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Front End JavaScript UI Components}
 		
 \paragraph{Title for Test}
 
@@ -142,13 +155,13 @@ How test will be performed:
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Back End C\# Server}
 
 ...
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Front End JavaScript UI Components}
 		
 \paragraph{Title for Test}
 
@@ -180,7 +193,7 @@ How test will be performed:
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Back End C\# Server}
 
 ...
 
@@ -238,8 +251,6 @@ How test will be performed:
 \newpage
 
 \section{Appendix}
-
-This is where you can place additional information.
 
 \subsection{Symbolic Parameters}
 
