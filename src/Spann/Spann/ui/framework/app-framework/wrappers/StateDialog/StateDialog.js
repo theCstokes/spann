@@ -29,7 +29,11 @@ define([
                 icon: 'fa-check',
                 onClick: function(event) {
                   console.log(event);
-                  event.target.screen.trigger("saveRequest");
+                  var screen = event.target.screen;
+                  if(screen.isStateControlled) {
+                    var currentState = screen.stateManager.getCurrentState();
+                    $ui.notifyEvent(object._private.saveEvent, currentState);
+                  }
                   // $ui.frame.reloadSelected();
                   $ui.pop();
                 }
@@ -54,6 +58,13 @@ define([
     Object.defineProperty(object, 'isStateControlled', {
       get: function() {
         return this.hasOwnProperty('stateManager');
+      }
+    });
+
+    object._private.saveEvent = "";
+    Object.defineProperty(object, 'saveEvent', {
+      set: function(value) {
+        object._private.saveEvent = value;
       }
     });
 
