@@ -38,7 +38,8 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
     Oct. 26, 2016 & Christopher, Varun & Initial test plan\\
-    Oct. 31, 2016 & Christopher, Varun & Moved to new template\\
+    Oct. 30, 2016 & Varun & Moved to new template\\
+    Oct. 31, 2016 & Christopher, Varun & Submission for TP-Rev0\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -77,20 +78,6 @@ UI & User Interface\\
 \end{tabularx}
 
 \end{table}
-
-\begin{table}[!htbp]
-\caption{\textbf{Table of Definitions}} \label{Table}
-
-\begin{tabularx}{\textwidth}{p{3cm}X}
-\toprule
-\textbf{Term} & \textbf{Definition}\\
-\midrule
-Term1 & Definition1\\
-Term2 & Definition2\\
-\bottomrule
-\end{tabularx}
-
-\end{table}	
 
 \subsection{Overview of Document}
 This document will outline the testing methodologies and various test plans
@@ -149,6 +136,18 @@ The Jasmine NodeJS plugin will then be used to execute the tests.
 
 \begin{enumerate}
 
+\item{Invalid Requests\\}
+
+Type: Functional
+					
+Description: This test will ensure the system is robust and does not break
+if an invalid request is made. An example of an invalid request would be a
+non-existent user, non-existent file or project. Since the web application
+does not use multiple html pages, there is no need to test invalid urls.
+
+How test will be performed: This test will be carried out using the Postman
+application and a test file written for the Postman application.
+
 \item{Login/Authentication\\}
 
 Type: Dynamic
@@ -168,6 +167,21 @@ replies with the correct database data.
 
 How test will be performed: This test will be carried out using the Postman
 application and a test file written for the Postman application.
+
+\item{Invalid or Malicious Python Execution\\}
+
+Type: Dynamic
+					
+Description: This test will verify that the system does not have any major
+flaws or exploits that the python code could exploit or cause the system to
+break. An example would be attempting to write a file that the application
+should not be able to access. This test will hopefully result in a failure,
+ensuring a user is not able to exploit the system in such a manner.
+
+How test will be performed: This test will be carried out using the Postman
+application and a test file written for the Postman application. This test will
+also be carried out on the server side to ensure the system is able to handle
+the invalid or malicious action successfully.
 
 \item{Python Execution\\}
 
