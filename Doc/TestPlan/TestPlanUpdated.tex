@@ -213,17 +213,11 @@ application and a test file written for the Postman application.
 
 Type: Functional
 					
-Description: 
+Description: This test will ensure the server generates the correct database
+queries once it has received a request from the front end via a web socket.
 
-How test will be performed: 
-
-\item{Front end/back end data transmission\\}
-
-Type: Functional
-					
-Description: 
-
-How test will be performed: 
+How test will be performed: This test will be performed using NUint and a test
+case written in C\#.
 
 \end{enumerate}
 
@@ -314,11 +308,11 @@ compare tests
 		
 \subsection{Unit testing of internal functions}
 
-\subsection{C#}
-In order to test the internal functions and logic of the C# server, the
-reflective capabilities of C# will be utilised. NUnit utilises reflection to
+\subsection{C\#}
+In order to test the internal functions and logic of the C\# server, the
+reflective capabilities of C\# will be utilised. NUnit utilises reflection to
 provide access to internal classes not normally accessible, this is necessary
-as by default C# classes are private to all but the namespace. To extend this
+as by default C\# classes are private to all but the namespace. To extend this
 capability reflection will be used to access the private member properties, and
 functions allowing direct calls to these elements and direct access to their
 return values. This will greatly reduce the amount of mocking required to
@@ -331,7 +325,7 @@ patterns will need to be used due to the nature of the code.
 The first type applies to all the custom UI components of the Spann UI engine,
 where the private members are located directly in the object returned from the
 module. The internal parts of the components are located in an object named
-_private on the module objects. This is a consequence of patterns used to allow
+\_private on the module objects. This is a consequence of patterns used to allow
 inheritance in JavaScript and lack of a dependency manager for the UI
 components, increasing performance.  
 
@@ -339,7 +333,7 @@ In comparison, the remaining code in the Spann client uses the revealing module
 pattern as well as AMD with RequireJS. This combination means a simple
 management of dependencies but as a consequence, there is no way to access the
 components not revealed from the module. Therefore, all modules will reveal a
-method named _getInternals which will return all the internal methods allowing
+method named \_getInternals which will return all the internal methods allowing
 them to be tested. 
 
 		
