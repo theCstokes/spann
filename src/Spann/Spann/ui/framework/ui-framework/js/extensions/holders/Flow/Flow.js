@@ -11,6 +11,15 @@ function Flow(parent, screen) {
     }
   });
 
+  Object.defineProperty(object.model, 'alignCenter', {
+    set: function (value) {
+      if(object._private.isCenter !== value) {
+        object._private.isCenter = value;
+        renderLayoutOrder();
+      }
+    }
+  });
+
   if(object.rightToLeft != undefined) {
     object._private.rightToLeft = object.rightToLeft;
   } else {
@@ -25,10 +34,13 @@ function Flow(parent, screen) {
       }
     }
   });
+
   function renderLayoutOrder() {
-    if(object._private.rightToLeft) {
+    if (object._private.isCenter) {
+      object.component.replaceClass(['left-to-right', 'right-to-left'], 'center');
+    } else if(object._private.rightToLeft) {
       object.component.replaceClass('left-to-right', 'right-to-left');
-    } else {
+    } else if (object._private.rightToLeft {
       object.component.replaceClass('right-to-left', 'left-to-right');
     }
   }

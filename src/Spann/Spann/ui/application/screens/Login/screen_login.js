@@ -35,11 +35,13 @@ define([
       },
       {
         component: $ui.Flow,
+        hello: 'bhajsda',
         content: [
           {
             component: $ui.Button,
             caption: "Login",
             id: "loginButton",
+            size: $ui.Size.NORMAL,
             onClick: function (event) {
               var current_state = event.target.screen.stateManager.getCurrentState();
               // var saltyHash = Encryption.saltyHash(current_state.password);

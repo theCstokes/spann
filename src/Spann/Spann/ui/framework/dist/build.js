@@ -1598,6 +1598,12 @@ function Flow(parent, screen) {
     }
   });
 
+  Object.defineProperty(object.model, 'hello', {
+    set: function (x) {
+      console.log('hello world, this', x);
+    }
+  });
+
   if(object.rightToLeft != undefined) {
     object._private.rightToLeft = object.rightToLeft;
   } else {
