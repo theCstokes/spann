@@ -286,40 +286,86 @@ application and test cases written for the Postman application.
 
 \subsection{Front end JavaScript UI}
 		
-\paragraph{Title for Test}
-
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{UI components\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Dynamic
 					
-Initial State: 
+Description: This test will be used to ensure the UI components used in the
+proof of concept are functional and have the required properties, functions,
+and methods associated with them.
 					
-Input: 
+How test will be performed: This testing will be done using the Jasmine module
+and test files for Jasmine.
 					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\item{UI performance\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Manual
 					
-Initial State: 
+Description: This test will help the developers see if the current design of
+the proof of concept provides the performance required in the final
+application.
 					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+How test will be performed: This testing will be manually since it is difficult
+to automate it.
 
 \end{enumerate}
 
 \subsection{Server API}
 
+\begin{enumerate}
+
+\item{User account security\\}
+
+Type: Functional
+					
+Description: This test will be used to check if the current implementation of
+the user authentication is sufficiently secure for the final implementation.
+					
+How test will be performed: This test will be performed using the Postman web
+application, as well as, using common manual exploitation techniques such as
+session hijacking.
+					
+\item{Python code execution\\}
+
+Type: Functional
+					
+Description: The purpose of this test is to ensure the proof of concept, as it
+currently functions, returns the correct response (specifically, the exact
+response the Python interpreter outputs).
+					
+How test will be performed: This test will be performed using the Postman web
+application and test cases written for it.
+
+\end{enumerate}
+
 \subsection{Back end C\# server}
 
+\begin{enumerate}
+
+\item{Python Execution\\}
+
+Type: Functional
+					
+Description: The purpose of this test is to ensure the server is able to
+receive python code and execute the code using IronPython on the server system.
+					
+How test will be performed: This test will be performed using NUint and C\#
+test cases.
+					
+\item{SQL Code Generation and Execution\\}
+
+Type: Functional
+					
+Description: The purpose of this test will be to test if the server is able
+to generate the required SQL and able to successfully execute the SQL to save
+and retrieve data from the database server.
+					
+How test will be performed: This test will be performed using NUint and C\#
+test cases.
+
+\end{enumerate}
 	
 \section{Comparison to Existing Implementation}	
 The original project, repl.it, on which this project is based supports multiple
