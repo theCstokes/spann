@@ -225,40 +225,62 @@ case written in C\#.
 
 \subsubsection{Front End JavaScript UI}
 		
-\paragraph{Title for Test}
+\paragraph{Look and Feel}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{UI visual inspection\\}
 
-Type: 
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+Type: Manual
 
-Type: Functional, Dynamic, Manual, Static etc.
+Description: The purpose of this test will be to manually to inspect the application to
+discover visual bug, artifacts, and any other UI imperfections.
+
+How test will be performed: This type of testing is only possible manually,
+since it is simply not possible to automatically inspect the UI using a
+computer.
 					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\item{UI performance\\}
+
+Type: Manual
+
+Description: The purpose of this test is to ensure the application's UI
+is fast and responsive. This will help identify any UI performance issues.
+
+How test will be performed: This will also be done manually since it would
+be very difficult to programmatically test.
 
 \end{enumerate}
 
-\subsubsection{Back End C\# Server}
+\subsubsection{Server API}
 
-...
+\begin{enumerate}
 
+\item{Account Security\\}
+
+Type: Functional
+
+Description: The purpose of this test is to ensure the only person able to
+access a user's account is the actual user only.
+
+How test will be performed: This test will be performed using the Postman
+application and test cases written for the Postman application.
+					
+\item{Response Time\\}
+
+Type: Functional
+
+Description: The purpose of this test will be to ensure the application server
+always responds to the user's requests within a justifiable time (depending on
+the specific request).  For example, a login should not take more than a single
+second to process. The actual python program that will be executed will be
+excluded from this since it is not possible to determine the execution time
+from statically analysing the python code.
+
+How test will be performed: This test will be performed using the Postman
+application and test cases written for the Postman application.
+
+\end{enumerate}
 
 \section{Tests for Proof of Concept}
 
@@ -338,6 +360,7 @@ them to be tested.
 
 		
 \subsection{Unit testing of output files}		
+N/A
 
 
 \bibliographystyle{plainnat}
