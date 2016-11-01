@@ -35,8 +35,9 @@ define([
         components.nameInput.value = state.name;
         components.passwordInput.value = state.password;
       }
-      manager.initilize(data);
+      manager.initialize(data);
     };
+
 
     return screen;
   }
