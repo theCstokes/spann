@@ -53,6 +53,10 @@ define([
       }
     });
 
+    $ui.addEvent('addNewProject', function(data) {
+      console.log("Save!!!");
+    });
+
     return screen;
   }
 });

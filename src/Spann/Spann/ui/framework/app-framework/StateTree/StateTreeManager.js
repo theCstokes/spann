@@ -48,6 +48,9 @@ define(function() {
     });
 
     function create(obj) {
+      if(obj === undefined) {
+        obj = {};
+      }
       obj.initialize = initialize;
       obj.getCurrentState = getCurrentState;
 
