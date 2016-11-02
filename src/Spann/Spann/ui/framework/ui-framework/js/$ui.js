@@ -260,20 +260,21 @@ function build() {
 
     Object.defineProperty(item, 'replaceClass', {
       value: function(oldClass, newClass) {
+        var target = this;
         if(Array.isArray(oldClass)) {
-          oldClass.forEach(function(item) {
-            this.removeClass(item);  
+          oldClass.forEach(function(styleClass) {
+            target.removeClass(styleClass);  
           });
         } else {
-          this.removeClass(oldClass);
+          target.removeClass(oldClass);
         }
 
         if(Array.isArray(newClass)) {
-           newClass.forEach(function(item) {
-             this.addClass(item);   
-           })
+           newClass.forEach(function(styleClass) {
+             target.addClass(styleClass);   
+           });
         } else {
-          this.addClass(newClass);
+          target.addClass(newClass);
         }
       }
     });
