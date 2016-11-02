@@ -135,6 +135,9 @@ function Input(parent, screen) {
     input.setAttribute('type', object._private.type);
   }
 
+  var dec = $ui.UIDecorators(object);
+  dec.modified();
+
   return object;
 }
 

@@ -77,10 +77,30 @@ function UIDecorators(object) {
     });
   } 
 
+  function modified() {
+    object._private.modified = false;
+    Object.defineProperty(object.model, 'modified', {
+      set: function(value) {
+        if(object._private.modified !== value) {
+          object._private.modified = value;
+          if(value) {
+            object.component.addClass('modified');
+          } else {
+            object.component.removeClass('modified');
+          }
+        }
+      },
+      get: function() {
+        return object._private.modified;
+      }
+    });
+  }
+
   return {
     string: string,
     icon: icon,
-    size: size
+    size: size,
+    modified
   }
 }
 
