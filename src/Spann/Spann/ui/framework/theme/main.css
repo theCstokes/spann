@@ -865,3 +865,6 @@ body {
 .ui-decorators .icon:hover {
   color: #000000;
 }
+.ui-decorators.modified {
+  box-shadow: 1px 2px 7px #e67e22;
+}
