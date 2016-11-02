@@ -24,6 +24,10 @@ function Input(parent, screen) {
     if(object._private.onChange !== undefined) {
       object._private.onChange({event: event, target: object});
     }
+    updateHint();
+  }
+
+  function updateHint() {
     if(!$utils.isNullOrWhitespace(input.value)) {
       hintCaption.textContent = object._private.hint;
       hintCaption.addClass('has-hint');
@@ -46,6 +50,7 @@ function Input(parent, screen) {
       if(input.value !== value) {
         input.value =  value;
         object._private.value = value;
+        updateHint();
       }
     },
     get: function() {
