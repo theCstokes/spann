@@ -8,7 +8,6 @@ define(['StateTreeManager'], function(StateTreeManager) {
       if(data === undefined) {
         return {
           name: "",
-          password: "",
           uid: 0
         }
       }
@@ -18,22 +17,16 @@ define(['StateTreeManager'], function(StateTreeManager) {
       if(data.hasOwnProperty('name')) {
         next_state.name = data.name;
       }
-      if(data.hasOwnProperty('password')) {
-        next_state.password = data.password;
-      }
       if(data.hasOwnProperty('uid')) {
         next_state.uid = data.uid;
       }
       return next_state;
     }
 
-    function updateName(state, data) {
+    function attributeChange(state, data) {
       var next_state = $utils.clone(state);
       if(data.hasOwnProperty('name')) {
         next_state.name = data.name;
-      }
-      if(data.hasOwnProperty('uid')) {
-        next_state.uid = data.uid;
       }
       return next_state;
     }
@@ -55,7 +48,7 @@ define(['StateTreeManager'], function(StateTreeManager) {
 
     tree.registerActions({
       resetSate: resetSate,
-      updateName: updateName
+      attributeChange: attributeChange
     });
 
     tree.registerSaveRequest(saveRequest);

@@ -1,12 +1,17 @@
 define(function() {
   function StateTreeManager(id, screen) {
-    var original_state = {};
-    var current_state = {};
+    // var original_state = {};
+    // var current_state = {};
+    var state = {
+      static: {},
+      original: {},
+      current: {}
+    }
     var actions = {};
     var saveRequest;
 
     function initialize(data) {
-      original_state = trigger("action", {action: "resetSate", data: data});
+      state = trigger("action", {action: "resetSate", data: data});
     }
 
     function registerActions(new_actions) {
@@ -23,24 +28,24 @@ define(function() {
         var data = request.data;
         var target = actions[name];
         if(target !== undefined) {
-          current_state = target(current_state, data);
+          state = target(state, data);
           if(screen.render !== undefined) {
-            screen.render(current_state);
+            screen.render(state);
           }
-          return current_state;
+          return state;
         } else {
           console.log("StateTreeManager " + id + " does contain action " + name);
         }
       }
       else if (type === "saveRequest") {
         if(saveRequest !== undefined) {
-          var item = saveRequest(original_state, current_state);
+          var item = saveRequest(state.original, state.current);
         }
       }
     }
 
     function getCurrentState() {
-      return current_state;
+      return state;
     }
 
     Object.defineProperty(screen, 'trigger', {
