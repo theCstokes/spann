@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-10-31 */
+/*! spann - v1.0.0 - 2016-11-02 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -739,6 +739,10 @@ function Input(parent, screen) {
     if(object._private.onChange !== undefined) {
       object._private.onChange({event: event, target: object});
     }
+    updateHint();
+  }
+
+  function updateHint() {
     if(!$utils.isNullOrWhitespace(input.value)) {
       hintCaption.textContent = object._private.hint;
       hintCaption.addClass('has-hint');
@@ -761,6 +765,7 @@ function Input(parent, screen) {
       if(input.value !== value) {
         input.value =  value;
         object._private.value = value;
+        updateHint();
       }
     },
     get: function() {
@@ -1598,9 +1603,17 @@ function Flow(parent, screen) {
     }
   });
 
-  Object.defineProperty(object.model, 'hello', {
-    set: function (x) {
-      console.log('hello world, this', x);
+  if(object.isCenter != undefined) {
+    object._private.isCenter = object.isCenter;
+  } else {
+    object._private.isCenter = false; 
+  }
+  Object.defineProperty(object.model, 'alignCenter', {
+    set: function (value) {
+      if(object._private.isCenter !== value) {
+        object._private.isCenter = value;
+        renderLayoutOrder();
+      }
     }
   });
 
@@ -1618,10 +1631,13 @@ function Flow(parent, screen) {
       }
     }
   });
+
   function renderLayoutOrder() {
-    if(object._private.rightToLeft) {
+    if (object._private.isCenter) {
+      object.component.replaceClass(['left-to-right', 'right-to-left'], 'center');
+    } else if(object._private.rightToLeft) {
       object.component.replaceClass('left-to-right', 'right-to-left');
-    } else {
+    } else if (object._private.rightToLeft) {
       object.component.replaceClass('right-to-left', 'left-to-right');
     }
   }
