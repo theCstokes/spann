@@ -35,7 +35,7 @@ define([
       },
       {
         component: $ui.Flow,
-        hello: 'bhajsda',
+        alignCenter: true,
         content: [
           {
             component: $ui.Button,
@@ -113,6 +113,7 @@ define([
       },
       {
         component: $ui.Flow,
+        alignCenter: true,
         content: [
           {
             component: $ui.Button,
