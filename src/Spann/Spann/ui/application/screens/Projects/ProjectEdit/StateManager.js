@@ -4,29 +4,39 @@ define(['StateTreeManager'], function(StateTreeManager) {
 
     // ================================
     // Actions begin.
+    var defaultState = {
+      name: "",
+      uid: 0
+     };
     function resetSate(state, data) {
       if(data === undefined) {
         return {
-          name: "",
-          uid: 0
+          current: $utils.clone(defaultState),
+          original: $utils.clone(defaultState),
+          static: Object.freeze({})
         }
       }
 
-      var next_state = $utils.clone(state);
+      var new_state = $utils.clone(defaultState);
 
       if(data.hasOwnProperty('name')) {
-        next_state.name = data.name;
+        new_state.name = data.name;
       }
       if(data.hasOwnProperty('uid')) {
-        next_state.uid = data.uid;
+        new_state.uid = data.uid;
       }
-      return next_state;
+      
+      return {
+          current: $utils.clone(new_state),
+          original: $utils.clone(new_state),
+          static: Object.freeze({})
+        };
     }
 
     function attributeChange(state, data) {
       var next_state = $utils.clone(state);
       if(data.hasOwnProperty('name')) {
-        next_state.name = data.name;
+        next_state.current.name = data.name;
       }
       return next_state;
     }
