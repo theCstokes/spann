@@ -31,7 +31,8 @@ define([
       var components = this.model;
 
       screen.render = function (state) {
-        components.projectInput.value = state.name;
+        components.projectInput.value = state.current.name;
+        components.projectInput.modified = (state.current.name !== state.original.name);
       }
       manager.initialize(data);
     });
