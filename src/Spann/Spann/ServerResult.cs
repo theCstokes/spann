@@ -72,5 +72,13 @@ namespace Spann
             }
             return result;
         }
+
+        /// <summary>
+        /// get: No exceptions and no failures
+        /// </summary>
+        public bool DidPass
+        {
+            get { return (testResults.Count() == 0 && exceptionResults.Count() == 0); }
+        }
     }
 }
