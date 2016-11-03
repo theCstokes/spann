@@ -90,28 +90,7 @@ namespace Spann.RepositoryModel
             var result = Get(accessor, filter);
             if (WithDetails)
             {
-                accessor.DATA_MAP.ConnectionTypes.ForEach(connectionType =>
-                {
-                    Type managerType = RC.GetManagerType(connectionType);
-                    var method = managerType.GetMethod("GetByConnection", BindingFlags.NonPublic | BindingFlags.Instance);
-                    //var method = managerType.GetRuntimeMethod("GetByConnection", new Type[] {
-                    //    typeof(ConnectionDM)
-                    //});
-                    
-                    var connections = accessor.LoadConnections((connection) => connection.ParentID == result.ID, 
-                        result, accessor.DATA_MAP.Connection(connectionType));
-                        connections.ForEach(connection =>
-                        {
-                            IList children = method.Invoke(RC.GetManager(connectionType), new object[] {
-                                connection
-                            }) as IList;
-                            var items = accessor.DATA_MAP.Connection(connectionType).Property.GetValue(result) as IList;
-                            foreach(var child in children)
-                            {
-                                items.Add(child);
-                            }
-                        });
-                });
+                PopulateDetails(accessor, result);
             }
             accessor.Dispose();
             NotifyChangeListeners();
@@ -122,6 +101,13 @@ namespace Spann.RepositoryModel
         {
             var accessor = DC.Accessor<DMSource>();
             var result = GetAll(accessor, null);
+            if (WithDetails)
+            {
+                result.ForEach(model =>
+                {
+                    PopulateDetails(accessor, model);
+                });
+            }
             accessor.Dispose();
             NotifyChangeListeners();
             return result;
@@ -135,13 +121,7 @@ namespace Spann.RepositoryModel
             {
                 result.ForEach(model =>
                 {
-                    accessor.DATA_MAP.ConnectionTypes.ForEach(connectionType =>
-                    {
-                        Type managerType = RC.GetManagerType(connectionType);
-                        var method = managerType.GetRuntimeMethod("PullAll", new Type[] { typeof(bool) });
-                        var children = method.Invoke(RC.GetManager(connectionType), new object[] { false });
-                        accessor.DATA_MAP.Connection(connectionType).Property.SetValue(model, children);
-                    });
+                    PopulateDetails(accessor, model);
                 });
             }
             accessor.Dispose();
@@ -292,6 +272,29 @@ namespace Spann.RepositoryModel
                 default:
                     break;
             }
+        }
+
+        private void PopulateDetails(DataAccessor<DMSource> accessor, DMSource result)
+        {
+            accessor.DATA_MAP.ConnectionTypes.ForEach(connectionType =>
+            {
+                Type managerType = RC.GetManagerType(connectionType);
+                var method = managerType.GetMethod("GetByConnection", BindingFlags.NonPublic | BindingFlags.Instance);
+
+                var connections = accessor.LoadConnections((connection) => connection.ParentID == result.ID,
+                    result, accessor.DATA_MAP.Connection(connectionType));
+                connections.ForEach(connection =>
+                {
+                    IList children = method.Invoke(RC.GetManager(connectionType), new object[] {
+                                connection
+                            }) as IList;
+                    var items = accessor.DATA_MAP.Connection(connectionType).Property.GetValue(result) as IList;
+                    foreach (var child in children)
+                    {
+                        items.Add(child);
+                    }
+                });
+            });
         }
         #endregion
 
