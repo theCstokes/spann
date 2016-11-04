@@ -18,38 +18,6 @@ define([
       {
         component: $ui.List,
         style: $ui.NavigationListItem,
-        items: [
-          {
-            name: "Home",
-            icon: "fa-home",
-            selected: false,
-            target: "App/screens/Home/screenHome"
-          },
-          {
-            name: "Add User",
-            icon: "fa-user-plus",
-            target: "App/screens/UserAdd/screen_NewUser"
-          },
-          {
-            name: "Users",
-            icon: "fa-users",
-            target: "App/screens/Users/screen_Users"
-          },
-          {
-            name: "GitHub",
-            icon: "fa-github-alt"
-          },
-          {
-            name: "Chat",
-            icon: "fa-comments-o",
-            target: "App/screens/Chat/screen_Chat"
-          },
-          {
-            name: "Chat Send",
-            icon: "fa-comments-o",
-            target: "App/screens/ChatSend/screen_ChatSend"
-          }
-        ],
         onClick: function(event) {
           var target = event.target.model.target;
           frame.select(target);
@@ -68,6 +36,10 @@ define([
         ]
       }
     ];
+
+    $ui.addEvent("initProject", function(data) {
+      console.log(data);
+    });
 
     return frame;
   }
