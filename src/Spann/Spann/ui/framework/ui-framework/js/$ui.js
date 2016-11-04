@@ -228,6 +228,17 @@ function build() {
   });
 
   /**
+   * Removes all elements.
+   */
+  Object.defineProperty(object, 'clear', {
+    value: function(target) {
+      while(this._private.screens.length > 0) {
+        this.pop();
+      }
+    }
+  });
+
+  /**
    * Adds the control util functions to given object
    * @argument object to add functions to.
    */

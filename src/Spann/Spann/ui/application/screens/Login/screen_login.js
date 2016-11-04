@@ -158,8 +158,7 @@ define([
     });
 
     function login() {
-      $ui.pop();
-      $ui.pop();
+      $ui.clear();
       requirejs([
         'App/selectionFrame',
         'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
@@ -171,9 +170,9 @@ define([
     function fiddle() {
       $ui.pop();
       requirejs(['App/screens/Fiddle/screen_fiddle'], function (fiddleScreen) {
-          // $ui.frame = fiddleFrame;
-          $ui.push(fiddleScreen);
-        });
+        // $ui.frame = fiddleFrame;
+        $ui.push(fiddleScreen);
+      });
     }
 
     return screen;
