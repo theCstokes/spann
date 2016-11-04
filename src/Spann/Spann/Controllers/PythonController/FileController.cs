@@ -5,6 +5,7 @@ using Spann.DomainModel.Users;
 using Spann.Notifications;
 using Spann.PythonTools;
 using Spann.RepositoryModel;
+using Spann.RepositoryModel.RepositoryManagers;
 using Spann.ResponseBuilders;
 using System;
 using System.Collections.Generic;
