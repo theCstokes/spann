@@ -52,6 +52,17 @@ define(['StateTreeManager'], function(StateTreeManager) {
         $data.send($data.SEND_TYPES.PUT, {api: "Python/Project/{id}", id: current_state.uid}, differences, function(event) {
           console.log(event);
         });
+      } else {
+        $data.send($data.SEND_TYPES.POST, 
+        {
+          api: "Python/Project"
+        }, 
+        {
+          name: current_state.name
+        }, 
+        function(event) {
+          console.log(event);
+        });
       }
     }
 

@@ -7,26 +7,33 @@ define([
     var currentSelection = {};
 
     object.addComponentContainer('content', 'leftSide');
-    object.addOwner('rightSide');
+    object.addOwner('rightSide'); 
 
-    // Object.defineProperty(object, 'registerSelectionList', {
-    //   value: function(component, dataPropteryTransform) {
-    //     component.dataPropteryTransform = dataPropteryTransform;
-    //     component.onClick = function(event) {
-    //       requirejs([event.target.model.target], function(next_screen) {
-    //         $ui.popTo(object);
-    //         $ui.push(next_screen, event.target.model.data);
-    //       });
-    //     };
-    //   }
-    // });
+    object._private.editMode = false;
+    Object.defineProperty(object, 'editMode', {
+      get: function() {
+        return object._private.editMode;
+      },
+      set: function(value) {
+        if(object._private.editMode !== value) {
+          object._private.editMode = value;
+          if(value) {
+            requirejs([object._private.selected.model.target], function(next_screen) {
+              $ui.popTo(object);
+              $ui.push(next_screen, {});
+            });
+          }
+        }
+      }
+    });
 
+    object._private.selected = null;
     Object.defineProperty(object, 'registerSelectionList', {
       value: function(component, dataSource, uiTransform, dataTransform) {
         component.onSelection = function (node) {
           currentSelection = node;
         }
-        component.dataPropteryTransform = dataTransform;
+        component.dataPropertyTransform = dataTransform;
         $data.get(dataSource, function(object) {
           var items = uiTransform(object);
           component.items = items;
@@ -34,9 +41,9 @@ define([
           console.log(component.selected);
         });
         component.onClick = function(event) {
+          object._private.selected = event.target;
           requirejs([event.target.model.target], function(next_screen) {
             $ui.popTo(object);
-            // next_screen.setManager(object);
             $ui.push(next_screen, event.target.model.data);
           });
         };
