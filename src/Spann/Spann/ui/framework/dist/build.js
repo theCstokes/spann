@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-02 */
+/*! spann - v1.0.0 - 2016-11-04 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -923,15 +923,6 @@ function List(parent, screen) {
     }
   });
 
-  // Object.defineProperty(object.model, 'dataPropteryTransform', {
-  //   set: function(value) {
-  //     object._private.dataPropteryTransform = value;
-  //   },
-  //   get: function() {
-  //     return object._private.dataPropteryTransform;
-  //   }
-  // })
-
   Object.defineProperty(object.model, 'items', {
     set: function(items) {
       addItems(items);
@@ -1231,15 +1222,6 @@ function Tree(parent, screen) {
       object.component.addClass(value);
     }
   });
-
-  // Object.defineProperty(object.model, 'dataPropteryTransform', {
-  //   set: function(value) {
-  //     object._private.dataPropteryTransform = value;
-  //   },
-  //   get: function() {
-  //     return object._private.dataPropteryTransform;
-  //   }
-  // })
 
   Object.defineProperty(object.model, 'items', {
     set: function(items) {
