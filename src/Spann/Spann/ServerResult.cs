@@ -53,7 +53,7 @@ namespace Spann
         /// <param name="testFunction"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public bool Test(Func<bool> testFunction, String name = null)
+        public bool Test(Func<bool> TestFunction, String name = null)
         {
             /*
              * eval and store  test function
@@ -65,12 +65,20 @@ namespace Spann
              *     
              * return result
              */
-            bool result = testFunction();
+            bool result = TestFunction();
             if (!result)
             {
                 testResults.Add(new KeyValuePair<string, bool>(name, result));
             }
             return result;
+        }
+
+        /// <summary>
+        /// get: No exceptions and no failures
+        /// </summary>
+        public bool DidPass
+        {
+            get { return (testResults.Count() == 0 && exceptionResults.Count() == 0); }
         }
     }
 }
