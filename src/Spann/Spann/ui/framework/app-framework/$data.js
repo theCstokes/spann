@@ -40,7 +40,7 @@ function build() {
         api = api.replace(reg, request.id);
       }
 
-      ajaxCall(type, api, 
+      ajaxCall(type, api,  body,
       function(data) {
         if (callback !== undefined) {
           callback(data);
@@ -52,7 +52,7 @@ function build() {
     }
   }
 
-  function ajaxCall (type, api, successCallback, errorCallback) {
+  function ajaxCall (type, api, data, successCallback, errorCallback) {
     var xhr = new XMLHttpRequest();
     url = window.location.href.split('ui/')[0] + "api/v1/" + api;
     xhr.responseType = 'json';
@@ -83,7 +83,7 @@ function build() {
         console.error("Failed to get resource. Error: " + xhr.statusText);
       }
     };
-    xhr.send(null);
+    xhr.send(data);
   };
 
   var sources = {
