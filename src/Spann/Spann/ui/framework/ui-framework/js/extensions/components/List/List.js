@@ -14,15 +14,6 @@ function List(parent, screen) {
     }
   });
 
-  // Object.defineProperty(object.model, 'dataPropteryTransform', {
-  //   set: function(value) {
-  //     object._private.dataPropteryTransform = value;
-  //   },
-  //   get: function() {
-  //     return object._private.dataPropteryTransform;
-  //   }
-  // })
-
   Object.defineProperty(object.model, 'items', {
     set: function(items) {
       addItems(items);
