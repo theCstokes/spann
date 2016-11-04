@@ -25,7 +25,8 @@ requirejs.config({
     SHA512: 'framework/app-framework/sha512',
 
     // App Template Helpers
-    BaseContentScreen: 'framework/app-framework/templateHelpers/BaseContentScreen'
+    // BaseContentScreen: 'framework/app-framework/templateHelpers/BaseContentScreen'
+    BaseContentScreen: 'framework/app-framework/wrappers/BaseContentScreen/BaseContentScreen'
   },
 
   // Cache Buster.
