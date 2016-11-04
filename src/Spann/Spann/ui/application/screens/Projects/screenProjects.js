@@ -17,7 +17,8 @@ define([
             component: $ui.ActionButton,
             icon: 'fa-plus',
             onClick: function() {
-              $ui.push(projectDialog);
+              // $ui.push(projectDialog);
+              screen.editMode = true;
             }
           }
         ],
