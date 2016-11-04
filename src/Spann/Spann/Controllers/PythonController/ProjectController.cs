@@ -3,6 +3,7 @@ using Spann.Core.DataAccess.Requests.Patch;
 using Spann.Core.DomainModel.DataTransferObjects.Python;
 using Spann.Core.DomainModel.Python;
 using Spann.RepositoryModel;
+using Spann.RepositoryModel.RepositoryManagers;
 using Spann.ResponseBuilders;
 using System;
 using System.Collections.Generic;

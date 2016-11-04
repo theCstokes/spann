@@ -1,14 +1,12 @@
 ﻿using Spann.Core.DomainModel.Message;
 using Spann.DomainModel.Users;
-using Spann.RepositoryModel.Message;
-using Spann.RepositoryModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Spann.RepositoryModel.Python;
 using Spann.Core.DomainModel.Python;
+using Spann.RepositoryModel.RepositoryManagers;
 
 namespace Spann.RepositoryModel
 {
@@ -20,17 +18,17 @@ namespace Spann.RepositoryModel
         private static Dictionary<Type, object> ManagerMap = new Dictionary<Type, object>();
         private static Dictionary<Type, Type> TypeMap = new Dictionary<Type, Type>();
 
-        public static BaseRepositoryManager<MessageDM> MessageManager = 
-            Register(typeof(MessageDM), new BaseRepositoryManager<MessageDM>());
+        public static DefaultRepositoryManager<MessageDM> MessageManager = 
+            Register(typeof(MessageDM), new DefaultRepositoryManager<MessageDM>());
 
-        public static BaseRepositoryManager<UserDM> UserManager =
-            Register(typeof(UserDM), new BaseRepositoryManager<UserDM>());
+        public static DefaultRepositoryManager<UserDM> UserManager =
+            Register(typeof(UserDM), new DefaultRepositoryManager<UserDM>());
 
-        public static BaseRepositoryManager<PythonFileDM> PythonFileManager =
-            Register(typeof(PythonFileDM), new BaseRepositoryManager<PythonFileDM>());
+        public static DefaultRepositoryManager<PythonFileDM> PythonFileManager =
+            Register(typeof(PythonFileDM), new DefaultRepositoryManager<PythonFileDM>());
 
-        public static BaseRepositoryManager<PythonProjectDM> PythonProjectManager =
-            Register(typeof(PythonProjectDM), new BaseRepositoryManager<PythonProjectDM>());
+        public static PatchRepositoryManager<PythonProjectDM> PythonProjectManager =
+            Register(typeof(PythonProjectDM), new PatchRepositoryManager<PythonProjectDM>());
 
         private static TSource Register<TSource>(Type t, TSource value)
         {

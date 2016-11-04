@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spann.RepositoryModel
+namespace Spann.RepositoryModel.RepositoryManagers
 {
     interface IRepositoryManager<TSource, ModelSource> where TSource : new()
         where ModelSource : AbstractDataModel<ModelSource>, IDataModel, new()
