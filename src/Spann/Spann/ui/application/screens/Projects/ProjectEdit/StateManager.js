@@ -48,9 +48,8 @@ define(['StateTreeManager'], function(StateTreeManager) {
       if(current_state.uid !== 0) {
         var differences = {};
         if(current_state.name !== original_state.name) differences.name = current_state.name;
-        if(current_state.password !== original_state.password) differences.password = current_state.password;
         if(differences !== {}) differences.identity = current_state.uid;
-        $data.send($data.SEND_TYPES.PUT, {api: "User"}, differences, function(event) {
+        $data.send($data.SEND_TYPES.PUT, {api: "Python/Project/{id}", id: current_state.uid}, differences, function(event) {
           console.log(event);
         });
       }
