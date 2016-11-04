@@ -212,6 +212,7 @@ namespace Spann.RepositoryModel
         {
             if(model.PatchClientID == null || model.PatchType == null)
             {
+                accessor.CreateObject(model);
                 return;
             }
             var patchData = PatchTools.GetPatchData(model);
