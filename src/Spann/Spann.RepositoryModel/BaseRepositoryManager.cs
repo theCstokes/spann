@@ -61,7 +61,7 @@ namespace Spann.RepositoryModel
             RunChildActions(accessor, model);
         }
 
-        public void Commit(CommitTypeEnum commitType, DMSource model)
+        public void Commit(CommitTypeEnum commitType, DMSource model, int id=0)
         {
             var accessor = DC.Accessor<DMSource>();
             switch (commitType)
@@ -73,6 +73,7 @@ namespace Spann.RepositoryModel
                     Delete(accessor, model.ID);
                     break;
                 case CommitTypeEnum.UPDATE:
+                    Update(accessor, id, model);
                     break;
                 case CommitTypeEnum.PATCH:
                     RunChildActions(accessor, model);
@@ -203,9 +204,10 @@ namespace Spann.RepositoryModel
             accessor.DeleteObject(id);
         }
 
-        private void Update(DataAccessor<DMSource> accessor, DMSource model)
+        private void Update(DataAccessor<DMSource> accessor, int id, DMSource model)
         {
-            var items = models.Where(source => source.ID == model.ID);
+            //var items = models.Where(source => source.ID == id);
+            model.ID = id;
             accessor.UpdateObject(model);
         }
         #endregion
@@ -228,6 +230,10 @@ namespace Spann.RepositoryModel
 
         private void RunChildActions(DataAccessor<DMSource> accessor, DMSource model)
         {
+            if(model.PatchClientID == null || model.PatchType == null)
+            {
+                return;
+            }
             var patchData = PatchTools.GetPatchData(model);
             if (patchData.PatchType == PatchTypeEnum.CREATE)
             {

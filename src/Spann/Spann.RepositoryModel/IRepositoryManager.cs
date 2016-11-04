@@ -14,7 +14,7 @@ namespace Spann.RepositoryModel
         where ModelSource : AbstractDataModel<ModelSource>, IDataModel, new()
     {
 
-        void Commit(CommitTypeEnum commitType, ModelSource model);
+        void Commit(CommitTypeEnum commitType, ModelSource model, int id=0);
 
         ModelSource Pull(Expression<Func<ModelSource, bool>> filter, bool WithDetails = false);
 
