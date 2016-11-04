@@ -30,8 +30,13 @@ define([
         caption: "Open",
         icon: 'fa-folder-open',
         onClick: function (event) {
-          // console.log(event);
-          // $ui.frame.reloadSelected();
+          $ui.clear();
+          requirejs([
+            'App/projectFrame',
+            'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
+              $ui.frame = mainFrame;
+              $ui.push(homeScreen);
+            });
         }
       }
     ]
