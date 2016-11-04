@@ -36,6 +36,7 @@ define([
             'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
               $ui.frame = mainFrame;
               $ui.push(homeScreen);
+              $ui.notifyEvent("initProject", {projectId: 1123});
             });
         }
       }

@@ -18,17 +18,14 @@ requirejs.config({
     ContextMenu: 'framework/app-framework/wrappers/ContextMenu/ContextMenu',
     FullScreen: 'framework/app-framework/wrappers/FullScreen/FullScreen', // Not need!
     PartitionScreen: 'framework/app-framework/wrappers/PartitionScreen/PartitionScreen',
+    BaseContentScreen: 'framework/app-framework/wrappers/BaseContentScreen/BaseContentScreen',
     StateTreeManager: 'framework/app-framework/StateTree/StateTreeManager',
     Frame: 'framework/app-framework/wrappers/Frame/Frame',
     BasicFrame: 'framework/app-framework/wrappers/BasicFrame/BasicFrame',
     Encryption: 'framework/app-framework/encryption',
-    SHA512: 'framework/app-framework/sha512',
-
-    // App Template Helpers
-    // BaseContentScreen: 'framework/app-framework/templateHelpers/BaseContentScreen'
-    BaseContentScreen: 'framework/app-framework/wrappers/BaseContentScreen/BaseContentScreen'
+    SHA512: 'framework/app-framework/sha512'
   },
 
   // Cache Buster.
-  // urlArgs: "v=" + (new Date()).getTime()
+  urlArgs: "v=" + (new Date()).getTime()
 });
