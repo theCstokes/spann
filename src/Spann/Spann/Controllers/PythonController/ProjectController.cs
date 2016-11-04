@@ -18,30 +18,7 @@ namespace Spann.Controllers
     public class ProjectController : ApiController
     {
 
-        [HttpPost]
-        [Route("Project")]
-        public IHttpActionResult CreateProject([FromBody] PythonProjectDM project)
-        {
-            RC.PythonProjectManager.Commit(CommitTypeEnum.ADD, project);
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
-        }
-
-        [HttpPatch]
-        [Route("Project")]
-        public IHttpActionResult TestDTO([FromBody] PythonProjectDTO obj)
-        {
-            PythonProjectDM project = obj.Map();
-            if (PatchTools.IsPatch(project))
-            {
-                RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, project);
-            }
-            else
-            {
-                /// TODO - return error
-            }
-            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
-        }
-
+        #region GET
         [HttpGet]
         [Route("Project/{id:int}")]
         public IHttpActionResult GetProject([FromUri] int id)
@@ -73,5 +50,45 @@ namespace Spann.Controllers
             List<PythonProjectDM> projects = RC.PythonProjectManager.PullAll(WithDetails: true);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects.Select(item => item.Map()));
         }
+        #endregion
+
+        #region POST
+        [HttpPost]
+        [Route("Project")]
+        public IHttpActionResult CreateProject([FromBody] PythonProjectDM project)
+        {
+            RC.PythonProjectManager.Commit(CommitTypeEnum.ADD, project);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
+        }
+        #endregion
+
+        #region PUT
+        [HttpPut]
+        [Route("Project/{id:int}")]
+        public IHttpActionResult UpdateProject([FromUri] int id, [FromBody] PythonProjectDM project)
+        {
+            RC.PythonProjectManager.Commit(CommitTypeEnum.UPDATE, project, id:id);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
+        }
+        #endregion
+
+        #region PATCH
+        [HttpPatch]
+        [Route("Project")]
+        public IHttpActionResult TestDTO([FromBody] PythonProjectDTO obj)
+        {
+            PythonProjectDM project = obj.Map();
+            if (PatchTools.IsPatch(project))
+            {
+                RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, project);
+            }
+            else
+            {
+                /// TODO - return error
+            }
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
+        }
+        #endregion
+        
     }
 }
