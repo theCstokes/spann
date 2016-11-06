@@ -532,6 +532,15 @@ body {
   width: 100%;
   overflow: hidden;
 }
+.ui-column {
+  display: block;
+}
+.ui-column-layout {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 .ui-context-menu {
   display: block;
   position: absolute;
