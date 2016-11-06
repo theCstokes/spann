@@ -5,17 +5,6 @@ define([
     var frame = new Frame();
     frame.attachLeft = [
       {
-        component: $ui.Group,
-        id: 'status',
-        size: 'half',
-        content: [
-          {
-            component: $ui.Label,
-            value: "Chris Stokes"
-          }
-        ]
-      },
-      {
         component: $ui.List,
         style: $ui.NavigationListItem,
         items: [
