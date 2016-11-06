@@ -1,8 +1,7 @@
 define([
   'PlayGroup/demoFrame',
-  'PlayGroup/screen_Account',
-  'PlayGroup/dialog_Demo'
-], function(demoFrame, screen_Editor, dialog_Demo) {
+  'PlayGroup/screenEditor'
+], function(demoFrame, screen_Editor) {
 
   function start() {
     $ui.frame = demoFrame;

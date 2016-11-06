@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-04 */
+/*! spann - v1.0.0 - 2016-11-06 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -1456,6 +1456,34 @@ function BasicFrame(parent, screen) {
   return object;
 }
 $ui.addExtension('BasicFrame', BasicFrame);
+
+function Column(parent, screen) {
+  var object = $ui.BaseHolder(parent, screen);
+  object.component.addClass('ui-column');
+  object.addContainer(object.component);
+
+  Object.defineProperty(object.model, 'size', {
+    set: function (value) {
+      console.log('size', value);
+      // console.log(object.component);
+      // object.component.addClass('half');
+    }
+  });
+
+  return object;
+}
+
+$ui.addExtension('Column', Column);
+
+function ColumnLayout(parent, screen) {
+  var object = $ui.BaseHolder(parent, screen);
+  object.component.addClass('ui-column-layout');
+  object.addContainer('columns', object.component);
+
+  return object;
+}
+
+$ui.addExtension('ColumnLayout', ColumnLayout);
 
 function ContextMenu(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);

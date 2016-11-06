@@ -1,6 +1,6 @@
 function Column(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
-  object.component.addClass('ui-column-layout');
+  object.component.addClass('ui-column');
   object.addContainer(object.component);
 
   Object.defineProperty(object.model, 'size', {
