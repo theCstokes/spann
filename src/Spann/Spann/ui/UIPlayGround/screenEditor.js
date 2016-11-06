@@ -16,8 +16,8 @@ define([
                 component: $ui.Column,
                 content: [
                   {
-                    component: $ui.Button,
-                    caption: "Value"
+                    component: $ui.Input,
+                    hint: "Value"
                   },
                   {
                     component: $ui.Button,
@@ -31,6 +31,10 @@ define([
                   {
                     component: $ui.Button,
                     caption: "Value"
+                  },
+                  {
+                    component: $ui.Input,
+                    hint: "Value"
                   }
                 ]
               }
