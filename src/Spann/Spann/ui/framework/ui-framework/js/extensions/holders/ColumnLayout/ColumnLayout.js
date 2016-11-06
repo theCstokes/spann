@@ -1,6 +1,6 @@
-function Flow(parent, screen) {
+function ColumnLayout(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
-  object.component.addClass('ui-flow');
+  object.component.addClass('ui-column-layout');
   object.addContainer(object.component);
 
   Object.defineProperty(object.model, 'size', {
@@ -53,4 +53,4 @@ function Flow(parent, screen) {
   return object;
 }
 
-$ui.addExtension('Flow', Flow);
+$ui.addExtension('ColumnLayout', ColumnLayout);
