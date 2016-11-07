@@ -52,18 +52,16 @@
 
 .ui-panel .bottom-dock {
   .ui-panel .base;
-  flex-direction: row;
-  justify-content: flex-start;
-  // border-style: none;
-  // border-bottom: solid;
-  // border-top: solid;
-  // border-top-color: @Accent;
-  // border-top-width: @ThickAccentBorderWidth;
-  // border-bottom-color: @Outline;
-  // border-bottom-width: thin;
-  display: none;
+  // flex-direction: row;
+  // justify-content: flex-start;
+  // height: 100%;
+  // overflow: hidden;
+  display: none;  
+  // display: block;
+  height: 100%;
+  overflow: hidden;
 }
 
-.ui-panel .has-bottom-dock {
-  display: flex;
+.ui-panel .bottom-dock.has-bottom-dock {
+  display: block;
 }

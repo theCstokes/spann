@@ -53,6 +53,40 @@ define([
       {
         component: $ui.Panel,
         showTopDock: false,
+        bottomDock: [
+          {
+            component: $ui.ColumnLayout,
+            columns: [
+              {
+                component: $ui.Column,
+                id: "selCol",
+                size: 80,
+                content: [
+                  {
+                    component: $ui.Slider,
+                    items: [
+                      {
+                        component: $ui.FileListItem,
+                        // icon: 'fa-plus',
+                        name: "Console"
+                      },
+                      {
+                        component: $ui.FileListItem,
+                        // icon: 'fa-plus',
+                        name: "Console"
+                      },
+                      {
+                        component: $ui.FileListItem,
+                        // icon: 'fa-plus',
+                        name: "Console"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         content: [
           {
             component: $ui.ColumnLayout,

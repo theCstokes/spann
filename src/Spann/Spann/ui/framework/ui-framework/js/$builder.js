@@ -55,7 +55,8 @@ function build() {
         control.show();
       }
       // Push control's public interface to screen elements
-      elements.push(control.model);
+      // elements.push(control.model);
+      elements.push(control);
       return elements;
     }
 

@@ -5,9 +5,9 @@ function BaseHolder(parent, screen) {
   object._private.isContianer = false;
   object._private.containers = {};
   Object.defineProperty(object, 'addContainer', {
-    value: function(name, item) {
+    value: function (name, item) {
       object._private.isContianer = true;
-      if(item === undefined) {
+      if (item === undefined) {
         item = name;
         name = 'content';
       }
@@ -17,14 +17,14 @@ function BaseHolder(parent, screen) {
   });
 
   Object.defineProperty(object, 'isContianer', {
-    get: function() {
+    get: function () {
       return object._private.isContianer;
     }
   });
 
   Object.defineProperty(object, 'containers', {
-    get: function() {
-        return object._private.containers;
+    get: function () {
+      return object._private.containers;
     },
     enumerable: true
   });

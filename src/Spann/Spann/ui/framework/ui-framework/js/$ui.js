@@ -8,6 +8,17 @@ function build() {
     }
   };
 
+  window.onresize = function(event) {
+    object._private.screens.forEach(function(screen) {
+      var components = screen.model.components;
+      components.forEach(function(item) {
+        if(item.show !== undefined) {
+          item.show();
+        }
+      });
+    })
+  };
+
   Object.defineProperty(object, 'initialize', {
     value: function() {
       /// TODO - Init app code;

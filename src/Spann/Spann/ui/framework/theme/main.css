@@ -820,12 +820,12 @@ body {
 }
 .ui-panel .bottom-dock {
   padding: 10px;
-  flex-direction: row;
-  justify-content: flex-start;
   display: none;
+  height: 100%;
+  overflow: hidden;
 }
-.ui-panel .has-bottom-dock {
-  display: flex;
+.ui-panel .bottom-dock.has-bottom-dock {
+  display: block;
 }
 .ui-partition-screen {
   position: absolute;

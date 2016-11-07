@@ -42,46 +42,46 @@ function BaseExtension(parent, screen) {
 
   object._private.name = undefined;
   Object.defineProperty(object.model, "id", {
-    set: function(value) {
+    set: function (value) {
       object._private.name = value;
     },
-    get: function() {
+    get: function () {
       return object._private.name;
     }
   });
 
   object._private.data = {};
   Object.defineProperty(object.model, "data", {
-    set: function(value) {
+    set: function (value) {
       object._private.data = value;
     },
-    get: function() {
+    get: function () {
       return object._private.data;
     }
   });
 
   object._private.visible = true;
   Object.defineProperty(object.model, "visible", {
-    set: function(value) {
-      if(value !== object._private.visible) {
+    set: function (value) {
+      if (value !== object._private.visible) {
         object._private.visible = value;
-        if(object._private.visible) {
+        if (object._private.visible) {
           object.component.removeClass("ui-invisible")
         } else {
           object.component.addClass("ui-invisible");
         }
       }
     },
-    get: function() {
+    get: function () {
       return object._private.data;
     }
   });
 
   Object.defineProperty(object.model, 'component', {
-    set: function(value) {
+    set: function (value) {
       object.component = value;
     },
-    get: function() {
+    get: function () {
       return object.component;
     }
   });
@@ -98,9 +98,9 @@ function BaseHolder(parent, screen) {
   object._private.isContianer = false;
   object._private.containers = {};
   Object.defineProperty(object, 'addContainer', {
-    value: function(name, item) {
+    value: function (name, item) {
       object._private.isContianer = true;
-      if(item === undefined) {
+      if (item === undefined) {
         item = name;
         name = 'content';
       }
@@ -110,14 +110,14 @@ function BaseHolder(parent, screen) {
   });
 
   Object.defineProperty(object, 'isContianer', {
-    get: function() {
+    get: function () {
       return object._private.isContianer;
     }
   });
 
   Object.defineProperty(object, 'containers', {
-    get: function() {
-        return object._private.containers;
+    get: function () {
+      return object._private.containers;
     },
     enumerable: true
   });

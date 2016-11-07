@@ -140,9 +140,14 @@ define(function() {
            }
 
            var items = $builder.build(container, object, object[key]);
+           if(object.model.components === undefined) {
+             object.model.components = [];
+           }
+           object.model.components = object.model.components.concat(items);
            items.forEach(function (item) {
-             if(item.id != undefined) {
-               object.model[item.id] = item;
+             var model = item.model;
+             if(model.id != undefined) {
+               object.model[model.id] = model;
              }
            });
          }
