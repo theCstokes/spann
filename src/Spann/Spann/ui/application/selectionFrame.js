@@ -45,12 +45,8 @@ define([
     frame.attachTop = [
       {
         component: $ui.Panel,
-        showHeaderBar: false,
+        showTopDock: false,
         content: [
-          {
-            component: $ui.Label,
-            caption: "Spann"
-          }
         ]
       }
     ];

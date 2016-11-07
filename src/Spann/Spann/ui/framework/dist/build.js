@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-06 */
+/*! spann - v1.0.0 - 2016-11-07 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -196,8 +196,12 @@ function UIDecorators(object) {
     }
   }
 
-  function size(obj) {
-    object._private.size = $ui.Size.NORMAL;
+  function size(obj, hasDefault) {
+    if(hasDefault === undefined || hasDefault) {
+      object._private.size = $ui.Size.NORMAL;
+    } else {
+      object._private.size = "";
+    }    
     obj.addClass(object._private.size);
     Object.defineProperty(object.model, 'size', {
       set: function(value) {
@@ -1847,3 +1851,26 @@ function PartitionScreen(parent, screen) {
   return object;
 }
 $ui.addExtension('PartitionScreen', PartitionScreen);
+
+function Slider(parent, screen) {
+  var object = $ui.BaseHolder(parent, screen);
+  object.component.addClass('ui-slider');
+
+  var dec = $ui.UIDecorators(object);
+  dec.size(object.component, false);
+
+  var leftArrow = $ui.create('div', object.component);
+  leftArrow.addClass('move-left fa fa-chevron-left');
+
+  var items = $ui.create('div', object.component);
+  items.addClass('items');
+  object.addContainer('items', items);
+
+  var rightArrow = $ui.create('div', object.component);
+  rightArrow.addClass('move-right fa fa-chevron-right');
+
+  return object;
+
+}
+
+$ui.addExtension('Slider', Slider);
