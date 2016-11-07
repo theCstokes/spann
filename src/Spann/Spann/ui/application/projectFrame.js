@@ -60,7 +60,7 @@ define([
               {
                 component: $ui.Column,
                 id: "selCol",
-                size: 80,
+                width: $ui.ColumnWidth.EIGHTY,
                 content: [
                   {
                     component: $ui.Slider,
@@ -94,7 +94,7 @@ define([
               {
                 component: $ui.Column,
                 id: "selCol",
-                size: 80,
+                width: $ui.ColumnWidth.EIGHTY,
                 content: [
                   {
                     component: $ui.Slider,
