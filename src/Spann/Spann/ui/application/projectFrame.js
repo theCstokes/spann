@@ -56,62 +56,25 @@ define([
         bottomDock: [
           {
             component: $ui.ColumnLayout,
+            rightToLeft: true,
             columns: [
               {
                 component: $ui.Column,
-                id: "selCol",
-                width: $ui.ColumnWidth.EIGHTY,
+                width: $ui.ColumnWidth.EIGHTY_FIVE,
                 content: [
                   {
                     component: $ui.Slider,
                     items: [
                       {
                         component: $ui.FileListItem,
-                        // icon: 'fa-plus',
                         name: "Console"
                       },
                       {
                         component: $ui.FileListItem,
-                        // icon: 'fa-plus',
                         name: "Console"
                       },
                       {
                         component: $ui.FileListItem,
-                        // icon: 'fa-plus',
-                        name: "Console"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        content: [
-          {
-            component: $ui.ColumnLayout,
-            columns: [
-              {
-                component: $ui.Column,
-                id: "selCol",
-                width: $ui.ColumnWidth.EIGHTY,
-                content: [
-                  {
-                    component: $ui.Slider,
-                    items: [
-                      {
-                        component: $ui.FileListItem,
-                        // icon: 'fa-plus',
-                        name: "Console"
-                      },
-                      {
-                        component: $ui.FileListItem,
-                        // icon: 'fa-plus',
-                        name: "Console"
-                      },
-                      {
-                        component: $ui.FileListItem,
-                        // icon: 'fa-plus',
                         name: "Console"
                       }
                     ]

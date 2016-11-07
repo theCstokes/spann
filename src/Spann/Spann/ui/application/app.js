@@ -10,15 +10,15 @@ define([
       debug: true
     });
 
-    // $ui.frame = BasicFrame;
-    // $ui.push(screen_login);
+    $ui.frame = BasicFrame;
+    $ui.push(screen_login);
 
-    requirejs([
-        'App/projectFrame',
-        'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
-          $ui.frame = mainFrame;
-          $ui.push(homeScreen);
-        });
+    // requirejs([
+    //     'App/projectFrame',
+    //     'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
+    //       $ui.frame = mainFrame;
+    //       $ui.push(homeScreen);
+    //     });
 
     // var xhr = new XMLHttpRequest();
     // xhr.open("POST", window.location.href.split('ui/')[0] + "api/v1/User");

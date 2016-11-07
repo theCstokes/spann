@@ -1495,7 +1495,7 @@ $ui.addExtension('Column', Column);
 var ColumnWidth = {
   TWENTY: "column-width-twenty", THIRTY: "column-width-thirty", FORTY: "column-width-forty", 
   FIFTY: "column-width-fifty", SIXTY: "column-width-sixty", SEVENTY: "column-width-seventy",
-  EIGHTY: "column-width-eighty" 
+  EIGHTY: "column-width-eighty", EIGHTY_FIVE: "column-width-eighty-five", NINETY: "column-width-ninety" 
 };
 
 $ui.addStyleExtension('ColumnWidth', ColumnWidth);
@@ -1504,6 +1504,29 @@ function ColumnLayout(parent, screen) {
   var object = $ui.BaseHolder(parent, screen);
   object.component.addClass('ui-column-layout');
   object.addContainer('columns', object.component);
+
+  if (object.rightToLeft != undefined) {
+    object._private.rightToLeft = object.rightToLeft;
+  } else {
+    object._private.rightToLeft = false;
+  }
+  renderLayoutOrder();
+  Object.defineProperty(object.model, 'rightToLeft', {
+    set: function (value) {
+      if (object._private.rightToLeft !== value) {
+        object._private.rightToLeft = value;
+        renderLayoutOrder();
+      }
+    }
+  });
+
+  function renderLayoutOrder() {
+    if (object._private.rightToLeft) {
+      object.component.replaceClass('left-to-right', 'right-to-left');
+    } else {
+      object.component.replaceClass('right-to-left', 'left-to-right');
+    }
+  }
 
   return object;
 }
@@ -1693,11 +1716,13 @@ function Flow(parent, screen) {
   function renderLayoutOrder() {
     if (object._private.isCenter) {
       object.component.replaceClass(['left-to-right', 'right-to-left'], 'center');
-    } else if(object._private.rightToLeft) {
-      object.component.replaceClass('left-to-right', 'right-to-left');
-    } else if (object._private.rightToLeft) {
-      object.component.replaceClass('right-to-left', 'left-to-right');
-    }
+    } else {
+      if(object._private.rightToLeft) {
+        object.component.replaceClass('left-to-right', 'right-to-left');
+      } else {
+        object.component.replaceClass('right-to-left', 'left-to-right');
+      }
+    } 
   }
 
   return object;

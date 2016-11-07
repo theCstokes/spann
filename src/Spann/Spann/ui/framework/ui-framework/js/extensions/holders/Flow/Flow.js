@@ -43,11 +43,13 @@ function Flow(parent, screen) {
   function renderLayoutOrder() {
     if (object._private.isCenter) {
       object.component.replaceClass(['left-to-right', 'right-to-left'], 'center');
-    } else if(object._private.rightToLeft) {
-      object.component.replaceClass('left-to-right', 'right-to-left');
-    } else if (object._private.rightToLeft) {
-      object.component.replaceClass('right-to-left', 'left-to-right');
-    }
+    } else {
+      if(object._private.rightToLeft) {
+        object.component.replaceClass('left-to-right', 'right-to-left');
+      } else {
+        object.component.replaceClass('right-to-left', 'left-to-right');
+      }
+    } 
   }
 
   return object;
