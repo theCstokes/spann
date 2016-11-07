@@ -1,7 +1,7 @@
 define([
   'Frame'
-], function(Frame) {
-  return function() {
+], function (Frame) {
+  return function () {
     var frame = new Frame();
     frame.attachLeft = [
       {
@@ -11,8 +11,8 @@ define([
           {
             component: $ui.ActionButton,
             icon: 'fa-plus',
-            onClick: function() {
-              
+            onClick: function () {
+
             }
           }
         ]
@@ -43,7 +43,7 @@ define([
             target: 'PlayGroup/screen_Console'
           }
         ],
-        onClick: function(event) {
+        onClick: function (event) {
           var target = event.target.model.target;
           frame.select(target);
         }
@@ -56,15 +56,24 @@ define([
         showHeaderBar: false,
         content: [
           {
-            component: $ui.Label,
-            caption: "Chris Stokes"
-          },
-          {
-            component: $ui.ActionButton,
-            icon: 'fa-play',
-            /* onClick: function() {
-              
-            } */
+            component: $ui.Slider,
+            items: [
+              {
+                component: $ui.FileListItem,
+                // icon: 'fa-plus',
+                name: "Console"
+              },
+              {
+                component: $ui.FileListItem,
+                // icon: 'fa-plus',
+                name: "Console"
+              },
+              {
+                component: $ui.FileListItem,
+                // icon: 'fa-plus',
+                name: "Console"
+              }
+            ]
           }
         ]
       }
