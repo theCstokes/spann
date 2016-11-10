@@ -9,12 +9,12 @@ module.exports = function (grunt) {
         },
         dist: {
           src: [
-            'framework/ui-framework/js/extensions/base/**/*.js',
-            'framework/ui-framework/js/extensions/core/**/*.js',
-            'framework/ui-framework/js/extensions/components/**/*.js',
-            'framework/ui-framework/js/extensions/holders/**/*.js'
+            'ui-framework/js/extensions/base/**/*.js',
+            'ui-framework/js/extensions/core/**/*.js',
+            'ui-framework/js/extensions/components/**/*.js',
+            'ui-framework/js/extensions/holders/**/*.js'
           ],
-          dest: 'framework/dist/build.js'
+          dest: 'dist/build.js'
         },
       }
 });
