@@ -39,7 +39,7 @@ function loadScripts(urls, callback, index){
 function boot() {
   function loadFramework(callback) {
     loadScripts([
-      "./framework/boot.js",
+      "./libs/JJS/boot.js",
       "./boot.config.js",
     ], function() {
         ui_boot(callback);
