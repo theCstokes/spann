@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools.Runner
 {
+    /// <summary>
+    /// Iron Python Location.
+    /// </summary>
     public interface IPyLocation
     {
         string Path { get; }

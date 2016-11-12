@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools.Runner
 {
+    /// <summary>
+    /// Python project Manager.
+    /// </summary>
     public class PyProjectManager
     {
         #region Private Field(s).
@@ -24,27 +27,49 @@ namespace Spann.PythonTools.Runner
         #endregion
 
         #region Public Constructor(s).
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         static PyProjectManager()
         {
             projects = new Dictionary<Guid, PyProject>();
         }
         #endregion
 
+        /// <summary>
+        /// Register handler with a project.
+        /// </summary>
+        /// <param name="uid">Id for project.</param>
+        /// <param name="handler">Handler for project.</param>
         public static void Register(Guid uid, EventHandler<StreamNotificationEvent> handler)
         {
             projects[uid] = new PyProject(handler) ;
         }
 
+        /// <summary>
+        /// Get a project.
+        /// </summary>
+        /// <param name="uid">Id for project.</param>
+        /// <returns>Python project.</returns>
         public static PyProject Get(Guid uid)
         {
             return projects[uid];
         }
 
+        /// <summary>
+        ///  Remove a project.
+        /// </summary>
+        /// <param name="uid">Id for project.</param>
         public static void Remove(Guid uid)
         {
             projects.Remove(uid);
         }
 
+        /// <summary>
+        /// Execute a project.
+        /// </summary>
+        /// <param name="uid">Id for project.</param>
+        /// <param name="fileDM">File domain model.</param>
         public static void Execute(Guid uid, PythonFileDM fileDM)
         {
             PyProject project = projects[uid];
@@ -56,6 +81,12 @@ namespace Spann.PythonTools.Runner
             project.Run();
         }
 
+        /// <summary>
+        /// Execute a project.
+        /// </summary>
+        /// <param name="uid">Id for project.</param>
+        /// <param name="owner">Owner of a project.</param>
+        /// <param name="project">Project domain model.</param>
         public static void Execute(Guid uid, UserDM owner, PythonProjectDM project)
         {
             //PyProject p = projects[uid];
@@ -69,6 +100,11 @@ namespace Spann.PythonTools.Runner
             //}
         }
 
+        /// <summary>
+        /// Property for projects.
+        /// </summary>
+        /// <param name="uid">Id for proejct.</param>
+        /// <returns>Get: project.</returns>
         public PyProject this[Guid uid]
         {
             get

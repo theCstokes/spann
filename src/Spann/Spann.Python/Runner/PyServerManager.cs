@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools.Runner
 {
+    /// <summary>
+    /// Python Server Manager.
+    /// </summary>
     public class PyServerManager
     {
         //private static readonly string SERVER_LOCATION = @"c:\PythonServer";
