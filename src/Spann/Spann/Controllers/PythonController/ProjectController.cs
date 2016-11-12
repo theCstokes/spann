@@ -126,6 +126,5 @@ namespace Spann.Controllers
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
         }
         #endregion
-        
     }
 }

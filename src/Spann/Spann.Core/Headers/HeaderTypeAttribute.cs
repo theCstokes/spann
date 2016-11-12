@@ -11,7 +11,6 @@ namespace Spann.Core.Headers
     [AttributeUsage(AttributeTargets.Class)]
     public class HeaderTypeAttribute : Attribute
     {
-        public string Name { get; private set; }
 
         /// <summary>
         /// Constructor
@@ -21,5 +20,7 @@ namespace Spann.Core.Headers
         {
             this.Name = name;
         }
+
+        public string Name { get; private set; }
     }
 }
