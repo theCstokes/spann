@@ -8,6 +8,9 @@ using System.Web;
 
 namespace Spann.PythonTools.Runner
 {
+    /// <summary>
+    /// Python file.
+    /// </summary>
     public class PyFile : IPyLocation
     {
         #region Public Field(s).
@@ -21,6 +24,13 @@ namespace Spann.PythonTools.Runner
         #endregion
 
         #region  Public Constructor(s).
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="id">Id for file.</param>
+        /// <param name="location">Location for file.</param>
+        /// <param name="name">Name of file.</param>
+        /// <param name="data">Data in file.</param>
         public PyFile(int id, string location, string name, string data = null)
         {
             this.ID = id;
@@ -45,6 +55,9 @@ namespace Spann.PythonTools.Runner
         #endregion
 
         #region Public Member(s).
+        /// <summary>
+        /// Property for path.
+        /// </summary>
         public string Path
         {
             get
@@ -52,6 +65,10 @@ namespace Spann.PythonTools.Runner
                 return PyTools.CreatePath(Location, Name);
             }
         }
+
+        /// <summary>
+        /// Property for can delete.
+        /// </summary>
         public bool CanDelete
         {
             get
@@ -59,6 +76,10 @@ namespace Spann.PythonTools.Runner
                 return file != null && file.Exists;
             }
         }
+
+        /// <summary>
+        /// Delete a file.
+        /// </summary>
         public void Delete()
         {
             if (file != null && file.Exists)
@@ -67,6 +88,9 @@ namespace Spann.PythonTools.Runner
             }
         }
 
+        /// <summary>
+        /// Property for does exist.
+        /// </summary>
         public bool DoesExist
         {
             get

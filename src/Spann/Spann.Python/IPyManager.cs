@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools
 {
+    /// <summary>
+    /// Iron Python Manager
+    /// </summary>
     interface IPyManager
     {
         void Register(Guid uid, EventHandler<StreamNotificationEvent> handler);

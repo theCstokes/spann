@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools.Runner
 {
+    /// <summary>
+    /// Python project.
+    /// </summary>
     public class PyProject : IPyLocation
     {
         #region Public Field(s).
@@ -24,6 +27,10 @@ namespace Spann.PythonTools.Runner
         #endregion
 
         #region Public Constructor(s).
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="handler">Handler for project.</param>
         public PyProject(EventHandler<StreamNotificationEvent> handler)
         {
             this.files = new List<PyFile>();
@@ -32,6 +39,11 @@ namespace Spann.PythonTools.Runner
         #endregion
 
         #region Public Member(s).
+        /// <summary>
+        /// Create a project.
+        /// </summary>
+        /// <param name="location">Location for project.</param>
+        /// <param name="name">Name of project.</param>
         public void Create(string location, string name)
         {
             this.Location = location;
@@ -40,6 +52,9 @@ namespace Spann.PythonTools.Runner
             directory = Directory.CreateDirectory(path);
         }
 
+        /// <summary>
+        /// Property for path.
+        /// </summary>
         public string Path
         {
             get
@@ -47,6 +62,10 @@ namespace Spann.PythonTools.Runner
                 return PyTools.CreatePath(Location, Name);
             }
         }
+
+        /// <summary>
+        /// Property for can delete.
+        /// </summary>
         public bool CanDelete
         {
             get
@@ -61,6 +80,10 @@ namespace Spann.PythonTools.Runner
                 }
             }
         }
+
+        /// <summary>
+        /// Delete a project.
+        /// </summary>
         public void Delete()
         {
             if(directory != null && directory.Exists)
@@ -69,6 +92,9 @@ namespace Spann.PythonTools.Runner
             }
         }
 
+        /// <summary>
+        /// Property for does exist.
+        /// </summary>
         public bool DoesExist
         {
             get
@@ -77,11 +103,18 @@ namespace Spann.PythonTools.Runner
             }
         }
 
+        /// <summary>
+        /// Add a python file.
+        /// </summary>
+        /// <param name="file">File name.</param>
         public void AddFile(PyFile file)
         {
             files.Add(file);
         }
 
+        /// <summary>
+        /// Run a python project.
+        /// </summary>
         public void Run()
         {
             if(StartUpFileID == null)
