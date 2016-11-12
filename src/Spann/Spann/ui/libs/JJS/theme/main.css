@@ -853,6 +853,7 @@ body {
 }
 .ui-panel .bottom-dock {
   padding: 10px;
+  align-self: flex-end;
   display: none;
   height: 100%;
   overflow: hidden;
