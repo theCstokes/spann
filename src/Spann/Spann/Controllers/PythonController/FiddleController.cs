@@ -16,10 +16,16 @@ using System.Web.Http;
 
 namespace Spann.Controllers
 {
+    /// <summary>
+    /// API Controller for fiddle
+    /// </summary>
     [RoutePrefix("api/v1/Python")]
     public class FiddleController : ApiController
     {
-
+        /// <summary>
+        /// Create a new fiddle.
+        /// </summary>
+        /// <returns>Status code.</returns>
         [HttpGet]
         [Route("Fiddle")]
         public HttpResponseMessage RunFiddle()

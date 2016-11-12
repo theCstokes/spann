@@ -17,10 +17,17 @@ using System.Web.Http;
 
 namespace Spann.Controllers
 {
+    /// <summary>
+    /// API Controller for files
+    /// </summary>
     [RoutePrefix("api/v1/Python")]
     public class FileController : ApiController
     {
-
+        /// <summary>
+        /// Create a new file.
+        /// </summary>
+        /// <param name="file">File object.</param>
+        /// <returns>Status code and file object.</returns>
         [HttpPost]
         [Route("File")]
         public IHttpActionResult CreateFile([FromBody] PythonFileDM file)

@@ -16,10 +16,16 @@ using System.Web.Http;
 
 namespace Spann.Controllers
 {
+    /// <summary>
+    /// API Controller for console
+    /// </summary>
     [RoutePrefix("api/v1/Python")]
     public class ConsoleController : ApiController
     {
-
+        /// <summary>
+        /// Start up a new console.
+        /// </summary>
+        /// <returns>Status code.</returns>
         [HttpGet]
         [Route("Console")]
         public HttpResponseMessage StartConsole()
