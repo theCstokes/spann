@@ -17,7 +17,6 @@ define([
             component: $ui.ActionButton,
             icon: 'fa-plus',
             onClick: function() {
-              // $ui.push(projectDialog);
               screen.editMode = true;
             }
           }
@@ -28,14 +27,6 @@ define([
             decorator: $ui.ListDecorators.MAXIMIZE_LIST,
             id: 'projectList',
             style: $ui.FileListItem
-            // items: [
-            //   {
-            //     elementType: $ui.TreeElementType.ITEM,
-            //     name: "Home",
-            //     selected: true,
-            //     icon: "fa-home"
-            //   }
-            // ]
           }
         ]
       }
@@ -46,7 +37,7 @@ define([
 
       this.registerSelectionList(
         components.projectList,
-        $data.sources.PROJECT_API,
+        API.ALL_PROJECT_API,
         projectTransform.uiTransform,
         projectTransform.dataTransform);
       this.render = function(state) {

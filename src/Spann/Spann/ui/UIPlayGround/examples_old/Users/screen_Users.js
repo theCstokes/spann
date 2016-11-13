@@ -31,7 +31,7 @@ define([
 
     screen.show = function(args) {
       var components = this.model;
-      this.registerSelectionList(components.userList, $data.sources.USER_API,
+      this.registerSelectionList(components.userList, API.USER_API,
         userTransform.uiTransform,
         userTransform.dataTransform);
 

@@ -10,7 +10,7 @@ define([
       debug: true
     });
 
-    $ui.frame = BasicFrame;
+    $ui.addFrame(BasicFrame);
     $ui.push(screen_login);
 
     // requirejs([

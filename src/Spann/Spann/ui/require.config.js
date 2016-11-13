@@ -27,5 +27,5 @@ requirejs.config({
   },
 
   // Cache Buster.
-  urlArgs: "v=" + (new Date()).getTime()
+  // urlArgs: "v=" + (new Date()).getTime()
 });
