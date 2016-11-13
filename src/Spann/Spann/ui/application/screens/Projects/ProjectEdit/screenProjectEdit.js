@@ -32,11 +32,12 @@ define([
         onClick: function (event) {
           $ui.clear();
           requirejs([
-            'App/projectFrame',
-            'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
-              $ui.frame = mainFrame;
-              $ui.push(homeScreen);
-              $ui.notifyEvent("initProject", {projectId: 1123});
+            'App/DevelopFrame/developFrame',
+            'App/screens/Develop/screenDevelop'], function (projectFrame, screenDevelop) {
+              $ui.addFrame(projectFrame);
+              $ui.push(screenDevelop, {projectId: screen.stateManager.getCurrentState().current.uid});
+              console.log(screen);
+              // $ui.notifyEvent("initProjectScreen");
             });
         }
       }

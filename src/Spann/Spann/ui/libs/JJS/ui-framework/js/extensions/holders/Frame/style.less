@@ -7,22 +7,34 @@
 }
 
 .ui-frame > .topBar {
+  display: none;
   overflow: hidden;
   position: relative;
   float: right;
   width: 100%;
-  height: 15%;
+  height: 0;
   background-color: @TopBar;
 }
 
+.ui-frame > .topBar.has-top-bar-content {
+  display: block;
+  height: 15%;  
+}
+
 .ui-frame > .leftBar {
+  display: none;
   overflow: hidden;
   position: relative;
   float: left;
   bottom: 0;
   height: 85%;
-  width: 15%;
+  width: 0;
   background-color: @LeftBar;
+}
+
+.ui-frame > .leftBar.has-left-bar-content {
+  display: block;
+  width: 15%;
 }
 
 .ui-frame > .holder {
@@ -34,6 +46,14 @@
   height: 85%;
   width: 85%;
   background: @BackSpace;
+}
+
+.ui-frame > .holder.maximizeH { 
+  width: 100%;
+}
+
+.ui-frame > .holder.maximizeV { 
+  height: 100%;
 }
 
 .ui-frame > .holder > .mainContent {

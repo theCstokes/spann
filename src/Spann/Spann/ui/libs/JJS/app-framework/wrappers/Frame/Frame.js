@@ -6,7 +6,9 @@ define([
     var object = new BaseWrapper($ui.Frame);
 
     object.addComponentContainer('attachLeft', 'leftBar');
+    // object.registerProperty('attachLeft');
     object.addComponentContainer('attachTop', 'topBar');
+    // object.registerProperty('attachTop');
     object.addOwner('mainContent');
 
     Object.defineProperty(object, 'selected', {

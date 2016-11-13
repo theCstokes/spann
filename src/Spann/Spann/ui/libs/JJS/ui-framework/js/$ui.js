@@ -44,12 +44,20 @@ function build() {
   /**
    * Sets the main frame for the app.
    * @argument - The Frame component to act as a basis for the app.
+   *             Data to send to show.
+   */
+  Object.defineProperty(object, 'addFrame', {
+    value: function (frame_item, data) {
+      var frame = object._private.frame = frame_item();
+      addScreen(frame, this._private.app, data);
+    }
+  });
+
+  /**
+   * Gets the main frame for the app.
+   * @argument - The Frame component to act as a basis for the app.
    */
   Object.defineProperty(object, 'frame', {
-    set: function (frame_item) {
-      var frame = object._private.frame = frame_item();
-      addScreen(frame, this._private.app);
-    },
     get: function () {
       return object._private.frame;
     }
@@ -335,7 +343,10 @@ function build() {
 
   Object.defineProperty(object, 'notifyEvent', {
     value: function(name, data) {
-      object._private.events[name](data);
+      var event = object._private.events[name];
+      if(event !== undefined) {
+        event(data);
+      }
     }
   });
 

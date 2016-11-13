@@ -29,12 +29,12 @@ define([
 
     object._private.selected = null;
     Object.defineProperty(object, 'registerSelectionList', {
-      value: function(component, dataSource, uiTransform, dataTransform) {
+      value: function(component, dataSource, uiTransform, dataTransform, requestData) {
         component.onSelection = function (node) {
           currentSelection = node;
         }
         component.dataPropertyTransform = dataTransform;
-        $data.get(dataSource, function(object) {
+        $data.get(dataSource, requestData, function(object) {
           var items = uiTransform(object);
           component.items = items;
           component.items[0].select();

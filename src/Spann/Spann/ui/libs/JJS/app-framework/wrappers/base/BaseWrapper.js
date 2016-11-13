@@ -150,6 +150,9 @@ define(function() {
                object.model[model.id] = model;
              }
            });
+           if(object.uiObject.model.hasOwnProperty(containerName)) {
+             object.uiObject.model[containerName] = object[key];
+           }
          }
        }
     }

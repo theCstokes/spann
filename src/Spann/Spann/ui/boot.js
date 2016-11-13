@@ -36,7 +36,7 @@ function loadScripts(urls, callback, index){
   document.getElementsByTagName("head")[0].appendChild(script);
 }
 
-function boot() {
+function Boot() {
   function loadFramework(callback) {
     loadScripts([
       "./libs/JJS/boot.js",
@@ -68,7 +68,7 @@ function boot() {
     console.log('Launching App...');
     $ui.app = 'app';
     if(appStartFile !== undefined) {
-      requirejs([appStartFile], function(app) {
+      requirejs(['App/api', appStartFile], function(api, app) {
           app.start();
       });
       console.log('App Launched.');
@@ -88,5 +88,5 @@ function boot() {
   }
 }
 
-var boot = boot();
+var boot = new Boot();
 boot.start();

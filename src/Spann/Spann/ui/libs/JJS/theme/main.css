@@ -37,7 +37,7 @@ body {
   height: 21px;
   color: #95a5a6;
 }
-.ui-action-button::hover {
+.ui-action-button:hover {
   color: #b4c5cf;
 }
 .ui-action-button > .icon {
@@ -734,21 +734,31 @@ body {
   height: 100%;
 }
 .ui-frame > .topBar {
+  display: none;
   overflow: hidden;
   position: relative;
   float: right;
   width: 100%;
-  height: 15%;
+  height: 0;
   background-color: #bdc3c7;
 }
+.ui-frame > .topBar.has-top-bar-content {
+  display: block;
+  height: 15%;
+}
 .ui-frame > .leftBar {
+  display: none;
   overflow: hidden;
   position: relative;
   float: left;
   bottom: 0;
   height: 85%;
-  width: 15%;
+  width: 0;
   background-color: #34495e;
+}
+.ui-frame > .leftBar.has-left-bar-content {
+  display: block;
+  width: 15%;
 }
 .ui-frame > .holder {
   overflow: hidden;
@@ -758,6 +768,12 @@ body {
   height: 85%;
   width: 85%;
   background: #BCBCBC;
+}
+.ui-frame > .holder.maximizeH {
+  width: 100%;
+}
+.ui-frame > .holder.maximizeV {
+  height: 100%;
 }
 .ui-frame > .holder > .mainContent {
   position: relative;
@@ -853,13 +869,12 @@ body {
 }
 .ui-panel .bottom-dock {
   padding: 10px;
-  align-self: flex-end;
+  flex-direction: row;
+  justify-content: flex-start;
   display: none;
-  height: 100%;
-  overflow: hidden;
 }
 .ui-panel .bottom-dock.has-bottom-dock {
-  display: block;
+  display: flex;
 }
 .ui-partition-screen {
   position: absolute;
@@ -931,6 +946,13 @@ body {
 .ui-slider .move-right {
   display: block;
   margin-right: 5px;
+  color: #95a5a6;
+}
+/*.ui-slider .icon {
+  color: @DefaultGrey;
+}*/
+.ui-slider .move-right:hover {
+  color: #b4c5cf;
 }
 .ui-decorators .icon {
   display: none;

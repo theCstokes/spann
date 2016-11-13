@@ -1,18 +1,26 @@
 function build() {
   var SEND_TYPES = Object.freeze({ POST: "POST", PUT: "PUT", PATCH: "PATCH" });
-  function send(type, request, data, callback) {
+  function send(type, request, request_extra, data, callback) {
+    if (request_extra !== undefined) {
+      request = combineRequests(request, request_extra);
+    }
     makeRequest(type, request, makeBody(data), callback);
   }
 
-  function get(request, headers, callback) {
-    if (headers !== undefined && callback === undefined) {
-      callback = headers;
-      headers = undefined;
-    } else {
-      var searchHeader;
-      if (headers.hasOwnProperty("SearchHeader")) {
-        searchHeader = headers.SearchHeader;
-        // delete headers.searchHeader;
+  function get(request, headers, callback, request_extra) {
+    if (headers !== undefined) {
+      request = combineRequests(request, headers);
+    }
+    if (headers !== undefined) {
+      if (callback === undefined) {
+        callback = headers;
+        headers = undefined;
+      } else {
+        var searchHeader;
+        if (headers.hasOwnProperty("SearchHeader")) {
+          searchHeader = headers.SearchHeader;
+          // delete headers.searchHeader;
+        }
       }
     }
     makeRequest("GET", request, "", function (data) {
@@ -21,6 +29,15 @@ function build() {
       }
       console.log("No data recived from: " + request.api);
     }, "SearchHeader", searchHeader);
+  }
+
+  function combineRequests(request, extra) {
+    var combinedRequest = $utils.clone(request);
+    for (var key in extra) {
+      if (!extra.hasOwnProperty(key)) { continue; }
+      combinedRequest[key] = extra[key];
+    }
+    return combinedRequest;
   }
 
   function deleteRequest(request, callback) {
@@ -40,19 +57,19 @@ function build() {
         api = api.replace(reg, request.id);
       }
 
-      ajaxCall(type, api,  body,
-      function(data) {
-        if (callback !== undefined) {
-          callback(data);
-        }
-      },
-      function(data) {
-        console.log(data);
-      });
+      ajaxCall(type, api, body,
+        function (data) {
+          if (callback !== undefined) {
+            callback(data);
+          }
+        },
+        function (data) {
+          console.log(data);
+        });
     }
   }
 
-  function ajaxCall (type, api, data, successCallback, errorCallback) {
+  function ajaxCall(type, api, data, successCallback, errorCallback) {
     var xhr = new XMLHttpRequest();
     url = window.location.href.split('ui/')[0] + "api/v1/" + api;
     xhr.responseType = 'json';
@@ -86,14 +103,14 @@ function build() {
     xhr.send(data);
   };
 
-  var sources = {
-    USER_API: { api: "User" },
-    CHAT_API: { api: "Chat" },
-    PROJECT_API: { api: "Python/Project"}
-  }
+  // var sources = {
+  //   USER_API: { api: "User" },
+  //   CHAT_API: { api: "Chat" },
+  //   PROJECT_API: { api: "Python/Project"}
+  // }
 
   return {
-    sources: sources,
+    // sources: sources,
     SEND_TYPES: SEND_TYPES,
     send: send,
     get: get

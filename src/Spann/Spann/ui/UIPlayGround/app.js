@@ -4,7 +4,7 @@ define([
 ], function(demoFrame, screen_Editor) {
 
   function start() {
-    $ui.frame = demoFrame;
+    $ui.addFrame(demoFrame);
 
     $ui.push(screen_Editor);
     //$ui.push(dialog_Demo);
