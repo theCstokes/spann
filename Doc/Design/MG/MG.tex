@@ -29,6 +29,11 @@
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
 
+\topmargin=-0.5in
+\textheight=9.5in
+\oddsidemargin=-0.5in
+\textwidth=7.5in
+
 \title{SE 3XA3: Software Requirements\\Spann}
 
 \author{Team 5
@@ -55,6 +60,7 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
   Nov 10, 2016 & 1.0 & Initial Changes\\
+  Nov 12, 2016 & 1.1 & Changes and Module Hierarchy\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -72,7 +78,7 @@ based on the principle of information hiding~\citep{Parnas1972a}.  This
 principle supports design for change, because the ``secrets'' that each module
 hides represent likely future changes.  Design for change is valuable in SC,
 where modifications are frequent, especially during initial development as the
-solution space is explored.  
+solution space is explored.
 
 Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \begin{itemize}
@@ -136,15 +142,11 @@ change.
 \item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
   layout (CSS/JavaScript).
 
-user session/authentication 
-addition or deletion of UI components
+\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User
+    Session/Authentication
 
-\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
-
-\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
-
-\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
-
+\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] Addition or
+    Deletion of UI Components
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -157,11 +159,17 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software.
-\item ...
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Application
+        platform (web browser)
+
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Web front end
+        framework
+
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Web server and
+        server framework
+
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Database (SQL and
+        PostgreSQL)
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -173,35 +181,94 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] API Controllers
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Console
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Runners
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Manager
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Repository Model
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Domain Models
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] UI Screens
 \end{description}
 
+Note: Since this system utilizes libraries and frameworks to abstract away the
+low level implementation details of browser interaction, operating system
+interaction and networking hardware interaction, there is(are) no
+Hardware-Hiding Module(s).
 
+{\Huge Front end modules}
+
+%\newpage
 \begin{table}[h!]
 \centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
 \toprule
-\textbf{Level 1} & \textbf{Level 2}\\
+    \textbf{Level 1} & \textbf{Level 2} &\ \textbf{Level 3}\\
 \midrule
 
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
-\midrule
+\multirow{7}{0.3\textwidth}{
+    Behaviour-Hiding Module} & API Controllers & Console Controller\\
+    & -- & Fiddle Controller\\
+    & -- & File Controller\\
+    & -- & Project Controller\\
+    & -- & User Controller\\
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+    & Python Console & --\\
+    & Python Manager & --\\
+    & Python Runners & Iron Python Location\\
+    & -- & Python File\\
+    & -- & Python Project\\
+    & -- & Python Project Manager\\
+    & -- & Python Runner\\
+    & -- & Python Server Manager\\
+    & -- & Python Tools\\
+    & -- & Iron python Manager\\
+    & -- & Notification Stream Writer\\
+
+    & UI Screens & App\\
+    & -- & Full Screen Frame\\
+    & -- & Project Frame\\
+    & -- & Selection Frame\\
+    & -- & Account\\
+    & -- & Console\\
+    & -- & Dock Screen Output\\
+    & -- & Screen Fiddle\\
+    & -- & Dialog Demo\\
+    & -- & Dialog Menu\\
+    & -- & Editor\\
+    & -- & Home\\
+    & -- & Login\\
+    & -- & Login State Manager\\
+    & -- & Project Dialog\\
+    & -- & Project Dialog State Manager\\
+    & -- & Project Edit\\
+    & & \\
 \bottomrule
+    & Table continues on next page & \\
+%     & -- & Project Edit State Manager\\
+%     & -- & Project Transform\\
+%     & -- & Projects\\
+\end{tabular}
+\end{table}
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
+\toprule
+    \textbf{Level 1} & \textbf{Level 2} &\ \textbf{Level 3}\\
+\midrule
+    \multirow{3}{0.3\textwidth}{Software Decision Module} & Domain Models & Python File Data Transfer Object\\
+    & -- & Python Project Data Transfer Object\\
+    & -- & User Data Transfer Object\\
+    & -- & Base Data Transfer Object\\
+    & -- & Message Data Model\\
+    & -- & Python File Data Model\\
+    & -- & Python Project Data Model\\
+    & -- & User Data Model\\
+    & Repository Model & --\\
+\bottomrule
 \end{tabular}
 \caption{Module Hierarchy}
 \label{TblMH}
@@ -239,7 +306,7 @@ selected.
 \item[Services:]Serves as a virtual hardware used by the rest of the
   system. This module provides the interface between the hardware and the
   software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Implemented By:] ASP.NET, Web Browsers
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
