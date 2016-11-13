@@ -195,8 +195,6 @@ low level implementation details of browser interaction, operating system
 interaction and networking hardware interaction, there is(are) no
 Hardware-Hiding Module(s).
 
-{\Huge Front end modules}
-
 %\newpage
 \begin{table}[h!]
 \centering
@@ -357,21 +355,26 @@ requirements and between the modules and the anticipated changes.
 % like fref
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.3\textwidth} p{0.4\textwidth}}
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+    Mode & M2, M8\\
+    Editing & M2, M3, M5, M6, M7, M8\\
+    Editing Support & M3, M8\\
+    Refactoring & M3, M8\\
+    File Handling & M2, M5, M6, M7, M8\\
+    Code Execution & M2, M3, M4, M5\\
+    Shell Interpreter & M2, M3, M4, M5, M8\\
+    Networking & M1, M2, M8\\
+    Accounts & M2, M6, M7, M8\\
+    Account Management & M2, M6, M7, M8\\
+    Look and Feel & M8\\
+    Usability & M8\\
+    Performance & M1, M4, M8\\
+    Power Usage & M1\\
+    Security & M2, M6, M7, M8\\
+    Health and Safety & M8\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -380,22 +383,14 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.3\textwidth} p{0.4\textwidth}}
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+    AC1 & M8\\
+    AC2 & M8\\
+    AC3 & M2, M6, M7\\
+    AC4 & M8\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
