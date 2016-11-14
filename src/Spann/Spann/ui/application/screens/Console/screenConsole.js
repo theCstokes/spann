@@ -44,8 +44,10 @@ define([
       console.log(this);
       socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
       socket.onmessage = function (event) {
-        console.log(event);
-        screen.model.ce.insertLine(event.data);
+        if (!$utils.isNullOrWhitespace(event.data)) {
+          console.log(event);
+          screen.model.ce.insertLine(event.data);
+        }
       }
       // socket.onopen = function (event) {
       //   socket.send("print 123");

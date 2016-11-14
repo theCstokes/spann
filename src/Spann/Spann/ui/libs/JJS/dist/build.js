@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-12 */
+/*! spann - v1.0.0 - 2016-11-14 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -461,7 +461,8 @@ function Console(parent, screen) {
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
   var editor = new ace.edit(inputConsole.id);
   editor.setOptions({
-    enableBasicAutocompletion: true
+    enableBasicAutocompletion: false,
+    enableLiveAutocompletion: false
   });
 
   var text = "Python Started.";

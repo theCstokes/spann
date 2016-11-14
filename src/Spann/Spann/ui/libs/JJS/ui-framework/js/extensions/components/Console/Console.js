@@ -10,7 +10,8 @@ function Console(parent, screen) {
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
   var editor = new ace.edit(inputConsole.id);
   editor.setOptions({
-    enableBasicAutocompletion: true
+    enableBasicAutocompletion: false,
+    enableLiveAutocompletion: false
   });
 
   var text = "Python Started.";

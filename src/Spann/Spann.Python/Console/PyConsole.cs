@@ -55,7 +55,17 @@ namespace Spann.PythonTools.Console
         /// <returns>Dynamic with result.</returns>
         public dynamic Execute(string code)
         {
-            return engine.Execute(code, scope);
+            try
+            {
+                dynamic result = engine.Execute(code, scope);
+                return result;
+            } catch (Exception e)
+            {
+                ExceptionOperations eo = engine.GetService<ExceptionOperations>();
+                errorWriter.Write(eo.FormatException(e));
+                return null;
+            }
+
         }
 
         /// <summary>
