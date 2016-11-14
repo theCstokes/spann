@@ -10,7 +10,8 @@ function Console(parent, screen) {
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
   var editor = new ace.edit(inputConsole.id);
   editor.setOptions({
-    enableBasicAutocompletion: true
+    enableBasicAutocompletion: false,
+    enableLiveAutocompletion: false
   });
 
   var text = "Python Started.";
@@ -46,7 +47,7 @@ function Console(parent, screen) {
          xmlhttp.open("GET", "data.txt", true);
          xmlhttp.send();
         } else if(object._private.onCommandRun !== undefined) {
-          text += lastLine + lineSeparater + lineStart;
+          text += lineStart + lastLine + lineSeparater + lineStart;
           editor.setValue(text, 1);
           object._private.onCommandRun(lastLine);
         }

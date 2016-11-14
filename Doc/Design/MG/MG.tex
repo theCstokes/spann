@@ -29,6 +29,11 @@
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
 
+\topmargin=-0.5in
+\textheight=9.5in
+\oddsidemargin=-0.5in
+\textwidth=7.5in
+
 \title{SE 3XA3: Software Requirements\\Spann}
 
 \author{Team 5
@@ -55,6 +60,8 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
   Nov 10, 2016 & 1.0 & Initial Changes\\
+  Nov 12, 2016 & 1.1 & Changes and Module Hierarchy\\
+  Nov 13, 2016 & 1.2 & All other sections\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -65,6 +72,14 @@
 
 \section{Introduction}
 
+The Spann online IDE is a web application that provides IDE features in the web
+browser. This document outline the design and decisions of the Spann
+application in order to implement the feature and functionality specified in the SRS document.
+
+The MIS document directory provides a full specification of each modules
+programming interface. Please also see the note for the MIS at the very end of
+this design document.
+
 Decomposing a system into modules is a commonly accepted approach to developing
 software.  A module is a work assignment for a programmer or programming
 team~\citep{ParnasEtAl1984}.  We advocate a decomposition
@@ -72,7 +87,7 @@ based on the principle of information hiding~\citep{Parnas1972a}.  This
 principle supports design for change, because the ``secrets'' that each module
 hides represent likely future changes.  Design for change is valuable in SC,
 where modifications are frequent, especially during initial development as the
-solution space is explored.  
+solution space is explored.
 
 Our design follows the rules layed out by \citet{ParnasEtAl1984}, as follows:
 \begin{itemize}
@@ -136,15 +151,11 @@ change.
 \item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
   layout (CSS/JavaScript).
 
-user session/authentication 
-addition or deletion of UI components
+\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User
+    Session/Authentication
 
-\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
-
-\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
-
-\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] User interface
-
+\item[\refstepcounter{acnum} \actheacnum \label{acUILooks}:] Addition or
+    Deletion of UI Components
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -157,11 +168,17 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software.
-\item ...
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Application
+        platform (web browser)
+
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Web front end
+        framework
+
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Web server and
+        server framework
+
+    \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Database (SQL and
+        PostgreSQL)
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -173,35 +190,92 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] API Controllers
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Console
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Console Manager
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Runners
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Repository Model
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Domain Models
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] UI Screens
 \end{description}
 
+Note: Since this system utilizes libraries and frameworks to abstract away the
+low level implementation details of browser interaction, operating system
+interaction and networking hardware interaction, there is(are) no
+Hardware-Hiding Module(s).
 
+%\newpage
 \begin{table}[h!]
 \centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
 \toprule
-\textbf{Level 1} & \textbf{Level 2}\\
+    \textbf{Level 1} & \textbf{Level 2} &\ \textbf{Level 3}\\
 \midrule
 
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
-\midrule
+\multirow{7}{0.3\textwidth}{
+    Behaviour-Hiding Module} & API Controllers & Console Controller\\
+    & -- & Fiddle Controller\\
+    & -- & File Controller\\
+    & -- & Project Controller\\
+    & -- & User Controller\\
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+    & Python Console & --\\
+    & Python Console Manager & --\\
+
+    & UI Screens & App\\
+    & -- & Full Screen Frame\\
+    & -- & Project Frame\\
+    & -- & Selection Frame\\
+    & -- & Account\\
+    & -- & Console\\
+    & -- & Dock Screen Output\\
+    & -- & Screen Fiddle\\
+    & -- & Dialog Menu\\
+    & -- & Editor\\
+    & -- & Home\\
+    & -- & Login\\
+    & -- & Login State Manager\\
+    & -- & Project Dialog\\
+    & -- & Project Dialog State Manager\\
+    & -- & Project Edit\\
+    & -- & Project Transform\\
+    & & \\
 \bottomrule
+    & Table continues on next page & \\
+%     & -- & Project Edit State Manager\\
+%     & -- & Project Transform\\
+%     & -- & Projects\\
+\end{tabular}
+\end{table}
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.3\textwidth} p{0.3\textwidth}}
+\toprule
+    \textbf{Level 1} & \textbf{Level 2} &\ \textbf{Level 3}\\
+\midrule
+    \multirow{3}{0.3\textwidth}{Software Decision Module} & Domain Models & Python File Data Transfer Object\\
+    & -- & Python Project Data Transfer Object\\
+    & -- & User Data Transfer Object\\
+    & -- & Base Data Transfer Object\\
+    & -- & Message Data Model\\
+    & -- & Python File Data Model\\
+    & -- & Python Project Data Model\\
+    & -- & User Data Model\\
+    & Repository Model & --\\
+    & Python Runners & Iron Python Location\\
+    & -- & Python File\\
+    & -- & Python Project\\
+    & -- & Python Project Manager\\
+    & -- & Python Runner\\
+    & -- & Python Server Manager\\
+    & -- & Python Tools\\
+    & -- & Iron Python Manager\\
+    & -- & Notification Stream Writer\\
+\bottomrule
 \end{tabular}
 \caption{Module Hierarchy}
 \label{TblMH}
@@ -215,71 +289,428 @@ between requirements and modules is listed in Table \ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
-Modules are decomposed according to the principle of ``information hiding''
-proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
-decomposition is a brief statement of the design decision hidden by the
-module. The \emph{Services} field specifies \emph{what} the module will do
-without documenting \emph{how} to do it. For each module, a suggestion for the
-implementing software is given under the \emph{Implemented By} title. If the
-entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  Also indicate if the
-module will be implemented specifically for the software.
+% Modules are decomposed according to the principle of ``information hiding''
+% proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
+% decomposition is a brief statement of the design decision hidden by the
+% module. The \emph{Services} field specifies \emph{what} the module will do
+% without documenting \emph{how} to do it. For each module, a suggestion for the
+% implementing software is given under the \emph{Implemented By} title. If the
+% entry is \emph{OS}, this means that the module is provided by the operating
+% system or by standard programming language libraries.  Also indicate if the
+% module will be implemented specifically for the software.
 
-Only the leaf modules in the
-hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means
-that the module is not a leaf and will not have to be implemented. Whether or
-not this module is implemented depends on the programming language
-selected.
+% Only the leaf modules in the
+% hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means
+% that the module is not a leaf and will not have to be implemented. Whether or
+% not this module is implemented depends on the programming language
+% selected.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware Hiding Modules}
 
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
+\item[Secrets:] Networking functionality and CSS/HTML/JavaScript rendering and
+    execution.
+\item[Services:]Networking serves as the backbone of the API, servicing web
+    requests. The web browser provides a platform for rendering website content
+    and execution JavaScript code.
+\item[Implemented By:] ASP.NET, Web Browsers
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
 
+\subsubsection{API Controllers}
+
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
+\item[Secrets:] API request handling and routing.
+\item[Services:] Accept and respond to API calls from the network. Provide an
+    interface with the rest of the server.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Console Controller}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Secrets:] API request handling and routing for the console.
+\item[Services:] Handles API requests related to the python code execution on
+    the console.
+\item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Fiddle Controller}
+
+\begin{description}
+\item[Secrets:] API request handling and routing for the fiddle.
+\item[Services:] Handles API requests related to the fiddle code execution.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{File Controller}
+
+\begin{description}
+\item[Secrets:] API request handling and routing for files.
+\item[Services:] Handles API requests related to source code files.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Controller}
+
+\begin{description}
+\item[Secrets:] API request handling and routing for projects.
+\item[Services:] Handles API requests related to projects.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{User Controller}
+
+\begin{description}
+\item[Secrets:] API request handling and routing for users and user data.
+\item[Services:] Handles API request related to users, sessions and user data.
+\item[Implemented By:] Spann
+\end{description}
+
+
+
+\subsubsection{Python Console}
+
+\begin{description}
+    \item[Secrets:] Handles code execution for the client (front end).
+\item[Services:] Takes in a string of code and uses standard library functions
+    to execute the code with a python interpreter and returns result.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Console Manager}
+
+\begin{description}
+\item[Secrets:] Manges python consoles.
+\item[Services:] Provides a support for managing multiple consoles.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{UI Screens}
+
+\begin{description}
+\item[Secrets:] UI layout and functionality.
+\item[Services:] Provides a way of dynamically generating the UI and managing
+    all the functionality of the UI.
+\item[Implemented By:] --
+\end{description}
+
+\subsubsection{App}
+
+\begin{description}
+\item[Secrets:] Base application screen.
+\item[Services:] Provides the base for application screens.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Full Screen Frame}
+
+\begin{description}
+\item[Secrets:] Full screen UI frame component.
+\item[Services:] Provides a full screen UI frame for embedding components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Frame}
+
+\begin{description}
+\item[Secrets:] Project frame component.
+\item[Services:] Provides a frame for embedding project UI components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Selection Frame}
+
+\begin{description}
+\item[Secrets:] Selection frame component.
+\item[Services:] Provides a frame for embedding selection UI components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Account}
+
+\begin{description}
+\item[Secrets:] Screen for user account.
+\item[Services:] Provides a screen for displaying user account and settings.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Console}
+
+\begin{description}
+\item[Secrets:] Screen for python console.
+\item[Services:] Provides a screen for displaying a console for writing code
+    in a interactive console mode.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Dock Screen Output}
+
+\begin{description}
+\item[Secrets:] Dock screen for output.
+\item[Services:] Provides a dockable screen that can be used to display output
+    of a python program.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Screen Fiddle}
+
+\begin{description}
+\item[Secrets:] Screen for fiddle.
+\item[Services:] Provides a screen for fiddle mode (interactive console without
+    signing in).
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Dialog Menu}
+
+\begin{description}
+\item[Secrets:] Dialog for a popup menu.
+\item[Services:] Provides a popup type menu for embedding other UI components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Editor}
+
+\begin{description}
+\item[Secrets:] Screen for code editor.
+\item[Services:] Provides a screen for editing python code.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Home}
+
+\begin{description}
+\item[Secrets:] Home screen.
+\item[Services:] Provides a home screen for when users first login.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Login}
+
+\begin{description}
+\item[Secrets:] Login screen.
+\item[Services:] Provides a login screen with input and buttons for users to login,
+    signup or go to the fiddle.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Login State Manager}
+
+\begin{description}
+\item[Secrets:] Manager for login state.
+\item[Services:] Provides a manager for keeping track of logins.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Dialog}
+
+\begin{description}
+\item[Secrets:] Project dialog component.
+\item[Services:] Provides a dialog for managing project and project details.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Dialog State Manager}
+
+\begin{description}
+\item[Secrets:] State Manager for project dialog.
+\item[Services:] Provides a manager that keeps track of the project dialog's state.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Edit}
+
+\begin{description}
+\item[Secrets:] Project editing screen.
+\item[Services:] Provides a screen for managing, creating and editing projects.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Transform}
+
+\begin{description}
+\item[Secrets:] Project transform component.
+\item[Services:] Provides a project transform tree type component.
+\item[Implemented By:] Spann
+\end{description}
+
 
 
 \subsection{Software Decision Module}
 
+\subsubsection{Domain Models}
+
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
+\item[Secrets:] Models the data for different objects used throughout the
+    application.
+\item[Services:] Provides a way to model objects and hold data.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Python File Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Model python files.
+\item[Services:] A way to model python files that are transferred to the front
+    end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Model python projects.
+\item[Services:] A way to model python projects that are transferred to the front
+    end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{User Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Model users.
+\item[Services:] A way to model user data that will be transferred to the front
+    end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Base Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Base for other data transfer objects to model off.
+\item[Services:] A way to provide a base class for extending other data
+    transfer object classes.
+\item[Implemented By:] Spann.
+\end{description}
+
+\subsubsection{Message Data Model}
+
+\begin{description}
+\item[Secrets:] Model message data.
+\item[Services:] Provides a way to model messages and message data that will be
+    transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python File Data Model}
+
+\begin{description}
+\item[Secrets:] Model python file data.
+\item[Services:] Provides a way to model python file data that will be transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project Data Model}
+
+\begin{description}
+\item[Secrets:] Model python project data.
+\item[Services:] Provides a way to model python project data that will be transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{User Data Model}
+
+\begin{description}
+\item[Secrets:] Model user data.
+\item[Services:] Provides a way to model user data that will be transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Repository Model}
+
+\begin{description}
+\item[Secrets:] Model repository and repository data.
+\item[Services:] Provides a way to model repository that will be used by the
+    application during runtime to handle different manager.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Runners}
+
+\begin{description}
+\item[Secrets:] Python functions for various python execution tasks.
+\item[Services:] Provides python functions to aid in managing python execution.
+\item[Implemented By:] --
+\end{description}
+
+\subsubsection{Iron Python Location}
+
+\begin{description}
+\item[Secrets:] Iron Python Runtime location.
+\item[Services:] Provides the interface to the Iron Python Runtime.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python File}
+
+\begin{description}
+\item[Secrets:] Python file object.
+\item[Services:] Provides a data structure and methods for python files.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project}
+
+\begin{description}
+\item[Secrets:] Python project object.
+\item[Services:] Provides a data structure and methods for python projects.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project Manager}
+
+\begin{description}
+\item[Secrets:] Python project manager object.
+\item[Services:] Provides a data structure and methods for python project manager.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Runner}
+
+\begin{description}
+\item[Secrets:] Python runner for executing python source code and whole projects.
+\item[Services:] Provides an interface for launching python code or projects.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Python Server Manager}
+
+\begin{description}
+\item[Secrets:] Python server manager object.
+\item[Services:] Provides functionality for managing python execution.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Python Tools}
+
+\begin{description}
+\item[Secrets:] Manages various python tools.
+\item[Services:] Provides various python related tools for use by other components.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Iron Python Manager}
+
+\begin{description}
+\item[Secrets:] Manages the Iron Python runtime.
+\item[Services:] Provides an interface to manage the Iron Python Runtime.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Notification Stream Writer}
+
+\begin{description}
+\item[Secrets:] Write a notification to a stream.
+\item[Services:] Provides notification writing functionality when communicating
+    with the front end.
+\item[Implemented By:] Spann
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -290,21 +721,26 @@ requirements and between the modules and the anticipated changes.
 % like fref
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.3\textwidth} p{0.4\textwidth}}
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+    Mode & M2, M8\\
+    Editing & M2, M3, M5, M6, M7, M8\\
+    Editing Support & M3, M8\\
+    Refactoring & M3, M8\\
+    File Handling & M2, M5, M6, M7, M8\\
+    Code Execution & M2, M3, M4, M5\\
+    Shell Interpreter & M2, M3, M4, M5, M8\\
+    Networking & M1, M2, M8\\
+    Accounts & M2, M6, M7, M8\\
+    Account Management & M2, M6, M7, M8\\
+    Look and Feel & M8\\
+    Usability & M8\\
+    Performance & M1, M4, M8\\
+    Power Usage & M1\\
+    Security & M2, M6, M7, M8\\
+    Health and Safety & M8\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -313,22 +749,14 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 
 \begin{table}[H]
 \centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\begin{tabular}{p{0.3\textwidth} p{0.4\textwidth}}
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+    AC1 & M8\\
+    AC2 & M8\\
+    AC3 & M2, M6, M7\\
+    AC4 & M8\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -342,20 +770,32 @@ provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
 correct execution of B may be necessary for A to complete the task described in
 its specification. That is, A {\em uses} B if there exist situations in which
 the correct functioning of A depends upon the availability of a correct
-implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
-(DAG). Each level of the hierarchy offers a testable and usable subset of the
-system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
+
+The following two figures outline the hierarchy of the modules for this
+application.  Figure 1 provides the hierarchy for the server and Figure 2
+provides the hierarchy for the front end UI modules.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
-\caption{Use hierarchy among modules}
+\includegraphics[width=0.7\textwidth]{uses-server.pdf}
+\caption{Use hierarchy among server modules}
 \label{FigUH}
 \end{figure}
 
-%\section*{References}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{uses-frontend.pdf}
+\caption{Use hierarchy among front end modules}
+\label{FigUH}
+\end{figure}
+
+\section*{Note}
+The MIS documents do not include the front end UI modules since they're are not
+server functions, methods and classes. They are essentially a markup of the UI
+using JavaScript and the front end framework. Thus they are no included in the
+MIS documents.
+
+\section*{References}
 
 \bibliographystyle {plainnat}
 \bibliography {MG}
