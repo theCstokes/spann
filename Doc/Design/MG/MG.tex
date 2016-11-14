@@ -183,8 +183,8 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] API Controllers
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Console
+\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Console Manager
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Runners
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Manager
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Repository Model
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Domain Models
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] UI Screens
@@ -214,16 +214,7 @@ Hardware-Hiding Module(s).
     & -- & User Controller\\
 
     & Python Console & --\\
-    & Python Manager & --\\
-    & Python Runners & Iron Python Location\\
-    & -- & Python File\\
-    & -- & Python Project\\
-    & -- & Python Project Manager\\
-    & -- & Python Runner\\
-    & -- & Python Server Manager\\
-    & -- & Python Tools\\
-    & -- & Iron python Manager\\
-    & -- & Notification Stream Writer\\
+    & Python Console Manager & --\\
 
     & UI Screens & App\\
     & -- & Full Screen Frame\\
@@ -266,6 +257,15 @@ Hardware-Hiding Module(s).
     & -- & Python Project Data Model\\
     & -- & User Data Model\\
     & Repository Model & --\\
+    & Python Runners & Iron Python Location\\
+    & -- & Python File\\
+    & -- & Python Project\\
+    & -- & Python Project Manager\\
+    & -- & Python Runner\\
+    & -- & Python Server Manager\\
+    & -- & Python Tools\\
+    & -- & Iron Python Manager\\
+    & -- & Notification Stream Writer\\
 \bottomrule
 \end{tabular}
 \caption{Module Hierarchy}
@@ -280,71 +280,286 @@ between requirements and modules is listed in Table \ref{TblRT}.
 
 \section{Module Decomposition} \label{SecMD}
 
-Modules are decomposed according to the principle of ``information hiding''
-proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
-decomposition is a brief statement of the design decision hidden by the
-module. The \emph{Services} field specifies \emph{what} the module will do
-without documenting \emph{how} to do it. For each module, a suggestion for the
-implementing software is given under the \emph{Implemented By} title. If the
-entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  Also indicate if the
-module will be implemented specifically for the software.
+% Modules are decomposed according to the principle of ``information hiding''
+% proposed by \citet{ParnasEtAl1984}. The \emph{Secrets} field in a module
+% decomposition is a brief statement of the design decision hidden by the
+% module. The \emph{Services} field specifies \emph{what} the module will do
+% without documenting \emph{how} to do it. For each module, a suggestion for the
+% implementing software is given under the \emph{Implemented By} title. If the
+% entry is \emph{OS}, this means that the module is provided by the operating
+% system or by standard programming language libraries.  Also indicate if the
+% module will be implemented specifically for the software.
 
-Only the leaf modules in the
-hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means
-that the module is not a leaf and will not have to be implemented. Whether or
-not this module is implemented depends on the programming language
-selected.
+% Only the leaf modules in the
+% hierarchy have to be implemented. If a dash (\emph{--}) is shown, this means
+% that the module is not a leaf and will not have to be implemented. Whether or
+% not this module is implemented depends on the programming language
+% selected.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
+\subsection{Hardware Hiding Modules (M1)}
 
 \begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
+\item[Secrets:] Networking functionality and CSS/HTML/JavaScript rendering and
+    execution.
+\item[Services:]Networking serves as the backbone of the API, servicing web
+    requests. The web browser provides a platform for rendering website content
+    and execution JavaScript code.
 \item[Implemented By:] ASP.NET, Web Browsers
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
 
+\subsubsection{API Controllers}
+
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
+\item[Secrets:] API request handling and routing.
+\item[Services:] Accept and respond to API calls from the network. Provide an
+    interface with the rest of the server.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Console Controller}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Secrets:] API request handling and routing for the console.
+\item[Services:] Handles API requests related to the python code execution on
+    the console.
+\item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Fiddle Controller}
 
+\begin{description}
+\item[Secrets:] API request handling and routing for the fiddle.
+\item[Services:] Handles API requests related to the fiddle code execution.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{File Controller}
+
+\begin{description}
+\item[Secrets:] API request handling and routing for files.
+\item[Services:] Handles API requests related to source code files.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Controller}
+
+\begin{description}
+\item[Secrets:] API request handling and routing for projects.
+\item[Services:] Handles API requests related to projects.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{User Controller}
+
+\begin{description}
+\item[Secrets:] API request handling and routing for users and user data.
+\item[Services:] Handles API request related to users, sessions and user data.
+\item[Implemented By:] Spann
+\end{description}
+
+
+
+\subsubsection{Python Console}
+
+\begin{description}
+    \item[Secrets:] Handles code execution for the client (front end).
+\item[Services:] Takes in a string of code and uses standard library functions
+    to execute the code with a python interpreter and returns result.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Console Manager}
+
+\begin{description}
+\item[Secrets:] Manges python consoles.
+\item[Services:] Provides a support for managing multiple consoles.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{UI Screens}
+
+\begin{description}
+\item[Secrets:] UI layout and functionality.
+\item[Services:] Provides a way of dynamically generating the UI and managing
+    all the functionality of the UI.
+\item[Implemented By:] --
+\end{description}
 
 \subsection{Software Decision Module}
 
+\subsubsection{Domain Models}
+
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
+\item[Secrets:] Models the data for different objects used throughout the
+    application.
+\item[Services:] Provides a way to model objects and hold data.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Python File Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Model python files.
+\item[Services:] A way to model python files that are transferred to the front
+    end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Model python projects.
+\item[Services:] A way to model python projects that are transferred to the front
+    end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{User Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Model users.
+\item[Services:] A way to model user data that will be transferred to the front
+    end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Base Data Transfer Object}
+
+\begin{description}
+\item[Secrets:] Base for other data transfer objects to model off.
+\item[Services:] A way to provide a base class for extending other data
+    transfer object classes.
+\item[Implemented By:] Spann.
+\end{description}
+
+\subsubsection{Message Data Model}
+
+\begin{description}
+\item[Secrets:] Model message data.
+\item[Services:] Provides a way to model messages and message data that will be
+    transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python File Data Model}
+
+\begin{description}
+\item[Secrets:] Model python file data.
+\item[Services:] Provides a way to model python file data that will be transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project Data Model}
+
+\begin{description}
+\item[Secrets:] Model python project data.
+\item[Services:] Provides a way to model python project data that will be transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{User Data Model}
+
+\begin{description}
+\item[Secrets:] Model user data.
+\item[Services:] Provides a way to model user data that will be transferred to the front end.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Repository Model}
+
+\begin{description}
+\item[Secrets:] Model repository and repository data.
+\item[Services:] Provides a way to model repository that will be used by the
+    application during runtime to handle different manager.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Runners}
+
+\begin{description}
+\item[Secrets:] Python functions for various python execution tasks.
+\item[Services:] Provides python functions to aid in managing python execution.
+\item[Implemented By:] --
+\end{description}
+
+\subsubsection{Iron Python Location}
+
+\begin{description}
+\item[Secrets:] Iron Python Runtime location.
+\item[Services:] Provides the interface to the Iron Python Runtime.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python File}
+
+\begin{description}
+\item[Secrets:] Python file object.
+\item[Services:] Provides a data structure and methods for python files.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project}
+
+\begin{description}
+\item[Secrets:] Python project object.
+\item[Services:] Provides a data structure and methods for python projects.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Project Manager}
+
+\begin{description}
+\item[Secrets:] Python project manager object.
+\item[Services:] Provides a data structure and methods for python project manager.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Python Runner}
+
+\begin{description}
+\item[Secrets:] Python runner for executing python source code and whole projects.
+\item[Services:] Provides an interface for launching python code or projects.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Python Server Manager}
+
+\begin{description}
+\item[Secrets:] Python server manager object.
+\item[Services:] Provides functionality for managing python execution.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Python Tools}
+
+\begin{description}
+\item[Secrets:] Manages various python tools.
+\item[Services:] Provides various python related tools for use by other components.
+\item[Implemented By:] Spann
+\end{description}
+
+
+\subsubsection{Iron Python Manager}
+
+\begin{description}
+\item[Secrets:] Manages the Iron Python runtime.
+\item[Services:] Provides an interface to manage the Iron Python Runtime.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Notification Stream Writer}
+
+\begin{description}
+\item[Secrets:] Write a notification to a stream.
+\item[Services:] Provides notification writing functionality when communicating
+    with the front end.
+\item[Implemented By:] Spann
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
