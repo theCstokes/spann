@@ -224,7 +224,6 @@ Hardware-Hiding Module(s).
     & -- & Console\\
     & -- & Dock Screen Output\\
     & -- & Screen Fiddle\\
-    & -- & Dialog Demo\\
     & -- & Dialog Menu\\
     & -- & Editor\\
     & -- & Home\\
@@ -233,6 +232,7 @@ Hardware-Hiding Module(s).
     & -- & Project Dialog\\
     & -- & Project Dialog State Manager\\
     & -- & Project Edit\\
+    & -- & Project Transform\\
     & & \\
 \bottomrule
     & Table continues on next page & \\
@@ -386,6 +386,148 @@ between requirements and modules is listed in Table \ref{TblRT}.
     all the functionality of the UI.
 \item[Implemented By:] --
 \end{description}
+
+\subsubsection{App}
+
+\begin{description}
+\item[Secrets:] Base application screen.
+\item[Services:] Provides the base for application screens.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Full Screen Frame}
+
+\begin{description}
+\item[Secrets:] Full screen UI frame component.
+\item[Services:] Provides a full screen UI frame for embedding components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Frame}
+
+\begin{description}
+\item[Secrets:] Project frame component.
+\item[Services:] Provides a frame for embedding project UI components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Selection Frame}
+
+\begin{description}
+\item[Secrets:] Selection frame component.
+\item[Services:] Provides a frame for embedding selection UI components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Account}
+
+\begin{description}
+\item[Secrets:] Screen for user account.
+\item[Services:] Provides a screen for displaying user account and settings.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Console}
+
+\begin{description}
+\item[Secrets:] Screen for python console.
+\item[Services:] Provides a screen for displaying a console for writing code
+    in a interactive console mode.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Dock Screen Output}
+
+\begin{description}
+\item[Secrets:] Dock screen for output.
+\item[Services:] Provides a dockable screen that can be used to display output
+    of a python program.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Screen Fiddle}
+
+\begin{description}
+\item[Secrets:] Screen for fiddle.
+\item[Services:] Provides a screen for fiddle mode (interactive console without
+    signing in).
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Dialog Menu}
+
+\begin{description}
+\item[Secrets:] Dialog for a popup menu.
+\item[Services:] Provides a popup type menu for embedding other UI components.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Editor}
+
+\begin{description}
+\item[Secrets:] Screen for code editor.
+\item[Services:] Provides a screen for editing python code.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Home}
+
+\begin{description}
+\item[Secrets:] Home screen.
+\item[Services:] Provides a home screen for when users first login.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Login}
+
+\begin{description}
+\item[Secrets:] Login screen.
+\item[Services:] Provides a login screen with input and buttons for users to login,
+    signup or go to the fiddle.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Login State Manager}
+
+\begin{description}
+\item[Secrets:] Manager for login state.
+\item[Services:] Provides a manager for keeping track of logins.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Dialog}
+
+\begin{description}
+\item[Secrets:] Project dialog component.
+\item[Services:] Provides a dialog for managing project and project details.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Dialog State Manager}
+
+\begin{description}
+\item[Secrets:] State Manager for project dialog.
+\item[Services:] Provides a manager that keeps track of the project dialog's state.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Edit}
+
+\begin{description}
+\item[Secrets:] Project editing screen.
+\item[Services:] Provides a screen for managing, creating and editing projects.
+\item[Implemented By:] Spann
+\end{description}
+
+\subsubsection{Project Transform}
+
+\begin{description}
+\item[Secrets:] Project transform component.
+\item[Services:] Provides a project transform tree type component.
+\item[Implemented By:] Spann
+\end{description}
+
+
 
 \subsection{Software Decision Module}
 
@@ -619,20 +761,32 @@ provided. \citet{Parnas1978} said of two programs A and B that A {\em uses} B if
 correct execution of B may be necessary for A to complete the task described in
 its specification. That is, A {\em uses} B if there exist situations in which
 the correct functioning of A depends upon the availability of a correct
-implementation of B.  Figure \ref{FigUH} illustrates the use relation between
-the modules. It can be seen that the graph is a directed acyclic graph
-(DAG). Each level of the hierarchy offers a testable and usable subset of the
-system, and modules in the higher level of the hierarchy are essentially simpler
-because they use modules from the lower levels.
+
+The following two figures outline the hierarchy of the modules for this
+application.  Figure 1 provides the hierarchy for the server and Figure 2
+provides the hierarchy for the front end UI modules.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
-\caption{Use hierarchy among modules}
+\includegraphics[width=0.7\textwidth]{uses-server.pdf}
+\caption{Use hierarchy among server modules}
 \label{FigUH}
 \end{figure}
 
-%\section*{References}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{uses-frontend.pdf}
+\caption{Use hierarchy among front end modules}
+\label{FigUH}
+\end{figure}
+
+\section*{Note}
+The MIS documents do not include the front end UI modules since they're are not
+server functions, methods and classes. They are essentially a markup of the UI
+using JavaScript and the front end framework. Thus they are no included in the
+MIS documents.
+
+\section*{References}
 
 \bibliographystyle {plainnat}
 \bibliography {MG}
