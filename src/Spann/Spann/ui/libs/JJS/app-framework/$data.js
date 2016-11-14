@@ -1,6 +1,11 @@
 function build() {
   var SEND_TYPES = Object.freeze({ POST: "POST", PUT: "PUT", PATCH: "PATCH" });
   function send(type, request, request_extra, data, callback) {
+    if(callback === undefined && request_extra !== undefined) {
+      callback = data;
+      data = request_extra;
+      request_extra = undefined;
+    }
     if (request_extra !== undefined) {
       request = combineRequests(request, request_extra);
     }

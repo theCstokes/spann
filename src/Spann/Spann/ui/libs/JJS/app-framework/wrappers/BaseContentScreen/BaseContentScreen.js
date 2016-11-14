@@ -13,8 +13,9 @@ define([
           icon: 'fa-times',
           onClick: function (event) {
             console.log(event);
-            event.target.screen.trigger("saveRequest");
-            $ui.frame.reloadSelected();
+            event.target.screen.trigger("saveRequest", {}, function(event) {
+              $ui.frame.reloadSelected();
+            });
           }
         },
         {

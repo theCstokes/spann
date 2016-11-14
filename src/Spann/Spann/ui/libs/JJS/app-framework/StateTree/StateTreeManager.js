@@ -22,7 +22,7 @@ define(function() {
       saveRequest = callback;
     }
 
-    function trigger(type, request) {
+    function trigger(type, request, callback) {
       if(type === "action") {
         var name = request.action;
         var data = request.data;
@@ -39,7 +39,7 @@ define(function() {
       }
       else if (type === "saveRequest") {
         if(saveRequest !== undefined) {
-          var item = saveRequest(state.original, state.current);
+          var item = saveRequest(state.original, state.current, callback);
         }
       }
     }

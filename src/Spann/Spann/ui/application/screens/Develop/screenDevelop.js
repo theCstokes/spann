@@ -32,14 +32,6 @@ define([
       screen.render = function(state) {
         components.projectLabel.caption = state.current.name;
 
-        components.fileTree.addItems(state.current.files.map(function(item, idx) {
-          return {
-            name: item.name,
-            selected: idx === 0,
-            icon: "fa-code",
-            target: "App/screens/Develop/screenDevelop"
-            }
-          }));
         // Update modified.
         components.projectLabel.modified = (state.current.name !== state.original.name);
       }
@@ -47,25 +39,10 @@ define([
         components.fileTree,
         API.PROJECT_API,
         function(data) {
-          console.log(data);
-          var item = data.items;
-          var project = {
-            name: item.name,
-            uid: item.identity,
-            files: item.details.files
-          };
-          manager.initialize(project);
+          manager.initialize(data.items);
+          return developTransform.uiTransform(data);
         },
-        function(data) {
-          console.log(data);
-          var item = data.items;
-          var project = {
-            name: item.name,
-            uid: item.identity,
-            files: item.details.files
-          };
-          manager.initialize(project);
-        },
+        developTransform.dataTransform,
         {
           id: args.projectId
         }
