@@ -47,7 +47,7 @@ function Console(parent, screen) {
          xmlhttp.open("GET", "data.txt", true);
          xmlhttp.send();
         } else if(object._private.onCommandRun !== undefined) {
-          text += lastLine + lineSeparater + lineStart;
+          text += lineStart + lastLine + lineSeparater + lineStart;
           editor.setValue(text, 1);
           object._private.onCommandRun(lastLine);
         }
