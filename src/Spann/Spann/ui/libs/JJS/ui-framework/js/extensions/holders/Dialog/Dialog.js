@@ -15,8 +15,20 @@ function Dialog(parent, screen) {
   var dec = $ui.UIDecorators(object);
   dec.size(modal);
 
+  object._private.closeOnClickAway = true;
+  Object.defineProperty(object.model, 'closeOnClickAway', {
+    get: function() {
+      return closeOnClickAway;
+    },
+    set: function(value) {
+      if(value !== object._private.closeOnClickAway) {
+        object._private.closeOnClickAway = value;
+      }
+    }
+  });
+
   window.onclick = function(event) {
-    if (event.target === object.component) {
+    if (object._private.closeOnClickAway && event.target === object.component) {
         $ui.pop();
     }
   }

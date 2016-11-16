@@ -1,9 +1,10 @@
 define([
   'PartitionScreen',
   'App/screens/Develop/StateManager',
-  'App/screens/Develop/developTransform'
-], function(PartitionScreen, StateManager, developTransform) {
-  return function() {
+  'App/screens/Develop/developTransform',
+  'App/screens/Develop/FileDialog/fileDialog'
+], function (PartitionScreen, StateManager, developTransform, fileDialog) {
+  return function () {
     var screen = new PartitionScreen();
     screen.content = [
       {
@@ -13,6 +14,13 @@ define([
           {
             component: $ui.Label,
             id: 'projectLabel'
+          },
+          {
+            component: $ui.ActionButton,
+            icon: 'fa-plus',
+            onClick: function () {
+              $ui.push(fileDialog);
+            }
           }
         ],
         content: [
@@ -27,18 +35,35 @@ define([
     ];
     var manager = new StateManager(screen);
 
-    screen.registerEvent('show', function(args) {
+    screen.registerEvent('show', function (args) {
       var components = this.model;
-      screen.render = function(state) {
-        components.projectLabel.caption = state.current.name;
+      $ui.addEvent('addNewFile', function (data) {
+        screen.trigger('action', {
+          action: 'addFile',
+          data: data
+        });
+        screen.trigger("saveRequest", {}, function (event) {
+          // $ui.frame.reloadSelected();
 
+          $ui.popTo($ui.frame);
+          requirejs([
+            'App/screens/Develop/screenDevelop'], function (screenDevelop) {
+              $ui.push(screenDevelop, { projectId: screen.stateManager.getCurrentState().current.uid });
+              console.log(screen);
+            });
+
+        });
+        console.log('data', data, components);
+      });
+      screen.render = function (state) {
+        components.projectLabel.caption = state.current.name;
         // Update modified.
         components.projectLabel.modified = (state.current.name !== state.original.name);
       }
       this.registerSelectionList(
         components.fileTree,
         API.PROJECT_API,
-        function(data) {
+        function (data) {
           manager.initialize(data.items);
           return developTransform.uiTransform(data);
         },

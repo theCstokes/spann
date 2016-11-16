@@ -14,7 +14,7 @@ define([
           },
           {
             component: $ui.ActionButton,
-            icon: 'fa-file',
+            icon: 'fa-floppy-o',
             onClick: function () {
               screen.editMode = true;
             }

@@ -7,6 +7,7 @@ define([
     object.level = $ui.ScreenLevelEnum.BASE;
     object.blurSiblings = true;
     object.registerProperty("size");
+    object.registerProperty("closeOnClickAway");
 
     object.addComponentContainer('content', 'content', function(data) {
       return [{
