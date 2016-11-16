@@ -74,7 +74,8 @@ namespace Spann.RepositoryModel.RepositoryManagers
             return result;
         }
 
-        protected List<DMSource> GetAll(DataAccessor<DMSource> accessor, Expression<Func<DMSource, bool>> filter)
+        protected List<DMSource> GetAll(DataAccessor<DMSource> accessor, 
+            Expression<Func<DMSource, bool>> filter)
         {
             var result = accessor.LoadAll(filter);
             if (result != null)

@@ -50,7 +50,7 @@ namespace Spann
         /// <summary>
         /// Perform a test on a given function and potentially store result based on test.
         /// </summary>
-        /// <param name="testFunction">Test function</param>
+        /// <param name="TestFunction">Test function</param>
         /// <param name="name">name of result</param>
         /// <returns>Result of test function</returns>
         public bool Test(Func<bool> TestFunction, String name = null)

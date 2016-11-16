@@ -40,7 +40,7 @@ namespace Spann.RepositoryModel.RepositoryManagers
             switch (commitType)
             {
                 case CommitTypeEnum.ADD:
-                    RunChildActions(accessor, model);
+                    RunChildAdd(accessor, model);
                     break;
                 case CommitTypeEnum.REMOVE:
                     Delete(accessor, model.ID);
@@ -49,7 +49,7 @@ namespace Spann.RepositoryModel.RepositoryManagers
                     Update(accessor, id, model);
                     break;
                 case CommitTypeEnum.PATCH:
-                    RunChildActions(accessor, model);
+                    RunChildPatch(accessor, model);
                     break;
                 default:
                     break;
@@ -112,33 +112,44 @@ namespace Spann.RepositoryModel.RepositoryManagers
             return result;
         }
 
-        //private void Add(DataAccessor<DMSource> accessor, DMSource model)
-        //{
-            
-        //}
         #endregion
 
         #region Private Function(s).
-
-        private void RunChildActions(DataAccessor<DMSource> accessor, DMSource model)
+        private void RunChildAdd(DataAccessor<DMSource> accessor, DMSource model)
         {
-            if (model.PatchClientID == null || model.PatchType == null)
+
+            accessor.CreateObject(model);
+
+            accessor.DATA_MAP.ConnectionTypes.ForEach(connectionType =>
             {
-                accessor.CreateObject(model);
-                return;
-            }
-            var patchData = PatchTools.GetPatchData(model);
-            if (patchData.PatchType == PatchTypeEnum.CREATE)
+                foreach (IDataModel connectionModel in accessor.DATA_MAP.ConnectionValue(connectionType, model))
+                {
+                    if (connectionModel.PatchType != null)
+                    {
+                        ExicuteNextChain(PatchTypeEnum.GetType(connectionModel.PatchType),
+                            accessor, connectionType, model, connectionModel);
+                    }
+                }
+            });
+        }
+
+        private void RunChildPatch(DataAccessor<DMSource> accessor, DMSource model)
+        {
+            if (model.PatchClientID != null || model.PatchType != null)
             {
-                accessor.CreateObject(model);
-            }
-            else if (patchData.PatchType == PatchTypeEnum.UPDATE)
-            {
-                accessor.UpdateObject(model);
-            }
-            else if (patchData.PatchType == PatchTypeEnum.DELETE)
-            {
-                accessor.DeleteObject(model.ID);
+                var patchData = PatchTools.GetPatchData(model);
+                if (patchData.PatchType == PatchTypeEnum.CREATE)
+                {
+                    accessor.CreateObject(model);
+                }
+                else if (patchData.PatchType == PatchTypeEnum.UPDATE)
+                {
+                    accessor.UpdateObject(model);
+                }
+                else if (patchData.PatchType == PatchTypeEnum.DELETE)
+                {
+                    accessor.DeleteObject(model.ID);
+                }
             }
 
             accessor.DATA_MAP.ConnectionTypes.ForEach(connectionType =>
@@ -171,7 +182,7 @@ namespace Spann.RepositoryModel.RepositoryManagers
                     {
                         Type managerType = RC.GetManagerType(connectionType);
                         var method = GetMethod(managerType, connectionType);
-                        method.Invoke(RC.GetManager(connectionType), new object[] { CommitTypeEnum.UPDATE, connectionModel, 0 });
+                        method.Invoke(RC.GetManager(connectionType), new object[] { CommitTypeEnum.UPDATE, connectionModel, connectionModel.ID });
                         accessor.UpdateConnection(model, accessor.DATA_MAP.Connection(connectionType), connectionModel.ID);
                         break;
                     }
@@ -179,7 +190,7 @@ namespace Spann.RepositoryModel.RepositoryManagers
                     {
                         Type managerType = RC.GetManagerType(connectionType);
                         var method = GetMethod(managerType, connectionType);
-                        method.Invoke(RC.GetManager(connectionType), new object[] { CommitTypeEnum.REMOVE, connectionModel, 0 });
+                        method.Invoke(RC.GetManager(connectionType), new object[] { CommitTypeEnum.REMOVE, connectionModel, connectionModel.ID });
                         accessor.DeleteConnection(model.GetConnectionID(connectionType, connectionModel.ID));
                         break;
                     }
@@ -202,14 +213,19 @@ namespace Spann.RepositoryModel.RepositoryManagers
                     IList children = method.Invoke(RC.GetManager(connectionType), new object[] {
                                 connection
                             }) as IList;
-                    var items = accessor.DATA_MAP.Connection(connectionType).Property.GetValue(result) as IList;
+                    IList items = accessor.DATA_MAP.Connection(connectionType).Property.GetValue(result) as IList;
                     foreach (var child in children)
                     {
-                        items.Add(child);
+                        if(!items.Contains<IDataModel>((value) => value.ID == (child as IDataModel).ID))
+                        {
+                            items.Add(child);
+                        }
                     }
                 });
             });
         }
+
+        
         #endregion
     }
 }

@@ -53,6 +53,7 @@
     <Compile Include="RepositoryManagers\DefaultRepositoryManager.cs" />
     <Compile Include="RepositoryManagers\BaseRepositoryManager.cs" />
     <Compile Include="RepositoryManagers\PatchRepositoryManager.cs" />
+    <Compile Include="RepositoryUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spann.Core.DataAccess\Spann.Core.DataAccess.csproj">

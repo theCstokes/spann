@@ -48,7 +48,7 @@ namespace Spann.Core.DomainModel.DataTransferObjects.Python
             PythonFileDM dm = base.Map();
             dm.ID = ID;
             dm.Name = Name;
-            dm.SourceCode = SourceCode;
+            dm.SourceCode = @SourceCode;
             return dm;
         }
         #endregion

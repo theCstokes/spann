@@ -115,14 +115,15 @@ namespace Spann.Controllers
         public IHttpActionResult TestDTO([FromBody] PythonProjectDTO obj)
         {
             PythonProjectDM project = obj.Map();
-            if (PatchTools.IsPatch(project))
-            {
-                RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, project);
-            }
-            else
-            {
-                /// TODO - return error
-            }
+            //if (PatchTools.IsPatch(project))
+            //{
+            //    RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, project);
+            //}
+            //else
+            //{
+            //    /// TODO - return error
+            //}
+            RC.PythonProjectManager.Commit(CommitTypeEnum.PATCH, project);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
         }
         #endregion
