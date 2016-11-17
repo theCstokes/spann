@@ -82,6 +82,22 @@ function Console(parent, screen) {
       }
   });
   */
+ 
+  editor.on("changeSelection", function(event) {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
+    var promptIndex = 4;
+
+    var cursor = editor.selection.getCursor();
+    //if (cursor.row < endIndex || cursor.column < promptIndex) {
+    if (cursor.row < endIndex) {
+      console.log('readonly true');
+      editor.setReadOnly(true);
+    } else if (editor.getReadOnly()) {
+      console.log('readonly flase')
+      editor.setReadOnly(false);
+    }
+  });
 
   editor.setTheme("ace/theme/eclipse");
 
