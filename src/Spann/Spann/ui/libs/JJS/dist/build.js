@@ -544,6 +544,8 @@ function Console(parent, screen) {
     if (cursor.row < endIndex) {
       console.log('readonly true');
       editor.setReadOnly(true);
+    } else if (cursor.column < promptIndex) {
+      editor.navigateRight(1);
     } else if (editor.getReadOnly()) {
       console.log('readonly flase')
       editor.setReadOnly(false);
