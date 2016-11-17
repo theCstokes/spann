@@ -216,10 +216,12 @@ namespace Spann.RepositoryModel.RepositoryManagers
                     IList items = accessor.DATA_MAP.Connection(connectionType).Property.GetValue(result) as IList;
                     foreach (var child in children)
                     {
-                        if(!items.Contains<IDataModel>((value) => value.ID == (child as IDataModel).ID))
+                        int index = items.FirstIndex<IDataModel>((value) => value.ID == (child as IDataModel).ID);
+                        if (index != -1)
                         {
-                            items.Add(child);
+                            items.RemoveAt(index);
                         }
+                        items.Add(child);
                     }
                 });
             });

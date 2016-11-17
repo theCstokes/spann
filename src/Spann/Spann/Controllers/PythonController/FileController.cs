@@ -23,6 +23,48 @@ namespace Spann.Controllers
     [RoutePrefix("api/v1/Python")]
     public class FileController : ApiController
     {
+        #region GET
+        /// <summary>
+        /// Endpoint for file get.
+        /// </summary>
+        /// <returns>API response.</returns>
+        [HttpGet]
+        [Route("File")]
+        public IHttpActionResult GetFiles()
+        {
+            var results = RC.PythonFileManager.PullAll();
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, results);
+        }
+
+        /// <summary>
+        /// Endpoint for file get.
+        /// </summary>
+        /// <returns>API response.</returns>
+        [HttpGet]
+        [Route("File/{id:int}")]
+        public IHttpActionResult GetFile([FromUri] int id)
+        {
+            var result = RC.PythonFileManager.Pull((item) => item.ID == id);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, result);
+        }
+        #endregion
+
+        #region PUT
+        /// <summary>
+        /// Endpoint for file update.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>API response.</returns>
+        [HttpPut]
+        [Route("File/{id:int}")]
+        public IHttpActionResult UpdateFile([FromBody] PythonFileDM file, [FromUri] int id)
+        {
+            RC.PythonFileManager.Commit(CommitTypeEnum.UPDATE, file, id:id);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, file);
+        }
+        #endregion
+
+        #region POST
         /// <summary>
         /// Create a new file.
         /// </summary>
@@ -34,6 +76,7 @@ namespace Spann.Controllers
         {
             RC.PythonFileManager.Commit(CommitTypeEnum.ADD, file);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, file);
-        }        
+        }
+        #endregion
     }
 }

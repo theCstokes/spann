@@ -77,10 +77,18 @@ namespace Spann.RepositoryModel.RepositoryManagers
         protected List<DMSource> GetAll(DataAccessor<DMSource> accessor, 
             Expression<Func<DMSource, bool>> filter)
         {
-            var result = accessor.LoadAll(filter);
-            if (result != null)
+            List<DMSource> result = null;
+            if(filter != null)
             {
-                models.AddRange(result);
+                result = models.FindAll(msg => filter.Compile()(msg));
+            }
+            if (result == null || result.Count == 0)
+            {
+                result = accessor.LoadAll(filter);
+                if (result != null)
+                {
+                    models.AddRange(result);
+                }
             }
             return result;
         }
@@ -93,9 +101,14 @@ namespace Spann.RepositoryModel.RepositoryManagers
 
         protected void Update(DataAccessor<DMSource> accessor, int id, DMSource model)
         {
-            //var items = models.Where(source => source.ID == id);
             model.ID = id;
             accessor.UpdateObject(model);
+            var target = models.First((item) => item.ID == id);
+            if (target != null)
+            {
+                models.Remove(target);
+                models.Add(model);
+            }
         }
         #endregion
 

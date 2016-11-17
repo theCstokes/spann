@@ -9,16 +9,18 @@ namespace Spann.RepositoryModel
 {
     public static class RepositoryUtils
     {
-        public static bool Contains<T>(this IList data, Func<T, bool> check)
+        public static int FirstIndex<T>(this IList data, Func<T, bool> check)
         {
+            int index = 0;
             foreach (var item in data)
             {
                 if (check((T)item))
                 {
-                    return true;
+                    return index;
                 }
+                index++;
             }
-            return false;
+            return -1;
         }
     }
 }
