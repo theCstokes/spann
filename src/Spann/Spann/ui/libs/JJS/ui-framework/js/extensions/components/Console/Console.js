@@ -61,6 +61,7 @@ function Console(parent, screen) {
       editor.navigateRight(1);
   });
 
+  /*
   editor.on("change", function(event) {
       console.log("Change!!!");
       console.log(event);
@@ -80,6 +81,7 @@ function Console(parent, screen) {
         }
       }
   });
+  */
 
   editor.setTheme("ace/theme/eclipse");
 
@@ -126,7 +128,8 @@ function Console(parent, screen) {
         result += item + lineSeparater;
         return result;
       }, "");
-      text += value + lineSeparater + lastLine + lineSeparater + lineStart;
+      //text += value + lineSeparater + lastLine + lineSeparater + lineStart;
+      text += value + lineSeparater + lastLine + lineStart;
       editor.setValue(text, 1);
     }
   });
