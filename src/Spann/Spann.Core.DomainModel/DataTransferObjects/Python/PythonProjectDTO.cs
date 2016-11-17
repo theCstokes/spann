@@ -42,7 +42,7 @@ namespace Spann.Core.DomainModel.DataTransferObjects.Python
         /// <summary>
         /// Start file property (start file of project).
         /// </summary>
-        public int? StartFile { get; set; }
+        public string StartFileName { get; set; }
 
         /// <summary>
         /// Property for files in the project.
@@ -71,7 +71,7 @@ namespace Spann.Core.DomainModel.DataTransferObjects.Python
             dm.PatchType = PatchType;
             dm.ID = ID;
             dm.Name = Name;
-            dm.StartFile = StartFile;
+            dm.StartFileName = StartFileName;
             dm.Files = Files.Select(item => item.Map()).ToList();
             return dm;
         }
