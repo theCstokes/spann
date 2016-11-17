@@ -85,6 +85,28 @@ namespace Spann.PythonTools.Runner
         /// Execute a project.
         /// </summary>
         /// <param name="uid">Id for project.</param>
+        /// <param name="fileDM">File domain model.</param>
+        public static void Execute(Guid uid, PythonProjectDM projectDM)
+        {
+            PyProject project = projects[uid];
+            project.Create(SERVER_LOCATION, projectDM.ID.ToString());
+            var location = PyTools.CreatePath(SERVER_LOCATION, projectDM.ID.ToString());
+            projectDM.Files.ForEach((fileDM) =>
+            {
+                var file = new PyFile(fileDM.ID, location, fileDM.Name, fileDM.SourceCode);
+                project.AddFile(file);
+                if(projectDM.StartFileName == fileDM.Name)
+                {
+                    project.StartUpFileID = fileDM.ID;
+                }
+            });
+            project.Run();
+        }
+
+        /// <summary>
+        /// Execute a project.
+        /// </summary>
+        /// <param name="uid">Id for project.</param>
         /// <param name="owner">Owner of a project.</param>
         /// <param name="project">Project domain model.</param>
         public static void Execute(Guid uid, UserDM owner, PythonProjectDM project)

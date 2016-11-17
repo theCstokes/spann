@@ -2,9 +2,13 @@ define([
   'PartitionScreen',
   'App/screens/Develop/StateManager',
   'App/screens/Develop/developTransform',
-  'App/screens/Develop/FileDialog/fileDialog'
-], function (PartitionScreen, StateManager, developTransform, fileDialog) {
+  'App/screens/Develop/FileDialog/fileDialog',
+  'DataSocket',
+  'App/screens/Fiddle/dockScreen_Output'
+], function (PartitionScreen, StateManager, developTransform, fileDialog, DataSocket, dockScreen_Output) {
   return function () {
+    var dialogOpen = false;
+    var dataSocket = new DataSocket(API.PROJECT_RUN_API);
     var screen = new PartitionScreen();
     screen.content = [
       {
@@ -21,6 +25,19 @@ define([
             onClick: function () {
               $ui.push(fileDialog);
             }
+          },
+          {
+            component: $ui.ActionButton,
+            icon: 'fa-play',
+            onClick: function (event) {
+              if (dataSocket.isOpen) {
+                // var projectData = screen.model.fileTree.items.reduce(function(result, item)  {
+                //   result.push(item.data);
+                //   return result;
+                // }, []);
+                dataSocket.send(screen.stateManager.getCurrentState().current);
+              }
+            }
           }
         ],
         content: [
@@ -35,8 +52,26 @@ define([
     ];
     var manager = new StateManager(screen);
 
+    // dataSocket.onOpen = function (event) {
+    //   dataSocket.send();
+    // }
+
+    dataSocket.onMessage = function (event) {
+      data = event.data;
+      if(data === undefined) return;
+
+      if(!dialogOpen) {
+        $ui.push(dockScreen_Output, data);
+        dialogOpen = true;
+      } else {
+        $ui.notifyEvent("updateOutput", data);
+      }
+    }
+
     screen.registerEvent('show', function (args) {
+      dataSocket.start();
       var components = this.model;
+
       $ui.addEvent('addNewFile', function (data) {
         screen.trigger('action', {
           action: 'addFile',
@@ -53,6 +88,18 @@ define([
         });
         console.log('data', data, components);
       });
+
+      $ui.addEvent("closedOutput", function() {
+        dialogOpen = false;
+      });
+
+      $ui.addEvent("updateFie", function(data) {
+        screen.trigger('action', {
+          action: 'updateFile',
+          data: data
+        })
+      });
+
       screen.render = function (state) {
         components.projectLabel.caption = state.current.name;
         // Update modified.
@@ -62,7 +109,13 @@ define([
         components.fileTree,
         API.PROJECT_API,
         function (data) {
-          manager.initialize(data.items);
+          var proj = {
+            name: data.items.name,
+            identity: data.items.identity,
+            startFileName: data.items.startFileName,
+            files: data.items.details.files
+          }
+          manager.initialize(proj);
           return developTransform.uiTransform(data);
         },
         developTransform.dataTransform,

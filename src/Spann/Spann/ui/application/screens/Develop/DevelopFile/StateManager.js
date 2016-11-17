@@ -52,7 +52,7 @@ define(['StateTreeManager'], function (StateTreeManager) {
     // ================================
 
 
-    function saveRequest(original_state, current_state) {
+    function saveRequest(original_state, current_state, callback) {
       var differences = {
         name: current_state.name,
         id: current_state.uid,
@@ -66,6 +66,7 @@ define(['StateTreeManager'], function (StateTreeManager) {
         }, differences,
         function (event) {
           console.log(event);
+          callback();
         });
     }
 

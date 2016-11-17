@@ -44,7 +44,7 @@ namespace Spann.Core.DomainModel.Python
         /// <summary>
         /// Property for start file.
         /// </summary>
-        [IDColumn("StartFileID")]
+        [DataColumn("StartFileName")]
         public string StartFileName { get; set; }
 
         /// <summary>

@@ -30,6 +30,9 @@ define(['StateTreeManager'], function (StateTreeManager) {
       if (data.hasOwnProperty('files')) {
         new_state.files = data.files;
       }
+      if (data.hasOwnProperty('startFileName')) {
+        new_state.startFileName = data.startFileName;
+      }
 
       return {
         current: $utils.clone(new_state),
@@ -53,9 +56,18 @@ define(['StateTreeManager'], function (StateTreeManager) {
       });
       return next_state;
     }
+
+    function updateFile(state, data)  {
+      var next_state = $utils.clone(state);
+      var result = next_state.current.files.find(function(item) {
+        return item.identity === data.uid;
+      });
+      result.sourceCode = data.sourceCode;
+      return next_state;
+    }
+
     // Actions end.
     // ================================
-
 
     function saveRequest(original_state, current_state, callback) {
       var differences = {
@@ -105,7 +117,8 @@ define(['StateTreeManager'], function (StateTreeManager) {
     tree.registerActions({
       resetSate: resetSate,
       attributeChange: attributeChange,
-      addFile: addFile
+      addFile: addFile,
+      updateFile: updateFile
     });
 
     tree.registerSaveRequest(saveRequest);

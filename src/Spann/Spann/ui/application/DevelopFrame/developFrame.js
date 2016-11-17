@@ -4,43 +4,50 @@ define([
   return function () {
     var frame = new Frame();
 
-    frame.attachTop = [
-      {
-        component: $ui.Panel,
-        showTopDock: false,
-        bottomDock: [
-          {
-            component: $ui.ColumnLayout,
-            rightToLeft: true,
-            columns: [
-              {
-                component: $ui.Column,
-                width: $ui.ColumnWidth.EIGHTY_FIVE,
-                content: [
-                  {
-                    component: $ui.Slider,
-                    items: [
-                      {
-                        component: $ui.FileListItem,
-                        name: "Console"
-                      },
-                      {
-                        component: $ui.FileListItem,
-                        name: "Console"
-                      },
-                      {
-                        component: $ui.FileListItem,
-                        name: "Console"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ];
+    // frame.attachTop = [
+    //   {
+    //     component: $ui.Panel,
+    //     showTopDock: false,
+    //     bottomDock: [
+    //       {
+    //         component: $ui.ColumnLayout,
+    //         rightToLeft: true,
+    //         columns: [
+    //           {
+    //             component: $ui.Column,
+    //             width: $ui.ColumnWidth.EIGHTY_FIVE,
+    //             content: [
+    //               {
+    //                 component: $ui.ActionButton,
+    //                 icon: 'fa-play',
+    //                 onCLick: function(event) {
+
+    //                 }
+    //               }
+    //               // {
+    //               //   component: $ui.Slider,
+    //               //   items: [
+    //               //     {
+    //               //       component: $ui.FileListItem,
+    //               //       name: "Console"
+    //               //     },
+    //               //     {
+    //               //       component: $ui.FileListItem,
+    //               //       name: "Console"
+    //               //     },
+    //               //     {
+    //               //       component: $ui.FileListItem,
+    //               //       name: "Console"
+    //               //     }
+    //               //   ]
+    //               // }
+    //             ]
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   }
+    // ];
 
     // var manager = new StateManager(frame);
 

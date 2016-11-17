@@ -32,6 +32,7 @@ define([
                   sourceCode: event.value
                 }
               });
+              $ui.notifyEvent("updateFie", screen.stateManager.getCurrentState().current);
             }
           }
         ]

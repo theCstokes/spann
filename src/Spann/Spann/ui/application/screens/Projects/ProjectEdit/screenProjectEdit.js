@@ -20,6 +20,19 @@ define([
                 }
               });
             }
+          },
+          {
+            component: $ui.Input,
+            id: 'startUpInput',
+            hint: 'Startup File Name',
+            onChange: function (event) {
+              event.target.screen.trigger('action', {
+                action: 'attributeChange',
+                data: {
+                  startFileName: event.target.model.value
+                }
+              });
+            }
           }
         ]
       }
@@ -50,6 +63,7 @@ define([
 
       screen.render = function (state) {
         components.projectInput.value = state.current.name;
+        components.startUpInput.value = state.current.startFileName;
         components.projectInput.modified = (state.current.name !== state.original.name);
       }
       manager.initialize(data);

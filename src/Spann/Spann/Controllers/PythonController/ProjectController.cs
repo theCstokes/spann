@@ -2,6 +2,9 @@
 using Spann.Core.DataAccess.Requests.Patch;
 using Spann.Core.DomainModel.DataTransferObjects.Python;
 using Spann.Core.DomainModel.Python;
+using Spann.Core.JsonTools;
+using Spann.Notifications;
+using Spann.PythonTools.Runner;
 using Spann.RepositoryModel;
 using Spann.RepositoryModel.RepositoryManagers;
 using Spann.ResponseBuilders;
@@ -70,6 +73,34 @@ namespace Spann.Controllers
         {
             List<PythonProjectDM> projects = RC.PythonProjectManager.PullAll(WithDetails: true);
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, projects.Select(item => item.Map()));
+        }
+
+        /// <summary>
+        /// Create a new fiddle.
+        /// </summary>
+        /// <returns>Status code.</returns>
+        [HttpGet]
+        [Route("Run")]
+        public HttpResponseMessage RunProject()
+        {
+            HttpContext currentContext = HttpContext.Current;
+
+            if (currentContext.IsWebSocketRequest ||
+            currentContext.IsWebSocketRequestUpgrading)
+            {
+                WebSocketHandler handler = new WebSocketHandler(currentContext);
+                handler.OnOpen = uid =>
+                {
+                    PyProjectManager.Register(uid, (sender, e) => handler.Send(e.Value));
+                };
+                handler.OnReceive = (uid, msg) =>
+                {
+                    PythonProjectDM project = JsonUtils.DeserializeObject<PythonProjectDM>(msg);
+                    PyProjectManager.Execute(uid, project);
+                };
+                handler.OnClose = uid => PyProjectManager.Remove(uid);
+            }
+            return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
         }
         #endregion
 

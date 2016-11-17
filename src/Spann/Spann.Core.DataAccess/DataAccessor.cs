@@ -252,16 +252,19 @@ namespace Spann.Core.DataAccess
             List<DMSource> items = new List<DMSource>();
             var cmd = db.GetCommand(query.Build());
                 using (var reader = cmd.ExecuteReader()) {
-                    while (reader.Read())
+                while (reader.Read())
+                {
+                    DMSource item = CreateNewItem();
+                    for (var i = 0; i < DATA_MAP.Columns.Count(); i++)
                     {
-                        DMSource item = CreateNewItem();
-                        for (var i = 0; i < DATA_MAP.Columns.Count(); i++)
+                        if (!reader.IsDBNull(i))
                         {
                             SetItem(reader.GetName(i), reader.GetString(i), DATA_MAP, item);
                         }
-                        items.Add(item);
                     }
+                    items.Add(item);
                 }
+            }
             return items;
         }
 

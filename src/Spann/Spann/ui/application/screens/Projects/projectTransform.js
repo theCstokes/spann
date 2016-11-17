@@ -12,7 +12,7 @@ define([], function() {
   function dataTransform(item) {
     return {
       name: item.name,
-      startFile: item.startFile,
+      startFileName: item.startFileName,
       uid: item.identity
     }
   }
