@@ -43,6 +43,9 @@ define(['StateTreeManager'], function (StateTreeManager) {
       if (data.hasOwnProperty('name')) {
         next_state.current.name = data.name;
       }
+      if (data.hasOwnProperty('sourceCode')) {
+        next_state.current.sourceCode = data.sourceCode;
+      }
       return next_state;
     }
     // Actions end.
@@ -50,25 +53,20 @@ define(['StateTreeManager'], function (StateTreeManager) {
 
 
     function saveRequest(original_state, current_state) {
-      if (current_state.uid !== 0) {
-        var differences = {};
-        if (current_state.name !== original_state.name) differences.name = current_state.name;
-        if (differences !== {}) differences.identity = current_state.uid;
-        $data.send($data.SEND_TYPES.PUT, { api: "Python/Project/{id}", id: current_state.uid }, differences, function (event) {
+      var differences = {
+        name: current_state.name,
+        id: current_state.uid,
+        sourceCode: current_state.sourceCode
+      };
+      // if (current_state.sourceCode !== original_state.sourceCode) differences.sourceCode = current_state.sourceCode;
+      $data.send($data.SEND_TYPES.PUT,
+        {
+          api: "Python/file/{id}",
+          id: current_state.uid
+        }, differences,
+        function (event) {
           console.log(event);
         });
-      } else {
-        $data.send($data.SEND_TYPES.POST,
-          {
-            api: "Python/Project"
-          },
-          {
-            name: current_state.name
-          },
-          function (event) {
-            console.log(event);
-          });
-      }
     }
 
     tree.registerActions({

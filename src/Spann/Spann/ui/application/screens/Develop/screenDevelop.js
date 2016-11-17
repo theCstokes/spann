@@ -43,8 +43,6 @@ define([
           data: data
         });
         screen.trigger("saveRequest", {}, function (event) {
-          // $ui.frame.reloadSelected();
-
           $ui.popTo($ui.frame);
           requirejs([
             'App/screens/Develop/screenDevelop'], function (screenDevelop) {

@@ -16,7 +16,7 @@ define([
             component: $ui.ActionButton,
             icon: 'fa-floppy-o',
             onClick: function () {
-              screen.editMode = true;
+              screen.trigger("saveRequest");
             }
           }
         ],
@@ -24,7 +24,15 @@ define([
           {
             component: $ui.Editor,
             mode: $ui.EditorMode.PYTHON,
-            id: 'editor'
+            id: 'editor',
+            onChange: function(event) {
+              screen.trigger('action', {
+                action: 'attributeChange',
+                data: {
+                  sourceCode: event.value
+                }
+              });
+            }
           }
         ]
       }
@@ -36,6 +44,12 @@ define([
       this.render = function (state) {
         components.editor.value = state.current.sourceCode;
       }
+      $data.get(API.FILE_API, {
+        id: args.uid
+      },
+      function(data) {
+        console.log(data);
+      });
       manager.initialize(args);
     });
 

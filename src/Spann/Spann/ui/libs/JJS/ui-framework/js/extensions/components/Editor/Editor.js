@@ -15,34 +15,61 @@ function Editor(parent, screen) {
 
   editor.setTheme("ace/theme/eclipse");
 
-  // Object.defineProperty(object.model, 'editor', {
-  //   get: function () {
-  //     return editor;
-  //   }
-  // });
-
+  object._private.lastValue = "";
+  object._private.hasBeenUpdated = false;
   Object.defineProperty(object.model, 'value', {
-    get: function() {
+    get: function () {
       return editor.getValue();
     },
-    set: function(value) {
-      editor.setValue(value, 1);
+    set: function (value) {
+      if(object._private.lastValue !== value) {
+        object._private.hasBeenUpdated = true;
+        editor.setValue(value, 1);
+      }
     }
   });
 
   Object.defineProperty(object.model, 'mode', {
-    set: function(value) {
-      if(object._private.mode !== value) {
+    set: function (value) {
+      if (object._private.mode !== value) {
         object._private.mode = value;
         editor.session.setMode(value);
       }
     },
-    get: function() {
+    get: function () {
       return object._private.mode;
     }
   });
 
-  object.show = function() {
+  object._private.onChange = undefined;
+  Object.defineProperty(object.model, 'onChange', {
+    get: function () {
+      return object._private.onChange;
+    },
+    set: function (value) {
+      object._private.onChange = value;
+    }
+  });
+
+  editor.on("change", function (event) {
+    if(object._private.hasBeenUpdated) {
+      object._private.hasBeenUpdated = false;
+      return;
+    }
+    if (object._private.onChange !== undefined) {
+      var currentValue = editor.getValue();
+      if (currentValue !== object._private.lastValue) {
+        object._private.lastValue = currentValue;
+        object._private.onChange({
+          value: currentValue,
+          event: event,
+          target: editor
+        });
+      }
+    }
+  });
+
+  object.show = function () {
     console.log("show editor");
     inputEditor.style.height = this.component.parentElement.offsetHeight + "px";
     inputEditor.style.width = this.component.parentElement.offsetWidth + "px";
