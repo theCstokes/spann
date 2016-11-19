@@ -1779,9 +1779,11 @@ function Frame(parent, screen) {
       if(value !== undefined) {
         topBar.addClass('has-top-bar-content');
         holderContent.removeClass('maximizeV');
+        leftBar.removeClass('maximizeV');
       } else {
         topBar.removeClass('has-top-bar-content');
         holderContent.addClass('maximizeV');
+        leftBar.addClass('maximizeV');
       }
     }
   });

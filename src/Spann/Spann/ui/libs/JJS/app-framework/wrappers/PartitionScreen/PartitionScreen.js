@@ -9,6 +9,16 @@ define([
     object.addComponentContainer('content', 'leftSide');
     object.addOwner('rightSide'); 
 
+    object._private.editTarget = "";
+    Object.defineProperty(object, 'editTarget', {
+      get: function() {
+        return object._private.editTarget;
+      },
+      set: function(value) {
+        object._private.editTarget = value;
+      }
+    });
+
     object._private.editMode = false;
     Object.defineProperty(object, 'editMode', {
       get: function() {
@@ -18,7 +28,7 @@ define([
         if(object._private.editMode !== value) {
           object._private.editMode = value;
           if(value) {
-            requirejs([object._private.selected.model.target], function(next_screen) {
+            requirejs([object._private.editTarget], function(next_screen) {
               $ui.popTo(object);
               $ui.push(next_screen, {});
             });

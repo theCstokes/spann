@@ -109,11 +109,25 @@ define([
         components.fileTree,
         API.PROJECT_API,
         function (data) {
+          var files = [];
+          if(data.items.hasOwnProperty('details')) {
+            if(data.items.details.hasOwnProperty('files')) {
+              files = data.items.details.files;
+              files = files.reduce(function(result, item) {
+                result.push({
+                  name: item.name,
+                  uid: item.identity,
+                  sourceCode: item.sourceCode
+                });
+                return result;
+              }, []);
+            }
+          }
           var proj = {
             name: data.items.name,
-            identity: data.items.identity,
+            uid: data.items.identity,
             startFileName: data.items.startFileName,
-            files: data.items.details.files
+            files: files
           }
           manager.initialize(proj);
           return developTransform.uiTransform(data);

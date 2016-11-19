@@ -24,8 +24,8 @@ define(['StateTreeManager'], function (StateTreeManager) {
       if (data.hasOwnProperty('name')) {
         new_state.name = data.name;
       }
-      if (data.hasOwnProperty('identity')) {
-        new_state.uid = data.identity;
+      if (data.hasOwnProperty('uid')) {
+        new_state.uid = data.uid;
       }
       if (data.hasOwnProperty('files')) {
         new_state.files = data.files;
@@ -60,7 +60,7 @@ define(['StateTreeManager'], function (StateTreeManager) {
     function updateFile(state, data)  {
       var next_state = $utils.clone(state);
       var result = next_state.current.files.find(function(item) {
-        return item.identity === data.uid;
+        return item.uid === data.uid;
       });
       result.sourceCode = data.sourceCode;
       return next_state;
@@ -77,14 +77,14 @@ define(['StateTreeManager'], function (StateTreeManager) {
       };
       differences.identity = current_state.uid;
       current_state.files.forEach(function (item) {
-        var file = {};
         if (!item.hasOwnProperty('uid') || item.uid === 0) {
+          var file = {};
           file.name = item.name;
           file.sourceCode = "";
           file.patchType = "create";
           file.patchClientId = "1";
+          differences.details.files.push(file);
         }
-        differences.details.files.push(file);
       });
       $data.send($data.SEND_TYPES.PATCH,
         {
@@ -93,25 +93,6 @@ define(['StateTreeManager'], function (StateTreeManager) {
           console.log(event);
           callback(event);
         });
-      // if (current_state.uid !== 0) {
-      //   var differences = {};
-      //   if (current_state.name !== original_state.name) differences.name = current_state.name;
-      //   if (differences !== {}) differences.identity = current_state.uid;
-      //   $data.send($data.SEND_TYPES.PUT, { api: "Python/Project/{id}", id: current_state.uid }, differences, function (event) {
-      //     console.log(event);
-      //   });
-      // } else {
-      //   $data.send($data.SEND_TYPES.POST,
-      //     {
-      //       api: "Python/Project"
-      //     },
-      //     {
-      //       name: current_state.name
-      //     },
-      //     function (event) {
-      //       console.log(event);
-      //     });
-      // }
     }
 
     tree.registerActions({

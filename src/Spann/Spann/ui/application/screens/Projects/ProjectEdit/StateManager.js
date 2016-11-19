@@ -52,27 +52,18 @@ define(['StateTreeManager'], function(StateTreeManager) {
 
 
     function saveRequest(original_state, current_state, callback) {
-      if(current_state.uid !== 0) {
-        var differences = {
+      var differences = {
           name: current_state.name,
           startFileName: current_state.startFileName,
           id: current_state.uid
         };
-        // if(current_state.name !== original_state.name) differences.name = current_state.name;
-        // if(current_state.startFileName !== original_state.startFileName) differences.startFileName = current_state.startFileName;
-        // if(differences !== {}) differences.identity = current_state.uid;
+      if(current_state.uid !== 0) {
         $data.send($data.SEND_TYPES.PUT, {api: "Python/Project/{id}", id: current_state.uid}, differences, function(event) {
           console.log(event);
           callback(event);
         });
       } else {
-        $data.send($data.SEND_TYPES.POST, 
-        {
-          api: "Python/Project"
-        }, 
-        {
-          name: current_state.name
-        }, 
+        $data.send($data.SEND_TYPES.POST, { api: "Python/Project" }, differences, 
         function(event) {
           console.log(event);
           callback(event);
