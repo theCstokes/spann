@@ -42,14 +42,14 @@ define([
       }
     ];
 
-    frame.attachTop = [
-      {
-        component: $ui.Panel,
-        showTopDock: false,
-        content: [
-        ]
-      }
-    ];
+    // frame.attachTop = [
+    //   {
+    //     component: $ui.Panel,
+    //     showTopDock: false,
+    //     content: [
+    //     ]
+    //   }
+    // ];
 
     return frame;
   }

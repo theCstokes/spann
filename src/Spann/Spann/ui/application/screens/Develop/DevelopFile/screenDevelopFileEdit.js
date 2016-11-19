@@ -45,12 +45,13 @@ define([
       this.render = function (state) {
         components.editor.value = state.current.sourceCode;
       }
-      $data.get(API.FILE_API, {
-        id: args.uid
-      },
-      function(data) {
-        console.log(data);
-      });
+      // $data.get(API.FILE_API, {
+      //   id: args.uid
+      // },
+      // function(data) {
+      //   console.log(data);
+      //   manager.initialize(data.items);
+      // });
       manager.initialize(args);
     });
 

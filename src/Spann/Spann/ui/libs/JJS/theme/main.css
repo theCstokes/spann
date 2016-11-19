@@ -775,6 +775,9 @@ body {
 .ui-frame > .holder.maximizeV {
   height: 100%;
 }
+.ui-frame > .leftBar.maximizeV {
+  height: 100%;
+}
 .ui-frame > .holder > .mainContent {
   position: relative;
   float: right;
