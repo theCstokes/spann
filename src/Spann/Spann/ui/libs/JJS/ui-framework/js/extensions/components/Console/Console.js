@@ -9,6 +9,7 @@ function Console(parent, screen) {
 
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
   var editor = new ace.edit(inputConsole.id);
+  editor.set
   editor.setOptions({
     enableBasicAutocompletion: false,
     enableLiveAutocompletion: false
@@ -17,6 +18,8 @@ function Console(parent, screen) {
   var text = "Python Started.";
   var lineSeparater = "\n";
   var lineStart = ">>> ";
+  var promptLength = 4;
+
   text += lineSeparater + lineStart;
   editor.setValue(text, 1);
 
@@ -55,45 +58,16 @@ function Console(parent, screen) {
   });
 
   var textReset = false;
-
-  editor.on("input", function(event) {
-  	  // temporary fix for issue #4
-      editor.navigateRight(1);
-  });
-
-  /*
-  editor.on("change", function(event) {
-      console.log("Change!!!");
-      console.log(event);
-      if(textReset) {
-        textReset = false;
-        return;
-      }
-      var linesLenght = editor.session.doc.$lines.length;
-      if(event.end.row === linesLenght - 1 && event.start.column >= 4) {
-        text = editor.getValue();
-      } else {
-        if(text !== editor.getValue()) {
-          textReset = true;
-          editor.setValue(text, 1);
-        } else {
-          textReset = false;
-        }
-      }
-  });
-  */
  
   editor.on("changeSelection", function(event) {
     var lines = editor.session.doc.$lines;
     var endIndex = lines.length - 1;
-    var promptIndex = 4;
 
     var cursor = editor.selection.getCursor();
-    //if (cursor.row < endIndex || cursor.column < promptIndex) {
     if (cursor.row < endIndex) {
       console.log('readonly true');
       editor.setReadOnly(true);
-    } else if (cursor.column < promptIndex) {
+    } else if (cursor.column < promptLength) {
       editor.navigateRight(1);
     } else if (editor.getReadOnly()) {
       console.log('readonly flase')
