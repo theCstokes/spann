@@ -64,7 +64,10 @@ define([
       screen.render = function (state) {
         components.projectInput.value = state.current.name;
         components.startUpInput.value = state.current.startFileName;
+
+        //Update Modified
         components.projectInput.modified = (state.current.name !== state.original.name);
+        components.startUpInput.modified = (state.current.startFileName !== state.original.startFileName);
       }
       manager.initialize(data);
     });

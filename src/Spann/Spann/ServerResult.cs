@@ -14,6 +14,9 @@ namespace Spann
 
         private List<KeyValuePair<string, bool>> testResults;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ServerResult()
         {
             exceptionResults = new List<Exception>();

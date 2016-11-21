@@ -54,6 +54,7 @@ namespace Spann.Controllers
         /// Endpoint for file update.
         /// </summary>
         /// <param name="file"></param>
+        /// <param name="id"></param>
         /// <returns>API response.</returns>
         [HttpPut]
         [Route("File/{id:int}")]

@@ -5,6 +5,7 @@ define([
 ], function(PartitionScreen, projectTransform, projectDialog) {
   return function() {
     var screen = new PartitionScreen();
+    screen.editTarget = "App/screens/Projects/ProjectEdit/screenProjectEdit";
     screen.content = [
       {
         component: $ui.Panel,
