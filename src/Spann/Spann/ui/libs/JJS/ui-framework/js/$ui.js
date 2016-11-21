@@ -190,6 +190,7 @@ function build() {
             item.style.webkitFilter = "";
           }
         }
+        console.log('pop', this.topScreen);
         this.topScreen.uiObject.component.remove();
         this.topScreen.invoke('remove');
         this._private.screens.pop();

@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-17 */
+/*! spann - v1.0.0 - 2016-11-21 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -668,6 +668,19 @@ function Editor(parent, screen) {
           event: event,
           target: editor
         });
+      }
+    }
+  });
+
+  object._private.readOnly = false;
+  Object.defineProperty(object.model, 'readOnly', {
+    get: function() {
+      return object._private.readOnly;
+    },
+    set: function(value) {
+      if(value !== object._private.readOnly) {
+        object._private.readOnly = value;
+        editor.setReadOnly(value);
       }
     }
   });
@@ -1920,13 +1933,6 @@ function Panel(parent, screen) {
       } else {
         bottomDock.removeClass('has-bottom-dock');
       }
-    }
-  });
-
-    Object.defineProperty(object.model, "background", {
-    set: function (value) {
-      console.log("XXXXXXXXXXXXXXXXXXXXXXXXX bg XXXXXXXXXXXXXXXXXXXXXXXXX");
-      //object.uiObject.model.backgroundImage = value;
     }
   });
 

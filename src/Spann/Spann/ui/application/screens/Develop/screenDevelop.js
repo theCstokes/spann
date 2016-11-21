@@ -4,7 +4,7 @@ define([
   'App/screens/Develop/developTransform',
   'App/screens/Develop/FileDialog/fileDialog',
   'DataSocket',
-  'App/screens/Fiddle/dockScreen_Output'
+  'App/screens/Common/dockScreen_Output'
 ], function (PartitionScreen, StateManager, developTransform, fileDialog, DataSocket, dockScreen_Output) {
   return function () {
     var dialogOpen = false;
@@ -37,6 +37,7 @@ define([
                 // }, []);
                 dataSocket.send(screen.stateManager.getCurrentState().current);
               }
+              screen.trigger("saveRequest");
             }
           }
         ],
@@ -104,6 +105,15 @@ define([
         components.projectLabel.caption = state.current.name;
         // Update modified.
         components.projectLabel.modified = (state.current.name !== state.original.name);
+        state.current.files.forEach(function (item) {
+          var file = components.fileTree.items.find(function (file) {
+            return file.data.uid === item.uid;
+          });
+          if(file !== undefined) {
+            file.data.sourceCode = item.sourceCode;
+          }
+        });
+        // component.fileTree
       }
       this.registerSelectionList(
         components.fileTree,

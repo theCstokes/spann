@@ -9,7 +9,8 @@ define([
       {
         component: $ui.Editor,
         mode: $ui.EditorMode.PYTHON,
-        id: 'outputEditor'
+        id: 'outputEditor',
+        readOnly: true
       }
     ];
 
@@ -23,6 +24,10 @@ define([
     dialog.onClose = function() {
       $ui.notifyEvent("closedOutput");
     }
+    
+    dialog.registerEvent('remove', function() {
+      $ui.notifyEvent("closedOutput");
+    });
 
     $ui.addEvent("updateOutput", function(value) {
       dialog.model.outputEditor.value = String(data);

@@ -69,6 +69,19 @@ function Editor(parent, screen) {
     }
   });
 
+  object._private.readOnly = false;
+  Object.defineProperty(object.model, 'readOnly', {
+    get: function() {
+      return object._private.readOnly;
+    },
+    set: function(value) {
+      if(value !== object._private.readOnly) {
+        object._private.readOnly = value;
+        editor.setReadOnly(value);
+      }
+    }
+  });
+
   object.show = function () {
     console.log("show editor");
     inputEditor.style.height = this.component.parentElement.offsetHeight + "px";

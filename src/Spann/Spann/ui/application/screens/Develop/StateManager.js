@@ -76,16 +76,23 @@ define(['StateTreeManager'], function (StateTreeManager) {
         }
       };
       differences.identity = current_state.uid;
-      current_state.files.forEach(function (item) {
+      current_state.files.reduce(function (result, item) {
+        var file = {};
         if (!item.hasOwnProperty('uid') || item.uid === 0) {
-          var file = {};
           file.name = item.name;
           file.sourceCode = "";
           file.patchType = "create";
           file.patchClientId = "1";
           differences.details.files.push(file);
+        } else {
+          file.identity = item.uid;
+          file.name = item.name;
+          file.sourceCode = item.sourceCode;
+          file.patchType = "update";
+          file.patchClientId = item.uid;
+          differences.details.files.push(file);
         }
-      });
+      }, differences);
       $data.send($data.SEND_TYPES.PATCH,
         {
           api: "Python/Project"
