@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-17 */
+/*! spann - v1.0.0 - 2016-11-24 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -1920,13 +1920,6 @@ function Panel(parent, screen) {
       } else {
         bottomDock.removeClass('has-bottom-dock');
       }
-    }
-  });
-
-    Object.defineProperty(object.model, "background", {
-    set: function (value) {
-      console.log("XXXXXXXXXXXXXXXXXXXXXXXXX bg XXXXXXXXXXXXXXXXXXXXXXXXX");
-      //object.uiObject.model.backgroundImage = value;
     }
   });
 

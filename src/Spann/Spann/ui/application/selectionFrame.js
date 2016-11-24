@@ -22,7 +22,7 @@ define([
           {
             name: "Editor",
             icon: "fa-edit",
-            target: "App/screens/Home/screenEditor"
+            target: "App/screens/Fiddle/screen_fiddle"
           },
           {
             name: "Console",
