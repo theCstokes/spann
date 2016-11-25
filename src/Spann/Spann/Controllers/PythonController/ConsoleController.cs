@@ -48,7 +48,7 @@ namespace Spann.Controllers
                 {
                     PyConsoleManager.Remove(uid);
                     // force kill prcoess in Python Tools PyProject
-                }
+                };
             }
             return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
         }
