@@ -44,7 +44,10 @@ define([
       console.log(this);
       socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
       socket.onmessage = function (event) {
-        if (!$utils.isNullOrWhitespace(event.data)) {
+        if ($utils.isEOT(event.data)) {
+          console.log(event);
+          screen.model.ce.insertPrompt();
+        } else if (!$utils.isNullOrWhitespace(event.data)) {
           console.log(event);
           screen.model.ce.insertLine(event.data);
         }
