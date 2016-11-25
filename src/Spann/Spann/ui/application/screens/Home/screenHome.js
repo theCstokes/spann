@@ -1,7 +1,6 @@
 define([
-  'Screen',
-  'App/screens/Fiddle/dockScreen_Output'
-], function(Screen, dockScreen_Output) {
+  'Screen'
+], function(Screen) {
   return function() {
     var screen = new Screen();
 
