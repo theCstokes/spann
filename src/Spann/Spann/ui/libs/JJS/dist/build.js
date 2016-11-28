@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-25 */
+/*! spann - v1.0.0 - 2016-11-28 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -466,6 +466,8 @@ function Console(parent, screen) {
     enableLiveAutocompletion: false
   });
 
+  var code = null;
+
   var text = "Python Started.";
   var lineSeparater = "\n";
   var lineStart = ">>> ";
@@ -490,7 +492,12 @@ function Console(parent, screen) {
           return result;
         }, "");
 
-        if(lastLine === "execute order 66") {
+        if (code == null) 
+          code = lines[endIndex].replace(lineStart, "");
+        else
+          code += lines[endIndex].replace(lineStart, "");
+
+        if(code === "execute order 66") {
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function(){
            if(xmlhttp.readyState == 4){
@@ -501,13 +508,42 @@ function Console(parent, screen) {
          xmlhttp.open("GET", "data.txt", true);
          xmlhttp.send();
         } else if(object._private.onCommandRun !== undefined) {
-          //text += lineStart + lastLine + lineSeparater + lineStart;
-          text += lineStart + lastLine + lineSeparater;
+          //text += lineStart + code + lineSeparater + lineStart;
+          text += lineStart + code + lineSeparater;
           editor.setValue(text, 1);
-          object._private.onCommandRun(lastLine);
+          object._private.onCommandRun(code);
+          code = null;
         }
       }
-  });
+    }
+  );
+
+  editor.commands.addCommand({
+      name: "multiLine",
+      bindKey: {win: "Shift-Enter", mac: "Shift-Enter"},
+      exec: function(editor) {
+        console.log("Shift+Enter detected");
+        var lines = editor.session.doc.$lines;
+        var endIndex = lines.length - 1;
+        var lastLine = lines[endIndex].replace(lineStart, "");
+        text = lines.reduce(function(result, item, idx) {
+          if(idx >= endIndex) {
+            // result += lineSeparater;
+            return result;
+          }
+          result += item + lineSeparater;
+          return result;
+        }, "");
+
+        if (code == null)
+          code = lastLine + lineSeparater;
+        else
+          code += lastLine + lineSeparater;
+
+        Object.model.insertLine();
+      }
+    }
+  );
 
   var textReset = false;
  
