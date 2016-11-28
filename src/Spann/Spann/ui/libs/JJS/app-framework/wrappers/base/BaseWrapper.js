@@ -125,6 +125,16 @@ define(function() {
       }
     });
 
+    object._private.modified = false;
+    Object.defineProperty(object, 'modified', {
+      set: function(value) {
+        object._private.modified = value;
+      },
+      get: function() {
+        return object._private.modified;
+      }
+    });
+
     function createContentContainers() {
       var containers = object._private.registeredContainer;
        for(var key in containers) {

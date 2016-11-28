@@ -37,6 +37,7 @@ define([
       }
     });
 
+    object._private.childScreen = undefined;
     object._private.selected = null;
     Object.defineProperty(object, 'registerSelectionList', {
       value: function(component, dataSource, uiTransform, dataTransform, requestData) {
@@ -51,10 +52,18 @@ define([
           console.log(component.selected);
         });
         component.onClick = function(event) {
+          if(object._private.childScreen !== undefined) {
+            if(object._private.childScreen.modified) {
+              if(onModifiedClose !== undefined) {
+                onModifiedClose();
+              } 
+            }
+          }
           object._private.selected = event.target;
           requirejs([event.target.model.target], function(next_screen) {
             $ui.popTo(object);
             $ui.push(next_screen, event.target.model.data);
+            object._private.childScreen = $ui.topScreen;
           });
         };
       }
@@ -68,6 +77,16 @@ define([
             item.select();
           }
         });
+      }
+    });
+
+    object._private.onModifiedClose = undefined;
+    Object.defineProperty(object, 'onModifiedClose', {
+      set: function(value) {
+        onModifiedClose = value;
+      },
+      get: function() {
+        return onModifiedClose;
       }
     });
 
