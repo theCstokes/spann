@@ -8,6 +8,7 @@ define([
         {
           component: $ui.Panel,
           showTopDock: false,
+          overrideHTML: "<b> 12312 </b>",
           content: [
             {
               component: $ui.Label,

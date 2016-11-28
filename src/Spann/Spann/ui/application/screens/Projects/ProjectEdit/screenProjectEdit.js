@@ -43,10 +43,13 @@ define([
         caption: "Open",
         icon: 'fa-folder-open',
         onClick: function (event) {
+          var d = new Date();
+          console.log("open", d.getTime());
           $ui.clear();
           requirejs([
             'App/DevelopFrame/developFrame',
             'App/screens/Develop/screenDevelop'], function (projectFrame, screenDevelop) {
+              console.log("pushing", d.getTime());
               $ui.addFrame(projectFrame);
               $ui.push(screenDevelop, {projectId: screen.stateManager.getCurrentState().current.uid});
               console.log(screen);

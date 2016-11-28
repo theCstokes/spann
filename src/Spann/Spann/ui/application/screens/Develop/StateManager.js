@@ -98,7 +98,9 @@ define(['StateTreeManager'], function (StateTreeManager) {
           api: "Python/Project"
         }, differences, function (event) {
           console.log(event);
-          callback(event);
+          if(callback !== undefined) {
+            callback(event);
+          }
         });
     }
 

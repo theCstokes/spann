@@ -44,7 +44,7 @@ body {
   color: #95a5a6;
 }
 .ui-action-button > .icon:hover {
-  color: #b4c5cf;
+  color: black;
 }
 .ui-base-list-tree-item {
   border-style: none;
@@ -155,6 +155,38 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
+}
+.ui-file-list-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+}
+.ui-file-list-item .content {
+  order: -1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 8px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+.ui-file-list-item .item-icon {
+  margin-right: 10px;
+}
+.ui-file-list-item:focus,
+.ui-file-list-item:hover {
+  background-color: #555;
+}
+.ui-file-list-item.ui-base-list-tree-item.selected {
+  color: #555;
 }
 .ui-file-list-item {
   display: flex;
@@ -911,9 +943,10 @@ body {
   overflow: hidden;
   position: relative;
   float: right;
-  left: 10px;
+  /*right: 10px;*/
   height: 100%;
-  width: 100%;
+  width: calc(100% - 10px);
+  /*width: 100%;*/
 }
 .ui-slider {
   display: block;
