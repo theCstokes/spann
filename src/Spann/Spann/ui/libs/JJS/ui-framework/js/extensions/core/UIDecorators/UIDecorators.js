@@ -81,6 +81,25 @@ function UIDecorators(object) {
     });
   } 
 
+  object._private.enabled = true;
+  function enabled(obj) {
+    Object.defineProperty(object.model, 'enabled', {
+      set: function(value) {
+        if(value !== object._private.enabled) {
+          if(value) {
+            obj.removeClass('disabled');
+          } else {
+            obj.addClass('disabled');
+          }
+          object._private.enabled = value;
+        }
+      },
+      get: function() {
+        return object._private.enabled;
+      }
+    });
+  }
+
   function modified() {
     object._private.modified = false;
     Object.defineProperty(object.model, 'modified', {
@@ -104,7 +123,8 @@ function UIDecorators(object) {
     string: string,
     icon: icon,
     size: size,
-    modified
+    enabled: enabled,
+    modified: modified
   }
 }
 

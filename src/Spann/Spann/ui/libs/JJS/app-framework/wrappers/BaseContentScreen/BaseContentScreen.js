@@ -9,6 +9,7 @@ define([
       var bottomActions = [
         {
           component: $ui.Button,
+          id: "saveButton",
           caption: 'Save',
           icon: 'fa-times',
           onClick: function (event) {
@@ -20,6 +21,7 @@ define([
         },
         {
           component: $ui.Button,
+          id: "cancelButton",
           caption: "Cancel",
           icon: 'fa-file',
           onClick: function (event) {

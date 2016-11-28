@@ -76,6 +76,9 @@ body {
   justify-content: space-around;
   align-items: center;
 }
+.ui-button.disabled {
+  background: #b4c5cf;
+}
 .ui-button:hover {
   background-color: #b4c5cf;
   text-decoration: none;

@@ -40,20 +40,16 @@ define([
     screen.bottomActions = [
       {
         component: $ui.Button,
+        id: "openButton",
         caption: "Open",
         icon: 'fa-folder-open',
         onClick: function (event) {
-          var d = new Date();
-          console.log("open", d.getTime());
           $ui.clear();
           requirejs([
             'App/DevelopFrame/developFrame',
             'App/screens/Develop/screenDevelop'], function (projectFrame, screenDevelop) {
-              console.log("pushing", d.getTime());
               $ui.addFrame(projectFrame);
               $ui.push(screenDevelop, {projectId: screen.stateManager.getCurrentState().current.uid});
-              console.log(screen);
-              // $ui.notifyEvent("initProjectScreen");
             });
         }
       }
@@ -71,6 +67,9 @@ define([
         //Update Modified
         components.projectInput.modified = (state.current.name !== state.original.name);
         components.startUpInput.modified = (state.current.startFileName !== state.original.startFileName);
+
+        components.openButton.enabled = !($utils.isNullOrWhitespace(state.current.name) 
+        || $utils.isNullOrWhitespace(state.current.startFileName));
       }
       manager.initialize(data);
     });
