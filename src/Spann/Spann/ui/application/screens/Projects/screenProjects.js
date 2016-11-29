@@ -1,8 +1,9 @@
 define([
   'PartitionScreen',
   'App/screens/Projects/projectTransform',
-  'App/screens/Projects/ProjectDialog/projectDialog'
-], function(PartitionScreen, projectTransform, projectDialog) {
+  'App/screens/Projects/ProjectDialog/projectDialog',
+  'App/screens/Common/ModifiedCloseDialog/modifiedCloseDialog'
+], function(PartitionScreen, projectTransform, projectDialog, modifiedCloseDialog) {
   return function() {
     var screen = new PartitionScreen();
     screen.editTarget = "App/screens/Projects/ProjectEdit/screenProjectEdit";
@@ -49,6 +50,10 @@ define([
     $ui.addEvent('addNewProject', function(data) {
       console.log("Save!!!");
     });
+
+    screen.onModifiedClose = function(target) {
+      $ui.push(modifiedCloseDialog, target);
+    }
 
     return screen;
   }
