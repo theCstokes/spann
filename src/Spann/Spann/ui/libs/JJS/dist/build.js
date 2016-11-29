@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-24 */
+/*! spann - v1.0.0 - 2016-11-29 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -514,7 +514,8 @@ function Console(parent, screen) {
          xmlhttp.open("GET", "data.txt", true);
          xmlhttp.send();
         } else if(object._private.onCommandRun !== undefined) {
-          text += lineStart + lastLine + lineSeparater + lineStart;
+          //text += lineStart + lastLine + lineSeparater + lineStart;
+          text += lineStart + lastLine + lineSeparater;
           editor.setValue(text, 1);
           object._private.onCommandRun(lastLine);
         }
@@ -571,6 +572,13 @@ function Console(parent, screen) {
     }
   });
 
+  Object.defineProperty(object.model, 'insertPrompt', {
+    value: function() {
+      text += lineStart;
+      editor.setValue(text, 1);
+    }
+  });
+
   Object.defineProperty(object.model, 'insertLine', {
     value: function(value) {
       var lines = editor.session.doc.$lines;
@@ -584,8 +592,7 @@ function Console(parent, screen) {
         result += item + lineSeparater;
         return result;
       }, "");
-      //text += value + lineSeparater + lastLine + lineSeparater + lineStart;
-      text += value + lineSeparater + lastLine + lineStart;
+      text += value + lineSeparater + lastLine;
       editor.setValue(text, 1);
     }
   });
@@ -732,16 +739,6 @@ function FileListItem(panel, screen) {
   var item = $ui.create('div', object.content);
   item.addClass('name');
 
-  // var dropArrow  = $ui.create('i', object.component);
-  // dropArrow.addClass('drop-arrow fa fa-chevron-left closed');
-  // dropArrow.onclick = function() {
-  //   if(object._private.expanded) {
-  //     object.colapseNode();
-  //   } else {
-  //     object.expandNode();
-  //   }
-  // }
-
   Object.defineProperty(object.model, 'name', {
     set: function(value) {
       if(object._private.name != value) {
@@ -771,6 +768,62 @@ function FileListItem(panel, screen) {
   //   object._private.expanded = false;
   //   dropArrow.replaceClass('fa-chevron-down', 'fa-chevron-left closed');
   // });
+
+  Object.defineProperty(object.model, 'target', {
+    set: function(value) {
+      object._private.target = value;
+    },
+    get: function() {
+      return object._private.target;
+    }
+  })
+
+  return object;
+}
+
+$ui.addExtension('FileListItem', FileListItem);
+
+function FileListItem(panel, screen) {
+  var object = $ui.BaseListOrTreeItem(panel, screen);
+  object.noMargin = true;
+  object.component.addClass('ui-file-list-item');
+
+  object.content = $ui.create('div', object.component);
+  object.content.addClass('content');
+
+  var icon = $ui.create('i', object.content);
+  icon.addClass('item-icon fa');
+
+  var item = $ui.create('div', object.content);
+  item.addClass('name');
+
+  Object.defineProperty(object.model, 'name', {
+    set: function(value) {
+      if(object._private.name != value) {
+        object._private.name = value;
+        item.textContent = value;
+      }
+    },
+    get: function() {
+      return object._private.name;
+    }
+  });
+
+  object._private.openIcon = undefined;
+  Object.defineProperty(object.model, 'open-icon', {
+    set: function(value) {
+      icon.addClass(value);
+      //icon.replaceClass(value);
+    }
+  });
+
+  object._private.closedIcon = undefined;
+  Object.defineProperty(object.model, 'closed-icon', {
+    set: function(value) {
+      icon.addClass(value);
+      //icon.replaceClass(value);
+    }
+  });
 
   Object.defineProperty(object.model, 'target', {
     set: function(value) {

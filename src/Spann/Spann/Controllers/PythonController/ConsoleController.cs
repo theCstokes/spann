@@ -44,7 +44,11 @@ namespace Spann.Controllers
                 {
                     PyConsoleManager.Execute(uid, msg);
                 };
-                handler.OnClose = uid => PyConsoleManager.Remove(uid);
+                handler.OnClose = uid =>
+                {
+                    PyConsoleManager.Remove(uid);
+                    // force kill prcoess in Python Tools PyProject
+                };
             }
             return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
         }
