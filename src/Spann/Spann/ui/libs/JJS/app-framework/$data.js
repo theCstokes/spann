@@ -118,7 +118,8 @@ function build() {
     // sources: sources,
     SEND_TYPES: SEND_TYPES,
     send: send,
-    get: get
+    get: get,
+    delete: deleteRequest
   }
 }
 

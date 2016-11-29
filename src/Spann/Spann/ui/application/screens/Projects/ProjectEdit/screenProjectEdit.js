@@ -37,6 +37,19 @@ define([
         ]
       }
     ];
+    screen.topDock = [
+      {
+        component: $ui.Label,
+        caption: "Project",
+      },
+      {
+        component: $ui.ActionButton,
+        icon: 'fa-trash',
+        onClick: function() {
+          // $data.delete({api: API.PROJECT_API, id: manager.getCurrentState().current.uid});
+        }
+      }
+    ]
     screen.bottomActions = [
       {
         component: $ui.Button,

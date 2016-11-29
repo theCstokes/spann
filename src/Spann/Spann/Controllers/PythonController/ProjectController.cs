@@ -158,5 +158,20 @@ namespace Spann.Controllers
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
         }
         #endregion
+
+        #region DELETE
+        /// <summary>
+        /// Get a project's details.
+        /// </summary>
+        /// <param name="id">Project id.</param>
+        /// <returns>Status code and project map.</returns>
+        [HttpDelete]
+        [Route("Project/{id:int}/Details")]
+        public IHttpActionResult DeleteProjectDetails([FromUri] int id)
+        {
+            var project = RC.PythonProjectManager.Pull(p => p.ID == id, WithDetails: true);
+            return ResponseUtils.CreateResponse(HttpStatusCode.OK, project.Map());
+        }
+        #endregion
     }
 }
