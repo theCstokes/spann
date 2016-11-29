@@ -36,12 +36,7 @@ define([
         {
           component: $ui.Panel,
           id: "NewUserPanel",
-          header: [
-            {
-              component: $ui.Label,
-              caption: object._private.name
-            }
-          ],
+          topDock: object._private.topDock,
           content: content,
           bottomDock: [
             {
@@ -71,6 +66,13 @@ define([
     Object.defineProperty(object, 'bottomActions', {
       set: function (item) {
         object._private.bottomActions = item;
+      }
+    });
+
+    object._private.topDock = [];
+    Object.defineProperty(object, 'topDock', {
+      set: function (item) {
+        object._private.topDock = item;
       }
     });
 
