@@ -911,9 +911,10 @@ body {
   overflow: hidden;
   position: relative;
   float: right;
-  left: 10px;
+  /*right: 10px;*/
   height: 100%;
-  width: 100%;
+  width: calc(100% - 10px);
+  /*width: 100%;*/
 }
 .ui-slider {
   display: block;

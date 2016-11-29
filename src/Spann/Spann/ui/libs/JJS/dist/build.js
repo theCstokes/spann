@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-21 */
+/*! spann - v1.0.0 - 2016-11-24 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -39,6 +39,19 @@ function BaseExtension(parent, screen) {
 
   var component = $ui.create(parent);
   object.component = component;
+
+  object._private.overrideHTML = undefined;
+  Object.defineProperty(object.model, "overrideHTML", {
+    set: function(value) {
+      if(value !== object._private.overrideHTML) {
+        object._private.overrideHTML = value;
+        object.component.innerHTML = value;
+      }
+    },
+    get: function() {
+      return object._private.overrideHTML;
+    }
+  })
 
   object._private.name = undefined;
   Object.defineProperty(object.model, "id", {

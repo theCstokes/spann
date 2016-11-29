@@ -84,7 +84,7 @@ namespace Spann.Core.DataAccess
                 var value = entry.Value.GetValue(DataObject);
                 if (value != null)
                 {
-                    query.AddPropertyValue(entry.Key.ColumnName, value);
+                    query.AddPropertyValue(entry.Key.ColumnName, @value.ToString().Replace("'", "''''"));
                 }
             }
 

@@ -31,13 +31,13 @@ define([
             icon: 'fa-play',
             onClick: function (event) {
               if (dataSocket.isOpen) {
-                // var projectData = screen.model.fileTree.items.reduce(function(result, item)  {
-                //   result.push(item.data);
-                //   return result;
-                // }, []);
+                dataSocket.send(screen.stateManager.getCurrentState().current);
+              } else {
+                dataSocket.start();
                 dataSocket.send(screen.stateManager.getCurrentState().current);
               }
               screen.trigger("saveRequest");
+              $ui.notifyEvent("refreshFile");
             }
           }
         ],
@@ -46,7 +46,8 @@ define([
             component: $ui.Tree,
             id: "fileTree",
             decorator: $ui.ListDecorators.MAXIMIZE_LIST,
-            style: $ui.FileListItem
+            style: $ui.FileListItem,
+            nodeStyle: $ui.FileListItem
           }
         ]
       }
@@ -59,9 +60,9 @@ define([
 
     dataSocket.onMessage = function (event) {
       data = event.data;
-      if(data === undefined) return;
+      if (data === undefined) return;
 
-      if(!dialogOpen) {
+      if (!dialogOpen) {
         $ui.push(dockScreen_Output, data);
         dialogOpen = true;
       } else {
@@ -70,7 +71,10 @@ define([
     }
 
     screen.registerEvent('show', function (args) {
-      dataSocket.start();
+
+      var d = new Date();
+      console.log("show left", d.getTime());
+
       var components = this.model;
 
       $ui.addEvent('addNewFile', function (data) {
@@ -90,11 +94,11 @@ define([
         console.log('data', data, components);
       });
 
-      $ui.addEvent("closedOutput", function() {
+      $ui.addEvent("closedOutput", function () {
         dialogOpen = false;
       });
 
-      $ui.addEvent("updateFie", function(data) {
+      $ui.addEvent("updateFie", function (data) {
         screen.trigger('action', {
           action: 'updateFile',
           data: data
@@ -102,28 +106,43 @@ define([
       });
 
       screen.render = function (state) {
-        components.projectLabel.caption = state.current.name;
+        var d = new Date();
+        console.log("render left", d.getTime());
+        
+        if (JSON.stringify(state.current) !== JSON.stringify(state.original)) {
+          components.projectLabel.caption = state.current.name + "*";
+        } else {
+          components.projectLabel.caption = state.current.name;
+        }
+
         // Update modified.
         components.projectLabel.modified = (state.current.name !== state.original.name);
-        state.current.files.forEach(function (item) {
+        state.current.files.forEach(function (item, idx) {
           var file = components.fileTree.items.find(function (file) {
             return file.data.uid === item.uid;
           });
-          if(file !== undefined) {
+          if (file !== undefined) {
             file.data.sourceCode = item.sourceCode;
+            if (idx < state.original.files.length && item.sourceCode !== state.original.files[idx].sourceCode) {
+              file.name = item.name + "*";
+            } else {
+              file.name = item.name;
+            }
           }
         });
         // component.fileTree
       }
+      console.log("send", d.getTime());
       this.registerSelectionList(
         components.fileTree,
         API.PROJECT_API,
         function (data) {
+          console.log("get", d.getTime());
           var files = [];
-          if(data.items.hasOwnProperty('details')) {
-            if(data.items.details.hasOwnProperty('files')) {
+          if (data.items.hasOwnProperty('details')) {
+            if (data.items.details.hasOwnProperty('files')) {
               files = data.items.details.files;
-              files = files.reduce(function(result, item) {
+              files = files.reduce(function (result, item) {
                 result.push({
                   name: item.name,
                   uid: item.identity,
