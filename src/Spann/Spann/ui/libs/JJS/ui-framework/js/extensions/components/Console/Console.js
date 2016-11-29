@@ -16,6 +16,12 @@ function Console(parent, screen) {
   });
 
   var code = null;
+  var loc = 0;
+
+  var MAX_HIST = 1000;
+
+  var codeHist = [];
+  var codeHistIndex = 0;
 
   var text = "Python Started.";
   var lineSeparater = "\n";
@@ -33,7 +39,7 @@ function Console(parent, screen) {
         var endIndex = lines.length - 1;
         var lastLine = lines[endIndex].replace(lineStart, "");
         text = lines.reduce(function(result, item, idx) {
-          if(idx >= endIndex) {
+          if(idx >= endIndex - loc) {
             // result += lineSeparater;
             return result;
           }
@@ -61,7 +67,15 @@ function Console(parent, screen) {
           text += lineStart + code + lineSeparater;
           editor.setValue(text, 1);
           object._private.onCommandRun(code);
+
+          codeHistIndex = -1;
+          if (!$utils.isNullOrWhitespace(code)) codeHist.push(code);
+          if (codeHist.length >= MAX_HIST) codeHist.pop();
+
           code = null;
+          loc = 0;
+
+          console.log(codeHist);
         }
       }
     }
@@ -89,10 +103,71 @@ function Console(parent, screen) {
         else
           code += lastLine + lineSeparater;
 
+        loc++;
+
         Object.model.insertLine();
       }
     }
   );
+
+
+  editor.commands.addCommand({
+      name: "codeHistoryPrev",
+      bindKey: {win: "Up", mac: "Up"},
+      exec: function(editor) {
+        if (codeHistIndex < codeHist.length - 1)
+          codeHistIndex++;
+        else if (codeHist.length == 0)
+          codeHistIndex = -1;
+
+        text = consoleToString();
+
+        var line = codeHist[codeHist.length - codeHistIndex - 1];
+        if (codeHistIndex != -1)
+          editor.setValue(text + lineStart + line, 1);
+
+        console.log("hist index =", codeHistIndex);
+      }
+    }
+  );
+
+  editor.commands.addCommand({
+      name: "codeHistoryNext",
+      bindKey: {win: "Down", mac: "Down"},
+      exec: function(editor) {
+        var prevIndex = codeHistIndex;
+
+        if (codeHistIndex > -1)
+          codeHistIndex--;
+        else if (codeHist.length == 0)
+          codeHistIndex = -1;
+
+        text = consoleToString();
+
+        var line = codeHist[codeHist.length - codeHistIndex - 1];
+        if (codeHistIndex == -1 && prevIndex != -1) {
+          editor.setValue(text + lineStart, 1);
+        } else if (codeHistIndex != -1) {
+          editor.setValue(text + lineStart + line, 1);
+        }
+
+        console.log("hist index =", codeHistIndex);
+        
+      }
+    }
+  );
+
+  function consoleToString() {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
+    return lines.reduce(function(result, item, idx) {
+      if(idx >= endIndex - loc) {
+        return result;
+      }
+      result += item + lineSeparater;
+      return result;
+    }, "");
+  }
 
   var textReset = false;
  
