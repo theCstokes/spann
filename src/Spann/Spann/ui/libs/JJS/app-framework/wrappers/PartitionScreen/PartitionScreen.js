@@ -31,6 +31,8 @@ define([
             requirejs([object._private.editTarget], function (next_screen) {
               $ui.popTo(object);
               $ui.push(next_screen, {});
+              object._private.childScreen = $ui.topScreen;
+              object._private.childScreen.editMode = true;
             });
           }
         }

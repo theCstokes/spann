@@ -11,18 +11,6 @@ define([
         // showFooterBar: false,
         topDock: [
           {
-            component: $ui.ActionButton,
-            icon: 'fa-bars',
-            onClick: function(event) {
-              console.log(123);
-              $ui.push(dialog_Menu);
-            }
-          },
-          {
-            component: $ui.ActionButton,
-            icon: 'fa-question-circle-o',
-          },
-          {
             component: $ui.Label,
             caption: 'Console',
           },

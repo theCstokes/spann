@@ -69,8 +69,8 @@ define([
         components.startUpInput.modified = (state.current.startFileName !== state.original.startFileName);
         screen.modified = components.projectInput.modified || components.startUpInput.modified;
 
-        components.openButton.enabled = !($utils.isNullOrWhitespace(state.current.name) 
-        || $utils.isNullOrWhitespace(state.current.startFileName));
+        components.openButton.enabled = (!($utils.isNullOrWhitespace(state.current.name) 
+        || $utils.isNullOrWhitespace(state.current.startFileName))) && !screen.editMode;
       }
       manager.initialize(data);
     });
