@@ -38,6 +38,12 @@ function Console(parent, screen) {
         var lines = editor.session.doc.$lines;
         var endIndex = lines.length - 1;
         var lastLine = lines[endIndex].replace(lineStart, "");
+
+        if (lastLine[lastLine.length-1] == ':') {
+          multiLineCallback(editor);
+          return;
+        }
+
         text = lines.reduce(function(result, item, idx) {
           if(idx >= endIndex - loc) {
             // result += lineSeparater;
@@ -85,30 +91,33 @@ function Console(parent, screen) {
       name: "multiLine",
       bindKey: {win: "Shift-Enter", mac: "Shift-Enter"},
       exec: function(editor) {
-        console.log("Shift+Enter detected");
-        var lines = editor.session.doc.$lines;
-        var endIndex = lines.length - 1;
-        var lastLine = lines[endIndex].replace(lineStart, "");
-        text = lines.reduce(function(result, item, idx) {
-          if(idx >= endIndex) {
-            // result += lineSeparater;
-            return result;
-          }
-          result += item + lineSeparater;
-          return result;
-        }, "");
-
-        if (code == null)
-          code = lastLine + lineSeparater;
-        else
-          code += lastLine + lineSeparater;
-
-        loc++;
-
-        Object.model.insertLine();
+        multiLineCallback(editor);
       }
     }
   );
+
+  function multiLineCallback(editor) {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
+    var lastLine = lines[endIndex].replace(lineStart, "");
+    text = lines.reduce(function(result, item, idx) {
+      if(idx >= endIndex) {
+        // result += lineSeparater;
+        return result;
+      }
+      result += item + lineSeparater;
+      return result;
+    }, "");
+
+    if (code == null)
+      code = lastLine + lineSeparater;
+    else
+      code += lastLine + lineSeparater;
+
+    loc++;
+
+    Object.model.insertLine();
+  }
 
 
   editor.commands.addCommand({
@@ -156,6 +165,16 @@ function Console(parent, screen) {
       }
     }
   );
+
+  editor.commands.addCommand({
+    name: "clearConsole",
+    bindKey: {win: "Ctrl+L", mac: "Cmd+L"},
+    exec: function(editor) {
+      editor.setValue(lineStart, 1);
+      code = null;
+      loc = 0;
+    }
+  });
 
   function consoleToString() {
     var lines = editor.session.doc.$lines;
