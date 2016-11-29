@@ -44,7 +44,7 @@ body {
   color: #95a5a6;
 }
 .ui-action-button > .icon:hover {
-  color: #b4c5cf;
+  color: black;
 }
 .ui-base-list-tree-item {
   border-style: none;

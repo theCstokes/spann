@@ -47,16 +47,12 @@ define([
             id: "fileTree",
             decorator: $ui.ListDecorators.MAXIMIZE_LIST,
             style: $ui.FileListItem,
-            nodeStyle: $ui.FileListItem
+            nodeStyle: $ui.FolderListItem
           }
         ]
       }
     ];
     var manager = new StateManager(screen);
-
-    // dataSocket.onOpen = function (event) {
-    //   dataSocket.send();
-    // }
 
     dataSocket.onMessage = function (event) {
       data = event.data;

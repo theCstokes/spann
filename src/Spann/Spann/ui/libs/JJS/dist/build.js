@@ -754,20 +754,8 @@ function FileListItem(panel, screen) {
   Object.defineProperty(object.model, 'icon', {
     set: function(value) {
       icon.addClass(value);
-      //icon.replaceClass(value);
     }
   });
-
-  //Override  node properties
-  // $ui.register(object, 'expandNode', function() {
-  //   object._private.expanded = true;
-  //   dropArrow.replaceClass('fa-chevron-left close', 'fa-chevron-down');
-  // });
-  //
-  // $ui.register(object, 'colapseNode', function() {
-  //   object._private.expanded = false;
-  //   dropArrow.replaceClass('fa-chevron-down', 'fa-chevron-left closed');
-  // });
 
   Object.defineProperty(object.model, 'target', {
     set: function(value) {
@@ -783,7 +771,7 @@ function FileListItem(panel, screen) {
 
 $ui.addExtension('FileListItem', FileListItem);
 
-function FileListItem(panel, screen) {
+function FolderListItem(panel, screen) {
   var object = $ui.BaseListOrTreeItem(panel, screen);
   object.noMargin = true;
   object.component.addClass('ui-file-list-item');
@@ -837,7 +825,7 @@ function FileListItem(panel, screen) {
   return object;
 }
 
-$ui.addExtension('FolderListItem', FileListItem);
+$ui.addExtension('FolderListItem', FolderListItem);
 
 function Input(parent, screen) {
   //add base component data

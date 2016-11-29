@@ -1,4 +1,4 @@
-function FileListItem(panel, screen) {
+function FolderListItem(panel, screen) {
   var object = $ui.BaseListOrTreeItem(panel, screen);
   object.noMargin = true;
   object.component.addClass('ui-file-list-item');
@@ -52,4 +52,4 @@ function FileListItem(panel, screen) {
   return object;
 }
 
-$ui.addExtension('FolderListItem', FileListItem);
+$ui.addExtension('FolderListItem', FolderListItem);

@@ -27,20 +27,8 @@ function FileListItem(panel, screen) {
   Object.defineProperty(object.model, 'icon', {
     set: function(value) {
       icon.addClass(value);
-      //icon.replaceClass(value);
     }
   });
-
-  //Override  node properties
-  // $ui.register(object, 'expandNode', function() {
-  //   object._private.expanded = true;
-  //   dropArrow.replaceClass('fa-chevron-left close', 'fa-chevron-down');
-  // });
-  //
-  // $ui.register(object, 'colapseNode', function() {
-  //   object._private.expanded = false;
-  //   dropArrow.replaceClass('fa-chevron-down', 'fa-chevron-left closed');
-  // });
 
   Object.defineProperty(object.model, 'target', {
     set: function(value) {
