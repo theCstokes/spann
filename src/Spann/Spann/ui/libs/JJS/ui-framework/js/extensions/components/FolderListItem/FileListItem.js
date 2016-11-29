@@ -52,4 +52,4 @@ function FileListItem(panel, screen) {
   return object;
 }
 
-$ui.addExtension('FileListItem', FileListItem);
+$ui.addExtension('FolderListItem', FileListItem);

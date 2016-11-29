@@ -75,13 +75,13 @@ namespace Spann.PythonTools.Console
             if(c != null)
             {
                 dynamic r = c.Execute(code);
-                c.notify(EOT);
-                // write to stream ("\EOT");
-                // in client, on message recieve "\EOT", print next line with prompt
                 if(r != null)
                 {
                     c.notify(Convert.ToString(r));
                 }
+                c.notify(EOT);
+                // write to stream ("\EOT");
+                // in client, on message receive "\EOT", print next line with prompt
             }
         }
 

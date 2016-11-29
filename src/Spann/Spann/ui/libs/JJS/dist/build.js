@@ -837,7 +837,7 @@ function FileListItem(panel, screen) {
   return object;
 }
 
-$ui.addExtension('FileListItem', FileListItem);
+$ui.addExtension('FolderListItem', FileListItem);
 
 function Input(parent, screen) {
   //add base component data
