@@ -75,7 +75,7 @@ function Console(parent, screen) {
           object._private.onCommandRun(code);
 
           codeHistIndex = -1;
-          if (!$utils.isNullOrWhitespace(code)) codeHist.push(code);
+          if (!$utils.isNullOrWhitespace(code) && loc == 0) codeHist.push(code);
           if (codeHist.length >= MAX_HIST) codeHist.pop();
 
           code = null;

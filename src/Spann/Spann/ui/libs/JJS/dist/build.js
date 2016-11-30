@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-29 */
+/*! spann - v1.0.0 - 2016-11-30 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -560,7 +560,7 @@ function Console(parent, screen) {
           object._private.onCommandRun(code);
 
           codeHistIndex = -1;
-          if (!$utils.isNullOrWhitespace(code)) codeHist.push(code);
+          if (!$utils.isNullOrWhitespace(code) && loc == 0) codeHist.push(code);
           if (codeHist.length >= MAX_HIST) codeHist.pop();
 
           code = null;
