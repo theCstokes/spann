@@ -33,7 +33,6 @@ define([
           \
           .grail:hover {\
             transform: translate(10px, -5px) rotate(20deg);\
-            width: 15%;\
           }\
           </style>\
           <div class='welcome' style='background: #34495e; color: white;'>\
@@ -45,7 +44,6 @@ define([
           Spann is your goto application for editing and executing python code on the web. The spann\
           IDE provides everyone from students, teachers, to professional developers with the tools they need to\
           write what ever python code they want, where ever they want.\
-          <br><br>\
           Being a web application, Spann functions exactly the same on a mobile tablet as it would on a desktop computer.\
           <br><br>\
           The best part, we take care of\
