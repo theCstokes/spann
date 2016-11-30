@@ -560,13 +560,11 @@ function Console(parent, screen) {
           object._private.onCommandRun(code);
 
           codeHistIndex = -1;
-          if (!$utils.isNullOrWhitespace(code) && loc == 0) codeHist.push(code);
+          if (!$utils.isNullOrWhitespace(lastLine)) codeHist.push(lastLine);
           if (codeHist.length >= MAX_HIST) codeHist.pop();
 
           code = null;
           loc = 0;
-
-          console.log(codeHist);
         }
       }
     }
@@ -600,6 +598,9 @@ function Console(parent, screen) {
       code += lastLine + lineSeparater;
 
     loc++;
+
+    if (!$utils.isNullOrWhitespace(lastLine)) codeHist.push(lastLine);
+    if (codeHist.length >= MAX_HIST) codeHist.pop();
 
     Object.model.insertLine();
   }
