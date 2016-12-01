@@ -1,89 +1,53 @@
 define([
-  'Screen', 'App/screens/Home/dialog_Demo', 'App/screens/Home/dialog_Menu'
-], function(Screen, dialog_Demo, dialog_Menu) {
+  'Screen', 'App/screens/Home/dialog_Demo', 'App/screens/Home/dialog_Menu',  'BaseContentScreen'
+], function(Screen, dialog_Demo, dialog_Menu, BaseContentScreen) {
   return function() {
     var socket;
-    var screen = new Screen();
 
+    var screen = new BaseContentScreen();
     screen.content = [
       {
-        component: $ui.Panel,
-        // showFooterBar: false,
-        topDock: [
-          {
-            component: $ui.Label,
-            caption: 'Account',
-            theme: 'x'
-          }
-        ],
+        component: $ui.Group,
         content: [
           {
-            component: $ui.Flow,
-            content: [
+            component: $ui.ColumnLayout,
+            rightToLeft: false,
+            columns: [
               {
-                component: $ui.Label,
-                caption: 'Old password',
-                theme: 'x'
-              },
-              {
-                component: $ui.Input,
-                hint: 'password',
-                id: 'old_pass'
+                component: $ui.Column,
+                width: '120px',
+                content: [
+                  {
+                    component: $ui.Input,
+                    hint: 'Old Password',
+                    type: 'password',
+                    id: 'old_pass'
+                  },
+                  {
+                    component: $ui.Input,
+                    hint: 'New Password',
+                    type: 'password',
+                    id: 'new_pass'
+                  },
+                  {
+                    component: $ui.Input,
+                    hint: 'Confirm New Password',
+                    type: 'password',
+                    id: 'new_pass_confirm'
+                  }
+                ]
               }
             ]
-          },
-          {
-            component: $ui.Flow,
-            content: [
-              {
-                component: $ui.Label,
-                caption: 'New password',
-                theme: 'x'
-              },
-              {
-                component: $ui.Input,
-                hint: 'password',
-                id: 'new_pass'
-              }
-            ]
-          },
-          {
-            component: $ui.Flow,
-            content: [
-              {
-                component: $ui.Label,
-                caption: 'New password',
-                theme: 'x'
-              },
-              {
-                component: $ui.Input,
-                hint: 'password',
-                id: 'new_pass_confirm'
-              }
-            ]
-          },
-          {
-            component: $ui.Button,
-            caption: 'Update',
-            onClick: function(event) {
-              console.log('update setting');
-            }
-          }
+          }          
         ]
       }
     ];
-
-    screen.registerEvent('show', function() {
-      console.log(this);
-      socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
-      socket.onmessage = function (event) {
-        console.log(event);
-        screen.model.ce.insertLine(event.data);
+    screen.topDock = [
+      {
+        component: $ui.Label,
+        caption: "Account",
       }
-      // socket.onopen = function (event) {
-      //   socket.send("print 123");
-      // }
-    });
+    ]
 
     return screen;
   }
