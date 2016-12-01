@@ -11,7 +11,7 @@ define([
           component: $ui.Button,
           id: "saveButton",
           caption: 'Save',
-          icon: 'fa-times',
+          icon: 'fa-check',
           onClick: function (event) {
             console.log(event);
             event.target.screen.trigger("saveRequest", {}, function(event) {
@@ -23,7 +23,7 @@ define([
           component: $ui.Button,
           id: "cancelButton",
           caption: "Cancel",
-          icon: 'fa-file',
+          icon: 'fa-times',
           onClick: function (event) {
             console.log(event);
             $ui.frame.reloadSelected();
