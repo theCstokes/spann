@@ -13,8 +13,14 @@ using System.Web;
 
 namespace Spann.Core.DomainModel.DataTransferObjects.Python
 {
+    /// <summary>
+    /// Python project domain transfer object.
+    /// </summary>
     public class PythonProjectDTO : BaseDTO<PythonProjectDTO, PythonProjectDM>
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         #region Public Constructor(s).
         public PythonProjectDTO() : base()
         {
@@ -22,13 +28,25 @@ namespace Spann.Core.DomainModel.DataTransferObjects.Python
         #endregion
 
         #region Public Member(s).
+        /// <summary>
+        /// ID property.
+        /// </summary>
         [IDColumn]
         public override int ID { get; set; }
 
+        /// <summary>
+        /// Name property.
+        /// </summary>
         public string Name { get; set; }
 
-        public int? StartFile { get; set; }
+        /// <summary>
+        /// Start file property (start file of project).
+        /// </summary>
+        public string StartFileName { get; set; }
 
+        /// <summary>
+        /// Property for files in the project.
+        /// </summary>
         [JsonIgnore]
         public List<PythonFileDTO> Files
         {
@@ -42,6 +60,10 @@ namespace Spann.Core.DomainModel.DataTransferObjects.Python
             }
         }
 
+        /// <summary>
+        /// Create a data model of this.
+        /// </summary>
+        /// <returns>Copy the data of this into a python project data model.</returns>
         public override PythonProjectDM Map()
         {
             PythonProjectDM dm = base.Map();
@@ -49,7 +71,7 @@ namespace Spann.Core.DomainModel.DataTransferObjects.Python
             dm.PatchType = PatchType;
             dm.ID = ID;
             dm.Name = Name;
-            dm.StartFile = StartFile;
+            dm.StartFileName = StartFileName;
             dm.Files = Files.Select(item => item.Map()).ToList();
             return dm;
         }

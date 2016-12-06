@@ -8,22 +8,23 @@ requirejs.config({
     PlayGroup: 'UIPlayGround',
 
     // UI Framework Directory.
-    Framework: 'framework',
+    Framework: 'libs/JJS',
 
     // App Wrappers.
-    Wrappers: 'framework/app-framework/wrappers',
-    Screen: 'framework/app-framework/wrappers/Screen/Screen',
-    StateDialog: 'framework/app-framework/wrappers/StateDialog/StateDialog',
-    DockScreen: 'framework/app-framework/wrappers/DockScreen/DockScreen',
-    ContextMenu: 'framework/app-framework/wrappers/ContextMenu/ContextMenu',
-    FullScreen: 'framework/app-framework/wrappers/FullScreen/FullScreen', // Not need!
-    PartitionScreen: 'framework/app-framework/wrappers/PartitionScreen/PartitionScreen',
-    BaseContentScreen: 'framework/app-framework/wrappers/BaseContentScreen/BaseContentScreen',
-    StateTreeManager: 'framework/app-framework/StateTree/StateTreeManager',
-    Frame: 'framework/app-framework/wrappers/Frame/Frame',
-    BasicFrame: 'framework/app-framework/wrappers/BasicFrame/BasicFrame',
-    Encryption: 'framework/app-framework/encryption',
-    SHA512: 'framework/app-framework/sha512'
+    Wrappers: 'libs/JJS/app-framework/wrappers',
+    Screen: 'libs/JJS/app-framework/wrappers/Screen/Screen',
+    StateDialog: 'libs/JJS/app-framework/wrappers/StateDialog/StateDialog',
+    DockScreen: 'libs/JJS/app-framework/wrappers/DockScreen/DockScreen',
+    ContextMenu: 'libs/JJS/app-framework/wrappers/ContextMenu/ContextMenu',
+    FullScreen: 'libs/JJS/app-framework/wrappers/FullScreen/FullScreen', // Not need!
+    PartitionScreen: 'libs/JJS/app-framework/wrappers/PartitionScreen/PartitionScreen',
+    BaseContentScreen: 'libs/JJS/app-framework/wrappers/BaseContentScreen/BaseContentScreen',
+    StateTreeManager: 'libs/JJS/app-framework/StateTree/StateTreeManager',
+    Frame: 'libs/JJS/app-framework/wrappers/Frame/Frame',
+    BasicFrame: 'libs/JJS/app-framework/wrappers/BasicFrame/BasicFrame',
+    Encryption: 'libs/JJS/app-framework/encryption',
+    SHA512: 'libs/JJS/app-framework/sha512',
+    DataSocket: 'libs/JJS/app-framework/DataSocket'
   },
 
   // Cache Buster.

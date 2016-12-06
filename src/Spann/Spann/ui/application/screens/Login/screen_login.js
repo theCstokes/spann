@@ -162,7 +162,7 @@ define([
       requirejs([
         'App/selectionFrame',
         'App/screens/Home/screenHome'], function (mainFrame, homeScreen) {
-          $ui.frame = mainFrame;
+          $ui.addFrame(mainFrame);
           $ui.push(homeScreen);
         });
     }

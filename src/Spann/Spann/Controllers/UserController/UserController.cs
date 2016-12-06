@@ -13,9 +13,16 @@ using System.Web.Http;
 
 namespace Spann.Controllers
 {
+    /// <summary>
+    /// API Controller for user
+    /// </summary>
     [RoutePrefix("api/v1")]
     public class UserController : ApiController
     {
+        /// <summary>
+        /// Request to get all users
+        /// </summary>
+        /// <returns>Status code and all users.</returns>
         [HttpGet]
         [Route("User")]
         public IHttpActionResult GetAllUsers()
@@ -34,6 +41,11 @@ namespace Spann.Controllers
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, users.Select(item => item.Map()));
         }
 
+        /// <summary>
+        /// Authenticate user's login information.
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>Status code and login result.</returns>
         [HttpPost]
         [Route("User/Login")]
         public IHttpActionResult Login([FromBody] UserDM user)
@@ -46,6 +58,11 @@ namespace Spann.Controllers
             return ResponseUtils.CreateResponse(HttpStatusCode.OK, false);
         }
 
+        /// <summary>
+        /// Create a new user.
+        /// </summary>
+        /// <param name="user">User object</param>
+        /// <returns>Status code and user map.</returns>
         [HttpPost]
         [Route("User/Create")]
         public IHttpActionResult Create([FromBody] UserDM user)

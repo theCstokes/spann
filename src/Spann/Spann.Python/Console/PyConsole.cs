@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools.Console
 {
+    /// <summary>
+    /// Python console.
+    /// </summary>
     public class PyConsole
     {
         #region Private Field(s).
@@ -22,6 +25,10 @@ namespace Spann.PythonTools.Console
         #endregion
 
         #region Public Constructor(s).
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="handler">Handler object.</param>
         public PyConsole(EventHandler<StreamNotificationEvent> handler)
         {
             this.handler = handler;
@@ -41,11 +48,31 @@ namespace Spann.PythonTools.Console
         #endregion
 
         #region Public Member(s).
+        /// <summary>
+        /// Execute code and return a dynamic with results.
+        /// </summary>
+        /// <param name="code">String of code to execute.</param>
+        /// <returns>Dynamic with result.</returns>
         public dynamic Execute(string code)
         {
-            return engine.Execute(code, scope);
+            try
+            {
+                dynamic result = engine.Execute(code, scope);
+                return result;
+            } catch (Exception e)
+            {
+                ExceptionOperations eo = engine.GetService<ExceptionOperations>();
+                string error = eo.FormatException(e).TrimEnd('\n');
+                errorWriter.Write(error);
+                return null;
+            }
+
         }
 
+        /// <summary>
+        /// Notify handler with data.
+        /// </summary>
+        /// <param name="data">Data to notify with.</param>
         public void notify(string data)
         {
             handler(this, new StreamNotificationEvent(data));

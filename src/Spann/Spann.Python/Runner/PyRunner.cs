@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools
 {
+    /// <summary>
+    /// Python runner.
+    /// </summary>
     class PyRunner
     {
         //public static void Launch(UserDM owner, PythonProjectDM projectDM, EventHandler<StreamNotificationEvent> handler)

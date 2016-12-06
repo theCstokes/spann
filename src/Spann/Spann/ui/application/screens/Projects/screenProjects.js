@@ -1,10 +1,12 @@
 define([
   'PartitionScreen',
   'App/screens/Projects/projectTransform',
-  'App/screens/Projects/ProjectDialog/projectDialog'
-], function(PartitionScreen, projectTransform, projectDialog) {
+  'App/screens/Projects/ProjectDialog/projectDialog',
+  'App/screens/Common/ModifiedCloseDialog/modifiedCloseDialog'
+], function(PartitionScreen, projectTransform, projectDialog, modifiedCloseDialog) {
   return function() {
     var screen = new PartitionScreen();
+    screen.editTarget = "App/screens/Projects/ProjectEdit/screenProjectEdit";
     screen.content = [
       {
         component: $ui.Panel,
@@ -17,7 +19,6 @@ define([
             component: $ui.ActionButton,
             icon: 'fa-plus',
             onClick: function() {
-              // $ui.push(projectDialog);
               screen.editMode = true;
             }
           }
@@ -28,14 +29,6 @@ define([
             decorator: $ui.ListDecorators.MAXIMIZE_LIST,
             id: 'projectList',
             style: $ui.FileListItem
-            // items: [
-            //   {
-            //     elementType: $ui.TreeElementType.ITEM,
-            //     name: "Home",
-            //     selected: true,
-            //     icon: "fa-home"
-            //   }
-            // ]
           }
         ]
       }
@@ -46,7 +39,7 @@ define([
 
       this.registerSelectionList(
         components.projectList,
-        $data.sources.PROJECT_API,
+        API.ALL_PROJECT_API,
         projectTransform.uiTransform,
         projectTransform.dataTransform);
       this.render = function(state) {
@@ -57,6 +50,10 @@ define([
     $ui.addEvent('addNewProject', function(data) {
       console.log("Save!!!");
     });
+
+    screen.onModifiedClose = function(target) {
+      $ui.push(modifiedCloseDialog, target);
+    }
 
     return screen;
   }

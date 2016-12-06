@@ -5,15 +5,18 @@ using System.Web;
 
 namespace Spann
 {
+    /// <summary>
+    /// Storage and Retrieval of test results.
+    /// </summary>
     public class ServerResult
     {
         private List<Exception> exceptionResults;
 
         private List<KeyValuePair<string, bool>> testResults;
-        // ^
-        // struct of key value pairs
-        // List<myStruct> testResults;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ServerResult()
         {
             exceptionResults = new List<Exception>();
@@ -32,7 +35,7 @@ namespace Spann
         /// <summary>
         /// Get all exceptions
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of all exceptions</returns>
         public List<Exception> GetAllExceptions()
         {
             return exceptionResults;
@@ -41,18 +44,18 @@ namespace Spann
         /// <summary>
         /// Get all results (bool)
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of all results (key value pairs)</returns>
         public List<KeyValuePair<string, bool>> GetAllResults()
         {
             return new List<KeyValuePair<string, bool>>(testResults);
         }
 
         /// <summary>
-        /// 
+        /// Perform a test on a given function and potentially store result based on test.
         /// </summary>
-        /// <param name="testFunction"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="TestFunction">Test function</param>
+        /// <param name="name">name of result</param>
+        /// <returns>Result of test function</returns>
         public bool Test(Func<bool> TestFunction, String name = null)
         {
             /*

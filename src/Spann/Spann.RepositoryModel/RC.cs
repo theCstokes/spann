@@ -13,11 +13,8 @@ namespace Spann.RepositoryModel
     /// <summary>
     /// Static Data Repository Models.
     /// </summary>
-    public class RC
+    public partial class RC
     {
-        private static Dictionary<Type, object> ManagerMap = new Dictionary<Type, object>();
-        private static Dictionary<Type, Type> TypeMap = new Dictionary<Type, Type>();
-
         public static DefaultRepositoryManager<MessageDM> MessageManager = 
             Register(typeof(MessageDM), new DefaultRepositoryManager<MessageDM>());
 
@@ -29,22 +26,5 @@ namespace Spann.RepositoryModel
 
         public static PatchRepositoryManager<PythonProjectDM> PythonProjectManager =
             Register(typeof(PythonProjectDM), new PatchRepositoryManager<PythonProjectDM>());
-
-        private static TSource Register<TSource>(Type t, TSource value)
-        {
-            ManagerMap[t] = value;
-            TypeMap[t] = value.GetType();
-            return value;
-        }
-
-        public static object GetManager(Type t)
-        {
-            return ManagerMap[t];
-        }
-
-        public static Type GetManagerType(Type t)
-        {
-            return TypeMap[t];
-        }
     }
 }

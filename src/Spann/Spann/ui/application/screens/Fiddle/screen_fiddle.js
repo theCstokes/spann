@@ -1,6 +1,6 @@
 define([
   'Screen',
-  'App/screens/Fiddle/dockScreen_Output'
+  'App/screens/Common/dockScreen_Output'
 ], function (Screen, dockScreen_Output) {
   return function () {
     var socket;
