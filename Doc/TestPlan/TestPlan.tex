@@ -70,9 +70,22 @@ end C\# code and SQL queries, as well as the API responses from the server.
 \toprule
 \textbf{Abbreviation} & \textbf{Definition} \\
 \midrule
-IDE & Application Development Environment\\
-API & Application Programming Interface\\
-UI & User Interface\\
+  IDE & Application Development Environment\\
+  API & Application Programming Interface\\
+  UI & User Interface\\
+  C\# & C Sharp, A object oriented programming language\\
+  SQL & Standard Query Language\\
+  CSS & Cascading Style Sheets\\
+  LESS & A styling language that transpiles into CSS\\
+  NUnit & Unit testing framework for C\#\\
+  NodeJS & JavaScript runtime based on the V8 engine\\
+  Postman & A API testing web application for Chrome\\
+  HTML & Hyper Text Markup Language\\
+  DM & Domain Models\\
+  DTO & Domain Transfer Object\\
+  IronPython & A Python runtime for .NET\\
+  RequireJS & A NodeJS module for JavaScript dependency handling\\
+  AMD & Asynchronous module definition\\
 \bottomrule
 \end{tabularx}
 
@@ -103,6 +116,8 @@ For the front end we will be using jasmine (a NodeJS module) for unit testing
 the JavaScript UI components.
 For the server API we will be using postman (a chrome web application).
 
+For code coverage, visual studio's built in functionality will be used.
+
 \subsection{Testing Schedule}
 		
 \href{../ProjectSchedule/schedule.png}{See Gantt Chart}
@@ -115,33 +130,48 @@ For the server API we will be using postman (a chrome web application).
 
   \item{SHA512\\}
 
-  Type: 
+  Type: Functional, Dynamic
 
-  Input: UI data objects
+  Input: UI data objects with a string to be hashed.
 
-  Output: UI response objects
+  Output: UI response objects with hashed string.
 
-  Description:
+  Description: This test will ensure the SHA512 module return the correct
+    hash for a corresponding string.
+
+  How test will be performed: The test will be written and tested using
+    Jasmine. The expected results will be precomputed using a third party
+    application that hashes a string using SHA512.
 
   \item{Encryption utils\\}
 
-  Type: 
+  Type: Functional, Dynamic
 
-  Input: UI data objects
+  Input: UI data objects of a string and a salt.
 
-  Output: UI response objects
+  Output: UI response objects with the correct hash
 
-  Description:
+  Description: This test will ensure the encryption module performs the
+    hashing correctly given a string and a salt.
+
+  How test will be performed: The test will be written and tested using
+    Jasmine. The expected results will be precomputed using a third party
+    application that hashes a string using SHA512 along with a given salt.
 
   \item{Login Screen\\}
 
-  Type: Functional
+  Type: Functional, Dynamic
 
-  Input: 
+  Input: User credential object.
 
-  Output:
+  Output: Indication of whether authentication was successful or not.
 
-  Description:
+  Description: This will will ensure that the system performs the expected
+    actions upon successful authentication and the expected actions when
+    authentication fails.
+
+  How test will be performed: The test will be written and tested using
+    Jasmine.
 
 \end{enumerate}
 
@@ -151,7 +181,11 @@ For the server API we will be using postman (a chrome web application).
 
 \item{Invalid Requests\\}
 
-Type: Functional
+Type: Functional, Dynamic
+
+Input: Invalid user authentication request, invalid file/project request.
+
+Output: Response from server indicating invalid request has been made.
 					
 Description: This test will ensure the system is robust and does not break
 if an invalid request is made. An example of an invalid request would be a
@@ -161,26 +195,17 @@ does not use multiple html pages, there is no need to test invalid urls.
 How test will be performed: This test will be carried out using the Postman
 application and a test file written for the Postman application.
 
-\item{Login/Authentication\\}
-
-Type: Dynamic
-					
-Description: This test will ensure the application is handling user login,
-password, username, and authentication in general, correctly.
-
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application.
-					
-\end{enumerate}
-
-
 \subsubsection{Back End C\# Server}
 
 \begin{enumerate}
 
 \item{SQL Queries\\}
 
-Type: Functional
+Type: Functional, Dynamic
+
+Input: Database request object.
+
+Output: SQL query corresponding to the request.
 					
 Description: This test will ensure the server generates the correct database
 queries once it has received a request from the front end via a web socket.
@@ -190,7 +215,7 @@ case written in C\#.
 
 \item{Domain Model Based Tests\\}
 
-Type: Fucntional
+Type: Fucntional, Dynamic
 
 Desceription: Test the base logic that all DMs extend from.
 
@@ -214,6 +239,11 @@ How test will be performed: Nunit
 
 Type: Manual
 
+Input: Mouse inputs for navigating the application and keyboard for any textual
+input for the purposes of seeing text/code.
+
+Output: Visual output of the application rendered in the browser.
+
 Description: The purpose of this test will be to manually to inspect the application to
 discover visual bug, artifacts, and any other UI imperfections.
 
@@ -225,12 +255,34 @@ computer.
 
 Type: Manual
 
+Input: User input using mouse clicks and keyboard input.
+
+Output: Qualitative observation of the performance of the UI components of the
+system.
+
 Description: The purpose of this test is to ensure the application's UI
 is fast and responsive. This will help identify any UI performance issues.
 
 How test will be performed: This will also be done manually since it would
 be very difficult to programmatically test.
 
+\item{User account security\\}
+
+Type: Functional, Dynamic
+
+Input: Set of correct user credentials and a set of incorrect user credentials.
+
+Output: Successful authentication with correct credentials and no
+    authentication with incorrect credentials.
+					
+Description: This test will be used to check if the login/user authentication
+    implementation is functioning correctly and allows user's to access the
+    application when they supply the correct credentials and does not allow
+    users when they fail to supply the correct credentials.
+					
+
+How test will be performed: This test will be written and tested using Jasmine.
+				
 \end{enumerate}
 
 \section{Tests for Proof of Concept}
@@ -242,6 +294,11 @@ be very difficult to programmatically test.
 \item{UI performance\\}
 
 Type: Manual
+
+Input: User input using mouse clicks and keyboard input.
+
+Output: Qualitative observation of the performance of the UI components of the
+system.
 					
 Description: This test will help the developers see if the current design of
 the proof of concept provides the performance required in the final
@@ -252,32 +309,18 @@ to automate it.
 
 \end{enumerate}
 
-\subsection{Server API}
-
-MOVE TO FRONT END
-\begin{enumerate}
-
-\item{User account security\\}
-
-Type: Functional
-					
-Description: This test will be used to check if the current implementation of
-the user authentication is sufficiently secure for the final implementation.
-					
-How test will be performed: This test will be performed using the Postman web
-application, as well as, using common manual exploitation techniques such as
-session hijacking.
-				
-
-\end{enumerate}
-
 \subsection{Back end C\# server}
 
 \begin{enumerate}
 
 \item{Python Execution\\}
 
-Type: Functional
+Type: Functional, Dynamic
+
+Input: String of valid python code and a string of invalid python code.
+
+Output: Expected result of the valid code and expected exceptions of the
+    invalid code.
 					
 Description: The purpose of this test is to ensure the server is able to
 receive python code and execute the code using IronPython on the server system.
@@ -335,8 +378,29 @@ them to be tested.
 
 		
 \subsection{Unit testing of output files}		
-N/A
+There are no files output by the application.
 
+\subsection{Usability Survey Questions}
+\begin{enumerate}
+  \item How would you rate the usability of the application's navigation on a
+    scale of 1-5?
+  \item How would you rate the usability of the application's editor on a scale
+    of 1-5?
+  \item How would you rate the usability of the application's console on a
+    scale of 1-5?
+  \item How would you rate the responsiveness of the application on a scale of
+    1-5, with 5 begin the most responsive?
+  \item How would you rate the usability of the application's project
+    management features on a scale of 1-5?
+  \item How would you rate the ease of use of the application on a scale of
+    1-5?
+  \item How would you rate the usability of the application for small pieces of
+    code or small project one a scale of 1-5?
+  \item How would you rate the usability of the application for medium sized
+    pieces of code or medium sized project one a scale of 1-5?
+  \item How would you rate the usability of the application for large sized
+    pieces of code or large sized project one a scale of 1-5?
+\end{enumerate}
 
 \bibliographystyle{plainnat}
 
