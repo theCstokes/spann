@@ -17,6 +17,14 @@ function build() {
     }
   });
 
+  Object.defineProperty(object, 'isEOT', {
+    value: function (item) {
+      if (item === undefined || typeof item === 'undefined' || item == null) return false;
+      if (typeof item !== 'string') return false;
+      return item === String.raw`\EOT`;
+    }
+  });
+
   Object.defineProperty(object, 'guid', {
     value: function () {
       function s4() {

@@ -10,6 +10,19 @@ function BaseExtension(parent, screen) {
   var component = $ui.create(parent);
   object.component = component;
 
+  object._private.overrideHTML = undefined;
+  Object.defineProperty(object.model, "overrideHTML", {
+    set: function(value) {
+      if(value !== object._private.overrideHTML) {
+        object._private.overrideHTML = value;
+        object.component.innerHTML = value;
+      }
+    },
+    get: function() {
+      return object._private.overrideHTML;
+    }
+  })
+
   object._private.name = undefined;
   Object.defineProperty(object.model, "id", {
     set: function (value) {

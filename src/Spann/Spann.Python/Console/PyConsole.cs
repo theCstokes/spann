@@ -62,7 +62,8 @@ namespace Spann.PythonTools.Console
             } catch (Exception e)
             {
                 ExceptionOperations eo = engine.GetService<ExceptionOperations>();
-                errorWriter.Write(eo.FormatException(e));
+                string error = eo.FormatException(e).TrimEnd('\n');
+                errorWriter.Write(error);
                 return null;
             }
 

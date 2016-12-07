@@ -23,9 +23,10 @@ requirejs.config({
     Frame: 'libs/JJS/app-framework/wrappers/Frame/Frame',
     BasicFrame: 'libs/JJS/app-framework/wrappers/BasicFrame/BasicFrame',
     Encryption: 'libs/JJS/app-framework/encryption',
-    SHA512: 'libs/JJS/app-framework/sha512'
+    SHA512: 'libs/JJS/app-framework/sha512',
+    DataSocket: 'libs/JJS/app-framework/DataSocket'
   },
 
   // Cache Buster.
-  // urlArgs: "v=" + (new Date()).getTime()
+  urlArgs: "v=" + (new Date()).getTime()
 });

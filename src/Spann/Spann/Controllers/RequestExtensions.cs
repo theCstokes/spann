@@ -12,7 +12,7 @@ using System.Web.Http.Controllers;
 namespace Spann.Controllers
 {
     /// <summary>
-    /// Reuqest Extensions class    
+    /// Request Extensions class
     /// </summary>
     public static class RequestExtensions
     {

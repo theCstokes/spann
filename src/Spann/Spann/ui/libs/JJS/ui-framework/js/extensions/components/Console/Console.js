@@ -9,14 +9,25 @@ function Console(parent, screen) {
 
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
   var editor = new ace.edit(inputConsole.id);
+  editor.set
   editor.setOptions({
     enableBasicAutocompletion: false,
     enableLiveAutocompletion: false
   });
 
+  var code = null;
+  var loc = 0;
+
+  var MAX_HIST = 1000;
+
+  var codeHist = [];
+  var codeHistIndex = 0;
+
   var text = "Python Started.";
   var lineSeparater = "\n";
   var lineStart = ">>> ";
+  var promptLength = 4;
+
   text += lineSeparater + lineStart;
   editor.setValue(text, 1);
 
@@ -27,8 +38,14 @@ function Console(parent, screen) {
         var lines = editor.session.doc.$lines;
         var endIndex = lines.length - 1;
         var lastLine = lines[endIndex].replace(lineStart, "");
+
+        if (lastLine[lastLine.length-1] == ':') {
+          multiLineCallback(editor);
+          return;
+        }
+
         text = lines.reduce(function(result, item, idx) {
-          if(idx >= endIndex) {
+          if(idx >= endIndex - loc) {
             // result += lineSeparater;
             return result;
           }
@@ -36,7 +53,12 @@ function Console(parent, screen) {
           return result;
         }, "");
 
-        if(lastLine === "execute order 66") {
+        if (code == null) 
+          code = lines[endIndex].replace(lineStart, "");
+        else
+          code += lines[endIndex].replace(lineStart, "");
+
+        if(code === "execute order 66") {
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function(){
            if(xmlhttp.readyState == 4){
@@ -47,38 +69,142 @@ function Console(parent, screen) {
          xmlhttp.open("GET", "data.txt", true);
          xmlhttp.send();
         } else if(object._private.onCommandRun !== undefined) {
-          text += lineStart + lastLine + lineSeparater + lineStart;
+          //text += lineStart + code + lineSeparater + lineStart;
+          text += lineStart + code + lineSeparater;
           editor.setValue(text, 1);
-          object._private.onCommandRun(lastLine);
+          object._private.onCommandRun(code);
+
+          codeHistIndex = -1;
+          if (!$utils.isNullOrWhitespace(lastLine)) codeHist.push(lastLine);
+          if (codeHist.length >= MAX_HIST) codeHist.pop();
+
+          code = null;
+          loc = 0;
         }
       }
+    }
+  );
+
+  editor.commands.addCommand({
+      name: "multiLine",
+      bindKey: {win: "Shift-Enter", mac: "Shift-Enter"},
+      exec: function(editor) {
+        multiLineCallback(editor);
+      }
+    }
+  );
+
+  function multiLineCallback(editor) {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
+    var lastLine = lines[endIndex].replace(lineStart, "");
+    text = lines.reduce(function(result, item, idx) {
+      if(idx >= endIndex) {
+        // result += lineSeparater;
+        return result;
+      }
+      result += item + lineSeparater;
+      return result;
+    }, "");
+
+    if (code == null)
+      code = lastLine + lineSeparater;
+    else
+      code += lastLine + lineSeparater;
+
+    loc++;
+
+    if (!$utils.isNullOrWhitespace(lastLine)) codeHist.push(lastLine);
+    if (codeHist.length >= MAX_HIST) codeHist.pop();
+
+    Object.model.insertLine();
+  }
+
+
+  editor.commands.addCommand({
+      name: "codeHistoryPrev",
+      bindKey: {win: "Up", mac: "Up"},
+      exec: function(editor) {
+        if (codeHistIndex < codeHist.length - 1)
+          codeHistIndex++;
+        else if (codeHist.length == 0)
+          codeHistIndex = -1;
+
+        text = consoleToString();
+
+        var line = codeHist[codeHist.length - codeHistIndex - 1];
+        if (codeHistIndex != -1)
+          editor.setValue(text + lineStart + line, 1);
+
+        console.log("hist index =", codeHistIndex);
+      }
+    }
+  );
+
+  editor.commands.addCommand({
+      name: "codeHistoryNext",
+      bindKey: {win: "Down", mac: "Down"},
+      exec: function(editor) {
+        var prevIndex = codeHistIndex;
+
+        if (codeHistIndex > -1)
+          codeHistIndex--;
+        else if (codeHist.length == 0)
+          codeHistIndex = -1;
+
+        text = consoleToString();
+
+        var line = codeHist[codeHist.length - codeHistIndex - 1];
+        if (codeHistIndex == -1 && prevIndex != -1) {
+          editor.setValue(text + lineStart, 1);
+        } else if (codeHistIndex != -1) {
+          editor.setValue(text + lineStart + line, 1);
+        }
+
+        console.log("hist index =", codeHistIndex);
+        
+      }
+    }
+  );
+
+  editor.commands.addCommand({
+    name: "clearConsole",
+    bindKey: {win: "Ctrl+L", mac: "Cmd+L"},
+    exec: function(editor) {
+      editor.setValue(lineStart, 1);
+      code = null;
+      loc = 0;
+    }
   });
+
+  function consoleToString() {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
+    return lines.reduce(function(result, item, idx) {
+      if(idx >= endIndex - loc) {
+        return result;
+      }
+      result += item + lineSeparater;
+      return result;
+    }, "");
+  }
 
   var textReset = false;
+ 
+  editor.on("changeSelection", function(event) {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
 
-  editor.on("input", function(event) {
-  	  // temporary fix for issue #4
+    var cursor = editor.selection.getCursor();
+    if (cursor.row < endIndex) {
+      console.log('readonly true');
+      editor.setReadOnly(true);
+    } else if (cursor.column < promptLength) {
       editor.navigateRight(1);
-  });
-
-  editor.on("change", function(event) {
-      console.log("Change!!!");
-      console.log(event);
-      if(textReset) {
-        textReset = false;
-        return;
-      }
-      var linesLenght = editor.session.doc.$lines.length;
-      if(event.end.row === linesLenght - 1 && event.start.column >= 4) {
-        text = editor.getValue();
-      } else {
-        if(text !== editor.getValue()) {
-          textReset = true;
-          editor.setValue(text, 1);
-        } else {
-          textReset = false;
-        }
-      }
+    } else if (editor.getReadOnly()) {
+      console.log('readonly flase')
+      editor.setReadOnly(false);
+    }
   });
 
   editor.setTheme("ace/theme/eclipse");
@@ -113,6 +239,13 @@ function Console(parent, screen) {
     }
   });
 
+  Object.defineProperty(object.model, 'insertPrompt', {
+    value: function() {
+      text += lineStart;
+      editor.setValue(text, 1);
+    }
+  });
+
   Object.defineProperty(object.model, 'insertLine', {
     value: function(value) {
       var lines = editor.session.doc.$lines;
@@ -126,7 +259,7 @@ function Console(parent, screen) {
         result += item + lineSeparater;
         return result;
       }, "");
-      text += value + lineSeparater + lastLine + lineSeparater + lineStart;
+      text += value + lineSeparater + lastLine;
       editor.setValue(text, 1);
     }
   });

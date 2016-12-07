@@ -44,8 +44,8 @@ namespace Spann.Core.DomainModel.Python
         /// <summary>
         /// Property for start file.
         /// </summary>
-        [IDColumn("StartFileID")]
-        public int? StartFile { get; set; }
+        [DataColumn("StartFileName")]
+        public string StartFileName { get; set; }
 
         /// <summary>
         /// Property for files.
@@ -64,7 +64,7 @@ namespace Spann.Core.DomainModel.Python
             {
                 ID = ID,
                 Name = Name,
-                StartFile = StartFile,
+                StartFileName = StartFileName,
                 
             };
             p.Files = Files.Select(item => item.Map()).ToList();

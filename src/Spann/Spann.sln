@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.Core.DomainModel", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spann.PythonTools", "Spann.Python\Spann.PythonTools.csproj", "{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Spann.Core.DomainModel", "Test.Spann.Core.DomainModel\Test.Spann.Core.DomainModel.csproj", "{0E7BC718-DEB7-4871-9FDD-2553DFA64A45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3FF0ED1-9074-4B75-99DA-77BC79D86D23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E7BC718-DEB7-4871-9FDD-2553DFA64A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E7BC718-DEB7-4871-9FDD-2553DFA64A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E7BC718-DEB7-4871-9FDD-2553DFA64A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E7BC718-DEB7-4871-9FDD-2553DFA64A45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

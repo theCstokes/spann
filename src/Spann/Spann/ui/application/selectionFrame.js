@@ -22,7 +22,7 @@ define([
           {
             name: "Editor",
             icon: "fa-edit",
-            target: "App/screens/Home/screenEditor"
+            target: "App/screens/Fiddle/screen_fiddle"
           },
           {
             name: "Console",
@@ -42,14 +42,14 @@ define([
       }
     ];
 
-    frame.attachTop = [
-      {
-        component: $ui.Panel,
-        showTopDock: false,
-        content: [
-        ]
-      }
-    ];
+    // frame.attachTop = [
+    //   {
+    //     component: $ui.Panel,
+    //     showTopDock: false,
+    //     content: [
+    //     ]
+    //   }
+    // ];
 
     return frame;
   }

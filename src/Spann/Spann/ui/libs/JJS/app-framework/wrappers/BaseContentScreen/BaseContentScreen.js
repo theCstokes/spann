@@ -9,8 +9,9 @@ define([
       var bottomActions = [
         {
           component: $ui.Button,
+          id: "saveButton",
           caption: 'Save',
-          icon: 'fa-times',
+          icon: 'fa-check',
           onClick: function (event) {
             console.log(event);
             event.target.screen.trigger("saveRequest", {}, function(event) {
@@ -20,8 +21,9 @@ define([
         },
         {
           component: $ui.Button,
+          id: "cancelButton",
           caption: "Cancel",
-          icon: 'fa-file',
+          icon: 'fa-times',
           onClick: function (event) {
             console.log(event);
             $ui.frame.reloadSelected();
@@ -34,12 +36,7 @@ define([
         {
           component: $ui.Panel,
           id: "NewUserPanel",
-          header: [
-            {
-              component: $ui.Label,
-              caption: object._private.name
-            }
-          ],
+          topDock: object._private.topDock,
           content: content,
           bottomDock: [
             {
@@ -69,6 +66,13 @@ define([
     Object.defineProperty(object, 'bottomActions', {
       set: function (item) {
         object._private.bottomActions = item;
+      }
+    });
+
+    object._private.topDock = [];
+    Object.defineProperty(object, 'topDock', {
+      set: function (item) {
+        object._private.topDock = item;
       }
     });
 

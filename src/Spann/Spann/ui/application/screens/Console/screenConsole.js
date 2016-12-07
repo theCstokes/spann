@@ -8,20 +8,7 @@ define([
     screen.content = [
       {
         component: $ui.Panel,
-        // showFooterBar: false,
         topDock: [
-          {
-            component: $ui.ActionButton,
-            icon: 'fa-bars',
-            onClick: function(event) {
-              console.log(123);
-              $ui.push(dialog_Menu);
-            }
-          },
-          {
-            component: $ui.ActionButton,
-            icon: 'fa-question-circle-o',
-          },
           {
             component: $ui.Label,
             caption: 'Console',
@@ -44,7 +31,10 @@ define([
       console.log(this);
       socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
       socket.onmessage = function (event) {
-        if (!$utils.isNullOrWhitespace(event.data)) {
+        if ($utils.isEOT(event.data)) {
+          console.log(event);
+          screen.model.ce.insertPrompt();
+        } else if (!$utils.isNullOrWhitespace(event.data)) {
           console.log(event);
           screen.model.ce.insertLine(event.data);
         }

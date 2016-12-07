@@ -1,4 +1,4 @@
-/*! spann - v1.0.0 - 2016-11-16 */
+/*! spann - v1.0.0 - 2016-12-01 */
 function BaseComponent(parent, screen) {
   var object = $ui.BaseExtension(parent, screen);
   object.component.addClass('ui-base-component');
@@ -39,6 +39,19 @@ function BaseExtension(parent, screen) {
 
   var component = $ui.create(parent);
   object.component = component;
+
+  object._private.overrideHTML = undefined;
+  Object.defineProperty(object.model, "overrideHTML", {
+    set: function(value) {
+      if(value !== object._private.overrideHTML) {
+        object._private.overrideHTML = value;
+        object.component.innerHTML = value;
+      }
+    },
+    get: function() {
+      return object._private.overrideHTML;
+    }
+  })
 
   object._private.name = undefined;
   Object.defineProperty(object.model, "id", {
@@ -216,6 +229,25 @@ function UIDecorators(object) {
     });
   } 
 
+  object._private.enabled = true;
+  function enabled(obj) {
+    Object.defineProperty(object.model, 'enabled', {
+      set: function(value) {
+        if(value !== object._private.enabled) {
+          if(value) {
+            obj.removeClass('disabled');
+          } else {
+            obj.addClass('disabled');
+          }
+          object._private.enabled = value;
+        }
+      },
+      get: function() {
+        return object._private.enabled;
+      }
+    });
+  }
+
   function modified() {
     object._private.modified = false;
     Object.defineProperty(object.model, 'modified', {
@@ -239,7 +271,8 @@ function UIDecorators(object) {
     string: string,
     icon: icon,
     size: size,
-    modified
+    enabled: enabled,
+    modified: modified
   }
 }
 
@@ -381,6 +414,7 @@ function Button(parent, screen) {
   dec.string('caption', object.component);
   dec.icon('icon', object.component);
   dec.size(object.component);
+  dec.enabled(object.component);
 
   Object.defineProperty(object.model, "onClick", {
     set: function(callback) {
@@ -460,14 +494,25 @@ function Console(parent, screen) {
 
   ace.require("libs/ace/src-min-noconflict/ext-language_tools.js");
   var editor = new ace.edit(inputConsole.id);
+  editor.set
   editor.setOptions({
     enableBasicAutocompletion: false,
     enableLiveAutocompletion: false
   });
 
+  var code = null;
+  var loc = 0;
+
+  var MAX_HIST = 1000;
+
+  var codeHist = [];
+  var codeHistIndex = 0;
+
   var text = "Python Started.";
   var lineSeparater = "\n";
   var lineStart = ">>> ";
+  var promptLength = 4;
+
   text += lineSeparater + lineStart;
   editor.setValue(text, 1);
 
@@ -478,8 +523,14 @@ function Console(parent, screen) {
         var lines = editor.session.doc.$lines;
         var endIndex = lines.length - 1;
         var lastLine = lines[endIndex].replace(lineStart, "");
+
+        if (lastLine[lastLine.length-1] == ':') {
+          multiLineCallback(editor);
+          return;
+        }
+
         text = lines.reduce(function(result, item, idx) {
-          if(idx >= endIndex) {
+          if(idx >= endIndex - loc) {
             // result += lineSeparater;
             return result;
           }
@@ -487,7 +538,12 @@ function Console(parent, screen) {
           return result;
         }, "");
 
-        if(lastLine === "execute order 66") {
+        if (code == null) 
+          code = lines[endIndex].replace(lineStart, "");
+        else
+          code += lines[endIndex].replace(lineStart, "");
+
+        if(code === "execute order 66") {
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.onreadystatechange = function(){
            if(xmlhttp.readyState == 4){
@@ -498,38 +554,142 @@ function Console(parent, screen) {
          xmlhttp.open("GET", "data.txt", true);
          xmlhttp.send();
         } else if(object._private.onCommandRun !== undefined) {
-          text += lineStart + lastLine + lineSeparater + lineStart;
+          //text += lineStart + code + lineSeparater + lineStart;
+          text += lineStart + code + lineSeparater;
           editor.setValue(text, 1);
-          object._private.onCommandRun(lastLine);
+          object._private.onCommandRun(code);
+
+          codeHistIndex = -1;
+          if (!$utils.isNullOrWhitespace(lastLine)) codeHist.push(lastLine);
+          if (codeHist.length >= MAX_HIST) codeHist.pop();
+
+          code = null;
+          loc = 0;
         }
       }
+    }
+  );
+
+  editor.commands.addCommand({
+      name: "multiLine",
+      bindKey: {win: "Shift-Enter", mac: "Shift-Enter"},
+      exec: function(editor) {
+        multiLineCallback(editor);
+      }
+    }
+  );
+
+  function multiLineCallback(editor) {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
+    var lastLine = lines[endIndex].replace(lineStart, "");
+    text = lines.reduce(function(result, item, idx) {
+      if(idx >= endIndex) {
+        // result += lineSeparater;
+        return result;
+      }
+      result += item + lineSeparater;
+      return result;
+    }, "");
+
+    if (code == null)
+      code = lastLine + lineSeparater;
+    else
+      code += lastLine + lineSeparater;
+
+    loc++;
+
+    if (!$utils.isNullOrWhitespace(lastLine)) codeHist.push(lastLine);
+    if (codeHist.length >= MAX_HIST) codeHist.pop();
+
+    Object.model.insertLine();
+  }
+
+
+  editor.commands.addCommand({
+      name: "codeHistoryPrev",
+      bindKey: {win: "Up", mac: "Up"},
+      exec: function(editor) {
+        if (codeHistIndex < codeHist.length - 1)
+          codeHistIndex++;
+        else if (codeHist.length == 0)
+          codeHistIndex = -1;
+
+        text = consoleToString();
+
+        var line = codeHist[codeHist.length - codeHistIndex - 1];
+        if (codeHistIndex != -1)
+          editor.setValue(text + lineStart + line, 1);
+
+        console.log("hist index =", codeHistIndex);
+      }
+    }
+  );
+
+  editor.commands.addCommand({
+      name: "codeHistoryNext",
+      bindKey: {win: "Down", mac: "Down"},
+      exec: function(editor) {
+        var prevIndex = codeHistIndex;
+
+        if (codeHistIndex > -1)
+          codeHistIndex--;
+        else if (codeHist.length == 0)
+          codeHistIndex = -1;
+
+        text = consoleToString();
+
+        var line = codeHist[codeHist.length - codeHistIndex - 1];
+        if (codeHistIndex == -1 && prevIndex != -1) {
+          editor.setValue(text + lineStart, 1);
+        } else if (codeHistIndex != -1) {
+          editor.setValue(text + lineStart + line, 1);
+        }
+
+        console.log("hist index =", codeHistIndex);
+        
+      }
+    }
+  );
+
+  editor.commands.addCommand({
+    name: "clearConsole",
+    bindKey: {win: "Ctrl+L", mac: "Cmd+L"},
+    exec: function(editor) {
+      editor.setValue(lineStart, 1);
+      code = null;
+      loc = 0;
+    }
   });
+
+  function consoleToString() {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
+    return lines.reduce(function(result, item, idx) {
+      if(idx >= endIndex - loc) {
+        return result;
+      }
+      result += item + lineSeparater;
+      return result;
+    }, "");
+  }
 
   var textReset = false;
+ 
+  editor.on("changeSelection", function(event) {
+    var lines = editor.session.doc.$lines;
+    var endIndex = lines.length - 1;
 
-  editor.on("input", function(event) {
-  	  // temporary fix for issue #4
+    var cursor = editor.selection.getCursor();
+    if (cursor.row < endIndex) {
+      console.log('readonly true');
+      editor.setReadOnly(true);
+    } else if (cursor.column < promptLength) {
       editor.navigateRight(1);
-  });
-
-  editor.on("change", function(event) {
-      console.log("Change!!!");
-      console.log(event);
-      if(textReset) {
-        textReset = false;
-        return;
-      }
-      var linesLenght = editor.session.doc.$lines.length;
-      if(event.end.row === linesLenght - 1 && event.start.column >= 4) {
-        text = editor.getValue();
-      } else {
-        if(text !== editor.getValue()) {
-          textReset = true;
-          editor.setValue(text, 1);
-        } else {
-          textReset = false;
-        }
-      }
+    } else if (editor.getReadOnly()) {
+      console.log('readonly flase')
+      editor.setReadOnly(false);
+    }
   });
 
   editor.setTheme("ace/theme/eclipse");
@@ -564,6 +724,13 @@ function Console(parent, screen) {
     }
   });
 
+  Object.defineProperty(object.model, 'insertPrompt', {
+    value: function() {
+      text += lineStart;
+      editor.setValue(text, 1);
+    }
+  });
+
   Object.defineProperty(object.model, 'insertLine', {
     value: function(value) {
       var lines = editor.session.doc.$lines;
@@ -577,7 +744,7 @@ function Console(parent, screen) {
         result += item + lineSeparater;
         return result;
       }, "");
-      text += value + lineSeparater + lastLine + lineSeparater + lineStart;
+      text += value + lineSeparater + lastLine;
       editor.setValue(text, 1);
     }
   });
@@ -677,6 +844,19 @@ function Editor(parent, screen) {
     }
   });
 
+  object._private.readOnly = false;
+  Object.defineProperty(object.model, 'readOnly', {
+    get: function() {
+      return object._private.readOnly;
+    },
+    set: function(value) {
+      if(value !== object._private.readOnly) {
+        object._private.readOnly = value;
+        editor.setReadOnly(value);
+      }
+    }
+  });
+
   object.show = function () {
     console.log("show editor");
     inputEditor.style.height = this.component.parentElement.offsetHeight + "px";
@@ -711,16 +891,6 @@ function FileListItem(panel, screen) {
   var item = $ui.create('div', object.content);
   item.addClass('name');
 
-  // var dropArrow  = $ui.create('i', object.component);
-  // dropArrow.addClass('drop-arrow fa fa-chevron-left closed');
-  // dropArrow.onclick = function() {
-  //   if(object._private.expanded) {
-  //     object.colapseNode();
-  //   } else {
-  //     object.expandNode();
-  //   }
-  // }
-
   Object.defineProperty(object.model, 'name', {
     set: function(value) {
       if(object._private.name != value) {
@@ -736,20 +906,8 @@ function FileListItem(panel, screen) {
   Object.defineProperty(object.model, 'icon', {
     set: function(value) {
       icon.addClass(value);
-      //icon.replaceClass(value);
     }
   });
-
-  //Override  node properties
-  // $ui.register(object, 'expandNode', function() {
-  //   object._private.expanded = true;
-  //   dropArrow.replaceClass('fa-chevron-left close', 'fa-chevron-down');
-  // });
-  //
-  // $ui.register(object, 'colapseNode', function() {
-  //   object._private.expanded = false;
-  //   dropArrow.replaceClass('fa-chevron-down', 'fa-chevron-left closed');
-  // });
 
   Object.defineProperty(object.model, 'target', {
     set: function(value) {
@@ -764,6 +922,62 @@ function FileListItem(panel, screen) {
 }
 
 $ui.addExtension('FileListItem', FileListItem);
+
+function FolderListItem(panel, screen) {
+  var object = $ui.BaseListOrTreeItem(panel, screen);
+  object.noMargin = true;
+  object.component.addClass('ui-file-list-item');
+
+  object.content = $ui.create('div', object.component);
+  object.content.addClass('content');
+
+  var icon = $ui.create('i', object.content);
+  icon.addClass('item-icon fa');
+
+  var item = $ui.create('div', object.content);
+  item.addClass('name');
+
+  Object.defineProperty(object.model, 'name', {
+    set: function(value) {
+      if(object._private.name != value) {
+        object._private.name = value;
+        item.textContent = value;
+      }
+    },
+    get: function() {
+      return object._private.name;
+    }
+  });
+
+  object._private.openIcon = undefined;
+  Object.defineProperty(object.model, 'open-icon', {
+    set: function(value) {
+      icon.addClass(value);
+      //icon.replaceClass(value);
+    }
+  });
+
+  object._private.closedIcon = undefined;
+  Object.defineProperty(object.model, 'closed-icon', {
+    set: function(value) {
+      icon.addClass(value);
+      //icon.replaceClass(value);
+    }
+  });
+
+  Object.defineProperty(object.model, 'target', {
+    set: function(value) {
+      object._private.target = value;
+    },
+    get: function() {
+      return object._private.target;
+    }
+  })
+
+  return object;
+}
+
+$ui.addExtension('FolderListItem', FolderListItem);
 
 function Input(parent, screen) {
   //add base component data
@@ -1784,9 +1998,11 @@ function Frame(parent, screen) {
       if(value !== undefined) {
         topBar.addClass('has-top-bar-content');
         holderContent.removeClass('maximizeV');
+        leftBar.removeClass('maximizeV');
       } else {
         topBar.removeClass('has-top-bar-content');
         holderContent.addClass('maximizeV');
+        leftBar.addClass('maximizeV');
       }
     }
   });

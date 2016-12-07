@@ -32,6 +32,7 @@ define([
                   sourceCode: event.value
                 }
               });
+              $ui.notifyEvent("updateFie", screen.stateManager.getCurrentState().current);
             }
           }
         ]
@@ -41,15 +42,23 @@ define([
 
     screen.registerEvent('show', function (args) {
       var components = this.model;
-      this.render = function (state) {
-        components.editor.value = state.current.sourceCode;
-      }
-      $data.get(API.FILE_API, {
-        id: args.uid
-      },
-      function(data) {
-        console.log(data);
+
+      $ui.addEvent("refreshFile", function () {
+        manager.initialize(args);
       });
+
+      components.fileNameLabel.caption = args.name;
+      this.render = function (state) {
+        var d = new Date();
+        console.log("render right", d.getTime());
+        components.editor.value = state.current.sourceCode;
+
+        if(state.current.sourceCode !== state.original.sourceCode) {
+          components.fileNameLabel.caption = state.current.name + "*";
+        } else {
+          components.fileNameLabel.caption = state.current.name;
+        }
+      }
       manager.initialize(args);
     });
 

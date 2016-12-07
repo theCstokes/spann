@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Spann.PythonTools.Console
 {
+
     /// <summary>
     /// Python console manager.
     /// </summary>
@@ -25,6 +26,14 @@ namespace Spann.PythonTools.Console
             consoles = new Dictionary<Guid, PyConsole>();
         }
         #endregion
+
+        /// <summary>
+        /// End Of Transmission magic string
+        /// </summary>
+        public static string EOT
+        {
+            get { return @"\EOT"; }
+        }
 
         /// <summary>
         /// Register a event handler.
@@ -70,6 +79,9 @@ namespace Spann.PythonTools.Console
                 {
                     c.notify(Convert.ToString(r));
                 }
+                c.notify(EOT);
+                // write to stream ("\EOT");
+                // in client, on message receive "\EOT", print next line with prompt
             }
         }
 

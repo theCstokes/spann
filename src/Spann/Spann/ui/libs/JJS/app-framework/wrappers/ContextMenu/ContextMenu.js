@@ -1,57 +1,53 @@
 define([
   'Wrappers/base/BaseWrapper'
-], function(BaseWrapper) {
+], function (BaseWrapper) {
 
   function StateDialog() {
     var object = new BaseWrapper($ui.ContextMenu);
     object.level = $ui.ScreenLevelEnum.BASE;
     object.blurSiblings = false;
 
-    object.addComponentContainer('content', 'content', function(data) {
+    object.addComponentContainer('content', 'content', function (data) {
       return [{
         component: $ui.Panel,
-        showTopBar: true,
+        showTopDock: false,
         id: "dialogPanel",
-        topDock: [
+        content: [
           {
-            component: $ui.Label,
-            caption: "New File"
-          },
-          {
-            component: $ui.Label,
-            caption: "Cut"
-          },
-          {
-            component: $ui.Label,
-            caption: "Copy"
-          },
-          {
-            component: $ui.Label,
-            caption: "Paste"
-          },
-        ],
-        content: data
+            component: $ui.List,
+            decorator: $ui.ListDecorators.MAXIMIZE_LIST,
+            style: $ui.FileListItem,
+            items: [
+              {
+                name: "Copy"
+                // selected: true,
+                // icon: "fa-home"
+              },
+              {
+                name: "Cut"
+                // icon: "fa-cog",
+              },
+              {
+                name: "Past"
+                // icon: "fa-edit"
+              }
+            ],
+            onClick: function (event) {
+              var target = event.target.model.target;
+              frame.select(target);
+            }
+          }
+        ]
       }]
     });
 
     Object.defineProperty(object, 'isStateControlled', {
-      get: function() {
+      get: function () {
         return this.hasOwnProperty('stateManager');
       }
     });
 
-    object.show = function() {
-      console.log("show!!!!");
-      //this.uiObject.component.offsetHeight
-      // this.uiObject.component.style.height = 1000 + "px";
-      // this.uiObject.component.style.width = 1000 + "px";
-
-      // this.model.dialogPanel.component.style.height = 1000 + "px";
-      // this.model.dialogPanel.component.style.width = 1000 + "px";
-
-      // this.model.dialogPanel.component.style.top = this.uiObject.component.offsetTop + "px";
-      // this.model.dialogPanel.component.style.left = this.uiObject.component.offsetLeft + "px";
-      console.log("show!!!!");
+    object.show = function () {
     }
 
     return object;

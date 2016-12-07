@@ -20,6 +20,7 @@ define([], function () {
       var object = dataTransform(item);
       object.target = "App/screens/Develop/DevelopFile/screenDevelopFileEdit";
       object.elementType = $ui.TreeElementType.ITEM;
+      object.icon = 'fa-code';
       object.data = dataTransform(item);
       return object;
     });

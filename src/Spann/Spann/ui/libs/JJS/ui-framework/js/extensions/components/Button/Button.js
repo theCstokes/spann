@@ -7,6 +7,7 @@ function Button(parent, screen) {
   dec.string('caption', object.component);
   dec.icon('icon', object.component);
   dec.size(object.component);
+  dec.enabled(object.component);
 
   Object.defineProperty(object.model, "onClick", {
     set: function(callback) {

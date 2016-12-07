@@ -1,15 +1,16 @@
 define([
   'DockScreen'
-], function(StateDialog) {
+], function(DockScreen) {
   return function() {
-    var dialog = new StateDialog();
+    var dialog = new DockScreen();
     dialog.alignVertical = $ui.DockLocations.BOTTOM;
     dialog.alignHorizontal = $ui.DockLocations.RIGHT;
     dialog.content = [
       {
         component: $ui.Editor,
         mode: $ui.EditorMode.PYTHON,
-        id: 'outputEditor'
+        id: 'outputEditor',
+        readOnly: true
       }
     ];
 
@@ -23,6 +24,10 @@ define([
     dialog.onClose = function() {
       $ui.notifyEvent("closedOutput");
     }
+    
+    dialog.registerEvent('remove', function() {
+      $ui.notifyEvent("closedOutput");
+    });
 
     $ui.addEvent("updateOutput", function(value) {
       dialog.model.outputEditor.value = String(data);
