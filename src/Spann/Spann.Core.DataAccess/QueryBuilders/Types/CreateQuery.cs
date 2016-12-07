@@ -9,10 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Ament.Test")]
+[assembly: InternalsVisibleTo("Test.Spann.Core.DataAccess.QueryBuilders.Types")]
 namespace Spann.Core.DataAccess.QueryBuilders.Types
 {
-    class CreateQuery : AbstractQueryBuilder
+    internal class CreateQuery : AbstractQueryBuilder
     {
         private const string BASE_QUERY = "INSERT INTO @schemaName.@tableName(@properties) VALUES(@values) RETURNING @schemaName.@tableName.\"ID\"; ";
         private List<String> properties;

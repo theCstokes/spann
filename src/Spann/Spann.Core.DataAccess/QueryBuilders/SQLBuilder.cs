@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("Ament.Test")]
+[assembly: InternalsVisibleTo("Test.Spann.Core.DataAccess")]
 namespace Spann.Core.DataAccess.QueryBuilders
 {
     internal class SQLBuilder

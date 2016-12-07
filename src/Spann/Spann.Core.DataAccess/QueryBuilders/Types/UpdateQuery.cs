@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Test.Spann.Core.DataAccess.QueryBuilders.Types")]
 namespace Spann.Core.DataAccess.QueryBuilders.Types
 {
-    class UpdateQuery : AbstractQueryBuilder
+    internal class UpdateQuery : AbstractQueryBuilder
     {
         private const string BASE_QUERY = "UPDATE @schemaName.@tableName SET @valueMap @whereClause;";
         private Dictionary<string, string> propertyData;
