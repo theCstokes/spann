@@ -57,23 +57,7 @@ define([
                       }
                     ]
                   }
-                }, function (result) {
-                  try {
-                    if (result !== undefined) {
-                      var user = result.items[0];
-                      var saltyHash = Encryption.rehash(current_state.password, user.salt);
-                      if (user.password === saltyHash.hash) {
-                        login();
-                      } else {
-                        event.target.screen.trigger('action', { action: 'authorizationFail' });
-                      }
-                    } else {
-                      event.target.screen.trigger('action', { action: 'authorizationFail' });
-                    }
-                  } catch (e) {
-                    event.target.screen.trigger('action', { action: 'authorizationFail' });
-                  }
-                }
+                }, authenticate
               );
             }
           },
@@ -110,7 +94,7 @@ define([
             }
           }
         ]
-      },
+      }, 
       {
         component: $ui.Flow,
         alignCenter: true,
@@ -156,6 +140,27 @@ define([
 
       screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
     });
+    
+    function authenticate(result) {
+      try {
+        if (result !== undefined) {
+          var user = result.items[0];
+          var saltyHash = Encryption.rehash(current_state.password, user.salt);
+          if (user.password === saltyHash.hash) {
+            login();
+            return true;
+          } else {
+            event.target.screen.trigger('action', { action: 'authorizationFail' });
+          }
+        } else {
+          event.target.screen.trigger('action', { action: 'authorizationFail' });
+        }
+      } catch (e) {
+        event.target.screen.trigger('action', { action: 'authorizationFail' });
+      }
+      
+      return false;
+    }
 
     function login() {
       $ui.clear();
@@ -175,6 +180,11 @@ define([
       });
     }
 
+    Object.defineProperty(screen, "_internal", {get: function() {
+      return {
+        authenticate: authenticate
+      };
+    }});
     return screen;
   }
 });
