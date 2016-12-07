@@ -44,7 +44,6 @@ define([
             size: $ui.Size.NORMAL,
             onClick: function (event) {
               var current_state = event.target.screen.stateManager.getCurrentState();
-              // var saltyHash = Encryption.saltyHash(current_state.password);
               $data.get({
                 api: "User"
               }, {
@@ -153,8 +152,6 @@ define([
         components.passwordInput.error = state.passwordError;
       }
       manager.initialize();
-
-      screen.trigger('action', { action: 'attributeChange', data: { name: "admin", username: "admin", password: "admin" } });
     });
 
     function login() {
@@ -170,7 +167,6 @@ define([
     function fiddle() {
       $ui.pop();
       requirejs(['App/screens/Fiddle/screen_fiddle'], function (fiddleScreen) {
-        // $ui.frame = fiddleFrame;
         $ui.push(fiddleScreen);
       });
     }
