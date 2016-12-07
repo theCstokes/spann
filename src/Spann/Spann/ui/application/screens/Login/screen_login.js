@@ -145,18 +145,18 @@ define([
       try {
         if (result !== undefined) {
           var user = result.items[0];
-          var saltyHash = Encryption.rehash(current_state.password, user.salt);
+          var saltyHash = Encryption.rehash(screen.stateManager.getCurrentState().password, user.salt);
           if (user.password === saltyHash.hash) {
             login();
             return true;
           } else {
-            event.target.screen.trigger('action', { action: 'authorizationFail' });
+            screen.trigger('action', { action: 'authorizationFail' });
           }
         } else {
-          event.target.screen.trigger('action', { action: 'authorizationFail' });
+          screen.trigger('action', { action: 'authorizationFail' });
         }
       } catch (e) {
-        event.target.screen.trigger('action', { action: 'authorizationFail' });
+        screen.trigger('action', { action: 'authorizationFail' });
       }
       
       return false;
