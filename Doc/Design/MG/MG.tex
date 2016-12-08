@@ -62,6 +62,7 @@
   Nov 10, 2016 & 1.0 & Initial Changes\\
   Nov 12, 2016 & 1.1 & Changes and Module Hierarchy\\
   Nov 13, 2016 & 1.2 & All other sections\\
+  Dec 07, 2016 & 2.0 & Feedback changes\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -190,19 +191,14 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] API Controllers
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Console
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Console Manager
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Python Runners
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Repository Model
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Domain Models
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] UI Screens
+\item [\refstepcounter{mnum} \mthemnum \label{mAC}:] API Controllers
+\item [\refstepcounter{mnum} \mthemnum \label{mPC}:] Python Console
+\item [\refstepcounter{mnum} \mthemnum \label{mPM}:] Python Console Manager
+\item [\refstepcounter{mnum} \mthemnum \label{mPR}:] Python Runners
+\item [\refstepcounter{mnum} \mthemnum \label{mRM}:] Repository Model
+\item [\refstepcounter{mnum} \mthemnum \label{mDM}:] Domain Models
+\item [\refstepcounter{mnum} \mthemnum \label{mUS}:] UI Screens
 \end{description}
-
-Note: Since this system utilizes libraries and frameworks to abstract away the
-low level implementation details of browser interaction, operating system
-interaction and networking hardware interaction, there is(are) no
-Hardware-Hiding Module(s).
 
 %\newpage
 \begin{table}[h!]
@@ -212,37 +208,37 @@ Hardware-Hiding Module(s).
     \textbf{Level 1} & \textbf{Level 2} &\ \textbf{Level 3}\\
 \midrule
 
-{Hardware-Hiding Module} & ~ \\
+  {Hardware-Hiding Module} & Web Browser \ref{mdBrowser} \\
+  & ASP.NET \ref{mdWebServer} \\
 \midrule
 
 \multirow{7}{0.3\textwidth}{
-    Behaviour-Hiding Module} & API Controllers & Console Controller\\
-    & -- & Fiddle Controller\\
-    & -- & File Controller\\
-    & -- & Project Controller\\
-    & -- & User Controller\\
+  Behaviour-Hiding Module} & API Controllers \ref{mAPIControllers} & Console Controller \ref{mdConsoleController}\\
+& -- & Fiddle Controller \ref{mdFiddleController}\\
+    & -- & File Controller \ref{mdFileController}\\
+    & -- & Project Controller \ref{mdProjectController}\\
+    & -- & User Controller \ref{mdUserController}\\
 
-    & Python Console & --\\
-    & Python Console Manager & --\\
+    & Python Console \ref{mdPythonConsole}  & --\\
+    & Python Console Manager \ref{mdPythonConsoleManager} & --\\
 
-    & UI Screens & App\\
-    & -- & Full Screen Frame\\
-    & -- & Project Frame\\
-    & -- & Selection Frame\\
-    & -- & Account\\
-    & -- & Console\\
-    & -- & Dock Screen Output\\
-    & -- & Screen Fiddle\\
-    & -- & Dialog Menu\\
-    & -- & Editor\\
-    & -- & Home\\
-    & -- & Login\\
-    & -- & Login State Manager\\
-    & -- & Project Dialog\\
-    & -- & Project Dialog State Manager\\
-    & -- & Project Edit\\
-    & -- & Project Transform\\
-    & & \\
+    & UI Screens \ref{mdUIScreens} & App \ref{mdApp} \\
+    & -- & Full Screen Frame \ref{mdFullScreenFrame} \\
+    & -- & Project Frame \ref{mdProjectFrame} \\
+    & -- & Selection Frame \ref{mdSelectionFrame}\\
+    & -- & Account \ref{mdAccount}\\
+    & -- & Console \ref{mdConsole}\\
+    & -- & Dock Screen Output \ref{mdDockScreenOutput}\\
+    & -- & Screen Fiddle \ref{mdScreenFiddle}\\
+    & -- & Dialog Menu \ref{mdDialogMenu}\\
+    & -- & Editor \ref{mdEditor}\\
+    & -- & Home \ref{mdHome}\\
+    & -- & Login \ref{mdLogin}\\
+    & -- & Login State Manager \ref{mdLoginStateManager}\\
+    & -- & Project Dialog \ref{mdProjectDialog}\\
+    & -- & Project Dialog State Manager \ref{mdProjectDialogStateManager}\\
+    & -- & Project Edit \ref{mdProjectEdit}\\
+    & -- & Project Transform \ref{mdProjectTransform}\\
 \bottomrule
     & Table continues on next page & \\
 %     & -- & Project Edit State Manager\\
@@ -257,24 +253,24 @@ Hardware-Hiding Module(s).
 \toprule
     \textbf{Level 1} & \textbf{Level 2} &\ \textbf{Level 3}\\
 \midrule
-    \multirow{3}{0.3\textwidth}{Software Decision Module} & Domain Models & Python File Data Transfer Object\\
-    & -- & Python Project Data Transfer Object\\
-    & -- & User Data Transfer Object\\
-    & -- & Base Data Transfer Object\\
-    & -- & Message Data Model\\
-    & -- & Python File Data Model\\
-    & -- & Python Project Data Model\\
-    & -- & User Data Model\\
-    & Repository Model & --\\
-    & Python Runners & Iron Python Location\\
-    & -- & Python File\\
-    & -- & Python Project\\
-    & -- & Python Project Manager\\
-    & -- & Python Runner\\
-    & -- & Python Server Manager\\
-    & -- & Python Tools\\
-    & -- & Iron Python Manager\\
-    & -- & Notification Stream Writer\\
+    \multirow{3}{0.3\textwidth}{Software Decision Module} & Domain Models \ref{mdDomainModels}& Python File Data Transfer Object \ref{mdPythonFileDTO}\\
+    & -- & Python Project Data Transfer Object \ref{mdPythonProjectDTO}\\
+    & -- & User Data Transfer Object \ref{mdUserDTO}\\
+    & -- & Base Data Transfer Object \ref{mdBaseDTO}\\
+    & -- & Message Data Model \ref{mdMessageDataModel}\\
+    & -- & Python File Data Model \ref{mdPythonFileDM}\\
+    & -- & Python Project Data Model \ref{mdPythonProjectDM}\\
+    & -- & User Data Model \ref{mdUserDM}\\
+    & Repository Model \ref{mdRepoModel} & --\\
+    & Python Runners \ref{mdPythonRunners} & Iron Python Location \ref{mdIronPythonLocation}\\
+    & -- & Python File \ref{mdPythonFile}\\
+    & -- & Python Project \ref{mdPythonProject}\\
+    & -- & Python Project Manager \ref{mdPythonProjectManager}\\
+    & -- & Python Runner \ref{mdPythonRunner}\\
+    & -- & Python Server Manager \ref{mdPythonServerManager}\\
+    & -- & Python Tools \ref{mdPythonTools}\\
+    & -- & Iron Python Manager \ref{mdIronPythonManager}\\
+    & -- & Notification Stream Writer \ref{mdNotificationStreamWriter}\\
 \bottomrule
 \end{tabular}
 \caption{Module Hierarchy}
@@ -287,6 +283,8 @@ The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table \ref{TblRT}.
 
+
+\newpage
 \section{Module Decomposition} \label{SecMD}
 
 % Modules are decomposed according to the principle of ``information hiding''
@@ -304,21 +302,30 @@ between requirements and modules is listed in Table \ref{TblRT}.
 % that the module is not a leaf and will not have to be implemented. Whether or
 % not this module is implemented depends on the programming language
 % selected.
-
 \subsection{Hardware Hiding Modules}
 
+\subsubsection{Browser} \label{mdBrowser}
 \begin{description}
-\item[Secrets:] Networking functionality and CSS/HTML/JavaScript rendering and
-    execution.
+\item[Secrets:] Networking functionality, CSS/HTML/JavaScript rendering and
+    execution, and mouse and keyboard input.
+\item[Services:] Provides a means of communication with the server -- sending
+    and receiving requests. Provides a platform for rendering website
+    content and execution JavaScript code. Finally, also provides a means of
+    getting user input from mouse and keyboard.
+\item[Implemented By:] Web Browser
+\end{description}
+
+\subsubsection{Web Server/Framework} \label{mdWebServer}
+\begin{description}
+\item[Secrets:] Networking functionality, web server and processing requests.
 \item[Services:]Networking serves as the backbone of the API, servicing web
-    requests. The web browser provides a platform for rendering website content
-    and execution JavaScript code.
-\item[Implemented By:] ASP.NET, Web Browsers
+  requests and hosting the website itself.
+\item[Implemented By:] ASP.NET
 \end{description}
 
 \subsection{Behaviour-Hiding Module}
 
-\subsubsection{API Controllers}
+\subsubsection{API Controllers} \label{mAPIControllers}
 
 \begin{description}
 \item[Secrets:] API request handling and routing.
@@ -327,7 +334,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Console Controller}
+\subsubsection{Console Controller} \label{mdConsoleController}
 
 \begin{description}
 \item[Secrets:] API request handling and routing for the console.
@@ -336,7 +343,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Fiddle Controller}
+\subsubsection{Fiddle Controller} \label{mdFiddleController}
 
 \begin{description}
 \item[Secrets:] API request handling and routing for the fiddle.
@@ -344,7 +351,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{File Controller}
+\subsubsection{File Controller} \label{mdFileController}
 
 \begin{description}
 \item[Secrets:] API request handling and routing for files.
@@ -352,7 +359,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Project Controller}
+\subsubsection{Project Controller} \label{mdProjectController}
 
 \begin{description}
 \item[Secrets:] API request handling and routing for projects.
@@ -360,7 +367,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{User Controller}
+\subsubsection{User Controller} \label{mdUserController}
 
 \begin{description}
 \item[Secrets:] API request handling and routing for users and user data.
@@ -369,8 +376,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \end{description}
 
 
-
-\subsubsection{Python Console}
+\subsubsection{Python Console} \label{mdPythonConsole}
 
 \begin{description}
     \item[Secrets:] Handles code execution for the client (front end).
@@ -379,7 +385,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python Console Manager}
+\subsubsection{Python Console Manager} \label{mdPythonConsoleManager}
 
 \begin{description}
 \item[Secrets:] Manges python consoles.
@@ -387,7 +393,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{UI Screens}
+\subsubsection{UI Screens} \label{mdUIScreens}
 
 \begin{description}
 \item[Secrets:] UI layout and functionality.
@@ -396,7 +402,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{App}
+\subsubsection{App} \label{mdApp}
 
 \begin{description}
 \item[Secrets:] Base application screen.
@@ -404,7 +410,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Full Screen Frame}
+\subsubsection{Full Screen Frame} \label{mdFullScreenFrame}
 
 \begin{description}
 \item[Secrets:] Full screen UI frame component.
@@ -412,7 +418,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Project Frame}
+\subsubsection{Project Frame} \label{mdProjectFrame}
 
 \begin{description}
 \item[Secrets:] Project frame component.
@@ -420,7 +426,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Selection Frame}
+\subsubsection{Selection Frame} \label{mdSelectionFrame}
 
 \begin{description}
 \item[Secrets:] Selection frame component.
@@ -428,7 +434,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Account}
+\subsubsection{Account} \label{mdAccount}
 
 \begin{description}
 \item[Secrets:] Screen for user account.
@@ -436,7 +442,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Console}
+\subsubsection{Console} \label{mdConsole} 
 
 \begin{description}
 \item[Secrets:] Screen for python console.
@@ -445,7 +451,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Dock Screen Output}
+\subsubsection{Dock Screen Output} \label{mdDockScreenOutput} 
 
 \begin{description}
 \item[Secrets:] Dock screen for output.
@@ -454,7 +460,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Screen Fiddle}
+\subsubsection{Screen Fiddle} \label{mdScreenFiddle}
 
 \begin{description}
 \item[Secrets:] Screen for fiddle.
@@ -463,7 +469,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Dialog Menu}
+\subsubsection{Dialog Menu} \label{mdDialogMenu} 
 
 \begin{description}
 \item[Secrets:] Dialog for a popup menu.
@@ -471,7 +477,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Editor}
+\subsubsection{Editor} \label{mdEditor} 
 
 \begin{description}
 \item[Secrets:] Screen for code editor.
@@ -479,7 +485,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Home}
+\subsubsection{Home} \label{mdHome} 
 
 \begin{description}
 \item[Secrets:] Home screen.
@@ -487,7 +493,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Login}
+\subsubsection{Login} \label{mdLogin} 
 
 \begin{description}
 \item[Secrets:] Login screen.
@@ -496,7 +502,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Login State Manager}
+\subsubsection{Login State Manager} \label{mdLoginStateManager}
 
 \begin{description}
 \item[Secrets:] Manager for login state.
@@ -504,7 +510,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Project Dialog}
+\subsubsection{Project Dialog} \label{mdProjectDialog} 
 
 \begin{description}
 \item[Secrets:] Project dialog component.
@@ -512,7 +518,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Project Dialog State Manager}
+\subsubsection{Project Dialog State Manager} \label{mdProjectDialogStateManager} 
 
 \begin{description}
 \item[Secrets:] State Manager for project dialog.
@@ -520,7 +526,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Project Edit}
+\subsubsection{Project Edit} \label{mdProjectEdit} 
 
 \begin{description}
 \item[Secrets:] Project editing screen.
@@ -528,7 +534,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Project Transform}
+\subsubsection{Project Transform} \label{mdProjectTransform} 
 
 \begin{description}
 \item[Secrets:] Project transform component.
@@ -536,11 +542,9 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-
-
 \subsection{Software Decision Module}
 
-\subsubsection{Domain Models}
+\subsubsection{Domain Models} \label{mdDomainModels} 
 
 \begin{description}
 \item[Secrets:] Models the data for different objects used throughout the
@@ -549,7 +553,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Python File Data Transfer Object}
+\subsubsection{Python File Data Transfer Object} \label{mdPythonFileDTO} 
 
 \begin{description}
 \item[Secrets:] Model python files.
@@ -558,7 +562,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python Project Data Transfer Object}
+\subsubsection{Python Project Data Transfer Object} \label{mdPythonProjectDTO} 
 
 \begin{description}
 \item[Secrets:] Model python projects.
@@ -567,7 +571,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{User Data Transfer Object}
+\subsubsection{User Data Transfer Object} \label{mdUserDTO} 
 
 \begin{description}
 \item[Secrets:] Model users.
@@ -576,7 +580,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Base Data Transfer Object}
+\subsubsection{Base Data Transfer Object} \label{mdBaseDTO} 
 
 \begin{description}
 \item[Secrets:] Base for other data transfer objects to model off.
@@ -585,7 +589,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann.
 \end{description}
 
-\subsubsection{Message Data Model}
+\subsubsection{Message Data Model} \label{mdMessageDataModel}
 
 \begin{description}
 \item[Secrets:] Model message data.
@@ -594,7 +598,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python File Data Model}
+\subsubsection{Python File Data Model} \label{mdPythonFileDM} 
 
 \begin{description}
 \item[Secrets:] Model python file data.
@@ -602,7 +606,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python Project Data Model}
+\subsubsection{Python Project Data Model} \label{mdPythonProjectDM}
 
 \begin{description}
 \item[Secrets:] Model python project data.
@@ -610,7 +614,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{User Data Model}
+\subsubsection{User Data Model} \label{mdUserDM} 
 
 \begin{description}
 \item[Secrets:] Model user data.
@@ -618,8 +622,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-
-\subsubsection{Repository Model}
+\subsubsection{Repository Model} \label{mdRepoModel} 
 
 \begin{description}
 \item[Secrets:] Model repository and repository data.
@@ -628,7 +631,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python Runners}
+\subsubsection{Python Runners} \label{mdPythonRunners} 
 
 \begin{description}
 \item[Secrets:] Python functions for various python execution tasks.
@@ -636,7 +639,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Iron Python Location}
+\subsubsection{Iron Python Location} \label{mdIronPythonLocation} 
 
 \begin{description}
 \item[Secrets:] Iron Python Runtime location.
@@ -644,7 +647,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python File}
+\subsubsection{Python File} \label{mdPythonFile} 
 
 \begin{description}
 \item[Secrets:] Python file object.
@@ -652,7 +655,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python Project}
+\subsubsection{Python Project} \label{mdPythonProject} 
 
 \begin{description}
 \item[Secrets:] Python project object.
@@ -660,7 +663,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python Project Manager}
+\subsubsection{Python Project Manager} \label{mdPythonProjectManager}
 
 \begin{description}
 \item[Secrets:] Python project manager object.
@@ -668,7 +671,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Python Runner}
+\subsubsection{Python Runner} \label{mdPythonRunner}
 
 \begin{description}
 \item[Secrets:] Python runner for executing python source code and whole projects.
@@ -676,8 +679,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-
-\subsubsection{Python Server Manager}
+\subsubsection{Python Server Manager} \label{mdPythonServerManager}
 
 \begin{description}
 \item[Secrets:] Python server manager object.
@@ -685,8 +687,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-
-\subsubsection{Python Tools}
+\subsubsection{Python Tools} \label{mdPythonTools}
 
 \begin{description}
 \item[Secrets:] Manages various python tools.
@@ -694,8 +695,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-
-\subsubsection{Iron Python Manager}
+\subsubsection{Iron Python Manager} \label{mdIronPythonManager}
 
 \begin{description}
 \item[Secrets:] Manages the Iron Python runtime.
@@ -703,7 +703,7 @@ between requirements and modules is listed in Table \ref{TblRT}.
 \item[Implemented By:] Spann
 \end{description}
 
-\subsubsection{Notification Stream Writer}
+\subsubsection{Notification Stream Writer} \label{mdNotificationStreamWriter}
 
 \begin{description}
 \item[Secrets:] Write a notification to a stream.
@@ -728,7 +728,6 @@ requirements and between the modules and the anticipated changes.
     Mode & M2, M8\\
     Editing & M2, M3, M5, M6, M7, M8\\
     Editing Support & M3, M8\\
-    Refactoring & M3, M8\\
     File Handling & M2, M5, M6, M7, M8\\
     Code Execution & M2, M3, M4, M5\\
     Shell Interpreter & M2, M3, M4, M5, M8\\
@@ -738,7 +737,6 @@ requirements and between the modules and the anticipated changes.
     Look and Feel & M8\\
     Usability & M8\\
     Performance & M1, M4, M8\\
-    Power Usage & M1\\
     Security & M2, M6, M7, M8\\
     Health and Safety & M8\\
 \bottomrule
@@ -777,14 +775,14 @@ provides the hierarchy for the front end UI modules.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{uses-server.pdf}
+\includegraphics[width=0.7\textwidth]{__diagrams/uses-server.pdf}
 \caption{Use hierarchy among server modules}
 \label{FigUH}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{uses-frontend.pdf}
+\includegraphics[width=0.7\textwidth]{__diagrams/uses-frontend.pdf}
 \caption{Use hierarchy among front end modules}
 \label{FigUH}
 \end{figure}
