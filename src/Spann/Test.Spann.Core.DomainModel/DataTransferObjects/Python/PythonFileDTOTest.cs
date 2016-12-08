@@ -17,7 +17,6 @@ namespace Test.Spann.Core.DomainModel.DataTransferObjects.Python
         [TestMethod]
         public void DoesMapToDM()
         {
-            //JObject obj = JObject.FromObject(new { name = "123", files = new[] { 1, 2, 3 }  }); // This is needed for project
             PythonFileDTO dto = new PythonFileDTO();
             dto.ID = 3;
             dto.Name = "MyTestDTO";

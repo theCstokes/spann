@@ -15,28 +15,7 @@ namespace Test.Spann.Core.DataAccess.QueryBuilders.Types
     public class UpdateQueryTest
     {
         [TestMethod]
-        public void GenerateUpdateNoWhereData()
-        {
-            var schemeName = TestingTools.RandomString;
-            var tableName = TestingTools.RandomString;
-            var propertyName = TestingTools.RandomString;
-            var propertyValue = TestingTools.RandomString;
-            var id = TestingTools.RandomInt;
-            UpdateQuery query = new UpdateQuery(schemeName, tableName);
-
-            query.AddPropertyValue(propertyName, propertyValue);
-            
-            var result = query.Build();
-
-            var expected = String.Format("UPDATE \"{0}\".\"{1}\" SET \"{2}\"='{3}' ;",
-                schemeName, tableName, propertyName, propertyValue);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(expected, result);
-        }
-
-        [TestMethod]
-        public void GenerateUpdateWithWhereData()
+        public void TestGenerateUpdateWithWhere()
         {
             var schemeName = TestingTools.RandomString;
             var tableName = TestingTools.RandomString;
@@ -59,7 +38,7 @@ namespace Test.Spann.Core.DataAccess.QueryBuilders.Types
         }
 
         [TestMethod]
-        public void GenerateUpdateWithIDData()
+        public void TestGenerateUpdateWithID()
         {
             var schemeName = TestingTools.RandomString;
             var tableName = TestingTools.RandomString;

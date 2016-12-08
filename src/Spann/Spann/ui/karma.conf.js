@@ -18,6 +18,8 @@ module.exports = function(config) {
       {pattern: 'application/**/*.js', included: false},
       // {pattern: 'framework/app-framework/*.js', included: false},
       {pattern: 'libs/JJS/app-framework/**/*.js', included: false},
+      {pattern: 'node_modules/async/lib/async.js', included: false},
+      {pattern: 'libs/async.js', included: false},
       {pattern: 'spec/**/*_spec.js', included: false},
       {pattern: 'spec/test-main.js', included: true},
     ],

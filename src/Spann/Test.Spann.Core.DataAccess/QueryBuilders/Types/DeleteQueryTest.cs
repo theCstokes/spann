@@ -15,7 +15,7 @@ namespace Test.Spann.Core.DataAccess.QueryBuilders.Types
     public class DeleteQueryTest
     {
         [TestMethod]
-        public void GenerateDeleteWithWhereQueryTest()
+        public void TestGenerateDeleteWithWhere()
         {
             var schemeName = TestingTools.RandomString;
             var tableName = TestingTools.RandomString;
@@ -37,7 +37,7 @@ namespace Test.Spann.Core.DataAccess.QueryBuilders.Types
         }
 
         [TestMethod]
-        public void GenerateDeleteWithIDQueryTest()
+        public void TestGenerateDeleteWithID()
         {
             var schemeName = TestingTools.RandomString;
             var tableName = TestingTools.RandomString;

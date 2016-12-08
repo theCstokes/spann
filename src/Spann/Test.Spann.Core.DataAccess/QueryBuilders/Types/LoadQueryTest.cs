@@ -15,7 +15,7 @@ namespace Test.Spann.Core.DataAccess.QueryBuilders.Types
     public class LoadQueryTest
     {
         [TestMethod]
-        public void GenerateLoadWithWhereQueryTest()
+        public void TestGenerateLoadWithWhere()
         {
             var schemeName = TestingTools.RandomString;
             var tableName = TestingTools.RandomString;
@@ -39,7 +39,7 @@ namespace Test.Spann.Core.DataAccess.QueryBuilders.Types
         }
 
         [TestMethod]
-        public void GenerateLoadWithIDQueryTest()
+        public void TestGenerateLoadWithID()
         {
             var schemeName = TestingTools.RandomString;
             var tableName = TestingTools.RandomString;

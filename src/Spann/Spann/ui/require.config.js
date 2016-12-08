@@ -10,6 +10,8 @@ requirejs.config({
     // UI Framework Directory.
     Framework: 'libs/JJS',
 
+    Async: 'node_modules/async/lib/async',
+
     // App Wrappers.
     Wrappers: 'libs/JJS/app-framework/wrappers',
     Screen: 'libs/JJS/app-framework/wrappers/Screen/Screen',

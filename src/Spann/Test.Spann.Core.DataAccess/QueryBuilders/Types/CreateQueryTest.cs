@@ -13,7 +13,7 @@ namespace Test.Spann.Core.DataAccess.QueryBuilders.Types
     public class CreateQueryTest
     {
         [TestMethod]
-        public void GenerateCreateNoWhereData()
+        public void TestGenerateCreateNoWhere()
         {
             var schemeName = TestingTools.RandomString;
             var tableName = TestingTools.RandomString;
