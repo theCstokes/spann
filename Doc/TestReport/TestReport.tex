@@ -1,0 +1,531 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+
+\title{SE 3XA3: Test Plan\\Spann}
+
+\author{Team 5
+  \\ Christopher Stokes | stokescd
+  \\ Varun Hooda | hoodav
+}
+
+\date{\today}
+
+\input{../Comments}
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+%\listoffigures
+
+\begin{table}[bp]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+  Dec 7, 2016 & 1.0 & Added content\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+
+\pagenumbering{arabic}
+
+This document summaries the various testing strategies employed in this project
+to ensure the application meets the specified requirements, both functional
+and non-functional. Specifically, this document will outline all the tests that
+were performed, along with the results of each test, and any changes to the
+application that came from those results.
+
+\section{Functional Requirements Evaluation}
+
+  \subsubsection{Front End Tests}
+    \begin{enumerate}
+
+      \item{SHA512\\} \label{sha}
+
+      Initial State: Function, has no state.
+
+      Input: UI data objects with a string to be hashed.
+
+			Expected: Correct hash string,
+
+			Result: PASS -- The module results the correct hash string.
+
+      \item{Encryption utils\\} \label{utils}
+
+      Initial State: Function, has no state.
+
+      Input: UI data objects of a string and a salt.
+
+      Expect: UI response objects with the hash string
+
+      Result: PASS -- Module returns correctly formatted object with the hash string.
+
+      \item{Login Screen\\} \label{login}
+
+      Initial State: Function, has no state.
+
+      Input: Set of correct user credentials and a set of incorrect user credentials.
+
+			Expect: (returns true) Successful authentication with correct credentials
+				and (return false) no authentication with incorrect credentials.
+                
+			Result: PASS -- module does not allow unauthorized access when given
+				incorrect username and password, but does allow access when correct username
+				and password are supplied.
+                
+    \end{enumerate}
+
+  \subsubsection{Server API Tests}
+
+    \begin{enumerate}
+
+      \item{Invalid Requests\\} \label{invalid}
+
+      Type: Functional, Dynamic
+
+      Initial State: Function, has no state.
+
+      Input: Invalid user authentication request, invalid file/project request.
+
+      Expect: Response object from server indicating that the request is invalid.
+                
+			Result: PASS -- Server returns object indicating an incorrect/invalid
+				request is made and no action can be performed.
+
+    \end{enumerate}
+
+  \subsubsection{Back End C\# Server}
+
+    \begin{enumerate}
+
+      \item{SQL Queries\\} \label{sql}
+
+      Initial State: Function, has no state.
+
+      Input: Database request object.
+
+      Expect: A valid SQL query that corresponds to the request.
+                
+			Result: PASS -- The module provides a correct and valid SQL query.
+
+			\paragraph{Example SQL Tests}
+			\begin{enumerate}
+				\item Create\\
+
+				{\bf Test 1\\}
+
+				Name: Domain Model Object Data\\
+
+				Output: valid SQL code for creating that object in the database.\\
+
+				Expected Results: SQL code with random data inserted into correct spot\\
+
+				Result: PASS\\
+
+				\item Update\\
+
+				{\bf Test 1\\}
+
+				Name: Test Generate Update With Where\\
+
+				Initial State: No initial state. Code is a Pure Function and has no internal sate data.\\
+
+				Input:\\
+				1. DomianModel object data.\\
+				2. Inline LINQ code for the C\# representation of the where statement\\
+
+				Output: valid SQL code for updating that object in the database with
+				the C\# LINQ code transformed into an expression tree then into the correct
+				select statement.\\
+
+				Result: PASS\\
+
+				{\bf Test 2:\\}
+
+				Name: Test Generate Create With ID\\
+
+				Initial State: No initial state. Code is a Pure Function and has no internal sate data.\\
+
+				Input:\\
+				1. DomianModel object data.\\
+				2. ID of object to update\\
+
+				Output: valid SQL code for updating that object in the database with
+				select clause for that ID.\\
+
+				Expected Results: SQL code with random data inserted into correct spot.\\
+
+				Result: PASS\\
+
+				\item Load\\
+
+				{\bf Test 1\\}
+
+				Name: Test Generate Load With Where\\
+
+				Initial State: No initial state. Code is a Pure Function and has no internal state data\\
+
+				Input:\\
+				1. Domain Model Object Data.\\
+				2. Inline LINQ code for the C\# representation of the where statement.\\
+
+				Output: valid SQL code for loading that object in the database
+				with the C\# LINQ code transformed into an expression tree then into the
+				correct select statement.\\
+
+				Result: PASS\\
+
+				{\bf Test 2:\\}
+
+				Name: Test Generate Load With ID\\
+
+				Initial State: No initial state. Code is a Pure Function and has no internal sate data.\\
+
+				Input:\\
+				1. Domain Model object data.\\
+				2. ID of object to update\\
+
+				Output: valid SQL code for loading that object in the database with
+				select clause for that ID.\\
+
+				Expected Results: SQL code with random data inserted into correct spot.\\
+
+				Result: PASS
+
+				\item Delete\\
+
+				Name: Test Generate Delete With Where\\
+
+				Initial State: No initial state. Code is a Pure Function and has no internal sate data.\\
+
+				Input:\\
+				1. Domain Model object data.\\
+				2. Inline LINQ code for the C\# representation of the where statement\\
+
+				Output: valid SQL code for removing that object in the database with
+				the C\# LINQ code transformed into an expression tree then into the correct
+				select statement.\\
+
+				Expected Results: SQL code with random data inserted into correct spot.\\
+
+				Result: PASS\\
+
+			\end{enumerate}
+
+
+      \item{Domain Model Tests\\} \label{dto}
+
+      Initial State: Function, has no state.
+
+      Input: Domain Model Transfer Object.
+
+			Expect: Data Model (DM) object with the correct corresponding metadata.
+
+			Result: PASS -- Module returns a correct DM with the correct metadata.
+
+    \end{enumerate}
+
+  \subsubsection{Back end C\# server}
+
+    \begin{enumerate}
+
+    \item{Python Execution\\} \label{exec}
+
+    Initial State: Function, has no state.
+
+    Input: String of valid python code and a string of invalid python code.
+
+    Expect: String containing the expected output for a valid piece of python code
+			and a string containing the expected error's for a invalid piece of python code.
+              
+		Result: PASS -- Module returns expected code output for valid code and a
+		string of error/exceptions/stack trace for an invalid string of code.
+              
+    \end{enumerate}
+
+
+\section{Nonfunctional Requirements Evaluation}
+
+  \subsubsection{Front End JavaScript UI}
+
+    \begin{enumerate}
+
+    \item{UI performance\\} \label{ui}
+
+    Initial State: Application running inside browser.
+
+    Input: User input using mouse clicks and keyboard input.
+
+    Expect: The application should feel responsive to any user actions and
+		 actions performed should be performed so that the user is kept engaged.
+              
+		Result: PASS -- The application's response times are unnoticeable while in
+		use. The longest delay in any action performed is when the actual python
+		code is sent to the server to be executed (the delay is a result of the actual
+		python code execution, as opposed to any request processing delay).
+
+		\end{enumerate}
+              
+    \paragraph{Look and Feel}
+
+    \begin{enumerate}
+
+    \item{UI visual inspection\\} \label{visual}
+
+    Initial State: Application running inside browser.
+
+    Input: Mouse inputs for navigating the application and keyboard for any textual
+    input for the purposes of seeing text/code.
+
+		Expect: The rendered DOM (html elements) should be as the developer intended. There should not be
+		any anomalies, bugs or incorrect properties in any of the elements rendered to
+		the screen. The results should be as similar as possible on different browsers
+		(browsers inherently render elements differently, so results should be as
+		minimal as possible across browsers).
+
+		Result: PASS -- All elements are rendered as the developer who designed them
+		intended. The rendering across browsers has no noticeable differences.
+
+    \end{enumerate}
+
+  \subsubsection{API /Back End Tests}
+  \paragraph{Stress Test}
+      
+    \begin{enumerate}
+
+    \item{API/Server Stress\\} \label{stressTest}
+
+    Initial State: Function, has no state.
+
+    Input: String of python code from multiple concurrent connections.
+
+		Expect: The server should process each request and respond with the
+		correct result with minimal delay. Increasing the stress on the
+		application should have a proportional delay in response time.
+
+		Result: PASS -- The application handles a large number of concurrent requests
+		without noticeable delays in performance/response time. It was noted that
+		the results do differ when a less powerful machine is used to perform the tests
+		and host the server, since the hardware is less powerful and can't handle the
+		stresses of newer/more powerful machines. Thus, Modern machines are well
+		capable of hosting the application without any performance issues.
+
+    \end{enumerate}
+
+  \subsubsection{Usability}
+  The usability of the project was manually determined using the usability
+  survey questions (as specified in the Test Plan document).
+
+  After manually using the application as a regular user would, it was deemed
+  that the application is quite usable and there are not any aspected that hinder
+  the application or present a scenario/situation in which the application fails
+  to be usable (under regular, expected usage).
+
+\section{Comparison to Existing Implementation}	
+
+The existing implementation did not have a set of tests to compare the results
+against. But the manual comparison of the two implementation can be made.
+
+\paragraph{Functionality\\}
+
+Both projects has very similar functionality. The major difference is that
+Spann supports projects and multi file projects while the existing
+implementation does not. The python execution and results of the same code on
+both platform are, as expected, identical.
+
+\paragraph{Performance\\}
+
+Both implementations a fast and responsive. It can be noted, since the existing
+implementation is running on what can be assumed to be faster hardware, the
+python code executes faster that on Spann.
+
+\paragraph{Stress Test\\}
+
+The existing implementation is hosted in a public facing server and it can be
+assumed thousands of concurrent requests can be made without any delays. Testing this
+would be very difficult for the developers of this, Spann, project.
+
+As noted in the stress test section \ref{stressTest}, this application is able
+to support concurrent requests without noticeable delays or issues regarding
+performance. But the performance overall is dictated by the hardware the
+application is running on, hence, running on a modern laptop computer, this
+application can't support thousands of concurrent requests. But, should this
+application be hosted on a more powerful server, a larger number of concurrent
+requests could be supported. Testing on a powerful server is currently not
+feasible for this project and team.
+
+\section{Unit Testing}
+There were two sets of unit tests performed. The Jasmine, JavaScript based,
+unit tests for front-end facing code were performed using the NodeJS Jasmine
+module. The Nunit, C\# based, unit test for server components and modules were
+performed using C\# and the Nunit testing framework.
+
+The Jasmine tests using the "spec" prefix to specify which component/module
+they are testing. A configuration file is used to indicate the location of the
+project code and the test code. Jasmine uses this configuration file to
+automatically perform the tests.
+
+The C\# tests are performed using Visual Studio. This method of tests are very
+similar to the well known Java JUnit method of testing. Visual Studio handles
+the majority of the work in regards to testing, the developer needs only write
+the test and specify the code to be run before and after each test/suite of
+tests (as it is in JUnit).
+
+\section{Changes Due to Testing}
+
+Summary of the changes as a result of testing,
+
+\begin{itemize}
+\item Refactoring UI JavaScript UI components to allow code inside callbacks
+and inline function definitions, to be exposed to the testing framework.
+\item Refactoring server C\# code for better modularity and individual testing.
+Reducing the coupling between pieces of code to allow tests to test individual
+components.
+\item Editing CSS/UI specification in JavaScript to allow for elements to be
+rendered as similarly as the browsers allow when the application is running on
+different browsers.
+\item Handling user input in the python console interpreter. The python console
+interpreter is a heavily modified version of the regular editor used throughout
+this application for writing code. The testing, manual testing since that
+is the only feasible means of testing this, revealed subtle bug in the way
+the components performed and handled input.
+\item UI/overall front end design to accommodate when the framework allowed
+and the different browsers allowed to be rendered correctly.
+\end{itemize}
+
+\section{Automated Testing}
+The automated testing was performed using, as noted previously, Jasmine and
+NUnit. The other automated testing that was performed, API testing, was
+performed using the Postman chrome web application. Postman allows the developers
+to write scripts that perform automated tests for the API.
+
+All the front end tests for UI components were performed using Jasmine. All the
+API tests were performed using Postman. All the server tests for C\# server
+components was performed using NUnit.
+		
+\section{Trace to Requirements} \label{SecTM}
+
+\begin{table}
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.4\textwidth}}
+\toprule
+\textbf{Req.} & \textbf{Modules}\\
+\midrule
+    Mode & Login Screen \ref{login}\\
+				 & SHA512 \ref{sha}\\
+				 & Encryption Utils \ref{utils}\\
+    Editing & UI Performance \ref{ui}\\
+				 &  UI Visual Inspection \ref{visual}\\
+    Editing Support & UI Performance \ref{ui}\\
+			   &  UI Visual Inspection \ref{visual}\\
+    File Handling & Invalid Request \ref{invalid}\\
+				 & SQL Queries \ref{sql}\\
+				 & Domain Model \ref{dto}\\
+    Code Execution & Python Execution \ref{exec}\\
+				 & Domain Model \ref{dto}\\
+				 & API/Server Stress \ref{stressTest}\\
+    Shell Interpreter & Python Execution \ref{exec}\\
+				 & API/Server Stress \ref{stressTest}\\
+				 & UI Performance \ref{ui}\\
+				 & UI Visual Inspection \ref{visual}\\
+    Networking & Invalid Request \ref{invalid}\\
+				 & Stress Test \ref{stressTest}\\
+    Accounts & Invalid Request \ref{invalid}\\
+				 & Domain Model \ref{dto}\\
+    Account Management & Invalid Request \ref{invalid}\\
+				 & Domain Model \ref{dto}\\
+    Look and Feel & UI Performance \ref{ui}\\
+				 & UI Visual Inspection \ref{visual}\\
+    Usability & UI Performance \ref{ui}\\
+				 & UI Visual Inspection \ref{visual}\\
+    Performance & UI Performance \ref{ui}\\
+				 & API/Server Stress \ref{stressTest}\\
+    Security & Login Screen \ref{login}\\ 
+				 & SHA512 \ref{sha}\\
+				 & Encryption Utils \ref{utils}\\
+    Health and Safety & UI Visual Inspection \ref{visual}\\
+\bottomrule
+\end{tabular}
+\caption{Trace to Requirements }
+\label{TblRT}
+\end{table}
+
+\clearpage
+		
+\section{Trace to Modules}		
+
+\begin{table}
+\centering
+\begin{tabular}{p{0.3\textwidth} p{0.4\textwidth}}
+\toprule
+\textbf{Req.} & \textbf{Modules}\\
+\midrule
+	Hardware-Hiding Module & UI Performance \ref{ui}\\
+				 & UI Visual Inspection \ref{visual}\\
+				 & API/Server Stress \ref{stressTest}\\
+	\\API Controllers & SQL Queries \ref{sql}\\
+				 & Domain Model \ref{dto}\\
+				 & Python Execution \ref{exec}\\
+	\\Python Console & API/Server Stress \ref{stressTest}\\
+				 & Python Execution \ref{exec}\\
+				 & UI Performance \ref{ui}\\
+				 & UI Visual Inspection \ref{visual}\\
+	\\Python Console Manager & Domain Model \ref{dto}\\
+				 & Python Execution \ref{exec}\\
+	\\Python Runners & Python Execution \ref{exec}\\
+	\\Repository Model & Domain Model \ref{dto}\\
+				 & SQL Queries \ref{sql}\\
+	\\Domain Models & Domain Model \ref{dto}\\
+				 & SQL Queries \ref{sql}\\
+	\\UI Screens & UI Performance \ref{ui}\\
+				 & UI Visual Inspection \ref{visual}\\
+\bottomrule
+\end{tabular}
+\caption{Trace to Modules }
+\label{TblRT}
+\end{table}
+
+\newpage
+
+\section{Code Coverage Metrics}
+Visual Studio was used to measure code coverage for all C\# code. Visual studio
+reports 26\% coverage. A reason for not having a higher coverage is that a lot of
+the testable code inherits from a select from classes. A better approach to
+testing, in reflection, would be to have tests that incrementally tests each
+class and become more specific with each child class. This would result in
+better code coverage and a more through test suite.
+
+For the API test, this project achieved 100\% code coverage, as reported by
+Postman (the chrome application this project uses for testing the API). API for
+this project is very simple and quite small. This allows the developers to test
+all aspects of the API and achieved 100\% coverage.
+
+The front end JavaScript was not measured for code coverage due to infeasibility.
+The front end relies heavily on the JJS UI framework. Measuring code coverage
+is also made more difficult by the nature of JavaScript and the heavy use of
+closures in both this project's JavaScript code and in JJS's code. A rough
+estimate of code coverage by inspection would yield a number of around 25\%, but
+this should not be considered a reliable figure.
+
+\bibliographystyle{plainnat}
+
+\bibliography{SRS}
+
+\end{document}

@@ -39,6 +39,7 @@
 \midrule
 Oct. 1, 2016 & 1.0 & Initial Changes\\
 Oct. 11, 2016 & 1.1 & Finishing Changes\\
+Dec. 6, 2016 & 2.0 & Feedback changes\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -76,6 +77,10 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
   The project needs to run on software and hardware that McMaster University
   has accesses to and has the licenses for.
 
+  The project's front end UI needs to execute in a modern web browser. The
+  server, which serves the front end UI by means HTTP, will require a recent
+  version of the Windows\textsuperscript{\textregistered} operating system.
+
   \subsection{Naming Conventions and Terminology}
 	The following terms may be used throughout this document:
 
@@ -92,6 +97,14 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
 		\item [Virtualization] A method of computation in which a software utility
 			isolates a part of the computational space from the rest of the system to
 			increase modularity and security of the system as a whole.
+    \item [HTML5] Fifth version of the Hyper Text Markup Language.
+    \item [HTTP] Hyper Text Transfer Protocol.
+    \item [UI] User Interface
+    \item [Front end] The user facing part of the application.
+    \item [Back end] The part of the application that serves and services the
+      front end.
+    \item [SQL] Standard Query Language.
+    \item [API] Application Programming Interface.
 	\end{description}
 
   \subsection{Relevant Facts and Assumptions}
@@ -99,9 +112,21 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
   that has JavaScript enabled. The application will be tested to ensure it is
 	functional on the major modern browsers (see appendix).
 
+  The application assumes the users will input data into the application using
+  a combination of the mouse and keyboard. Mouse inputs will be used to perform
+  various actions (navigation, button functionality) and the keyboard input
+  will be used to get textual input from the user. The user is assumed to have
+  full functionality of the mouse and keyboard. The user is also assumed to be
+  able to enter any printable character input into any of the application's
+  input fields or text areas. Similarly, the user is assumed to have the
+  capability of clicking anywhere on the application's front end UI.
+
 \section{Functional Requirements}
 
   \subsection{The Scope of the Work and the Product}
+  The scope of the work is limited to the supporting documentation, the code to
+  implement the application's functional and non functional requirements, and
+  the supporting tests to test the application.
 
     \subsubsection{The Context of the Work}
 		The work will be mainly software design, implementation using the chosen
@@ -155,10 +180,9 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
 			appendix).
 		\item [Editing] The application shall allow the user to edit and
 			save new and existing files (U mode).
-		\item [Editing Support] The application shall provide the user with
-			language specific suggestions while the user is editing a file (U or O).
-		\item [Refactoring] The application shall allow the user to refactor parts
-			of the file(s) they are working on (U or O).
+    \item [Editing Support] The application shall provide the user with
+      language specific code highlighting while the user is editing a file (U
+      or O).
 		\item [File Handling] The application shall manage (view, store, track)
 			files created by the user (U).
 		\item [Code execution] The application shall allow the user to execute a
@@ -174,8 +198,8 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
 		\item [Accounts] The application shall allow new users to create an account
 			and allow existing users to login into their user account (O).
 		\item [Account Mangement] The application shall allow the user to manage
-			their accounts through a user interface on the application (manage
-			account details such as password, email, etc.) (U).
+      their accounts through a user interface on the application (change their
+      password) (U).
 	\end{description}
 
 \section{Non-functional Requirements}
@@ -199,27 +223,22 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
 
   \subsection{Performance Requirements}
     \subsubsection{Client}
-		The client side UI must be quick and responsive as well as not using a lot
-		of resources as it runs in the browser. It is most important that the
-		application can run asynchronously at all times to not lock up the browser.
-
-    \subsubsection{Server}
-		For the server it is very important that it is fast and is able to handle a
-		lot of requests. It also needs to run its processes in a proper
-		asynchronous manner as the processes are long running.
+    The client side UI shall remain responsive while performing actions on
+    behalf of the user (processing input, communicating with server, displaying
+    output). Hence, it is most important that the application can run
+    asynchronously at all times to not lock up the browser.
 
   \subsection{Operational and Environmental Requirements}
 	The environmental impact of an engineering project should always go under
 	considering when designing and implementing a project. For this project we
-	aim to reduce the environmental impact of this project by as much as
-	possible. This means the application will have to meet a number of
-	operational requirements,
+	aim to reduce the hardware requirements required to use the application;
+  Thus ensuring the application is as portable as possible and functions on a
+  wide range of hardware.
   \begin{description}
-		\item [Power Usage] The application needs to be energy efficient during
-			operation. This application needs to reduce power usage wherever possible
-			using optimization techniques and efficient algorithms.
-		\item [Hardware] The application needs to be able to perform on energy
-			efficient (possibly low power) hardware.
+		\item [Platform System Requirements] The application shall employ efficient
+      algorithms, and performance boosting optimization techniques implemented
+      in the application code and the browser on which the application
+      executes.
   \end{description}
 
   \subsection{Maintainability and Support Requirements}
@@ -234,11 +253,8 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
   functionality in a secure manner. This means the application needs to meet
   the following a set of security requirements:
   \begin{itemize}
-    \item The application cannot allow anyone except the owner of the account
-      to view/modify to the files associated with the account and the settings
-      associated with the account.
-    \item The application does not allow anyone to intercept the data while it
-      is being transferred over the network.
+    \item The application shall only allow the correctly authenticated user
+      access the project files associated with the account being authenticated.
     \item The application executes user code in secure manner, isolated from
       the rest of the system to ensure any malicious code doesn't compromise
       the security of the system and application.
@@ -259,9 +275,6 @@ Oct. 11, 2016 & 1.1 & Finishing Changes\\
 	The project will attempt to be as ergonomic and health conscious as possible.
 	Thus the following will be incorporated into the project:
 	\begin{description}
-		\item [Night Mode] Allow the user to adjust the applications color scheme
-			so it is less stressful on the eyes and easier to view during different
-			lighting conditions.
 		\item [Minimal User Interface] Allow the user to do as much as possible
 			using as little work (clicking, navigating the UI, scrolling) as
 			possible.

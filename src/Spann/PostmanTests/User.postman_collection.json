@@ -1,0 +1,32 @@
+{
+	"id": "05807062-6013-d106-e91b-d9d21e23dae8",
+	"name": "User",
+	"description": "",
+	"order": [
+		"574cb3ad-57a5-f890-631f-11ad8031f65c"
+	],
+	"folders": [],
+	"timestamp": 1473039107851,
+	"owner": "986197",
+	"public": false,
+	"requests": [
+		{
+			"id": "574cb3ad-57a5-f890-631f-11ad8031f65c",
+			"headers": "",
+			"url": "http://localhost:57254/api/v1/User",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1481139800427,
+			"name": "loacalhost:8080/api/v1/user",
+			"description": "Basic user get.",
+			"collectionId": "05807062-6013-d106-e91b-d9d21e23dae8",
+			"responses": []
+		}
+	]
+}

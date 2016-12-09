@@ -16,9 +16,12 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       {pattern: 'application/**/*.js', included: false},
-      {pattern: 'framework/app-framework/*.js', included: false},
+      // {pattern: 'framework/app-framework/*.js', included: false},
+      {pattern: 'libs/JJS/app-framework/**/*.js', included: false},
+      {pattern: 'node_modules/async/lib/async.js', included: false},
+      {pattern: 'libs/async.js', included: false},
       {pattern: 'spec/**/*_spec.js', included: false},
-      {pattern: 'spec/test-main.js', included: true}
+      {pattern: 'spec/test-main.js', included: true},
     ],
 
 
@@ -63,7 +66,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous

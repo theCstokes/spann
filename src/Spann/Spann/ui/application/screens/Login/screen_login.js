@@ -56,23 +56,7 @@ define([
                       }
                     ]
                   }
-                }, function (result) {
-                  try {
-                    if (result !== undefined) {
-                      var user = result.items[0];
-                      var saltyHash = Encryption.rehash(current_state.password, user.salt);
-                      if (user.password === saltyHash.hash) {
-                        login();
-                      } else {
-                        event.target.screen.trigger('action', { action: 'authorizationFail' });
-                      }
-                    } else {
-                      event.target.screen.trigger('action', { action: 'authorizationFail' });
-                    }
-                  } catch (e) {
-                    event.target.screen.trigger('action', { action: 'authorizationFail' });
-                  }
-                }
+                }, authenticate
               );
             }
           },
@@ -109,7 +93,7 @@ define([
             }
           }
         ]
-      },
+      }, 
       {
         component: $ui.Flow,
         alignCenter: true,
@@ -153,6 +137,27 @@ define([
       }
       manager.initialize();
     });
+    
+    function authenticate(result) {
+      try {
+        if (result !== undefined) {
+          var user = result.items[0];
+          var saltyHash = Encryption.rehash(screen.stateManager.getCurrentState().password, user.salt);
+          if (user.password === saltyHash.hash) {
+            login();
+            return true;
+          } else {
+            screen.trigger('action', { action: 'authorizationFail' });
+          }
+        } else {
+          screen.trigger('action', { action: 'authorizationFail' });
+        }
+      } catch (e) {
+        screen.trigger('action', { action: 'authorizationFail' });
+      }
+      
+      return false;
+    }
 
     function login() {
       $ui.clear();
@@ -171,6 +176,11 @@ define([
       });
     }
 
+    Object.defineProperty(screen, "_internal", {get: function() {
+      return {
+        authenticate: authenticate
+      };
+    }});
     return screen;
   }
 });

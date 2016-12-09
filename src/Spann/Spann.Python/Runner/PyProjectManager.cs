@@ -73,8 +73,8 @@ namespace Spann.PythonTools.Runner
         public static void Execute(Guid uid, PythonFileDM fileDM)
         {
             PyProject project = projects[uid];
-            project.Create(SERVER_LOCATION, "fiddle");
-            var location = PyTools.CreatePath(SERVER_LOCATION, "fiddle");
+            project.Create(SERVER_LOCATION, "fiddle" + uid);
+            var location = PyTools.CreatePath(SERVER_LOCATION, "fiddle" + uid);
             var file = new PyFile(fileDM.ID, location, fileDM.Name, fileDM.SourceCode);
             project.AddFile(file);
             project.StartUpFileID = file.ID;

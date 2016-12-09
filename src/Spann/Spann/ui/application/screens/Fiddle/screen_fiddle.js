@@ -55,25 +55,6 @@ define([
             mode: $ui.EditorMode.PYTHON,
             id: 'editor'
           }
-          // {
-          //   component: $ui.Button,
-          //   onClick: function() {
-          //     var socket = new WebSocket("ws://" + location.host + "/api/v1/Python/Console");
-          //     socket.onmessage = function (event) {
-          //       // var data = JSON.parse(event.data);
-          //       // var items = data.map(function(obj) {
-          //       //   return {
-          //       //     name: obj.data,
-          //       //     type: "recived"
-          //       //   }
-          //       // });
-          //       console.log(event);
-          //     }
-          //     socket.onopen = function (event) {
-          //       socket.send("print 123");
-          //     }
-          //   }
-          // }
         ]
       }
     ];

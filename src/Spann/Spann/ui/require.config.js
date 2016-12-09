@@ -10,6 +10,8 @@ requirejs.config({
     // UI Framework Directory.
     Framework: 'libs/JJS',
 
+    Async: 'node_modules/async/lib/async',
+
     // App Wrappers.
     Wrappers: 'libs/JJS/app-framework/wrappers',
     Screen: 'libs/JJS/app-framework/wrappers/Screen/Screen',
@@ -22,8 +24,8 @@ requirejs.config({
     StateTreeManager: 'libs/JJS/app-framework/StateTree/StateTreeManager',
     Frame: 'libs/JJS/app-framework/wrappers/Frame/Frame',
     BasicFrame: 'libs/JJS/app-framework/wrappers/BasicFrame/BasicFrame',
-    Encryption: 'libs/JJS/app-framework/encryption',
-    SHA512: 'libs/JJS/app-framework/sha512',
+    Encryption: 'application/utils/encryption',
+    SHA512: 'application/utils/sha512',
     DataSocket: 'libs/JJS/app-framework/DataSocket'
   },
 

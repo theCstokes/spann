@@ -14,7 +14,7 @@
 
 \title{SE 3XA3: Test Plan\\Spann}
 
-\author{Team 8
+\author{Team 5
 		\\ Christopher Stokes | stokescd
 		\\ Varun Hooda | hoodav
 }
@@ -39,6 +39,8 @@
     Oct. 26, 2016 & Christopher, Varun & Initial test plan\\
     Oct. 30, 2016 & Varun & Moved to new template\\
     Oct. 31, 2016 & Christopher, Varun & Submission for TP-Rev0\\
+		Dec. 06, 2016	& Christopher, Varun & Final application test cases and
+			revisions\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -49,334 +51,317 @@
 
 \section{General Information}
 
-\subsection{Purpose}
-The purpose of this document is to outline the testing methodologies that will
-be used to test the Spann Web IDE application to ensure the application
-functions are specified in the software requirements specification document and
-to reveal possible bugs in the application.
+    \subsection{Purpose}
+    The purpose of this document is to outline the testing methodologies that will
+    be used to test the Spann Web IDE application to ensure the application
+    functions are specified in the software requirements specification document and
+    to reveal possible bugs in the application.
 
-\subsection{Scope}
-The scope of the testing will be the front end JavaScript UI code and the back
-end C\# code and SQL queries, as well as the API responses from the server.
+    \subsection{Scope}
+    The scope of the testing will be the front end JavaScript UI code and the back
+    end C\# code and SQL queries, as well as the API responses from the server.
 
-\subsection{Acronyms, Abbreviations, and Symbols}
-	
-\begin{table}[hbp]
-\caption{\textbf{Table of Abbreviations}} \label{Table}
+    \subsection{Acronyms, Abbreviations, and Symbols}
+      
+    \begin{table}[hbp]
+    \caption{\textbf{Table of Abbreviations}} \label{Table}
 
-\begin{tabularx}{\textwidth}{p{3cm}X}
-\toprule
-\textbf{Abbreviation} & \textbf{Definition} \\
-\midrule
-IDE & Application Development Environment\\
-API & Application Programming Interface\\
-UI & User Interface\\
-\bottomrule
-\end{tabularx}
+    \begin{tabularx}{\textwidth}{p{3cm}X}
+    \toprule
+    \textbf{Abbreviation} & \textbf{Definition} \\
+    \midrule
+      IDE & Application Development Environment\\
+      API & Application Programming Interface\\
+      UI & User Interface\\
+      C\# & C Sharp, A object oriented programming language\\
+      SQL & Standard Query Language\\
+      CSS & Cascading Style Sheets\\
+      LESS & A styling language that transpiles into CSS\\
+      NUnit & Unit testing framework for C\#\\
+      NodeJS & JavaScript runtime based on the V8 engine\\
+      Postman & A API testing web application for Chrome\\
+      HTML & Hyper Text Markup Language\\
+      DM & Domain Models\\
+      DTO & Domain Transfer Object\\
+      IronPython & A Python runtime for .NET\\
+      RequireJS & A NodeJS module for JavaScript dependency handling\\
+      AMD & Asynchronous module definition\\
+    \bottomrule
+    \end{tabularx}
 
-\end{table}
+    \end{table}
 
-\subsection{Overview of Document}
-This document will outline the testing methodologies and various test plans
-that the development team will incorporate and use to test the application.
+    \subsection{Overview of Document}
+    This document will outline the testing methodologies and various test plans
+    that the development team will incorporate and use to test the application.
 
 \section{Plan}
 	
-\subsection{Software Description}
-The software, for which the test plan is being written, is an online, web-based,
-IDE. The final application will be similar to a
-desktop IDE that many developers are familiar with. The application will have
-two parts, a front end that will be written in JavaScript and LESS (transpiled
-into CSS), and a back end server written in C\# (which uses a SQL server for
-persistent data storage).
+    \subsection{Software Description}
+    The software, for which the test plan is being written, is an online, web-based,
+    IDE. The final application will be similar to a
+    desktop IDE that many developers are familiar with. The application will have
+    two parts, a front end that will be written in JavaScript and LESS (transpiled
+    into CSS), and a back end server written in C\# (which uses a SQL server for
+    persistent data storage).
 
-\subsection{Test Team}
-The test team will be made up of Christopher Stokes and Varun Hooda.
+    \subsection{Test Team}
+    The test team will be made up of Christopher Stokes and Varun Hooda.
 
-\subsection{Automated Testing Approach}
+    \subsection{Automated Testing Approach}
 
-\subsection{Testing Tools}
-For the server NUint will be used for unit testing the C\# code.
-For the front end we will be using jasmine (a NodeJS module) for unit testing
-the JavaScript UI components.
-For the server API we will be using postman (a chrome web application).
+    \subsection{Testing Tools}
+    For the server NUint will be used for unit testing the C\# code.
+    For the front end we will be using jasmine (a NodeJS module) for unit testing
+    the JavaScript UI components.
+    For the server API we will be using postman (a chrome web application).
 
-\subsection{Testing Schedule}
-		
-\href{../ProjectSchedule/schedule.png}{See Gantt Chart}
+    For code coverage, visual studio's built in functionality will be used.
+
+    \subsection{Testing Schedule}
+        
+    \href{../../ProjectSchedule/schedule.png}{See Gantt Chart}
 
 \section{System Test Description}
 	
 \subsection{Tests for Functional Requirements}
 
-\subsubsection{Front End JavaScript UI Components}
-		
-\paragraph{JavaScript UI Component Tests}
+  \subsubsection{Front End Tests}
+    \begin{enumerate}
 
-\begin{enumerate}
+      \item{SHA512\\}
 
-\item{Front end JavaScript UI\\}
+      Type: Functional, Dynamic
 
-Type: Dynamic
-					
-Description: The test will ensure certain properties of each UI components
-hold.  Properties such as whether the component is not null, it's fields have
-the required values and whether it has required functions and methods.
+      Initial State: Function, has no state.
 
-How test will be performed: Each UI component will have a Jasmine test file.
-The Jasmine NodeJS plugin will then be used to execute the tests.
-					
-\end{enumerate}
+      Input: UI data objects with a string to be hashed.
 
+      Output: UI response objects with hashed string.
 
-\paragraph{Server API Tests}
+      Description: This test will ensure the SHA512 module return the correct
+        hash for a corresponding string.
 
-\begin{enumerate}
+      How test will be performed: The test will be written and tested using
+        Jasmine. The expected results will be precomputed using a third party
+        application that hashes a string using SHA512.
 
-\item{Invalid Requests\\}
+      \item{Encryption utils\\}
 
-Type: Functional
-					
-Description: This test will ensure the system is robust and does not break
-if an invalid request is made. An example of an invalid request would be a
-non-existent user, non-existent file or project. Since the web application
-does not use multiple html pages, there is no need to test invalid urls.
+      Type: Functional, Dynamic
 
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application.
+      Initial State: Function, has no state.
 
-\item{Login/Authentication\\}
+      Input: UI data objects of a string and a salt.
 
-Type: Dynamic
-					
-Description: This test will ensure the application is handling user login,
-password, username, and authentication in general, correctly.
+      Output: UI response objects with the correct hash
 
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application.
+      Description: This test will ensure the encryption module performs the
+        hashing correctly given a string and a salt.
 
-\item{Database responses\\}
+      How test will be performed: The test will be written and tested using
+        Jasmine. The expected results will be precomputed using a third party
+        application that hashes a string using SHA512 along with a given salt.
 
-Type: Dynamic
-					
-Description: This test will be used to test whether the server correctly
-replies with the correct database data. 
+      \item{Login Screen\\}
 
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application.
+      Type: Functional, Dynamic
 
-\item{Invalid or Malicious Python Execution\\}
+      Initial State: Function, has no state.
 
-Type: Dynamic
-					
-Description: This test will verify that the system does not have any major
-flaws or exploits that the python code could exploit or cause the system to
-break. An example would be attempting to write a file that the application
-should not be able to access. This test will hopefully result in a failure,
-ensuring a user is not able to exploit the system in such a manner.
+      Input: Set of correct user credentials and a set of incorrect user credentials.
 
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application. This test will
-also be carried out on the server side to ensure the system is able to handle
-the invalid or malicious action successfully.
+      Output: Successful authentication with correct credentials and no
+          authentication with incorrect credentials.
+                
+      Description: This test will be used to check if the login/user authentication
+          implementation is functioning correctly and allows user's to access the
+          application when they supply the correct credentials and does not allow
+          users when they fail to supply the correct credentials.
+                
 
-\item{Python Execution\\}
+      How test will be performed: This test will be written and tested using Jasmine.
 
-Type: Functional
-					
-Description: This test will be used to test whether the server replies with a 
-correct response to a python program execution. The response should be the output
-of the python interpreter exactly to a given input.
+    \end{enumerate}
 
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application.
+  \subsubsection{Server API Tests}
 
-\item{File Management\\}
+    \begin{enumerate}
 
-Type: Functional
-					
-Description: The application is an IDE, so users will be able to create source
-code file. This test will be used to test whether the server is able to handle
-files correctly, create them, modify them, move them, delete them.
+      \item{Invalid Requests\\}
 
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application.
+      Type: Functional, Dynamic
 
-\item{User Account\\}
+      Initial State: Function, has no state.
 
-Type: Functional
-					
-Description: The application will also allow users to set preferences and other
-account related details. This test will ensure the back end server handles user
-account data correctly.
+      Input: Invalid user authentication request, invalid file/project request.
 
-How test will be performed: This test will be carried out using the Postman
-application and a test file written for the Postman application.
-					
-\end{enumerate}
+      Output: Response from server indicating invalid request has been made.
+                
+      Description: This test will ensure the system is robust and does not break
+      if an invalid request is made. An example of an invalid request would be a
+      non-existent user, non-existent file or project. Since the web application
+      does not use multiple html pages, there is no need to test invalid urls.
 
+      How test will be performed: This test will be carried out using the Postman
+      application and a test file written for the Postman application.
 
-\subsubsection{Back End C\# Server}
+    \end{enumerate}
 
-\begin{enumerate}
+  \subsubsection{Back End C\# Server}
 
-\item{SQL Queries\\}
+    \begin{enumerate}
 
-Type: Functional
-					
-Description: This test will ensure the server generates the correct database
-queries once it has received a request from the front end via a web socket.
+      \item{SQL Queries\\}
 
-How test will be performed: This test will be performed using NUint and a test
-case written in C\#.
+      Type: Functional, Dynamic
 
-\end{enumerate}
+      Initial State: Function, has no state.
+
+      Input: Database request object.
+
+      Output: SQL query corresponding to the request.
+                
+      Description: This test will ensure the server generates the correct database
+      queries once it has received a request from the front end via a web socket.
+
+      How test will be performed: This test will be performed using NUint and a test
+      case written in C\#.
+
+      \item{Domain Model Tests\\}
+
+      Type: Functional, Dynamic
+
+      Initial State: Function, has no state.
+
+        Input: Domain Model Transfer Object (DTO)
+
+      Output: Correct formatted DM with correct metadata.
+
+      Description: Test the base logic that all Domain Models extend from.
+
+      How test will be performed: This test will be performed using NUint and a test
+      case written in C\#.
+
+    \end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\subsubsection{Front End JavaScript UI}
-		
-\paragraph{Look and Feel}
+  \subsubsection{Front End JavaScript UI}
+      
+    \paragraph{Look and Feel}
 
-\begin{enumerate}
+    \begin{enumerate}
 
-\item{UI visual inspection\\}
+    \item{UI visual inspection\\}
 
-Type: Manual
+    Type: Manual
 
-Description: The purpose of this test will be to manually to inspect the application to
-discover visual bug, artifacts, and any other UI imperfections.
+    Initial State: Application running inside browser.
 
-How test will be performed: This type of testing is only possible manually,
-since it is simply not possible to automatically inspect the UI using a
-computer.
-					
-\item{UI performance\\}
+    Input: Mouse inputs for navigating the application and keyboard for any textual
+    input for the purposes of seeing text/code.
 
-Type: Manual
+    Output: Visual output of the application rendered in the browser.
 
-Description: The purpose of this test is to ensure the application's UI
-is fast and responsive. This will help identify any UI performance issues.
+    Description: The purpose of this test will be to manually to inspect the application to
+    discover visual bug, artifacts, and any other UI imperfections.
 
-How test will be performed: This will also be done manually since it would
-be very difficult to programmatically test.
+    How test will be performed: This type of testing is only possible manually,
+    since it is simply not possible to automatically inspect the UI using a
+    computer.
+              
+    \item{UI performance\\}
 
-\end{enumerate}
+    Type: Manual
 
-\subsubsection{Server API}
+    Initial State: Application running inside browser.
 
-\begin{enumerate}
+    Input: User input using mouse clicks and keyboard input.
 
-\item{Account Security\\}
+    Output: Qualitative observation of the performance of the UI components of the
+    system.
 
-Type: Functional
+    Description: The purpose of this test is to ensure the application's UI
+    is fast and responsive. This will help identify any UI performance issues.
 
-Description: The purpose of this test is to ensure the only person able to
-access a user's account is the actual user only.
+    How test will be performed: This will also be done manually since it would
+    be very difficult to programmatically test.
+            
+    \end{enumerate}
 
-How test will be performed: This test will be performed using the Postman
-application and test cases written for the Postman application.
-					
-\item{Response Time\\}
+  \subsubsection{API /Back End Tests}
+  \paragraph{Stress Test}
+      
+    \begin{enumerate}
 
-Type: Functional
+    \item{API/Server Stress\\}
 
-Description: The purpose of this test will be to ensure the application server
-always responds to the user's requests within a justifiable time (depending on
-the specific request).  For example, a login should not take more than a single
-second to process. The actual python program that will be executed will be
-excluded from this since it is not possible to determine the execution time
-from statically analysing the python code.
+    Type: Functional, Dynamic
 
-How test will be performed: This test will be performed using the Postman
-application and test cases written for the Postman application.
+    Initial State: Function, has no state.
 
-\end{enumerate}
+    Input: String of python code from multiple concurrent connections.
+
+    Output: Server's response to each requests. The expected response time
+    should be less than RESPONSE\_TIME seconds.
+
+    Description: To test whether the sever is able to process a large number of
+        concurrent requests.
+
+    How test will be performed: This will be written and run using Jasmine,
+        which would make requests to the back end server.
+
+    \end{enumerate}
 
 \section{Tests for Proof of Concept}
 
-\subsection{Front end JavaScript UI}
-		
-\begin{enumerate}
+  \subsection{Front end JavaScript UI}
+      
+    \begin{enumerate}
+              
+    \item{UI performance\\}
 
-\item{UI components\\}
+    Type: Manual
 
-Type: Dynamic
-					
-Description: This test will be used to ensure the UI components used in the
-proof of concept are functional and have the required properties, functions,
-and methods associated with them.
-					
-How test will be performed: This testing will be done using the Jasmine module
-and test files for Jasmine.
-					
-\item{UI performance\\}
+    Initial State: Application running inside browser.
 
-Type: Manual
-					
-Description: This test will help the developers see if the current design of
-the proof of concept provides the performance required in the final
-application.
-					
-How test will be performed: This testing will be manually since it is difficult
-to automate it.
+    Input: User input using mouse clicks and keyboard input.
 
-\end{enumerate}
+    Output: Qualitative observation of the performance of the UI components of the
+    system.
+              
+    Description: This test will help the developers see if the current design of
+    the proof of concept provides the performance required in the final
+    application.
+              
+    How test will be performed: This testing will be manually since it is difficult
+    to automate it.
 
-\subsection{Server API}
+    \end{enumerate}
 
-\begin{enumerate}
+  \subsection{Back end C\# server}
 
-\item{User account security\\}
+    \begin{enumerate}
 
-Type: Functional
-					
-Description: This test will be used to check if the current implementation of
-the user authentication is sufficiently secure for the final implementation.
-					
-How test will be performed: This test will be performed using the Postman web
-application, as well as, using common manual exploitation techniques such as
-session hijacking.
-					
-\item{Python code execution\\}
+    \item{Python Execution\\}
 
-Type: Functional
-					
-Description: The purpose of this test is to ensure the proof of concept, as it
-currently functions, returns the correct response (specifically, the exact
-response the Python interpreter outputs).
-					
-How test will be performed: This test will be performed using the Postman web
-application and test cases written for it.
+    Type: Functional, Dynamic
 
-\end{enumerate}
+    Initial State: Function, has no state.
 
-\subsection{Back end C\# server}
+    Input: String of valid python code and a string of invalid python code.
 
-\begin{enumerate}
-
-\item{Python Execution\\}
-
-Type: Functional
-					
-Description: The purpose of this test is to ensure the server is able to
-receive python code and execute the code using IronPython on the server system.
-					
-How test will be performed: This test will be performed using NUint and C\#
-test cases.
-					
-\item{SQL Code Generation and Execution\\}
-
-Type: Functional
-					
-Description: The purpose of this test will be to test if the server is able
-to generate the required SQL and able to successfully execute the SQL to save
-and retrieve data from the database server.
-					
-How test will be performed: This test will be performed using NUint and C\#
-test cases.
-
-\end{enumerate}
+    Output: Expected result of the valid code and expected exceptions of the
+        invalid code.
+              
+    Description: The purpose of this test is to ensure the server is able to
+    receive python code and execute the code using IronPython on the server system.
+              
+    How test will be performed: This test will be performed using NUint and C\#
+    test cases.
+              
+    \end{enumerate}
 	
 \section{Comparison to Existing Implementation}	
 The original project, repl.it, on which this project is based supports multiple
@@ -426,11 +411,42 @@ them to be tested.
 
 		
 \subsection{Unit testing of output files}		
-N/A
+There are no files output by the application.
 
+\newpage
 
-\bibliographystyle{plainnat}
+\section{Appendix}
 
-\bibliography{SRS}
+This is where you can place additional information.
+
+\subsection{Symbolic Parameters}
+
+\begin{description}
+\item [RESPONSE\_TIME] 10 seconds
+
+\end{description}
+
+\subsection{Usability Survey Questions}
+\begin{enumerate}
+  \item How would you rate the usability of the application's navigation on a
+    scale of 1-5?
+  \item How would you rate the usability of the application's editor on a scale
+    of 1-5?
+  \item How would you rate the usability of the application's console on a
+    scale of 1-5?
+  \item How would you rate the responsiveness of the application on a scale of
+    1-5, with 5 begin the most responsive?
+  \item How would you rate the usability of the application's project
+    management features on a scale of 1-5?
+  \item How would you rate the ease of use of the application on a scale of
+    1-5?
+  \item How would you rate the usability of the application for small pieces of
+    code or small project one a scale of 1-5?
+  \item How would you rate the usability of the application for medium sized
+    pieces of code or medium sized project one a scale of 1-5?
+  \item How would you rate the usability of the application for large sized
+    pieces of code or large sized project one a scale of 1-5?
+\end{enumerate}
+
 
 \end{document}
